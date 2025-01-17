@@ -3,9 +3,11 @@
 \usepackage[UTF8]{ctex}
 \usepackage{amsmath}%
 \usepackage{amssymb}%
+\usepackage{graphicx}
+\usepackage{pdfpages}
 
-\title{advanced Real Analysis}
-\subtitle{Taken from Alxer's book, Folland' book and also as a note of Math 597 at UM.}
+\title{Math 597: advanced Real Analysis}
+\subtitle{Following Folland' book.}
 
 \begin{document}
 \frontmatter
@@ -14,7 +16,487 @@
 
 
 
-\chapter{Preliminary}
+\chapter*{Prologue}
+\noindent In this Prologue, we will only state important prerequisites that we should know without proving them, for the sake of time saving.
+\section{set theory}
+\begin{definition}{$\limsup$ and $\liminf$ of of a sequence of sets}
+$$
+\limsup E_n = \intsec_{k=1}^\infty \union_{n=k}^\infty E_n
+$$
+$$
+\liminf E_n = \union_{k=1}^\infty \intsec_{n=k}^\infty E_n
+$$
+\end{definition}
+limsup represent the elements that occur in infinitely many $E_n$; and liminf represent the elements that occur in all but finitely many $E_n$.
+
+
+    
+\begin{definition}{Cartesian product}
+Let $A$ be some index set, define
+    $$
+    \prod_{\alpha \in A} X_\alpha := \{ f: A\rar \union_{\alpha \in A} X_\alpha \mid f(\alpha) \in X_\alpha \forall \alpha   \}
+    $$
+\end{definition}
+Notice that if all $X_\alpha = Y$ for a fixed $Y$, then we have $\prod_{\alpha \in A} X_\alpha = Y^A$.
+
+\section{ordering}
+\begin{definition}{partial ordering, linear ordering}
+    A partial ordering on a nonempty set $X$ is a relation $R$ that is 
+    \begin{enumerate}
+        \item transitive: $xRy, yRz \implies xRz$
+        \item reflexitive: $xRx \; \forall x$
+        \item antisymmetric: $xRy,yRx \implies x=y$
+    \end{enumerate}
+    A linear ordering $R$ is a partial ordering that also satisfies:
+    \begin{enumerate}[resume]
+        \item strongly connected: $\forall x,y \in X$, either $xRy$ or $yRx$.
+    \end{enumerate}
+\end{definition}
+
+
+
+\begin{axiom}{The Hausdorff Maximal Principle}\label{The Hausdorff Maximal Principle}
+Every partially ordered set has a maximal linearly ordered subset. (i.e. there is a linearly ordered subset s.t. no other subset properly including it is linearly ordered.)
+\end{axiom}
+
+\begin{definition}{maximal/minimal element}
+    A maximal element $x \in X$ means that no other element is greater than it. (notice: \textbf{It is possible that there exists another element that cannot be compared with it. The definition only says they cannot be greater than it.})\\
+    Dually can define minimal element.
+\end{definition}
+\begin{axiom}{Zorn's Lemma} \label{Zorn's Lemma}
+If $X$ is a partially ordered set and every linearly ordered subset has an upper bound, then $X$ has a maximal element.
+\end{axiom}
+\begin{remark}
+    Zorn's Lemma and the Hausdorff Maximal Principle can imply each other.
+\end{remark}
+
+\begin{definition}{well ordering}
+If $X$ is linearly ordered and every nonempty subset has a \textbf{unique minimal element}, then $X$ is said to be \textbf{well ordered}.
+\end{definition}
+
+
+\begin{lemma}{well ordering principle}
+    Every nonempty set can be well ordered.
+\end{lemma}
+
+\begin{corollary}{Axiom of choice}
+    The Cartesian product of a nonempty collection of nonempty sets is nonempty.
+\end{corollary}
+
+\section{cardinality}
+\begin{proposition}
+    Let $X$ be any set. We must have $\card(\cP(X)) > \card(X)$
+\end{proposition}
+
+\begin{definition}
+ $$\mathfrak{c} := \card(\bR)$$
+\end{definition}
+
+\begin{proposition}
+    \begin{equation}
+        \card(\cP(\bN)) = \mathfrak{c}
+    \end{equation}
+\end{proposition}
+\begin{proof}
+    Using base-2 expansion, can create a bijective function from $\cP(\bN)$ to $[0,1]$.
+\end{proof}
+
+
+\begin{proposition}
+    Given $f: X \rar [0,\infty)$, $A:= \{ f(x)>0 \}$, if $A$ is uncountable, then $\sum_{x \in X}f(x) = \infty$
+\end{proposition}
+
+
+\section{topology in metric space}
+\begin{definition}{dense, nowhere dense, separable}
+We say $E \sub X$ is dense in $X$ if $\overline{E} = X$.\\
+We say $E \sub X$ is nowhere dense in $X$ if 
+$\overline{E} = \emptyset $.\\
+We say $X$ is separable if it has a countable dense subset.
+\end{definition}
+
+
+\begin{proposition}
+    TFAE for metric spaces:
+    \begin{enumerate}
+        \item $x \in \overline{E}$.
+        \item Every open ball centered at $x$ has nonempty intersection with $E$.
+        \item There is a seq in $E$ converging to $x$.
+    \end{enumerate}
+\end{proposition}
+
+
+\begin{definition}{Cauchy, complete}
+    A sequence in metric space $X$ is said to be Cauchy if $d(x_n,x_m) \rar 0$ as $n,m \rar \infty$.\\
+    A subset $E\sub E$ is said to be complete if every Cauchy sequence in $E$ converges.
+\end{definition}
+
+\begin{proposition}
+    Complete is a stronger condition than closed, in any metric space. And a closed subset of a complete metric space is complete.
+\end{proposition}
+
+\begin{theorem}
+    TFAE for metric spaces:
+    \begin{enumerate}
+        \item $E$ is complete and totally bounded.
+        \item $E$ is compact.
+        \item $E$ is sequentially compact. (Every sequence in $E$ has a subseq converging to some point in $E$.)
+    \end{enumerate}
+\end{theorem}
+
+
+\chapter{$\sigma$-algebra}
+\noindent 我们在 395 中已经证明: 在 $\bR$ 上不存在一个 measure function $\mu : \cP(\bR) \rar [0,\infty]$ satisfying:
+\begin{enumerate}
+    \item $\mu(\emptyset) = 0$;
+    \item translate invariant
+    \item countably additivite
+\end{enumerate}
+
+\noindent 因而, 对于比如 $\bR$ 的这种无法在其幂集上定义良好的 measure function 的集合, 我们要定义一个 $\cA \sub \cP(X)$, 使得我们能在这个 power set 的子集上, 定义一个 make sense 的 measure.\\\\
+\noindent 
+首先, 为了对于一个任意的集合 $X$ 都能在其上定义 measure, 我们要考虑在 $X$ 的一个什么样的子集簇上有希望定义这样的 measure. 
+
+\begin{definition}{algera, $\sigma$-algebra}
+对于 set $X$, $S \sub \cP(X)$ 被称为 $X$ 上的一个 $\sigma$-algebra, if 其满足:
+\begin{enumerate}
+    \item $\emptyset \in X$;
+    \item \textbf{closed under complement}: if $E \in S$ then $X \setminus E \in S$;
+    \item \textbf{closed under countable union}: if $E_1,E_2,\cdots \in S$ then $\union_{k=1}^\infty E_k \in S$.
+\end{enumerate}
+如果第三条并不满足, 而是只满足 \textbf{closed under finite union}, 则称 $S$ 是 $X$ 上的一个 algebra. 当然, $\sigma$-algebra 是比 algebra 严格更强的条件.
+\end{definition}
+
+\noindent 我们定义 $X$ 的一个子集簇为一个 $\sigma$-algebra 如果它包含空集并 closed under complement and countable union. 但这并不是 $\sigma$-algebra 的全部性质. 这三个性质还蕴涵了: $\sigma$-algebra 也一定包含 $X$, 且 \textbf{closed under set difference}, \textbf{symmetric difference} 以及 \textbf{countable intersection}.
+
+
+\begin{theorem}{$\sigma$-algebra also closed under set difference, symmetric difference and countable intersection}
+    Let $S$ be a $\sigma$-algebra on set $X$.\\
+    Claim: 
+    \begin{enumerate}
+        \item $X \in S$
+        \begin{proof}
+            Directly from def.
+        \end{proof}
+        \item $D,E \in S \implies D\cup E, D\cap E, D \setminus E \in S$
+        \begin{proof}
+            union: from def by leaving others as $\emptyset$; \\intersection: $$(D\cap E)^C = D^C \cup E^C \in S$$
+            setminus: $$ D\setminus E = D \cap (X \setminus E) \in S$$    
+        \end{proof}
+        \item $D,E \in S \implies D \Delta S\in S$
+        \begin{proof}
+        $$
+        D \Delta E = (D \setminus E) \union (E \setminus D)
+        $$
+        \end{proof}
+        \item $A_1,A_2,\cdots \in S \implies \intsec_{i=1}^\infty A_i \in S$
+        \begin{proof}
+            $$(\intsec_{n=1}^\infty )^C = \union_{n=1}^\infty E_n ^C \in S  $$
+        \end{proof}
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    我们发现 $\sigma$-algerbra 很像是 topology. 实际上 $\sigma$-algerbra 和 topology 的区别就是: $\sigma$-algebra 只保证了 closed under countable union 而 topology closed under any union; topology 只保证 closed under finite intersection 而 $\sigma$-algebra closed under countable intersection.
+\end{remark}
+
+
+\begin{lemma}{任意 $\sigma$-algebra 的 intersection 仍是 $\sigma$-algebra}
+Let $\{S_\alpha \}_{\alpha \in A}$ be a collection of $\sigma$-algebra on $X$, then $\intsec_{\alpha \in A} S_\alpha$ is a $\sigma$-algebra on $X$. 
+\end{lemma}
+\begin{proof}
+    这是个 trivial proof. 但是它具有一定理解上的启发.\\
+    我们对 $\sigma$-algebra 有一个直观理解: 如果我们想把一些集合做成一个 $\sigma$-algebra, 那么首先我们把它们的补集放进这个 $\sigma$-algebra 里, 其次我们把这些集合的 up to countable 的任意组合的并集也放进这个 $\sigma$-algebra 里.\\
+    因而即便我们把一些 $\sigma$-algebra 给 intersect 起来, 其中每个集合的补集和这些集合的 up to ctbl 的任意组合的并集也在这个 intersection 里.\\
+    这是个重要的直观理解. 我们想到, 如果我们要把一个 sigma-algebra 里的一部分去掉，并保持它仍然是一个 sigma-algebra，那么我们得把这些集合的补集, 以及能够 ctbly union 成这些集合的小集合也去掉, 并对这些小集合也 recursively 进行这个操作.
+\end{proof}
+
+\begin{corollary}{unique smallest $\sigma$-algebra containing a collection of subsets}
+    Given $\varepsilon  \sub \cP(X)$
+    $$
+    <\varepsilon> := \intsec_{\varepsilon  \sub S \sub \cP(X), \newline S \text{ is }\sigma \text{ -algebra on } X} S
+    $$
+\end{corollary}
+
+\begin{definition}{$\sigma$-algebra generated by a subset}
+We call  $$
+    <\varepsilon> := \intsec_{\varepsilon  \sub S \sub \cP(X), \newline S \text{ is }\sigma \text{ -algebra on } X} S
+    $$ \textbf{the $\sigma$-algebra generated by $\varepsilon$ }
+\end{definition}
+
+
+
+\chapter{Borel $\sigma$-algebra on $\bR$ and measure}
+\noindent Recall: the $\sigma$-algebra generated by $\varepsilon$
+    $$
+    <\varepsilon> := \intsec_{\varepsilon  \sub S \sub \cP(X), \newline S \text{ is }\sigma \text{ -algebra on } X} S
+    $$ is the smallsest $\sigma$-algebra containing $\varepsilon$.
+
+
+\begin{example}
+\begin{equation}
+    <\{ E\}> = \{ \emptyset, E, E^c, X       \}
+\end{equation}
+\end{example}
+
+
+\begin{lemma}
+\begin{enumerate}
+    \item if $\cE \sub \cA$ where $\cA$ is a $\sigma$-algebra, then $<\cE> \sub \cA$.
+    \item if $\cE \sub \cF$, then $<\cE> \sub <\cF>$.
+    \item if $\cE \sub <\cF>$, then $<\cE> \sub <\cF>$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+    trivial.
+\end{proof}
+
+\begin{definition}{Borel $\sigma$-algebra defined on a topological space}
+For topological space $(X, \cT)$, we define:
+$$
+\cB_X := <\cT>
+$$
+\end{definition}
+\noindent \textbf{Borel $\sigma$-algebra} on a topological space 就是 $\sigma$-algebra generated by the topology. Its members are called \textbf{Borel sets}. 当然, 所有的 open sets 和 closed sets 都是 Borel sets.
+
+
+
+
+\section{generating Borel $\sigma$-algebra on $\bR$}
+\begin{example}
+    Let
+    $\cE_1 $: $\bR$ 上所有的 open intervals; \\ 
+    $\cE_2 $: $\bR$ 上所有的 closed intervals;\\
+    $\cE_3 $: $\bR$ 上所有的左开右闭 intervals;\\
+    $\cE_4 $: $\bR$ 上所有的左闭右开 intervals;\\
+    $\cE_5 $: $\bR$ 上所有的左开右无界 intervals;\\
+    $\cE_6 $: $\bR$ 上所有的左闭右无界 intervals;\\
+    $\cE_7 $: $\bR$ 上所有的左无界右开 intervals;\\
+    $\cE_8 $: $\bR$ 上所有的左无界右闭 intervals;\\
+    $\union_{i=1,\cdots,8}\cE_i$ 即 $\bR$ 上的所有形式的 interals.
+\begin{lemma}
+    任意以上 $\cE_i, i=1,\cdots,8$ 都可以 generate $\cB_{\bR}$
+\end{lemma}
+\begin{proof}
+    我们 recall: 所有的 countable 以及 second countable 的 topological space 都具有 \textbf{Lindelöf property}: 任意 open covering 都存在一个 countable 的 subcovering.\\
+    Lindelöf property 的一个推论就是, 在具有 Lindelöf property 的 metric space 或者 second countable 的 space 中, 任意 open set 都可以写成 countable 个 open balls 的 union.\\
+    我们在 elementary 的 real analysis 中已经学过, $[a,b) = \cap_{n \geq 1}(a-1/n, b)$, 以其作为例子, 这些 intervals 彼此之间都可以相互转换.
+\end{proof}
+\end{example}
+
+
+
+
+\section{measure}
+\begin{definition}{measurable space and measure space}
+    Let $X$ be a set, $\cM$ be a $\sigma$-algebra on $X$.\\
+    A measure on $(X,A)$ is a function $\mu: \cM \rar [0, \infty)$ satisfying:
+    \begin{enumerate}
+        \item $\mu(\emptyset) = 0$
+        \item countable additive: 
+        $$
+        \mu(\union_{i=1}^\infty E_i) = \sum_{i=1}^{\infty} \mu(E_i)  
+        $$ for disjoint seq of $E_i \in \cM$.
+    \end{enumerate}
+
+    如果这样的 $\mu$ 存在, 我们则称 $(X,\cM)$ 为一个 measurable space, 并称 $(X,\cM, \mu)$ 为一个 measure space.
+\end{definition}
+\begin{remark}
+    一个 probability space 就是一个 measure space, satisfying $\mu(X) = 1$.
+\end{remark}
+
+\begin{example}
+\begin{enumerate}
+    \item 对于任意的 $(X, \cM)$, 我们可以定义:
+    $$
+    \mu(A) := \#A \;\;\;(\in \bZ_{\geq 0} \cup \{\infty \})
+    $$
+    这个 measure 叫做 \textbf{counting measure}.
+    \item 
+    Fix $x_0 \in M$, 可以 define
+    $$
+    \mu(A) := \delta_x := \begin{cases}
+        1 \; \text{, if } x_0 \in A \\
+        0 \; \text{, if } x_0 \not\in A \\
+    \end{cases}
+    $$
+    这个 measure 叫做 the \textbf{Dirac measure at $x_0$}.
+    \item 
+    给定一个 $X$ 上的函数 $f: X \rar [0, \infty)$, 我们可以通过这个函数来定义:
+    $$
+    \mu(A) := \sum_{x \in A} f(x)
+    $$
+    这个测度依赖于函数值来表示每个点的单点集的 measure, 并通过一个集合上所有点的单点集 measure 相加得到这个集合在这个函数下的 measure. (缺点: 我们已经知道, 如果一个函数在一个集合上的正集是 uncountable 的, 那么这个集合上的这个测度一定是 $\infty$.)
+    \end{enumerate}
+\end{example}
+
+
+
+\noindent 以下是 measure function 由它的定义的两条性质(空集为0以及 ctbl additivity)推导出的一些基本性质:
+
+\begin{lemma}{measure is finitely additive}
+    Measure is finitely additive.
+\end{lemma}
+\begin{proof}
+    显然, ctbl additive implies finite additive.
+\end{proof}
+
+\begin{remark}
+    反向则不成立. 这让我们想起: Jordan measure 和 Lebesgue measure. 
+\end{remark}
+
+\begin{lemma}
+    $A,B\in \cM \implies$
+    $$
+    \mu(A) + \mu(B) = \mu(A \cap B) + \mu(A \cup B)
+    $$
+\end{lemma}
+\begin{proof}
+    $$A \cup B = (A \setminus B) \sqcup (A\cap B) \sqcup (B\setminus A)$$
+    而后使用 finite additive 可得. 这是一个 direct corollary of countable additivity.
+\end{proof}
+
+\begin{corollary}
+    $A,B\in \cM, A\sub B, \mu(A) < \infty \implies$
+    $$
+    \mu(B\setminus A) = \mu(B) - \mu(A)
+    $$
+\end{corollary}
+
+
+
+
+\begin{theorem}{properties of measure}
+    对于任何 measure space $(X,\cM, \mu)$:
+    \begin{enumerate}
+        \item \textbf{monotonicity}: $A \sub B \in \cM \implies \mu(A) \leq \,\mu(B)$
+        \begin{proof}
+            trivial.
+        \end{proof}
+        \item \textbf{countable subadditivity}: 
+        $$
+        \mu(\union_{i=1}^\infty A_i) \leq \sum_{i=1}^\infty \mu(A_i)
+        $$
+        \begin{proof}
+            By setting $B_i = A_i \setminus \union_{j=1}^{i-1} A_j$, 而后通过 ctbl disjoint additivity 与 monotonicity 可得
+        \end{proof}
+        \item \textbf{continuous from above}: 
+        如果 $A_i \sub A_{i+1} \forall i \geq 2\implies $
+        $$
+        \mu(\union_{i=1}^{\infty}A_i   ) = \lim_{i \rar \infty} \mu(A_i)
+        $$
+        \begin{proof}
+            使用 same trick as 2.
+        \end{proof}
+        \item \textbf{countinuous from below}:
+        如果 $A_i \supseteq A_{i+1} \forall i$ 且存在某个 $j$ 使得 $\mu(A_i) < \infty$, 则
+        $$
+        \mu(\intsec_{i=1}^{\infty}A_i) = \lim_{n \rar \infty} \mu(A_n)
+        $$
+        \begin{proof}
+            前面的都无视, 直到第一个 measure $< \infty$ 的集合, 是可能出现在最后的 intersection 里的最大集合. 我们 Fix 这个 $A_j$. 通过构造补集的方式, 把交转为并, 从而用 (3) 得证.
+            Define:
+            $
+            E_i := A_j \setminus A_i \forall i \geq j
+            $
+            从而
+            $$
+            \union_{i=j}^\infty E_i = A_j \setminus (\intsec_{i=j}^\infty A_i)
+            $$进而 
+            $$
+            \mu( \union_{i=j}^\infty E_i) = \mu(A_j) - \mu(\intsec_{i=j}^\infty A_i)
+            $$
+            进而 by (3)
+            $$
+            \mu(\intsec_{i=1}^\infty A_i) = \mu(\intsec_{i=j}^\infty A_i) = \mu(A_j) - \lim_{i\rar \infty}\mu(E_i)  = \mu(A_j) - \lim_{i\rar \infty}(\mu(A_j) - \mu(A_i))
+            = \lim_{i\rar \infty} A_i
+            $$
+            
+        \end{proof}
+    \end{enumerate}
+\end{theorem}
+
+
+
+\chapter{complete measure space and outer measure}
+
+\begin{definition}{nul set, subnull set, almost everywhere}
+对于 measure space $(X, \cM, \mu)$
+\begin{enumerate}
+    \item 我们称 $A \in \cM$ 为一个 \textbf{null set}, 如果 $\mu(A) = 0$;
+    \item 我们称 $B \sub \cM$ 为一个 \textbf{subnull set}, 如果存在某个 null set $A$ containing it.
+    \item 我们称一个 statement about $X$ 是 \textbf{almost everywhere (a.e.)} 的, 如果这个 statement 除了在某个 null set 上之外, 在 $X$ 上处处成立.
+\end{enumerate}
+\end{definition}
+
+
+\begin{definition}{complete measure space}
+    我们称 $(X,\cM, \mu)$ 是一个 complete measure space, 如果它其中的任意 subnull set 都是 null set. (即它 measurable)
+\end{definition}
+\begin{remark}
+    我们知道, 根据 measure 的 monotonicity, subnull set 的 measure, 如果存在, 一定是 $\leq$ 它所在的 null set 的, 即一定 $=0$. 所以 complete measure space 的实际意思是： 这个 measure space 里, 任意 null set 的所有子集都是 measurable 的, 即所有足够小的集合都在它的 $\sigma$-algebra 里.
+\end{remark}
+
+
+
+
+\begin{example} 一个 not complete 的 measure space 的例子:
+$$
+X = \{1,2\}, \cM = {\emptyset, X}, \mu(\forall) = 0.
+$$
+这个例子中, $\{1\}, \{2\}$ 这两个集合不是 measurable 的, 但是却是 nullset (全集) 的子集.
+\end{example}
+
+
+
+\begin{theorem}{every measure space can be completed}
+    Suppose $(X, \cM,\mu)$ is a measure space...(Folland page 26)
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Carathéodory's Theorem}
+
+
+\begin{definition}{$\mu^*$-measurable}
+    Given outer measure $\mu^*$, 我们称 $A \sub X$ 是 $\mu^*$-measurable 的, if:
+    $$
+    \mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)
+    $$
+\end{definition}
+\begin{remark}
+    $\mu^*$-measurable 的含义是: 任何一个其他集合, 经过这个集合的 inclusion 分割为两部分, 其 measure 都不会改变. 注意, by subaddivity, 一定有 $\mu^*(E) \leq \mu^*(E\cap A) + \mu^*(E\cap A^c)$, 而$\mu^*$-measurable 的集合, 则有 equality 总是成立.
+\end{remark}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -152,7 +152,20 @@ Then we consider the sequence $((2^n,n))_{n\in \bN}$. For any $n\in\bN$, $f((2^n
 \chapter{on $\sigma$-algebra}
 
 \section{Borel vs Open}
-Let $X$ be a metric space such that every subset of $X$ is Borel measurable. Does it follow that every subset of $X$ is open? Give a proof or a counterexample.
+Let $X$ be a metric space such that every subset of $X$ is Borel set. Does it follow that every subset of $X$ is open? Give a proof or a counterexample.
+\begin{solution}
+    It is not true.\\
+    Every subset of $X$ is Borel set $\Leftrightarrow \cP(X) \sub \cB_X$. And We know $\cB_X \sub \cP(X)$, so it is equivalent to saying that $\cB_X = \cP(X)$.\\
+    So consider this counterexample: $\bQ$ with the Euclidean metric.\\
+    Claim: every singleton set in $\bQ$ is closed, thus in $\cB_\bQ$.
+    This is because this only sequence in a singleton set is the point itself repeating, thus converging to itself, in the singleton set. This proves the claim.\\
+    And since $\bR$ is countable, every subset of $\bQ$ is a countable union of singleton sets, thus by property of $\sigma$-algebra, every subset of $\bQ$ is in $\cB_{\bQ}$. This shows that 
+    $$
+    \cB_\bQ = \cP(\bQ)
+    $$
+    But clearly, not every subset in $\bQ$ is open. Consider any singleton set, $\{1\}$ as an example. Any open ball centered at $1$ is not contained in $\{1\}$, thus contradicting the statement.
+    
+\end{solution}
 
 \section{Restriction of a $\sigma$-algebra to a Subset}
 Let $X$ be a set, and $Y \subset X$ a subset.
@@ -164,8 +177,32 @@ Let $X$ be a set, and $Y \subset X$ a subset.
     \]
     is a $\sigma$-algebra on $Y$.
     \item[(b)] Given a $\sigma$-algebra $\mathcal{B}$ on $Y$, prove that there exists a $\sigma$-algebra $\mathcal{A}$ on $X$ such that $\mathcal{A}|_Y = \mathcal{B}$.
-    \item[(c)] Is the $\sigma$-algebra $\mathcal{B}$ in (b) unique? Give a proof or a counterexample.
+    \item[(c)] Is the $\sigma$-algebra $\mathcal{A}$ in (b) unique? Give a proof or a counterexample.
 \end{itemize}
+
+\begin{proof}
+    \begin{itemize}
+    \item[(a)] 
+    \begin{enumerate}
+        \item Since $\emptyset \in\cA$, $\emptyset \cap Y = \emptyset$, we have $\emptyset \in\cA|_{Y}$
+        \item Let $F \in \cA|_{Y}$, we must have $E \in \cA$ s.t. $E\cap Y = F$. Since $E\in \cA$, we have $X\setminus E \in \cA$, so $X \setminus E \cap Y \in \cA|_{Y}$. Since $E \cap Y = F$ and $Y = (E \cap Y) \sqcup ((X \setminus E) \cap Y)$, it implies $(X \setminus E) \cap Y = Y\setminus F$, therefore $Y \setminus F \in \cA|_{Y}$.
+        \item Let $F_1, F_2,\cdots$ be a sequence of subsets in $\cA|_{Y}$. Then for each $i\in \bN$, we have $F_i = E_i \cap Y$ for some $E_i \in \cA$. Then $\union_{i=1}^\infty F_i = \union_{i=1}^\infty (E_i\cap Y) = (\union_{i=1}^\infty E_i) \cap Y \in \cA|_{Y}$ since $\union_{i=1}^\infty E_i \in \cA$. 
+    \end{enumerate}
+    
+    \item[(b)] Let $\mathcal{B}$ be a $\sigma$-algebra on $Y$.
+    
+    
+    prove that there exists a $\sigma$-algebra $\mathcal{A}$ on $X$ such that $\mathcal{A}|_Y = \mathcal{B}$.
+    Consider let 
+    $$
+    \cA := \{\,E \subset X \mid E \cap Y \in \mathcal{B}\}
+    $$
+    We then prove that this is a $\sigma$-algebra on $X$. First, $\emptyset \cap Y = \emptyset$ so
+
+    
+    \item[(c)] Is the $\sigma$-algebra $\mathcal{A}$ in (b) unique? Give a proof or a counterexample.
+\end{itemize}
+\end{proof}
 
 \section{Invariance Properties of the Borel $\sigma$-algebra on $\mathbb{R}^n$}
 \begin{itemize}
@@ -198,7 +235,7 @@ where $a, b \in \mathbb{Q}$, $r, R \in \mathbb{Q}_{>0}$, and $r < R$.
 \end{itemize}
 
 \section{Nur für Verrückte}
-\subsection*{(It’s really not necessary to attempt these problems. Do not hand them in!)}
+(It’s really not necessary to attempt these problems. Do not hand them in!)
 
 \begin{itemize}
     \item[(1)] Let $X$ be a set, and define two operations on $\mathcal{P}(X)$:
