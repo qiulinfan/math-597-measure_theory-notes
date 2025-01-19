@@ -197,10 +197,43 @@ Let $X$ be a set, and $Y \subset X$ a subset.
     $$
     \cA := \{\,E \subset X \mid E \cap Y \in \mathcal{B}\}
     $$
-    We then prove that this is a $\sigma$-algebra on $X$. First, $\emptyset \cap Y = \emptyset$ so
+    Then 
+    $$
+    \cA |_{Y} = \{ E \cap Y \mid E,Y\sub X,E \cap Y \in \cB  \} = \cB
+    $$            
+    We then prove that this is a $\sigma$-algebra on $X$. \\
+    \begin{enumerate}
+        \item  $\emptyset \cap Y = \emptyset$ so $\emptyset \in \cA$. 
+        \item \textbf{Closed under complement}: Let $E \in \cA$, we have $E \cap Y \in \cB$, so $Y \setminus (E\cap Y ) = Y\setminus E \in \cB$.\\
+        Then $(X\setminus E) \cap Y  = Y \setminus E 
+        \in \cB$, so $X\setminus E \in \cA$. 
+        \item \textbf{Closed under countable union}: Let $E_1,E_2,\cdots$ be a sequence in $\cA$, then \(E_n \cap Y \in \mathcal{B}\). for each $n$. 
+        Hence
+     \[
+       \left(\bigcup_{n=1}^\infty E_n\right) \cap Y
+       \;=\; \bigcup_{n=1}^\infty (E_n \cap Y)
+       \;\in\; \mathcal{B},
+     \]
+     since \(\mathcal{B}\) is a \(\sigma\)-algebra on \(Y\).  Therefore, \(\bigcup_{n=1}^\infty E_n \in \mathcal{A}\).  
+     
+    \end{enumerate}
 
     
-    \item[(c)] Is the $\sigma$-algebra $\mathcal{A}$ in (b) unique? Give a proof or a counterexample.
+    \item[(c)] 
+    This is not unique. \\
+    \noindent Counterexample:
+    \[
+    X = \{ 0,1,2\}, Y = \{0\} \sub X
+    \]
+    Consider
+    \[
+    A_1 := \cP(X), A_2 := \{\emptyset, \{0\}, \{1,2\}, X \}
+    \] are valid $\sigma$-algebra on $X$.\\
+    \noindent Then we have $A_1 |_Y = A_2 |_Y = \{\emptyset,\{0\}   \}$, while $A_1$ is different from $A_2$.
+
+
+    
+    
 \end{itemize}
 \end{proof}
 
@@ -218,10 +251,143 @@ Let $X$ be a set, and $Y \subset X$ a subset.
     is a Borel measurable set for every $\lambda \in \mathbb{R}$.
 \end{itemize}
 
+(1)
+\begin{proof}
+
+Fix \(t \in \mathbb{R}^n\). Define
+\[
+\mathcal{A} :=\{\, B \subseteq \mathbb{R}^n : t + B \in \mathcal{B}(\mathbb{R}^n) \}.
+\]
+We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show that $\cA$ is a $\sigma$-algebra.
+
+1. \(\emptyset     \in  \mathcal{A}\) since \(t + \emptyset = \emptyset \in \mathcal{B}(\mathbb{R}^n)\).
+
+2. $\cA$ is closed under complement: Let \(B \in \mathcal{A}\), then \(t + B \in \mathcal{B}(\mathbb{R}^n)\). The complement \((t + B)^c\) is also in \(\mathcal{B}(\mathbb{R}^n)\). Observe
+\[
+   t + B^c  = t + \mathbb{R}^n \setminus B = (t+\mathbb{R}^n) \setminus (t+B) = \mathbb{R}^n  \setminus (t+B) =  (t+B)^c
+   \]
+\noindent Since \(t + B\) is Borel, its complement is Borel, hence \(t + B^c\) is Borel, so \(B^c \in \mathcal{A}\).
+
+3. $\cA$ is closed under countable unions: Let \(B_k \in \mathcal{A}\) for \(k = 1, 2, \dots\), then \(t + B_k \in \mathcal{B}(\mathbb{R}^n)\). Thus
+   \[
+   t + \bigcup_{k=1}^{\infty} B_k
+   \;=\;
+   \bigcup_{k=1}^{\infty} (t + B_k)
+   \;\in\;
+   \mathcal{B}(\mathbb{R}^n).
+   \]
+\noindent Hence \(\bigcup_{k=1}^{\infty} B_k \in \mathcal{A}\).
+\noindent These three properties show that \(\mathcal{A}\) is a \(\sigma\)-algebra. \\
+
+\noindent Since \(t + U\) is open if \(U\) is open in $\bR^n$, \(\mathcal{A}\) contains all open sets. Since \(\mathcal{B}(\mathbb{R}^n)\) is the smallest \(\sigma\)-algebra containing all open sets in \(\mathbb{R}^n\), we have:\(
+\mathcal{B}(\mathbb{R}^n) \;\subseteq\; \mathcal{A}
+\) 
+\noindent Hence suppose \(A \in \mathcal{B}(\mathbb{R}^n) \), then $A \in \cA$, so $t+A \in   \mathcal{B}(\mathbb{R}^n)$. This completes the proof of translation invariance.
+\end{proof}
+
+(2)
+\begin{proof}
+Fix \(\lambda \in \mathbb{R}\). 
+Case 1: $\lambda = 0$, then $\lambda A = \{ 0\}$ if $A \not = \emptyset$, and $\lambda A = \emptyset$ otherwise. Both $\{0\}$(closed set) and $\emptyset$ is Borel set.
+
+Case 2: $\lambda \not = 0$. We define
+\[
+\mathcal{A} :=\{\, B \subseteq \mathbb{R}^n :  \lambda B \in \mathcal{B}(\mathbb{R}^n) \}.
+\]
+
+We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show that $\cA$ is a $\sigma$-algebra.
+
+1. \(\emptyset     \in  \mathcal{A}\) since \(\lambda\emptyset = \emptyset\).
+
+2. $\cA$ is closed under complement: Let \(B \in \mathcal{A}\), then \(\lambda B \in \mathcal{B}(\mathbb{R}^n)\), then \((\lambda B)^c\) is also in \(\mathcal{B}(\mathbb{R}^n)\). Observe $(\lambda B)^c = \lambda B^c$, so $\lambda B^c \in \mathcal{B}(\mathbb{R}^n)$, therefore $B^c \in \cA$.
+3. $\cA$ is closed under countable unions: Let \(B_k \in \mathcal{A}\) for \(k = 1, 2, \dots\), then \(\lambda B_k \in \mathcal{B}(\mathbb{R}^n)\). Thus
+   \[
+    \lambda \bigcup_{k=1}^{\infty} B_k
+   \;=\;
+   \bigcup_{k=1}^{\infty} (\lambda B_k)
+   \;\in\;
+   \mathcal{B}(\mathbb{R}^n).
+   \]
+\noindent Hence \(\bigcup_{k=1}^{\infty} B_k \in \mathcal{A}\).
+\noindent These three properties show that \(\mathcal{A}\) is a \(\sigma\)-algebra. \\
+
+\noindent Since $\lambda \not = 0$, \(\lambda U\) is open iff \(U\) is open in $\bR^n$, thus \(\mathcal{A}\) contains all open sets, so
+\(
+\mathcal{B}(\mathbb{R}^n) \;\subseteq\; \mathcal{A}
+\), 
+
+Hence if \(A\in \mathcal{B}(\mathbb{R}^n)\),  we have \(A  \in  \cA\), therefore $\lambda A \in \cB(\bR^n)$. This completes the proof of translation invariance.
+
+
+
+\end{proof}
+
+
+
+
+
+
 \section{Hex and Such}
 Let $A \subset [0,1]$ be the set of real numbers in $[0,1]$ having a hexadecimal expansion with the digit 5 appearing infinitely many times, and the ‘digit’ E appearing at most finitely many times. Prove that $A$ is a Borel set. (Hint: see p. 2 of Folland’s book.)
+\begin{proof}
+Define：
+   \[
+   B := \{ x \in [0,1] \mid \text{the digit '5' appears infinitely many times in the hex expansion of }x \}.
+   \]\[
+   C := \{ x \in [0,1] \mid \text{the digit 'E' appears at most finitely many times in the hex expansion of }x \}.
+   \]
 
-\section{Admissible Annuli}
+\noindent Then clearly
+\[
+A = B \cap C.
+\]
+\noindent Hence \textbf{it suffices to show that \(B\) and \(C\) are Borel sets}, since intersection of two Borel sets is a Borel set.
+\noindent And thus it \textbf{suffices to show that $B^c$ and $C$ are Borel sets}. Note 
+$$B^c = \{ x \in [0,1] \mid \text{the digit '5' appears at most finitely many times in the hex expansion of }x \}$$, so the proof for $B^c$ and $C$ are about the same.
+\noindent We now show $B^c$ is a Borel set:
+\noindent  We define
+\[
+     C_{d_1 d_2 \cdots d_n} \;:=\; \bigl\{\, x\in[0,1] : \text{the first }n\text{ hexadecimal digits of }x \text{ are }d_1, d_2, \ldots, d_n \bigr\},
+   \]
+where each \(d_i\) is one of the 16 hexadecimal digits \(\{0, 1, 2, \dots, 9, A, B, C, D, E, F\}\).  
+ Then the set contains all real numbers between $\frac{d_1d_2\cdots d_n}{16^n}$ and $\frac{d_1d_2\cdots d_n + 1}{16^n}$, so actually it is an interval:
+
+   \[
+     C_{d_1 d_2 \cdots d_n} =   \left[\frac{d_1d_2\cdots d_n}{16^n},\;\frac{d_1d_2\cdots d_n + 1}{16^n}\right)
+   \]
+ Since it is an interval, it is a Borel set on \([0,1]\).
+\noindent And we define:
+\[
+D_N = \{ x : \text{from digit \(N\) onward, there are no '5's} \}.
+\]
+Then we have
+\[
+B^c = \bigcup_{N=1}^{\infty} D_N,
+\]
+So it suffices to prove that each $D_N$ is Borel set, since a countable union of Borel sets is Borel set.
+
+\noindent   \textbf{Claim : any $D_N$ is a Borel set.}
+To prove this, we fix  an $N$ and define for each $n \geq N$
+\[
+     E_n 
+     \;=\; 
+     \{\,x \in [0,1]: d_n(x)\neq 5\}.
+   \]
+ \noindent  Then we have 
+$$
+E_n = \union_{d_i \in \{1,\cdots,F\}   \forall 1\leq i \leq n, d_n \not = 5}  C_{d_1d_2\cdots d_n}
+$$
+ Thus \textbf{each $E_n$ is a Borel set} since it is a finite union of Borel set, which shows that $D_N$ is Borel set, since 
+ \[
+     D_N 
+     \;=\;
+     \bigcap_{k = N}^{\infty} E_k.
+   \]
+This finishes the proof that $B^c$ is a Borel set, and by a similar argument, $C$ is a Borel set, and thus $A = B \cap C$ is a Borel set. 
+   
+\end{proof}
+
+\section{Admissible Annuli generating $\cB(\bR^n)$} 
 Define an admissible annulus in $\mathbb{R}^2$ to be a set of the form
 \[
 \{(x, y) \in \mathbb{R}^2 \mid r^2 < (x - a)^2 + (y - b)^2 < R^2\},
@@ -234,7 +400,103 @@ where $a, b \in \mathbb{Q}$, $r, R \in \mathbb{Q}_{>0}$, and $r < R$.
     \item[(c)] Prove that the Borel $\sigma$-algebra on $\mathbb{R}^2$ is generated by the collection of admissible annuli.
 \end{itemize}
 
-\section{Nur für Verrückte}
+(1) \begin{proof} Let 
+\[ A:=   \{     \text{all admissible annulis in $\bR^2$}   \}\]
+And we define 
+\begin{align}
+     f:\bQ^4   & \rar A \\
+    (a,b,r,R)  & \mapsto \{(x, y) \in \mathbb{R}^2 \mid r^2 < (x - a)^2 + (y - b)^2 < R^2\}
+\end{align}
+Since a Annuli defined by this $(a,b,r,R)$ is unique, this is a well-defined function; and since every admissible annulis can be defined by an element of $\bQ^4$, this map is surjective. Therefore $\card(A) \leq \card(\bQ^4)$, so $A$ is countable.
+\end{proof}
+(2) 
+\begin{proof}
+\noindent \textbf{Claim 1: every open set in $\bR^2$ is a countable union of open balls, each centered at some $q\in \bQ^2$.}\\
+\noindent Proof for Claim 1:\\
+\noindent Let $U$ be an open set in $\bR^2$.
+\noindent Define
+\[\bQ_U  :=    U \cap \bQ^2\]
+\noindent By definition, every point in $U$ have an open ball centered at it that is completely contained in $U$, so we pick such ball $B_{r_x}(x)$ for each $x \in U$.
+\noindent Since \(\mathbb{Q}^2\) is dense in \(\mathbb{R}^2\), for each \(x \in U\) and each corresponding \(r_x\), we can find a rational point \(q_x \in \mathbb{Q}^2\) such that \(|q_x - x| < \frac{r_x}{3}\). (Or more generally, as small as we wish.)
+
+\noindent Let \(r_{q_x} > 0\) be chosen so that 
+   \(
+     r_{q_x} = \frac{r_x}{3},
+   \)
+Then observe that $x \in   B(q_x, r_{q_x}) $
+     \[
+     B(q_x, r_{q_x}) \subsetneq B(x, r_x) \subset U
+   \]
+\noindent   which follows from the triangle inequality.
+   \pic[0.2]{assets/hw1(1).png}
+
+For each $q \in \bQ_U$, we define:
+\[ r_{q,sup} := \sup\{  r_{q_x}  \mid q  \text{ is chosen by } x         \}     \]
+Now we have:
+\[  U \subset \bigcup_{q \in U_q}  B_{r_{q,sup}} (q)  \]
+\noindent  This is because for each each $x \in U$, $x \in B_{r_{q_x}}(q_x) \subset B_{r_{q_x,sup}}(q_x)$
+
+And we also have the other direction:
+\[ \bigcup_{q \in U_q}  B_{r_{q,sup}} (q)   \subseteq U\]
+since every $B_{r_q}(q)$ is guaranteed to be the subset of some ball around some $x \in U$. 
+All togethe we have
+\[
+ U = \bigcup_{q \in U_q}  B_{r_{q,sup}} (q)
+\]
+This finishes the proof of claim 1.
+
+\textbf{Claim 2: every open ball centered at some $q\in \bQ^2$ is a countable union of admissible annulises with the same center, together with another admissible annulis whose center is also rational.}
+Proof for Claim 2: 
+\noindent Let $q = (a,b) \in \bQ^2$.\\
+We have
+\[    
+   B\bigl(q, R)  \setminus \{q\}
+   \;=\; 
+   \bigcup_{n=1}^{\infty} \Bigl\{(x,y) : (R-\tfrac{1}{n})^2 < (x-a)^2 + (y-b)^2 < R^2\Bigr\}
+\]
+It remains to cover the center. Let $q' := (a',b') \in \bQ^2$ such that $R/6 < |q' - q| < R/3$, $r' := R/6$ and $R' := R/2$ . Then the annuli $A(a',b',r',R')$ defined by the four parameters is contained in the $ B\bigl(q, R)$ and it covers $\{q\}$. 
+Therefore
+\[    
+   B\bigl(q, R)
+   \;=\; 
+ (  \bigcup_{n=1}^{\infty} \Bigl\{(x,y) : (R-\tfrac{1}{n})^2 < (x-a)^2 + (y-b)^2 < R^2\Bigr\}) \cup A(a',b',r',R')
+\]
+\pic[0.2]{assets/hw1(2).png}
+This finishes the proof of Claim 2.\\
+Combining Claim 1 and Claim 2, we can conclude that \textbf{every open subset of $\mathbb{R}^2$ is a countable union of admissible annuli.}\end{proof}
+
+\noindent (3) 
+\begin{proof}
+
+As defined,
+\[
+\cB(\bR^2) = <\cT_{metric}> = <\{\text{all open sets in }\bR^2\}>
+\]
+ Let 
+\[ A:=   \{     \text{all admissible annulis in $\bR^2$}   \}\]
+Every admissible annuli is open in $\bR^2$, so 
+\[
+A \subset \{\text{all open sets in }\bR^2\}
+\]
+and since $\cB(\bR^2)$ is a $\sigma$-algebra, we have 
+\[
+<A> \subset <\{\text{all open sets in }\bR^2\}> =\cB(\bR^2)
+\]by the proposition proved in class.
+\noindent And by (2), any open set is a countable union of admissible annulis, therefore every open set is in $<A>$ since any countable union of sets in a $\sigma$-algebra is still in the set. So
+\[   
+ \{\text{all open sets in } \bR^2\} \subset <A>
+\]
+This finishes the proof that 
+\[
+<A> = <\{\text{all open sets in }\bR^2\}> =\cB(\bR^2)
+\]
+\end{proof}
+
+
+
+
+
+\section{Nur für Verrückte(only for nuts)}
 (It’s really not necessary to attempt these problems. Do not hand them in!)
 
 \begin{itemize}
@@ -254,6 +516,130 @@ where $a, b \in \mathbb{Q}$, $r, R \in \mathbb{Q}_{>0}$, and $r < R$.
         \item[(b)] Try convincing an analyst that (a) is useful.
     \end{itemize}
 \end{itemize}
+
+
+
+
+
+\chapter{Homework Set 2}
+
+\section{The Borel--Cantelli Lemma}
+Let \((X, \mathcal{A}, \mu)\) be a measure space. Let \(A_i \in \mathcal{A}\) for \(i \in \mathbb{N}\), and suppose that
+\[
+\sum_{i=1}^\infty \mu(A_i) < \infty.
+\]
+(a) Prove that \(\mu(\limsup_i A_i) = 0\), where
+\[
+\limsup_i A_i = \{x \in X \mid x \in A_i \text{ for infinitely many } i\}.
+\]
+(By the way, why is \(\limsup_i A_i\) measurable?)
+
+(b) Conversely, is it true that if \(A_i \in \mathcal{A}\) for \(i \in \mathbb{N}\), and \(\mu(\limsup_i A_i) = 0\), then \(\sum_i \mu(A_i) < \infty\)? Provide a proof or a counterexample.
+
+\textbf{Remark:} In probability theory, the Borel–Cantelli lemma gives a simple sufficient condition for the measure (i.e., probability) of the set (i.e., the event) \(\limsup_i A_i\) to be zero.
+
+\section{Empty Thoughts}
+Let \((X, \mathcal{A})\) be a measurable space. Is the condition \(\mu(\emptyset) = 0\) in the definition of a measure on \((X, \mathcal{A})\) redundant? In other words, if \(\mu : \mathcal{A} \to [0, \infty]\) is a function such that
+\[
+\mu\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mu(A_i),
+\]
+for any disjoint subsets \(A_i \in \mathcal{A}\), \(i \in \mathbb{N}\), does it follow that \(\mu(\emptyset) = 0\)? If not, what can you say?
+
+\section{Commuting Limits}
+Let \((X, \mathcal{A}, \mu)\) be a measure space, and let \(A_i \in \mathcal{A}, i \in \mathbb{N}\). Assume that the sets \(A_i\) converge to the set \(A \subset X\) in the sense that:
+- If \(x \in A\), then \(x \in A_i\) for all but finitely many \(i\);
+- If \(x \notin A\), then \(x \notin A_i\) for all but finitely many \(i\).
+
+(a) Prove that \(A\) is measurable, that is, \(A \in \mathcal{A}\).
+
+(b) Prove that if there exists \(n \geq 1\) such that \(\mu\left(\bigcup_{i=n}^\infty A_i\right) < \infty\), then \(\mu(A) = \lim_i \mu(A_i)\).
+
+(c) Give an example showing that the condition in (b) is necessary.
+
+\textbf{Hint:} In analysis, it is often fruitful to use \(\limsup\) and \(\liminf\) to study limits.
+
+\section{Duopoly}
+Let \(X\) be a set with two elements, for example, \(X = \{O, Q\}\).
+
+(a) Find all \(\sigma\)-algebras on \(X\).
+
+(b) Let \(\mathcal{A}\) be a \(\sigma\)-algebra on \(X\), and \(\mu\) a measure on \((X, \mathcal{A})\). Is \(\mu\) necessarily complete? Provide a proof or a counterexample.
+
+(c) Find all outer measures \(\mu^*\) on \(X\). For each outer measure on \(X\), find the \(\sigma\)-algebra of \(\mu^*\)-measurable sets (see Carathéodory’s theorem).
+
+(d) Find an example of a collection \(\mathcal{E}\) of subsets of \(X\) with \(\emptyset, X \in \mathcal{E}\) and a function \(\rho : \mathcal{E} \to [0, \infty]\) with \(\rho(\emptyset) = 0\) such that \(\mathcal{E} \not\subset \mathcal{A}\), where \(\mathcal{A}\) is the Carathéodory \(\sigma\)-algebra for the outer measure \(\mu^*\) induced by \((\mathcal{E}, \rho)\).
+
+\textbf{Remark:} The Hahn–Kolmogorov theorem states that if \(\mathcal{E} = \mathcal{A}_0\) is an algebra and \(\rho = \mu_0\) is a pre-measure, then \(\mathcal{A}_0 \subset \mathcal{A}\). This exercise provides a counterexample when \(\mathcal{E}\) and \(\rho\) are general.
+
+\section{Hahn–Kolmogorov Collapse}
+Let \(X \subset \mathbb{R}\) be the set of dyadic rational numbers, that is, the set of numbers of the form \(\frac{r}{2^n}\), where \(r\) and \(n\) are integers. Let \(\mathcal{A}_0 \subset \mathcal{P}(X)\) be the collection of finite unions of intervals of the form \((a, b] \cap X\), where \(-\infty \leq a < b \leq \infty\).
+
+(a) Prove that \(\mathcal{A}_0\) is an algebra.
+
+(b) Prove that the \(\sigma\)-algebra on \(X\) generated by \(\mathcal{A}_0\) equals \(\mathcal{P}(X)\).
+
+(c) Define \(\mu_0 : \mathcal{A}_0 \to [0, \infty]\) by \(\mu_0(\emptyset) = 0\) and \(\mu_0(A) = \infty\) for \(A \neq \emptyset\). Prove that \(\mu_0\) is a pre-measure on \(\mathcal{A}_0\).
+
+(d) Prove that there exist infinitely many different measures \(\mu\) on \(\mathcal{P}(X)\) whose restriction to \(\mathcal{A}_0\) equals \(\mu_0\).
+
+(e) Explain why (d) does not contradict the uniqueness part of the Hahn–Kolmogorov theorem (see Theorem 1.14 in Folland).
+
+\section{The Completion of a Measure Space}
+Let \((X, \mathcal{A}, \mu)\) be a measure space, and set
+\[
+\overline{\mathcal{A}} := \{E \cup F \mid E \in \mathcal{A} \text{ and } F \text{ is a } \mu\text{-subnull set}\}.
+\]
+
+(a) Prove that \(\overline{\mathcal{A}}\) is a \(\sigma\)-algebra.
+
+(b) Define \(\overline{\mu}(A) := \mu(E)\) if \(A = E \cup F \in \overline{\mathcal{A}}\). Prove that \(\overline{\mu}\) is a well-defined measure on \(\overline{\mathcal{A}}\).
+
+(c) Prove that \(\overline{\mu}\) extends \(\mu\) (i.e., \(\overline{\mu}(A) = \mu(A)\) if \(A \in \mathcal{A}\)).
+
+(d) Prove that \(\overline{\mu}\) is the unique extension of \(\mu\) to \((X, \overline{\mathcal{A}})\). In other words, prove that if \(\mu'\) is another measure on \((X, \overline{\mathcal{A}})\) that extends \(\mu\), then \(\mu' = \overline{\mu}\).
+
+(e) Prove that \(\overline{\mu}\) is complete.
+
+(f) Suppose \((X, \mathcal{A}', \mu')\) is another complete measure space that extends \((X, \mathcal{A}, \mu)\) (i.e., \(\mathcal{A} \subset \mathcal{A}'\) and \(\mu'|_{\mathcal{A}} = \mu\)). Show that \(\overline{\mathcal{A}} \subset \mathcal{A}'\) and \(\mu'|_{\overline{\mathcal{A}}} = \overline{\mu}\). 
+
+\textbf{Hint:} Start by reading Theorem 1.9 in Folland.
+
+\section{The Hahn--Kolmogorov Extension as a Completion}
+Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure space, and \((X, \mathcal{A}, \mu)\) its Hahn–Kolmogorov extension. Prove that \((X, \mathcal{A}, \mu)\) is the completion of its restriction to the \(\sigma\)-algebra \(\langle \mathcal{A}_0 \rangle\) generated by \(\mathcal{A}_0\).
+
+
+
+\section{Nur für Verrückte (Only for nuts)}
+(It’s really not necessary to attempt these problems. Do not, under any circumstances, hand them in!)
+
+1. Let \((X, \mathcal{A}, \mu)\) and \((Y, \mathcal{B}, \nu)\) be measure spaces. Define a morphism from \((X, \mathcal{A}, \mu)\) to \((Y, \mathcal{B}, \nu)\) to be a map \(f : X \to Y\) that is measurable, that is, \(f^{-1}(B) \in \mathcal{A}\) for all \(B \in \mathcal{B}\), and moreover measure preserving, in the sense that \(\mu(f^{-1}(B)) = \nu(B)\) for all \(B \in \mathcal{B}\).
+
+(a) Prove that measure spaces with measure-preserving maps as morphisms form a category. Denote this category by \(C_3\).
+
+(b) Denote by \(C_1\) the category of sets, and by \(C_2\) the category of measurable spaces (see HW1). Consider the evident forgetful functors \(C_3 \to C_2\) and \(C_2 \to C_1\). Are these functors faithful? Are they full? Are they essentially surjective?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}

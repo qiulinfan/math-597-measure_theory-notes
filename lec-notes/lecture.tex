@@ -167,7 +167,8 @@ We say $X$ is separable if it has a countable dense subset.
 如果第三条并不满足, 而是只满足 \textbf{closed under finite union}, 则称 $S$ 是 $X$ 上的一个 algebra. 当然, $\sigma$-algebra 是比 algebra 严格更强的条件.
 \end{definition}
 
-\noindent 我们定义 $X$ 的一个子集簇为一个 $\sigma$-algebra 如果它包含空集并 closed under complement and countable union. 但这并不是 $\sigma$-algebra 的全部性质. 这三个性质还蕴涵了: $\sigma$-algebra 也一定包含 $X$, 且 \textbf{closed under set difference}, \textbf{symmetric difference} 以及 \textbf{countable intersection}.
+\noindent 我们定义 $X$ 的一个子集簇为一个 $\sigma$-algebra 如果它包含空集并 closed under complement and countable union. 但这并不是 $\sigma$-algebra 的全部性质. 这三个性质还蕴涵了: $\sigma$-algebra 也一定包含 $X$, 且 \textbf{closed under set difference}, \textbf{symmetric difference} 以及 \textbf{countable intersection}. \\
+\noindent \textbf{对于 algebra, 它也有以上的所有性质的 finite version.}
 
 
 \begin{theorem}{$\sigma$-algebra also closed under set difference, symmetric difference and countable intersection}
@@ -434,7 +435,7 @@ $$
     我们称 $(X,\cM, \mu)$ 是一个 complete measure space, 如果它其中的任意 subnull set 都是 null set. (即它 measurable)
 \end{definition}
 \begin{remark}
-    我们知道, 根据 measure 的 monotonicity, subnull set 的 measure, 如果存在, 一定是 $\leq$ 它所在的 null set 的, 即一定 $=0$. 所以 complete measure space 的实际意思是： 这个 measure space 里, 任意 null set 的所有子集都是 measurable 的, 即所有足够小的集合都在它的 $\sigma$-algebra 里.
+    我们知道, 根据 measure 的 monotonicity, subnull set 的 measure, 如果存在, 一定是 $\leq$ 它所在的 null set 的, 即一定 $=0$. 所以 complete measure space 的实际意思是： 这个 measure space 里, 任意 null set 的所有子集都是 measurable 的, 即所有足够小的集合都在这个 $\sigma$-algebra 里.
 \end{remark}
 
 
@@ -450,25 +451,72 @@ $$
 
 
 \begin{theorem}{every measure space can be completed}
-    Suppose $(X, \cM,\mu)$ is a measure space...(Folland page 26)
+    Suppose $(X, \cM,\mu)$ is a measure space.\\
+    Let 
+    \[
+    \cN := \{\text{all null sets in }   \cM \}
+    \]
+    Claim:
+    \[
+    \ol{M}  := \{   E\cap F \mid E \in \cM, F \sub N \text{ for some } N \in \cN \}
+    \]
+    is a $\sigma$-algebra, 并且在 $\ol{\cM}$ 上存在一个 unique 的 extension $\ol{\mu}$ of $\mu$.
 \end{theorem}
+\begin{proof}
+    这一部分的 proof 以及 remark 在 hw2. 这里, $\overline{M}$ 称为 \textbf{completion of $\cM$ with respect to $\mu$}, 以及 $\overline{\mu}$ 称为 \textbf{completion of $\mu$.}
+\end{proof}
+
+
+
+
+\section{outer measure}
+\begin{definition}{outer measure}
+    An outer measure on $X$ is a function $\mu^*: \cP(X) \rar {0,\infty)}$ such that
+    \begin{enumerate}
+        \item $\mu(\varnothing) = 0$
+        \item monotone ($A \sub B \implies \mu^*(A) \leq \mu^*(B)$)
+        \item countable subadditive ($\mu^*(\union_{i=1}^\infty E_i)  \leq \sum_{i=1}^\infty \mu^*(E_i)$)
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    我们对比 measure 和 outer measure 的定义:
+    measure 的条件比 outer measure 强在:
+    \begin{enumerate}
+        \item measure 是定义在一个严格的 $\sigma$-algebra 上的, 而 outer measure 则是定义在整个幂集上的. 
+        \item measure 要求 disjoint countable additivity, outer measure 并不要求
+    \end{enumerate}
+\end{remark}
+
+在这两个条件的缩减下, 我们规定 outer measure 具有 monotonicity 和 countable subadditivity. 注意: measure 本身也有这个性质, 这是 measure 的 countable additivity 的推论. \\
+outer measure 的意义在于, 我们的 measure 只定义在 $\sigma$-algebra 上, 而我们想要给每个子集都赋予一个近似于测度的东西. 
+
+\section{construct outer measure out of a "elementary length function"}
+\begin{theorem}{construct outer measure out of an "elementary  length function" }\label{construct outer measure out of a "elementary length function"}
+    另 $\cE \sub \cP(X)$ 为一个包含 $\varnothing, X$ 的集合, 并定义 $\rho: \cE \rar [0,\infty)$ 为一个满足 $\rho(\varnothing) = 0$ 的函数, 则
+\[
+\mu^*(A )  = \inf \{    \sum_{i=1}^\infty \rho(E_i) \mid E_i \in \cE \text{ for each i and }  A \sub \union_{i=1}^\infty E_i    \}
+\]
+is an outer measure.
+\end{theorem}
+\begin{proof}
+\begin{enumerate}
+    \item 取所有 $E_j = \varnothing$, 得到 $\mu^*(\varnothing) = 0$
+    \item monotonicity 显然, 因为如果 $A \sub B$, 那么 $A$ 取 inf 的这个集合是包含于 $B$ 的, 因而取到的 inf 是小于等于的.
+    \item  证明 ctbl subadditivity, 我们使用经典的 $\epsilon  / 2^i$ argument. 这个 statement 直观上是显然的, 因为对一个 seq of sets, 每一个里面都有一个 seq of covering, 那么这个 seq of seq of covering 总体也是这个 seq union 的一个  covering. 不过我们不能这么说, 因为这里有一个 inf 操作的换序. 所以我们令 $\epsilon >0$, 对于每个 $A_i$ 的 covering $(E_{i,k})_{k\in\bN}$, 我们令 $\sum_k \rho(E_{i,k}) \leq \mu^*(A_i) + \epsilon / 2^i$,  最后可以得到 $\mu^*(\union_i A_i) \leq \sum_i \mu^*(A_i)$. 由于 $\epsilon$ arbitrary, 得证.
+\end{enumerate}
+\end{proof}
+\begin{example}
+    我们取 $\cE$ 为 $\bR$ 上所有的 intervals, 并取 $\rho $ 为 interval 的 length, 就得到了一个外测度. (也就是 Lebesgue outer measure)
+\end{example}
 
 
 
 
 
+\chapter{$\mu^*$-measurability and Carathéodory's Theorem}
 
 
-
-
-
-
-
-
-
-\chapter{Carathéodory's Theorem}
-
-
+\section{$\mu^*$-measurable}
 \begin{definition}{$\mu^*$-measurable}
     Given outer measure $\mu^*$, 我们称 $A \sub X$ 是 $\mu^*$-measurable 的, if:
     $$
@@ -476,11 +524,107 @@ $$
     $$
 \end{definition}
 \begin{remark}
-    $\mu^*$-measurable 的含义是: 任何一个其他集合, 经过这个集合的 inclusion 分割为两部分, 其 measure 都不会改变. 注意, by subaddivity, 一定有 $\mu^*(E) \leq \mu^*(E\cap A) + \mu^*(E\cap A^c)$, 而$\mu^*$-measurable 的集合, 则有 equality 总是成立.
+countable subadditivity 蕴含的信息是: 如果我们把一个集合 divide 成几部分, \textbf{其 outer measure 有可能 increase.}  而 $\mu^*$-measurable 的含义是: 任何一个其他集合, 分割为和 $E$ 重合以及和 $E$ 的两部分之后, 其 measure 都不会增大.\\
+\noindent \textbf{Note: }\textbf{by subaddivity, must have $\mu^*(E) \leq \mu^*(E\cap A) + \mu^*(E\cap A^c)$}, 而 $\mu^*$-measurable 的集合, 则有 equality 总是成立.\\
+\noindent 同时注意: 这个行为对于 complement 是对称的.
+\end{remark}
+
+\begin{remark}
+ outer measure 是对于整个 power set 中每一个集合都赋予的, 并且其性质 ctbl subadditivity 严格弱于 countable additivity. 
+ 我们自然想到: 是否有一个 power set 的子集, 其不仅是一个 $\sigma$-algebra, 并且其上满足 countable additivity? 如果存在, 那么我们就从 outer measure induce 出了 measure. 
+ \\ \noindent 再加上之前的用随意的 length function 来 induce outer measure 的方法, 我们就可以通过一个随意的 length function $\rar $ outer measre $\rar$ measure. (eg: 从 box length induce 出 Legesgue outer measure, 再 induce 出 Lebesgue measure).\\
+ \noindent 而实际上这个想法是正确的. 只要把 $\mu^*$ 的范围限制在所有 $\mu^*$-measurable sets 上, 就形成了 $\sigma$-algebra, 并且其 restriction 是一个 measure,  甚至是一个 complete measure.
+\end{remark}
+
+\section{Carathéodory's Theorem}
+
+\begin{theorem}
+对于任意的 outer measure $\mu^*$, 
+\[
+\cM := \{ \text{all } \mu^* \text{-measurable sets}    \}
+\]\textbf{is a $\sigma$-algebra}.\\
+并且, $\mu^* |_\cM$ \textbf{is a complete measure.}
+\end{theorem}
+\begin{proof}
+我们首先证明这个 $\cM$ 是一个 $\sigma$-algebra
+\begin{enumerate}
+    \item  $\varnothing \in \cM$ by def.
+    \item $\cM$ closed under complement, by def of $\mu^*$-measurablity. (它对于 complement 是对称的.)
+    \item 为证明 $\cM$ closed under countable union, 我们首先 prove it for two sets.
+    假设 $A, B \in \cM$, 且 disjoint. 
+    Let $E \sub X$.
+    我们已知 
+    \begin{equation}
+        \mu^*(E) = \mu^*(E \cap A) + \mu^*(E \cap A^c)
+    \end{equation}
+ \textbf{我们 WTS: $\mu^*(E) = \mu^*(E \cap (A\cup B)) + \mu^*(E \cap (A\cup B)^c)$}\\
+\noindent 我们对于 $E \cap A$, $E\cap A^c$ 可以得到: \begin{equation}
+    \mu^*(E \cap A) = \mu^*(E \cap A \cap B) + \mu^*(E \cap A \cap B^c)
+\end{equation}
+\end{enumerate}
+\begin{equation}
+    \mu^*(E \cap A^c) = \mu^*(E \cap A ^c\cap B) + \mu^*(E \cap A^c \cap B^c)
+\end{equation}
+
+By  $A \cup B = (A \setminus B) \sqcup (A\cap B) \sqcup (B\setminus A)$, 可以得到:
+\begin{equation}
+   \mu^*(E \cap (A\cup B)) \geq \mu^*(E \cap A \cap B) + \mu^*(E \cap A \cap B^c) + \mu^*(E \cap A^c \cap B)
+\end{equation}
+结合以上四个 equations 可以得到
+\begin{equation}
+    \mu^*(E) \geq \mu^*(E\cap (A\cup B)) + \mu^*(E\cap (A \cup B^c))
+\end{equation}
+又 $\leq$ by countable subadditivity 成立, 我们得证 closed under two union (从而 inductively closed under any finite union, $\cM$ 因而是一个 algebra).\\
+\begin{remark}
+    (Note: 这里我会想: 证明了这个 statement for any union of two sets 不就是证明了它对 any union 都成立吗? 实则不然, 因为 set union 的从属关系并不是可以从对任意 $n$ 成立推广到对无穷成立, 因为这里的无穷是一个真实存在的 sequence, 而我们可以从"任意 $n$ 成立推广到对无穷成立" 的是比较数值大小, 因为 infinite series sum 的定义就是 limit, 而 set union 并没有 limit. 所以这里不能够直接得证.)\\\\
+\end{remark}
+\noindent (Continuing the proof:)
+\noindent 现在我们再把这个 closed under finite union 推广到 closed under countable union, 以映证 $\cM$ 是一个 $\sigma$-algebra. 注意到 \textbf{STS (suffices to show): $\cM$ closed under countable disjoint union}. 因为任意不 disjoint 的两个集合都可以拆分成三个 disjoint 的集合.\\
+\noindent 我们令 $(A_i)$ 为一个 $\cM$ 中的 disjoint sequence, 并定义 $B_n := \union_{i=1}^n A_i$, 我们由上一步的结论知道, $B_n \in \cM$ for all $n$.  
+\noindent Define $B := \union_{i=1}^\infty A_i$,  Let $E\sub X$, WTS: $\mu^*(E ) = \mu^*(E \cap B) + \mu^*(E\cap B^c)$.
+\\
+\noindent 考虑 $\mu^*(E \cap B_n ) = \mu^*(E \cap B_n \cap A_n) + \mu^*(E \cap B_n \cap A_n^c) = \mu^*(E \cap A_n) + \mu^*(E \cap B_{n-1})$, 因为 inductively 可得到:
+\begin{equation}
+    \mu^*(E \cap B_n) = \sum_{i=1}^n \mu^*(E \cap A_i)
+\end{equation}
+\noindent 从而：
+\begin{equation}
+    \mu^*(E) = \mu^*(E \cap B_n) + \mu^*(E\cap B_n^c) \geq \sum_{i=1}^n \mu^*(E\cap A_i) + \mu^*(E \cap B^c)
+\end{equation}
+\noindent by monotonicity ($\mu^*(E\cap B_n^c) \geq \mu^*(E \cap B^c)$), 这里是一个 infinite sum, 并且 true for every $n$, 因而可以推广到 infinity, 得到 
+\begin{equation}
+    \mu^*(E) \geq \sum_{i=1}^\infty \mu^*(E\cap A_i) + \mu^*(E \cap B^c) \geq \mu^*(\union_{i=1}^\infty (E \cap A_i)) + \mu^*(E \cap B^c) = \mu^*(E\cap B) + \mu^*(E \cap B^c) \geq \mu^*(E)
+\end{equation}
+\end{proof}
+\noindent\textbf{This finishes the proof of $\cM$ being a $\sigma$-algebra.} 我们同时发现,  $\mu^*|_\cM$ 是一个 \textbf{complete measure} on $\cM$ 是一个 trivial fact after the proof, 因为 taking $B = E$, 可以得到 
+\begin{equation}
+    \mu^*(B) = \sum_{i=1}^\infty \mu^*(A_i)
+\end{equation}
+\noindent 并且 by monotonicity, 对于任意的 $\mu^*(A) = 0$, 任取 $E \sub X$, 都有
+\begin{equation}
+    \mu^*(E )  \leq \mu^*(E \cap A) + \mu^*(E \cap A^c) = \mu^*(E \cap A^c) \leq \mu^*(E)
+\end{equation}
+因而
+\[
+\mu^*(E )  = \mu^*(E \cap A) + \mu^*(E \cap A^c)
+\]
+得到 $A \in \cM$. 从而得证这是一个 complete measure.\\
+
+\begin{remark}
+    证明 Carathéodory's Theorem 的 punchline 在于: 我们令 $(A_i) \in \cM$ be a sequence, $B_n$ be its partial union for $n$ terms, 可以得到$$\mu^*(E \cap B_n ) = \mu^*(E \cap B_n \cap A_n) + \mu^*(E \cap B_n \cap A_n^c) = \mu^*(E \cap A_n) + \mu^*(E \cap B_{n-1})$$, 因为 inductively 可得到:
+\begin{equation}
+    \mu^*(E \cap B_n) = \sum_{i=1}^n \mu^*(E \cap A_i)
+\end{equation}
+\noindent 这个 statement 对于 $\cM$ 是 $\sigma$-algebra 以及 $\mu^*|_{\cM}$ 是 measure 的证明都很重要. 我们在 outer measure 的定义中, 只声明了 countable subadditivity, 而我们需要证明的是 countable diskjoint additivity, 也就是需要把不等式变成一个等式. 
+\\\noindent 为此我们看到 $\mu^*$-measurable 的定义 (Carathéodory condition) 中的等号, 并从中找到这个等式关系: \textbf{通过 disjoint set sequence 上 inductively 对于前一项使用 Carathéodory condition, 得到 disjoint additivity.}
 \end{remark}
 
 
+\chapter{premeasure and Hahn-Kolmogrov extension Theorem}
 
+\begin{definition}{premeasure}
+    
+\end{definition}
 
 
 

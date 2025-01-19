@@ -1221,6 +1221,7 @@
 
 \newcommand{\pic}[2][1]{
     \begin{center}
-        \includegraphics[width=#1\textwidth]{#2}
+        \includegraphics[width=#1\textwidth]{#2} 
+        
     \end{center}
 }

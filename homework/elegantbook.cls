@@ -1223,3 +1223,7 @@
 }
 
 \newcommand{\ds}{\displaystyle}
+
+\DeclareMathOperator{\card}{card}
+
+
