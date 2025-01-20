@@ -241,7 +241,8 @@ We call  $$
 \end{example}
 
 
-\begin{lemma}
+\begin{lemma}{inclusion properties of generated $\sigma$-algebra}
+\label{inclusion properties of generated sigma-algebra}
 \begin{enumerate}
     \item if $\cE \sub \cA$ where $\cA$ is a $\sigma$-algebra, then $<\cE> \sub \cA$.
     \item if $\cE \sub \cF$, then $<\cE> \sub <\cF>$.
@@ -490,7 +491,7 @@ $$
 在这两个条件的缩减下, 我们规定 outer measure 具有 monotonicity 和 countable subadditivity. 注意: measure 本身也有这个性质, 这是 measure 的 countable additivity 的推论. \\
 outer measure 的意义在于, 我们的 measure 只定义在 $\sigma$-algebra 上, 而我们想要给每个子集都赋予一个近似于测度的东西. 
 
-\section{construct outer measure out of a "elementary length function"}
+\section{induce outer measure out of a "elementary length function"}
 \begin{theorem}{construct outer measure out of an "elementary  length function" }\label{construct outer measure out of a "elementary length function"}
     另 $\cE \sub \cP(X)$ 为一个包含 $\varnothing, X$ 的集合, 并定义 $\rho: \cE \rar [0,\infty)$ 为一个满足 $\rho(\varnothing) = 0$ 的函数, 则
 \[
@@ -539,6 +540,7 @@ countable subadditivity 蕴含的信息是: 如果我们把一个集合 divide �
 \section{Carathéodory's Theorem}
 
 \begin{theorem}
+\label{Carathéodory's Theorem}
 对于任意的 outer measure $\mu^*$, 
 \[
 \cM := \{ \text{all } \mu^* \text{-measurable sets}    \}
@@ -616,20 +618,137 @@ By  $A \cup B = (A \setminus B) \sqcup (A\cap B) \sqcup (B\setminus A)$, 可以�
     \mu^*(E \cap B_n) = \sum_{i=1}^n \mu^*(E \cap A_i)
 \end{equation}
 \noindent 这个 statement 对于 $\cM$ 是 $\sigma$-algebra 以及 $\mu^*|_{\cM}$ 是 measure 的证明都很重要. 我们在 outer measure 的定义中, 只声明了 countable subadditivity, 而我们需要证明的是 countable diskjoint additivity, 也就是需要把不等式变成一个等式. 
-\\\noindent 为此我们看到 $\mu^*$-measurable 的定义 (Carathéodory condition) 中的等号, 并从中找到这个等式关系: \textbf{通过 disjoint set sequence 上 inductively 对于前一项使用 Carathéodory condition, 得到 disjoint additivity.}
+\\\noindent 为此我们看到 $\mu^*$-measurable 的定义 (Carathéodory condition) 中的等号, 并从中找到这个等式关系: \textbf{通过 disjoint set sequence 上 inductively 对于前一项使用 Carathéodory condition, 得到 disjoint additivity.} (笔者的感觉是 Carathéodory condition 的直观看似不明显, 但是如果把一个 disjoint union 自身作为 $E$, 并把自身的某项作为 $A$, 就非常明显, 表示的是 disjoint measure sum 就是 measure of disjoint union.)
 \end{remark}
 
 
 \chapter{premeasure and Hahn-Kolmogrov extension Theorem}
+我们发现: 有些子集簇上的 "length" 很明显, 并且也符合 measure 的定义, 但是这个子集簇却并不构成一个 $\sigma$-algebra. 比如:
+\begin{example}
+    $\{ \text{all half-open, half-closed intervals}\} \sub \bR$ 上, 以 interval 的 length 作为 measure, 很显然符合 measure function 的定义, 但是 $\{ \text{all half-open, half-closed intervals}\} \sub \bR$ 并不是一个 $\sigma$-algebra, 因为它可以通过 ctbl union 出 open interval, 并不在这个子集簇中. 不过, 这是一个 algebra.\\
+\end{example}
+因此, 我们想要一个方法来 \textbf{extend a "measure" function on an algebra, to a measure on a $\sigma$-algebra.}
 
 \begin{definition}{premeasure}
-    
+给定 $\cP(X)$ 上的一个 \textbf{algebra} $\cA_0$, 我们称 \(\mu_0: \cA_0 \rar [0,+\infty]\)  为一个 premeasure, if
+\begin{enumerate}
+    \item \(\mu_0(\varnothing)  = 0\)
+    \item \(\mu_0\) ctbl disjoint additive in $\cA_0$
+\end{enumerate}
 \end{definition}
 
+\begin{remark}
+premeasure 就是定义在 algebra instead of $\sigma$-algebra 上的 measure. 显然, 通过和 measure 相同的方式可证明, premeasure 在 $\cA_0$ 上是 \textbf{monotone 以及 ctbl subadditive 的.  }  
+\end{remark}
+
+
+\section{induce outer measure out of a premeasure: preserving $\mu_0$ on $\cA_0$}
+\begin{proposition}
+\label{construct outer measure out of a premeasure}
+    Any premeasure can induce an outer measure:
+    \begin{equation}
+        \mu^*(E) = \inf \{  \sum_{i=1}^\infty \mu_0(A_i) \mid A_i \in \cA_0, E \sub \union_{i=1}^\infty A_i   \}
+    \end{equation}
+    并且, we have:
+    \begin{equation}
+        \mu^*|_{\cA_0} = \mu_0
+    \end{equation}
+    并且 \textbf{every set in $\cA_0$ is $\mu^*$-measurable.}
+\end{proposition}
+\begin{proof}
+    \textbf{这个 outer measure 的 construction directly follows from} \ref{construct outer measure out of a "elementary length function"}.\\
+    \noindent \textbf{Proof that $\mu^*$ restricted to $\cA_0$ is $\mu_0$}: 令 $E \in \cA_0$, 假设 $E \sub \union_{i=1}^\infty A_i$, 我们令 $B_n := E \cap (A_n \setminus \union_{i=1}^{n-1} A_i)$, 即把 covering intersecting $E$ 变成 disjoint covering $(B_n)$, 从而由 $\mu_0$ 的 ctbl disjoint additivity 可得, 这一个新 covering 的 measure sum $\sum_{i=1}^\infty \mu_0(B_i) := \mu_0(E)$. 并且由于 $\cA_0$ 是一个 algebra, 这些 $B_n$ 也在 $\cA_0$ 里面, 从而它满足 monotonicty, then $\mu_0(E) = \sum_{i=1}^\infty \mu_0(B_i) \leq \sum_{i=1}^\infty \mu_0(A_i) $\\
+    \noindent \textbf{Proof that every set in $\cA_0$ is $\mu^*$-measurable}: Fix $A \in \cA_0$, 我们取任意 $E \sub X$.
+    Let $\epsilon > 0$, by def of the outer measure, 存在一个 seq $\{ B_i\}_{i=1}^\infty \sub \cA_0$, 使得 $E \sub \union_{i=1}^\infty B_i$ 并且 $\sum_{i=1}^\infty \mu_0(B_i) \leq \mu^*(E) + \epsilon$. 有 disjoint additivity of $\mu_0$ 可得, $\sum_{i=1}^\infty \mu_0(B_i) = \sum_{i=1}^\infty \mu_0(B_i\cap A) + \sum_{i=1}^\infty \mu_0(B_i\cap A^c)$. 从而 $\mu^*(E) \geq \mu^*(E \cap A) + \mu^*(E\cap A^c)$, 得证. (实际上这是个 trivial argument, 通过$\epsilon$ argument 来严格证明.)
+\end{proof}
+\begin{remark}
+    这一 simple proposition 表明的是, $\mu_0$ induce 出的 outer measure 在 $\cA_0$ 上 \textbf{presearve $\mu_0$ 的 measure 与 measurability.}
+\end{remark}
 
 
 
 
+
+
+\section{Hahn-Kolmogrov Theorem}
+\begin{theorem}{Hahn-Kolmogrov Theorem}
+\label{Hahn-Kolmogrov Theorem}
+给定一个 premeasure $\mu_0$ on algebra $\cA_0$ of $X$, 以及其 induced outer measure $\mu*$, 我们令 
+$$
+\cM := <\cM_0>
+$$
+表示 $\sigma$-algebra generated by the algebra $\cA$.\\
+并令
+$$
+\mu := \mu^* |_\cM
+$$
+then we have:
+\begin{enumerate}
+    \item $(X,\cM_0, \mu_0)$ extends to $(X,\cM,\mu)$\\
+    即: $\mu  |_{\cM_0} = \mu_0$
+    \item $\mu | _\cM$ 是 \textbf{the largest extension of $\mu_0$ to $\cM$} (即: 对于任意其他的 $\cM$ 上的 measure $\nu$ that extends $\mu_0$ to $\cM$, 都有 $\nu(E) \leq \mu(E)$ for all $E \in \cM$);\\
+    并且 \textbf{if $\mu_0$ is $\sigma$-finite}, 则 $\mu$ 是 \textbf{the unique extension} of $\mu_0$ to $\cM$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+\textbf{Proof of $(X,\cA_0, \mu_0)$ extends to $(X,\cM,\mu)$:}\\
+这个 Statement directly follows from \ref{Carathéodory's Theorem}(Carathéodory's Theorem) 以及上一个 proposition \ref{construct outer measure out of a premeasure}. \\
+\noindent 1. 我们首先用 $\mu_0$ induce 出 $\mu^*$, 再 restrict $\mu^*$ to $ \cM^* :=\{ \text{all } \mu^* \text{-measurable sets}  \}$, 得到一个 $\sigma$-algebra $\cM^*$.\\
+\noindent 注意此时: 由上一个 proposition \ref{construct outer measure out of a premeasure} 可得 $\cM_0$ 中所有集合都是 $\mu^*$-measurable 的, thus $M_0 \sub \cM^*$, 由于 $\cM^*$ 是一个 $\sigma$-algebra, 由 \ref{inclusion properties of generated sigma-algebra} 可得: $\cM := <\cM_0> \sub \cM^*$. \\
+\noindent 2. 由 Carathéodory's Theorem 可以得到: $\mu^* | _{\cM^*}$ 是一个 measure, 从而 $\mu :=\mu^* |_{\cM}$ 也是一个 measure(等于把 $\mu^* | _{\cM^*}$ 限制在了一个更小的 sub-$\sigma$-algebra 上).\\
+\noindent\textbf{(Note: this is a trivial fact that if $M^*$ is a $\sigma$-algebra and $M \subset M^*$is also a $\sigma$-algebra, then $\mu |_{M}$ is a measure if given that $\mu$ is a $\sigma$-algebra on $M^*$)}\\\\
+\noindent \textbf{Proof of $\mu$ being the largest extension of $\mu_0$ to $\cM$:}
+\noindent 假设 $\nu$ 是一个 $\cM$ 上的 $\sigma$-algebra s.t. $\nu|_{\cM_0} = \mu_0 $.\\
+\noindent Let $E \sub \cM$. (WTS: $\nu(E) \leq \mu(E)$, 即$\nu(E) \leq \mu^*(E)$ .)\\
+\noindent 由外测度 \(\mu^*\) 的定义, 对于任意 \(\epsilon>0\), 存在一列集合 \(\{A_i\}_{i=1}^\infty \subset \mathcal{A}_0\) 满足
+\[
+E\subset \bigcup_{i=1}^\infty A_i \quad \text{且} \quad \sum_{i=1}^\infty \mu_0(A_i) \le \mu^*(E)+\epsilon.
+\]
+由于 \(\nu\) 在 \(\mathcal{A}_0\) 上和 \(\mu_0\) 一致，即
+\[
+\nu(A_i) = \mu_0(A_i) \quad \forall i,
+\]
+因此，
+\[
+\sum_{i=1}^\infty \nu(A_i) = \sum_{i=1}^\infty \mu_0(A_i) \le \mu^*(E)+\epsilon
+\]
+利用 \(\nu\) 的 additivity 和 monotoncity 得
+\[
+\nu(E) \le \nu\Bigl(\bigcup_{i=1}^\infty A_i\Bigr) \le \sum_{i=1}^\infty \nu(A_i) = \sum_{i=1}^\infty \mu_0(A_i) \le \mu^*(E)+\epsilon
+\]
+
+由于 \(\epsilon\) arbitrary, 得到
+\[
+\nu(E) \le \mu^*(E)
+\]
+
+
+\noindent (证明思路: 在 $\cM$ 上 $\mu$ 就等于 $\mu_0$ induce 的外测度, 对于其他的 extended measure, 其作用在一个集合上的测度一定小于等于任意的 $\cM_0$ covering 的 premeasure 和, 而我们可以通过控制这个 covering 的测度和与它的外测度的差距(since inf), 从而使得这个测度小于等它的外测度加一个无限小的 $\epsilon$, 从而得证.) \\\\
+
+\noindent \textbf{Proof of $\mu$ being the unique extension of $\mu_0$ to $\cM$, provided that $\mu_0$ is $\sigma$-finite}:\\
+\noindent (recall $\mu_0$ is $\sigma$-finite 即 $\mu_0(X) < \infty$) It remains to show that $\nu(E) \geq \mu^*(E)$.
+
+\noindent Continuing 上一个 proof, we have:
+$$
+\mu^*(E) \leq \mu^*(\union_{i=1}^\infty A_i) = \nu(\union_{i=1}^\infty A_i) = \nu(E) + \nu(\union_{i=1}^\infty A_i \setminus E)
+$$
+$$
+\leq \nu(E) + \mu^*(\union_{i=1}^\infty A_i \setminus E)
+$$
+我们只要 controling $\mu^*(\union_{i=1}^\infty A_i \setminus E) = \mu^*(\union_{i=1}^\infty A_i ) - \mu^*(E) = \epsilon $ 逼近 0, 即可得到反向的不等式关系.\\
+\noindent (证明思路: 我们证明了 $\nu(E) \leq \mu^*(E)$ 之后, 注意到 covering set 和 $E$ 之间的差集的 $\nu$-measure 自然也小于等于这个差集的 $\mu^*$-measure, which can approximate 0.)
+\\\\
+
+\end{proof}
+
+
+\begin{remark}
+\noindent 1. 我们首先容易定义 $X$ 上的一个 algebra $\cM_0$ 和一个 algebra 上的 premeasure $\mu_0$; \\\\
+    \noindent 2. 然后用 inf of covering sum 来 induce 出一个 $\cP(X)$ 上的 outer measure $\mu^*$, 而后我们限制 $\mu^*$ 到 $\mu^*|_{\cM^*}$ (where $\cM^*$ 表示所有的 $\mu^*$-measurable sets), by Carathéodory's theorem 这就 induce 出了一个 complete measure. \\\\
+    \noindent 3. 我们可以再取 $\cM^*$ 的一个 sub $\sigma$-algebra $\cM := <\cM_0>$, 限制在这个集合上的 $\mu^*|_{\cM}$ 自然也是一个 measure, 并且是 $\cM_0$ extend 到 $\cM$ 上的 lartest measure. By Hahn-Kolmogrov Thm, 这个 measure 如果是 $\sigma$-finite 的则是 $\cM_0$ extend 到 $\cM$ 上的 unique measure.\\
+    \noindent (Notice: \textbf{自然地, $(X, \cM^*, \mu^* |_{\cM^*})$ 是 $(X, \cM, \mu^*|_{\cM})$ 的一个 completion.})
+    
+\end{remark}
 
 
 
