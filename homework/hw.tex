@@ -544,45 +544,209 @@ Let \((X, \mathcal{A})\) be a measurable space. Is the condition \(\mu(\emptyset
 \mu\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mu(A_i),
 \]
 for any disjoint subsets \(A_i \in \mathcal{A}\), \(i \in \mathbb{N}\), does it follow that \(\mu(\emptyset) = 0\)? If not, what can you say?
+\begin{proof}
+    It does not follow.\\
+    Counterexample: Consider $\mu(E) = \infty \;\; \forall E \in \cA$.\\
+    This measure satisfies the countably disjoint additivity condition, since for every disjoint sequence of sets in $\cA$, $\mu\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mu(A_i) = \infty$ has infinite measure. 
+\end{proof}
+
 
 \section{Commuting Limits}
 Let \((X, \mathcal{A}, \mu)\) be a measure space, and let \(A_i \in \mathcal{A}, i \in \mathbb{N}\). Assume that the sets \(A_i\) converge to the set \(A \subset X\) in the sense that:
 - If \(x \in A\), then \(x \in A_i\) for all but finitely many \(i\);
 - If \(x \notin A\), then \(x \notin A_i\) for all but finitely many \(i\).
 
-(a) Prove that \(A\) is measurable, that is, \(A \in \mathcal{A}\).
+\noindent \textbf{(a) Prove that \(A\) is measurable, that is, \(A \in \mathcal{A}\).}
+\begin{proof}
+    Deduing from the conditions:
+    If \(x \in A\), then \(x \in A_i\) for all but finitely many \(i\); $\implies $ $A \sub \liminf A_i$
+    If \(x \notin A\), then \(x \notin A_i\) for all but finitely many \(i\). $\implies $ if \(x \in A_i\) for all but finitely many \(i\) then $x\in A$ $\implies$  $\limsup A_i \sub A$
+    Thus 
+    \begin{equation}
+    \limsup A_i \sub A \sub \liminf A_i    
+    \end{equation}
+    
+\noindent   \textbf{Claim1: For any sequence of sets $(A_i)_{i \in \bN}$, we have 
+$$\liminf A_i \sub \limsup A_i$$} 
+Proof of Claim 1: Follows trivially from the definition, since \(x \notin A_i\) for all but finitely many \(i\) $\implies$ \(x \notin A_i\) for infinitely many \(i\).\\\\
+Combining claim (1) with (2.1) we have
+\begin{equation}
+\limsup A_i  =  A  = \liminf A_i    
+\end{equation}
+\noindent \textbf{Claim 2: For any sequence of sets $(A_i)_{i\in \bN}$ in a $\sigma$-algebra, $\liminf_i Ai$ and $\limsup_i A_i$ is also in the $\sigma$-algebra.}\\
+Proof of Claim 2: This follows from the def and fact that union and intersection of a countable sequence sets in a $\sigma$-algebra is also in this $\sigma$-algebra. We have
+\pic[0.8]{assets/hw2(1).jpeg}    
+This finishes the proof of Claim 2.\\
+\noindent Combining claim 2 with (2.2), $A \in \cA$, this finishes the proof.\\
+\end{proof}
 
-(b) Prove that if there exists \(n \geq 1\) such that \(\mu\left(\bigcup_{i=n}^\infty A_i\right) < \infty\), then \(\mu(A) = \lim_i \mu(A_i)\).
+\noindent \textbf{(b)  Prove that if there exists \(n \geq 1\) such that \(\mu\left(\bigcup_{i=n}^\infty A_i\right) < \infty\), then \(\mu(A) = \lim_i \mu(A_i)\).}
+\begin{proof}
+\pic[0.7]{assets/hw2(2).png}
+\pic[0.7]{assets/hw2(3).png}
+    
+\end{proof}
 
-(c) Give an example showing that the condition in (b) is necessary.
 
-\textbf{Hint:} In analysis, it is often fruitful to use \(\limsup\) and \(\liminf\) to study limits.
+\noindent \textbf{(c) Give an example showing that the condition in (b) is necessary}.
+\begin{solution}
+\noindent  Let $\mu$ be the Lebesgue measure defined on $\cB(\bR)$. We set for each $i\in \bN$ that
+\[
+   A_i =(i,i+1)
+\]
+\noindent Since this is an interval, it is Lebesgue measurable. Note that no element of any $A_i$ show up infinitely many times in the sequence. So 
+$$
+\liminf A_i = \limsup A_i = \varnothing
+$$
+\noindent So $A = \varnothing$, we have $\lim_i \mu(A_i) = 0$.
+\noindent But we have $\lim_i \mu(A_i)  = 1$ since it is true for every $i$.\\
+\noindent In this case, $\mu(\union_{i=1}^\infty A_i) = \infty$, which causes (b) to fail.
+\end{solution}
+
+
+\noindent \textbf{Hint:} In analysis, it is often fruitful to use \(\limsup\) and \(\liminf\) to study limits.\\
 
 \section{Duopoly}
-Let \(X\) be a set with two elements, for example, \(X = \{O, Q\}\).
+\noindent Let \(X\) be a set with two elements, for example, \(X = \{O, Q\}\).\\
+\noindent \textbf{(a) Find all \(\sigma\)-algebras on \(X\).}
+\begin{solution}
+    \begin{enumerate}
+    \item trivial \(\sigma\)-algebra:\[
+     \mathcal{A}_1 :=\{\varnothing,\; X\}
+   \]
+   \item power set:
+   \[
+     \mathcal{A}_2 := \mathcal{P}(X)
+     \;=\;\{\varnothing,\;\{O\},\;\{Q\},\;X\}
+   \]
+\end{enumerate}
+These are the only $\sigma$-algebras on $X$.\\\\
+\end{solution}
 
-(a) Find all \(\sigma\)-algebras on \(X\).
-
-(b) Let \(\mathcal{A}\) be a \(\sigma\)-algebra on \(X\), and \(\mu\) a measure on \((X, \mathcal{A})\). Is \(\mu\) necessarily complete? Provide a proof or a counterexample.
-
-(c) Find all outer measures \(\mu^*\) on \(X\). For each outer measure on \(X\), find the \(\sigma\)-algebra of \(\mu^*\)-measurable sets (see Carathéodory’s theorem).
-
-(d) Find an example of a collection \(\mathcal{E}\) of subsets of \(X\) with \(\emptyset, X \in \mathcal{E}\) and a function \(\rho : \mathcal{E} \to [0, \infty]\) with \(\rho(\emptyset) = 0\) such that \(\mathcal{E} \not\subset \mathcal{A}\), where \(\mathcal{A}\) is the Carathéodory \(\sigma\)-algebra for the outer measure \(\mu^*\) induced by \((\mathcal{E}, \rho)\).
-
-\textbf{Remark:} The Hahn–Kolmogorov theorem states that if \(\mathcal{E} = \mathcal{A}_0\) is an algebra and \(\rho = \mu_0\) is a pre-measure, then \(\mathcal{A}_0 \subset \mathcal{A}\). This exercise provides a counterexample when \(\mathcal{E}\) and \(\rho\) are general.
+\noindent \textbf{(b) Let \(\mathcal{A}\) be a \(\sigma\)-algebra on \(X\), and \(\mu\) a measure on \((X, \mathcal{A})\). Is \(\mu\) necessarily complete? Provide a proof or a counterexample.}
+\begin{solution}
+    It is not necessarily complete.\\
+    Cosider the trivial \(\sigma\)-algebra:\(\mathcal{A}_1 :=\{\varnothing,\; X\}\), and set $\mu$ as that $\mu(\varnothing) = \mu(X) = 0$. This makes $X$ a null set, so $\{O\}, \{Q\}$ are subnull sets, but they are not measurable by $\mu$.\\\\
+\end{solution}
+\noindent \textbf{(c) Find all outer measures \(\mu^*\) on \(X\). For each outer measure on \(X\), find the \(\sigma\)-algebra of \(\mu^*\)-measurable sets (see Carathéodory’s theorem).}
+\begin{solution}
+    Suppose \(\mu^*\) is an outer measure on \(X\). Since $\cP(X)$  only has four elements: \(\varnothing\), \(\{O\}\), \(\{Q\}\), \(X\); and the outer measure of $\varnothing$ is 0, so we first parametrize \(\mu^*\) by:
+\[
+a :=\mu^*(\{O\}),\quad
+b :=\mu^*(\{Q\}),\quad
+c := \mu^*(X).
+\]
+\end{solution}
+\noindent Then $\mu^*$ is well-defined iff it satisfies:
+\begin{enumerate}
+    \item $a,b \leq c$
+    \item \(c = \mu^*(\{O\}\cup\{Q\}) \;\le\; \mu^*(\{O\}) + \mu^*(\{Q\}) \;=\; a + b.\)
+\end{enumerate}
+\noindent Any $(a,b,c) \in [0,\infty]^3$ satisfying
+\[
+\max(a,b) \;\le\; c \;\le\; a+b,
+\]
+can make $\mu^*$ a well-defined outer measure on \(X\).\\
+\noindent Therefore
+\[
+S :=\{\text{all } \sigma \text{-algebra on } X\} = \{ \mu^* : \cP(X) \rar [0,\infty]\mid \max(\mu^*(\{O\}), \mu^*(\{Q\})) \leq \mu^*(X) \leq \mu^*(\{O\})+ \mu^*(\{Q\})\} 
+\]
+\\
+Now we specify the \(\sigma\)-algebra of \(\mu^*\)-measurable sets for each $\mu^* \in S$.\\
+By Carathéodory's criterion, a set \(E\subset X\) is \(\mu^*\)-measurable iff for all \(A\subset X\),
+\[
+\mu^*(A)
+\;=\;
+\mu^*(A\cap E)\;+\;\mu^*(A\cap E^c).
+\]
+Note that \(\varnothing\), \( X\) are always measurable since for any \(A \sub X\), \(A\cap \varnothing=\varnothing,\;A\cap ( \varnothing)^c = A\); and \(A\cap X=A,\;A\cap (X)^c=\varnothing\).  So it suffices to check for $\{O\}, \{Q\}$. We first check for $\{O\}$. $\{O\}$ is \(\mu^*\)-measurable iff \(
+  \mu^*(A) \;=\;
+  \mu^*(A\cap \{O\}) \;+\;\mu^*(A\cap \{O\}^c)
+  \) for any choice of $A$.
+There are only four possibilities for \(A\): \(\varnothing\), \(\{O\}\), \(\{Q\}\), \(X\).
+\begin{enumerate}
+    \item   If \(A = \varnothing\), both sides are 0, always stands.
+    \item If \(A = \{O\}\), then \(\mu^*(\{O\}) + \mu^*(\varnothing)=a+0=a\), always stands.
+    \item If \(A = \{Q\}\), then \(\mu^*(\varnothing)+\mu^*(\{Q\})=0+b=b\), always stands.
+    \item If \(A = X\), then \(\mu^*(X)=c =\mu^*(\{O\})+\mu^*(\{Q\})=a+b\).
+\end{enumerate}
+\noindent Therefore $\{O\}$ is \(\mu^*\)-measurable iff $c =a+b$.  For the same reasoning, \(\{Q\}\) is \(\mu^*\)-measurable iff \(c = a+b\).\\
+Thus we can conclude that:
+\begin{enumerate}
+    \item If \(c = a+b\), $\{   \mu^* \text{-measurable sets}   \} =  \cP(X)$.
+    \item otherwise, $\{   \mu^* \text{-measurable sets}   \} =  \{\varnothing, X\}$.
+\end{enumerate}
+\noindent \textbf{(d) Find an example of a collection \(\mathcal{E}\) of subsets of \(X\) with \(\emptyset, X \in \mathcal{E}\) and a function \(\rho : \mathcal{E} \to [0, \infty]\) with \(\rho(\emptyset) = 0\) such that \(\mathcal{E} \not\subset \mathcal{A}\), where \(\mathcal{A}\) is the Carathéodory \(\sigma\)-algebra for the outer measure \(\mu^*\) induced by \((\mathcal{E}, \rho)\).}
+\begin{solution}
+\noindent Consider \(\mathcal{E}=\{\varnothing,X,\{O\}\}\), with $\rho$ such that \(\rho(\emptyset)=0\), \(\rho(X)=1\), \(\rho(\{O\})=1\). \\ \noindent The outer measure \(\mu^*\) induced by $\mu^*$ is: \(\mu^*(X)=1\), \(\mu^*(\{O\})=1\), \(\mu^*(\{Q\})=1\). (the inf of length sum of sets covering $\{Q\}$ is 1, by taking $\{X\}$ as the covering.)\\
+\noindent Since \(c \not = a+b\), by (4), the Carathéodory \(\sigma\)-algebra by $\mu^*$ by $\cE$ is \(\{\varnothing,X\}\), so \(\mathcal{E}\not\subset \mathcal{A}\).\\\\
+\end{solution}
+\noindent \textbf{Remark:} The Hahn–Kolmogorov theorem states that if \(\mathcal{E} = \mathcal{A}_0\) is an algebra and \(\rho = \mu_0\) is a pre-measure, then \(\mathcal{A}_0 \subset \mathcal{A}\). This exercise provides a counterexample when \(\mathcal{E}\) and \(\rho\) are general.
 
 \section{Hahn–Kolmogorov Collapse}
 Let \(X \subset \mathbb{R}\) be the set of dyadic rational numbers, that is, the set of numbers of the form \(\frac{r}{2^n}\), where \(r\) and \(n\) are integers. Let \(\mathcal{A}_0 \subset \mathcal{P}(X)\) be the collection of finite unions of intervals of the form \((a, b] \cap X\), where \(-\infty \leq a < b \leq \infty\).
 
-(a) Prove that \(\mathcal{A}_0\) is an algebra.
+\noindent \textbf{(a) Prove that \(\mathcal{A}_0\) is an algebra.}
+\begin{proof}
+\begin{enumerate}
+    \item \(\varnothing \in \cA_0\), since it is the empty union of intervals of the given form.
+    \item \textbf{Closed under complements}:  Let \(A\in \mathcal{A}_0\). Then \(A\) is a finite union of intervals of the form \((a_i,b_i]\cap X\).  So  \begin{align}
+     A^c \cap X  &= X\setminus A \\
+     &=  X\setminus \bigcup_{i=1}^n \bigl((a_i,b_i]\cap X\bigr) \bigr) \\
+     &=
+ X\cap \bigl(\bigcap_{i=1}^n \bigl((a_i,b_i]\cap X\bigr)^c \bigr) \\
+    &  =  X\cap \bigl(\bigcap_{i=1}^n \bigl((-\infty, a_i] \cup (b_i, \infty]\bigr) \bigr)
+\end{align} 
+Note that finite intersection of intervals of the form \((-\infty,a_i]\), \((b_i,\infty]\) is still of this form. Hence \(A^c\cap X\in \mathcal{A}_0\).
+    \item \textbf{Closed under finite unions}: Suppose \(A_1\) and \(A_2\) are finite unions of intervals \(\bigl((a_i,b_i]\cap X\bigr)\), then \(A_1\cup A_2\) is still a finite union of intervals of that form. (They either merge into one such interval, so are disjoint.) Hence \(A_1\cup A_2\in \mathcal{A}_0\).  The same reasoning extends to any finite union.
+\end{enumerate}
+\noindent \textbf{This finishes the proof that \(\mathcal{A}_0\) is an algebra on \(X\).}\\\\
+\end{proof}
 
-(b) Prove that the \(\sigma\)-algebra on \(X\) generated by \(\mathcal{A}_0\) equals \(\mathcal{P}(X)\).
+\noindent \textbf{(b) Prove that the \(\sigma\)-algebra on \(X\) generated by \(\mathcal{A}_0\) equals \(\mathcal{P}(X)\).}
+\begin{proof}
+Since $<\cA_0> \sub \cP(X)$, it suffices to show that $\cP(X) \sub <\cA_0>$.
+\noindent Note that $X$ is countable, so any set in $\cP(X)$ is a countable union of singleton sets. Thus it suffices to show that any singleton set $\{x\}$ where $x\in X$ is in $<\cA_0>$, since if so, then any countable union of singleton sets from $\cP(X)$ is also in $<\cA_0>$, with implies that $\cP(X) \sub <\cA_0>$\\
+\noindent Let $x \in X$. Then we have: 
+   \[
+     \{x\} \;=\; \bigcap_{n=1}^\infty \bigl( (x - \frac{1}{2^{n}},\,x]\cap X \bigr),
+   \]
+ since $x$ is in the RHS set, and for any $y <x$, we can find a $n \in \cB$ such that $x - \frac{1}{2^n} > y$.\\
+ \noindent This finishes the proof that  \(<\mathcal{A}_0> = \mathcal{P}(X)\).
+\end{proof}
 
-(c) Define \(\mu_0 : \mathcal{A}_0 \to [0, \infty]\) by \(\mu_0(\emptyset) = 0\) and \(\mu_0(A) = \infty\) for \(A \neq \emptyset\). Prove that \(\mu_0\) is a pre-measure on \(\mathcal{A}_0\).
 
-(d) Prove that there exist infinitely many different measures \(\mu\) on \(\mathcal{P}(X)\) whose restriction to \(\mathcal{A}_0\) equals \(\mu_0\).
+\noindent \textbf{(c) Define \(\mu_0 : \mathcal{A}_0 \to [0, \infty]\) by \(\mu_0(\emptyset) = 0\) and \(\mu_0(A) = \infty\) for \(A \neq \emptyset\). Prove that \(\mu_0\) is a pre-measure on \(\mathcal{A}_0\)}
+\begin{proof}
+It suffices to show the countable disjoint additivity.\\
+Let $(A_i)_{i\in\cN}$ be a sequence of disjoint sets in $\cA_0$.\\
+Case 1: all $A_i = \varnothing$, then $\sqcup_{i\in \cN} A_i = \varnothing$, so $\mu_0(\sqcup_{i\in \cN} A_i) = \sum_{i\in\cN}\mu_0(A_i) = 0$.\\
+Case 2: $A_k \not = \varnothing$ for some $k$, then $\mu_0 (A_k) = \infty$ and $\sqcup_{i\in \cN} A_i \not= \varnothing$. Thus $\sum_{i\in\cN}\mu_0(A_i) \geq \mu_0(A_k)= \infty = \mu_0(\sqcup_{i\in \cN} A_i )$.\\
+The two cases cover all circumstances, finishing the proof.\\
+\end{proof}
 
-(e) Explain why (d) does not contradict the uniqueness part of the Hahn–Kolmogorov theorem (see Theorem 1.14 in Folland).
+
+\noindent \textbf{(d) Prove that there exist infinitely many different measures \(\mu\) on \(\mathcal{P}(X)\) whose restriction to \(\mathcal{A}_0\) equals \(\mu_0\).}
+\begin{proof}
+    Given $n \in \bN$, We define the "n-timed counting measure" on a $\sigma$-algebra $S$ as:
+$$
+    \mu_{count_n}(E) := \begin{cases}
+        n\times  \#(E) \;\;, \text{ if }  E \text{ is finite }  \\
+        \infty \;\; ,\text{ if }  E \text{ is infinite }
+    \end{cases}
+ $$
+
+ \noindent \textbf{Claim 1: For any set $X$ and any $\sigma$-algebra $S$ on $X$, the "n-timed counting measure" is a well-defined measure on $S$, for all $n \in \bN$.}\\
+Proof of claim 1: $\mu_{count_n}(\varnothing) = 0$ since $\card(\varnothing)  =0$, and countable disjoint additivity trivially follows from the rule of counting.\\
+\noindent \textbf{Claim 2: for any $n \in \bN$, $\mu_{count_n}(E) $ on \(\mathcal{P}(X)\) restricted to \(\mathcal{A}_0\) equals \(\mu_0\).}
+Proof of claim 2: Let $E \in \cA_0 \setminus \varnothing$, then $E$ contains at least one interval of the form \((a, b] \cap X\), where \(-\infty \leq a < b \leq \infty\). Sicne $a < b$, there are infinitely many elements in \((a, b] \cap X\), so $\mu_{count_n}(E) = \infty$.\\
+\noindent This finishes the proof of the original statement.\\
+\end{proof}
+
+\noindent \textbf{(e) Explain why (d) does not contradict the uniqueness part of the Hahn–Kolmogorov theorem (see Theorem 1.14 in Folland).}\\
+\begin{solution}
+    \noindent This is because Hahn–Kolmogorov theorem requires $\mu_0$ to be $\sigma$-finite to extend uniquely on $<\cA_0>$. But $\mu_0$ here is not $\sigma$-finite, since $\mu_0(\cA_0) = \infty$.\\
+\end{solution}
 
 \section{The Completion of a Measure Space}
 Let \((X, \mathcal{A}, \mu)\) be a measure space, and set
