@@ -937,16 +937,16 @@ recall in lec 6: 我们其实可以 complete 这个 measure, 只需要在第二�
 \end{definition}
 \begin{remark}
 根据定义, 对于任意 $E \in \cM_\mu$, 它的 measure 为:$$
-\mu(E) = \inf \{ \sum_1^\infty (F(b_i) - F(a_i))   \mid E \sub \union_1^\infty (a_i, b_i]      \}
+\mu_F(E) = \inf \{ \sum_1^\infty (F(b_i) - F(a_i))   \mid E \sub \union_1^\infty (a_i, b_i]      \}
 $$
 \end{remark}
 
-
+\section{inner and outer regularity of LS measure}
 
 虽然我们使用 h-intervals 来 induce 了这个 measure, 但是实际上我们在表示 measure 时,可以用 open intervals 来代替 h-intervals:
 \begin{lemma}{open intervals can substitute for h-intervals when computing measure}
 固定一个 Lebesgue-Stieltjes measure associated with $F$, 任意 $E \in \cM_\mu$, 它的 measure 等于:$$
-\mu(E) = \inf \{ \sum_1^\infty (F(b_i) - F(a_i))   \mid E \sub \union_1^\infty (a_i, b_i)      \}
+\mu_F(E) = \inf \{ \sum_1^\infty (F(b_i) - F(a_i))   \mid E \sub \union_1^\infty (a_i, b_i)      \}
 $$
 \end{lemma}
 \begin{proof}
@@ -955,11 +955,35 @@ $$
 \end{proof}
 
 
+\begin{theorem}{固定一个 Lebesgue-Stieltjes measure associated with $F$, 任意 $E \in \cM_\mu$, 它的 measure 等于}
+对于一个 Lebesgue-Stieltjes measure associated with $F$, 任意 $E \in \cM_\mu$, 它的 measure 等于:
+\begin{equation}
+    \mu_F(E) = \inf \{ \mu_F(U) \mid  U \text{ open , and } E \sub U  \}
+\end{equation}
+\end{theorem}
 
 
+\begin{proof}
+    Directly follows from lemma. 首先, by monotonicity, 一个包含 $E$ 的开集 $U$ 的 $\mu_F$ 一定比 $E$ 的大. 并且, 对于任意的 $\epsilon > 0$, 都可以找到一个 open covering 使得 measure sum $< \mu_F(E) + \epsilon$, by def.\\
+\end{proof}
 
-
-
+\begin{theorem}{\textbf{outer regularity}}
+对于一个 Lebesgue-Stieltjes measure associated with $F$, 任意 $E \in \cM_\mu$, 它的 measure 等于:
+\begin{equation}
+    \mu_F(E) = \sup \{ \mu_F(K) \mid  K \text{ compact , and } K \sub E  \}
+\end{equation}
+\end{theorem}
+\begin{proof}
+    首先证明 $E$ bounded 的 case. 假设 $E$ bdd. \\
+    如果 $E$ closed, 则 $E$ cpt, trivially true. \\
+    如果 $E$ open, 那么 $E$ 的 bounadry 是 closed (cpt) 的, 从而 $\partial E \in \cM_\mu$ 
+    我们 let $\epsilon >0$. 我们对 $\partial E$ 使用 outer regularity, 可以取一个 open set $U$ covering $\partial E$, 并且使得 $\mu_F(U) \leq \mu_F(E) + \epsilon$\\
+    此时取 $K := E \setminus U$, 我们发现这是一个 approximating $E$ 的 compact set, 并且有:
+    $$
+    E = K \sqcup (U \cap E)
+    $$
+从而:
+\end{proof}
 
 
 
