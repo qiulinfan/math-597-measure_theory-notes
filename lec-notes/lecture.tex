@@ -902,21 +902,57 @@ Claim 2, 3 都 directly follows from Hahn-Komogrov Thm.
     1 \;\; ,x\geq 0\\
     0 \;\; ,x < 0
 \end{cases}    $$
+
+
+2. 我们将 $\bQ$ 以某种形式列出: $\bQ = \{q_1, q_2, \cdots\}$
+而后定义:
+$$
+F(x) := \sum_{i = 1} ^\infty 2^{-n} H(x - r_n)   \in (0,1)
+$$
+这个函数通过有理数的次序给每个有理数赋了一个"weight", 并对于每个$x$, 把所有有理数分为 $> x$ 和 $\leq x$ 的两部分, 只把 $\leq x$ 的那部分有理数的权重算进 $F(x)$. 于是 $x$ 越大, 被算进 $F(x)$ 的有理数越多, $F(x)$ 就越大. (虽然每个有理数的权重是乱的). 这个函数在每一点上都 discrete.\\
+这个过程可推广, 不取 $\bQ$ 而取任意的 countable sets in $\bR$ 作为参照.
 \end{example}
 
 
 
-本 lec 总结: 通过直接定义 distribution function 来得到的 measure, 实则就是不同于直接取 interva 长度, 我们给每个点一个 mass (类似概率密度), 从而把区间的长度中每一个点加上一个权重. 最后形成一个不一定均匀的 measure. 这个 distribution 的分布曲线决定了这个 measure.
+
+
+本 lec 总结: 通过直接定义 distribution function 来得到的 measure, 实则就是不同于直接取 interval 长度, 我们隐性地给每个点一个 mass (类似概率密度), 从而把区间的长度中每一个点加上一个权重. 最后形成一个不一定均匀的 measure. 这个 distribution 的分布曲线决定了这个 measure.
 
 
 
 
 
 
-\chapter{}
+\chapter{Lebesgue-Stieltjes measure}
+给定一个 increasing 且 right ctn 的函数 $F$, 我们已经展示了用它作为 distribution function 来 induce 出一个 Borel measure $\mu_F$ on $\cB(\bR)$. \\
+在构造这个函数时, 我们使用的是用 premeasure $\cA_0$ (of all finite unions of h-intervals), 使用 Hahn-Kolmogrov 来 induce outer measure $\mu_F^*$, 再把 restrict 它到 $<\cA_0>$, 即 $\cB(\bR)$ 上, 获得的 measure. \textbf{这一个 measure 是一个 Borel measure, 但是它并不 complete. }\\
+recall in lec 6: 我们其实可以 complete 这个 measure, 只需要在第二步, 用 premeasure $\cA_0$ induce 出 outer measure 后, 不要 restrict 它到 $\cB(\bR)$ 上, 而是 restrict 到取 $\cM_\mu := \{ \text{all } \mu_F^* \text{-measurable set\}}$ 上, 得到的就是 completion of $\mu_F$, 即 $$(\bR, \cM_\mu, \overline{\mu_F})$$
+其中, $\cA^*$ 是 $<\cA_0>$ 即 $\cB(\bR)$ 的 proper super set. \textbf{我们把这个 completed measure 叫做 Lebesgue Stieltjes measure associated with $F$, 并用 $\mu_F$ 来指代它. (刚才, 我们把未完备的 measure 叫做 $\mu_F$, 但现在我们不再使用这个 measure, 而是使用它的 completion, 并转而称它的 completion ($\overline{\mu_F}$) 为 $\mu_F$.)}
 
 
 
+\begin{definition}{Lebesgue-Stieltjes measure associated with $F$}
+给定一个 distribution function $F$, 我们使用它来定义 h-intervals 的 premeasure $\mu_0$, 并把这个 premeasure induce 出的 outer measure $\mu^*$ 限制在 $$\cM_\mu := \{ \text{all } \mu^* \text{-measurable set\}}$$ 上, 由 Carathéodory Thm 得它是 complete 的. 称这个 complete 的 measure $$\mu_F := \mu^* |_{\cM_\mu}$$ 为 \textbf{Lebesgue Stieltjes measure associated with $F$. }
+\end{definition}
+\begin{remark}
+根据定义, 对于任意 $E \in \cM_\mu$, 它的 measure 为:$$
+\mu(E) = \inf \{ \sum_1^\infty (F(b_i) - F(a_i))   \mid E \sub \union_1^\infty (a_i, b_i]      \}
+$$
+\end{remark}
+
+
+
+虽然我们使用 h-intervals 来 induce 了这个 measure, 但是实际上我们在表示 measure 时,可以用 open intervals 来代替 h-intervals:
+\begin{lemma}{open intervals can substitute for h-intervals when computing measure}
+固定一个 Lebesgue-Stieltjes measure associated with $F$, 任意 $E \in \cM_\mu$, 它的 measure 等于:$$
+\mu(E) = \inf \{ \sum_1^\infty (F(b_i) - F(a_i))   \mid E \sub \union_1^\infty (a_i, b_i)      \}
+$$
+\end{lemma}
+\begin{proof}
+    每个 open interval 都等于 a ctbl disjoint union of h-intervals, 从而是在这个被取 inf 集合内的; 所以只需要证明能取到这个 inf 即可.
+    Fix $\epsilon > 0$, 我们根据定义可以取到一个 seq $(a_i, b_i]$ 使得它 measure sum $\leq \mu(E) + \epsilon /2$, 而我们对于每个 $i$, 在 interval 的右边再取一个 $ <\epsilon/2^{i+1}$ 的 $\delta_i$, 就变成了一个 open interval, 并且最后距离这个 h-interval seq 的 measure sum 差距至多 $\epsilon/2$. 从而得证.
+\end{proof}
 
 
 
