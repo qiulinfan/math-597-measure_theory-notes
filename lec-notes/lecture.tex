@@ -807,10 +807,17 @@ $$
    反例: 例如 atomic measure. 
 \end{remark}
 
+
+
+
+
+\section{any increasing and right ctn function is a unique distribution function}
+
 \begin{definition}{h-interval}
     我么定义形如 $(a,b]$, $(-\infty, b]$ 的 $\bR$  的子集, 以及 $\varnothing$, $\bR$, 为 h-intervals.
 \end{definition}
 h-intervals 即\textbf{所有的左开右闭区间.}
+\pic[0.2]{ch1-pics.assets/1.png}
 
 
 \begin{lemma}{h-intervals form an algebra and generate borel set}
@@ -829,16 +836,12 @@ $$
 
 
 
-
-\section{any increasing and right ctn function is a unique distribution function}
-
-
-\begin{theorem}{\textbf{任意 increasing 且 right ctn 函数都是某个 locally finite Borel measure 的唯一 distribution function}}
+\begin{theorem}{\textbf{任意 increasing 且 right ctn 函数都是某个 locally finite Borel measure 的 distribution 函数}}
 取 lemma 中的 $\cA_0$.
-对于\textbf{任意的 increasing 且 right ctn 的 $F: \bR \rar \bR$,} 我们 define $\mu_0: \cA_0 \rar [0,\infty]$, by:
+对于\textbf{任意的 increasing 且 right ctn 的 $F: \bR \cup \{\pm\infty\} \rar \bR\{\pm\infty\}$,} 我们 define $\mu_0: \cA_0 \rar [0,\infty]$, by:
 $$
 \mu_0(\union_{i=1}^n (a_i, b_i]) = \sum_{i=1}^n (F(b_i) - F(a_i))
-$$ 并规定 $\mu_0(0) = 0$.\\
+$$ 并规定 $\mu_0(0) = 0$, 以及 $F(\infty) = \lim_{x\rar \infty } F(x)$\\,
 \textbf{Claim 1: $\mu_0$ 是一个 $\cA_0$ 上的 $\sigma$-finite premeasure.}\\
 \textbf{Claim 2: (by Hahn-Kolmogrov) $\mu_0$ extend to a locally finite Borel measure $\mu_F$}, 并且 $\mu_F ((a,b]) = F(b) - F(a)$ for any h-interval, i.e. $F$ 是 $\mu_F$ 的 distribution function.\\
 Claim 3: \textbf{$F$ 是 $\mu_F$ 的唯一 distribution function up to constant term}, in the sense that 任意其他的 such function $G$ 如果也是$\mu_F$ 的 distribition function, 则必然有 $F-G$ 为 const. 
@@ -847,9 +850,9 @@ Claim 3: \textbf{$F$ 是 $\mu_F$ 的唯一 distribution function up to constant 
 \begin{proof}
 Claim1 
 \begin{enumerate}
-    \item well-definedness of $\mu_0$: 对于两个结果一样的 union, finding common refinement 即可.\\
-    \item $\mu_0(\varnothing) = 0$: 因为 $\varnothing$ 就是 $(a,a]$.\\
-    \item finite additivity: trivial.\\
+    \item well-definedness of $\mu_0$: 对于两个结果一样的 union, finding common refinement 即可.
+    \item $\mu_0(\varnothing) = 0$: 因为 $\varnothing$ 就是 $(a,a]$.
+    \item finite additivity: trivial.
     \item $\sigma$-finiteness: each $\mu_0((n, n+1]) < \infty$
     \item \textbf{ctbl additivity: nontrivial, 下面详细展开.}
 \end{enumerate}
@@ -874,19 +877,43 @@ $$
     F(b_i + \delta_i) - F(b_i) \leq \frac{\epsilon}{2^i}
 $$
 于是 $(a_i, b_i+\delta_i)_{i \in \bN}$ 就形成了一个 open covering for $[a+ \delta, b]$. By cptness, 存在一个 finite subcovering $(a_i, b_i+\delta_i)_{1 \leq i \leq N}$.\\
-由于 $A$ 是 $A_i$ 的 disjoint union, 我们
-注意: 由于 $ F(b_i + \delta_i) - F(b_i) \leq \frac{\epsilon}{2^i}$, 每个
-
-
+By relabelling, \textbf{我们 suppose $A_i$ 是从左到右排序的. 于是每个 $b_i + \delta_i$ 都处于下一个 $A_{i+1}$ 之内.}
+\pic[0.2]{ch1-pics.assets/image-20250130183842172.png}
+从而:
+\begin{align}
+    \mu_0(A) & \leq F(b) - F(a+ \delta) - \epsilon \\
+    &\leq F(b_N + \delta_N) - F(a_1) + \epsilon \\
+    & =  F(b_N + \delta_N) - F(a_N) +\sum_1^{N-1} (F(a_{i+1}  ) - F(a_i)) + \epsilon \\
+    & \leq  F(b_N + \delta_N) - F(a_N) +\sum_1^{N-1} (F(b_i + \delta_i  ) - F(a_i)) + \epsilon \\ & < \sum_1^N (F(b_i) - A(a_i) + \frac{\epsilon}{2^i}) + \epsilon
+    \\ & < \sum_ 1^\infty \mu_0(A_i) + 2\epsilon
+\end{align}
 Claim 2, 3 都 directly follows from Hahn-Komogrov Thm.
 \end{proof}
+\begin{remark}
+    这一证明实则简单. 关键的步骤是 1. 简化问题为 union 成一个 h-interval; 2. 通过 cptness 取 finite covering；3. 对每个 $A_i $ 取一个 $\epsilon / 2^i$ 的小 cover, 最后可以被 $\epsilon$ bound.
+\end{remark}
+
+
+
+\begin{example}
+我们已经证明, 从任意的 increasing 且 right ctn 的函数都可以构造出一个以其为 distribution function 的 locally finite Borel measure on $\bR$, 因而我们简称这样的函数都叫做 distribution function.\\
+以下为两个 distribution function 的例子:\\
+1. $$H(x)  = \begin{cases}
+    1 \;\; ,x\geq 0\\
+    0 \;\; ,x < 0
+\end{cases}    $$
+\end{example}
+
+
+
+本 lec 总结: 通过直接定义 distribution function 来得到的 measure, 实则就是不同于直接取 interva 长度, 我们给每个点一个 mass (类似概率密度), 从而把区间的长度中每一个点加上一个权重. 最后形成一个不一定均匀的 measure. 这个 distribution 的分布曲线决定了这个 measure.
 
 
 
 
 
 
-
+\chapter{}
 
 
 
