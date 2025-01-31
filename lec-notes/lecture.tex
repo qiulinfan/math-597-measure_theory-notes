@@ -862,16 +862,20 @@ $$
 $$ for each $n$, 由于这是一个 numerical seq, 可以 conclude $\mu_0(A) \geq \sum_i \mu_0(A_i)$.
 (2) WTS $\sum_i \mu_0(A_i) \geq \mu_0(A)$.\\
 这个 direction 较难, 需要用到 $\epsilon / 2^n$ 的 argument.\\
-For simplicity, 我们只需要考虑 $A_i = (a_i, b_i]$ 的 interval 形式, 其他形式 can trivially prove.\\
+For simplicity, 我们只需要考虑 $A_i = (a_i, b_i]$ 的 interval 形式, 其他形式 can trivially prove. 并且, 由于 $\cA_0$ 中任何一个元素至多只有 finite 个离散的 h-intervals, 我们 \textbf{suffice to assume $A$ 是一个 h-interval.} \\
 从而, 我们也可以 denote $A = (a,b]$.\\
 Let $\epsilon > 0$.\\
 By $F$ 的 increasing 和 right ctn, 存在 $\delta, \delta_i$ s.t.
 $$
-\begin{cases}
-    F(a) \leq F(a+ \delta) \leq F(a) + \epsilon\\
-    F(b_j) \leq 
-\end{cases}
+F(a+ \delta)- F(a) \leq \epsilon
 $$
+同样地, 对于每个 $A_i$. 我们都可以找到 $\delta_i$ 使得 
+$$
+    F(b_i + \delta_i) - F(b_i) \leq \frac{\epsilon}{2^i}
+$$
+于是 $(a_i, b_i+\delta_i)_{i \in \bN}$ 就形成了一个 open covering for $[a+ \delta, b]$. By cptness, 存在一个 finite subcovering $(a_i, b_i+\delta_i)_{1 \leq i \leq N}$.\\
+由于 $A$ 是 $A_i$ 的 disjoint union, 我们
+注意: 由于 $ F(b_i + \delta_i) - F(b_i) \leq \frac{\epsilon}{2^i}$, 每个
 
 
 Claim 2, 3 都 directly follows from Hahn-Komogrov Thm.
