@@ -1057,9 +1057,8 @@ $$
 Thus 
 $$
 m(E) = \sum_{i\in \bN}  m(I_i \cap E) \geq \alpha \sum_{i\in \bN} m(I_i)
-\tag{1}
 $$
-So there exist some $i$ such that $m(I_i \cap E) \geq \alpha \, m(I_i)$, otherwise contradicting (1).\\
+So \textbf{there must exist some $i$ such that $m(I_i \cap E) \geq \alpha \, m(I_i)$, otherwise contradicting with the ineq above.}\\
 This finishes the proof of the bounded case.\\
 The we consider the case when $E$ is unbounded. 
 We can write
@@ -1091,39 +1090,23 @@ We apply the case where $E$ is bounded, confirming that there is some interval $
     Let $C\subset\bR$ be the middle-third Cantor set (so $m(C)=0$). Does $C-C$ contain a nonempty open interval centered at the origin?
   \end{itemize}  
 \begin{proof}
-\textbf{of (a): }\\
+\textbf{of (a): }\pic[0.65]{hw3.assets/image-20250131212105730.png}
+\pic[0.7]{hw3.assets/image-20250131212120558.png}
+\end{proof}
 
+\begin{proof}
+    \textbf{of (b):}\\
+    Consider taking $\epsilon$ as the one in (a) where the interval contained in $E-E$ is $(-\epsilon, \epsilon)$, then the box $(-\epsilon, \epsilon) \times (-\epsilon, \epsilon)$ is contained in $E\times E$. It trivially follows that $E\times E\subset\bR^2$ intersects every line $y=x+t$ with $|t|<\epsilon$, since the intercept of this line with $y$-axis is below $\epsilon$ and above $-\epsilon$.
+    \pic[0.25]{hw3.assets/image-20250131212337897.png}
+\end{proof}
+
+\begin{proof}
+    \textbf{of (c):}\\
+    $C-C$ contain a nonempty open interval centered at the origin, and we will prove that one such interval is $(-1,1)$.\\
+    
 \end{proof}
 
 
-Solution to (b): Intersecting Every Line \( y = x + t \) with \( |t| < \epsilon \)
-We need to show that there exists \( \epsilon > 0 \) such that for all \( |t| < \epsilon \), the line \( y = x + t \) intersects \( E \times E \), i.e., there exist \( x, y \in E \) such that \( y - x = t \).
-
-Step 1: Connection to the Difference Set
-The statement means that every small \( t \) belongs to \( E - E \). From part (a), we already know that \( E - E \) contains an interval around 0. Thus, there exists \( \epsilon > 0 \) such that
-\[
-(-\epsilon, \epsilon) \subset E - E.
-\]
-
-Step 2: Conclusion
-For each \( |t| < \epsilon \), there exist \( x, y \in E \) such that \( y - x = t \), meaning the line \( y = x + t \) intersects \( E \times E \).\\\\
-
-
-
-
-
-Solution to (c): The Cantor Set Difference \( C - C \)
-We consider the middle-third Cantor set \( C \), which is uncountable but has Lebesgue measure zero. We want to determine whether \( C - C \) contains an interval around 0.
-
-Step 1: Measure Considerations
-Unlike general Lebesgue measurable sets with positive measure, the previous argument does not work since \( m(C) = 0 \). The difference set \( C - C \) does not necessarily inherit positive measure properties.
-
-Step 2: A Known Result
-A well-known fact in analysis states that \( C - C \) actually contains an interval. This follows from the fact that \( C \) is a compact perfect set with self-similar structure, and its difference set fills out an entire interval.
-
-Thus, despite the fact that \( m(C) = 0 \), the difference set \( C - C \) is large enough to contain a nontrivial interval around 0.
-
-Conclusion: Yes, \( C - C \) does contain a nonempty open interval centered at the origin.
 
 
 \section{a holey set}
