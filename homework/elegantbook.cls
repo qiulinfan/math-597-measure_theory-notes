@@ -1226,4 +1226,3 @@
 
 \DeclareMathOperator{\card}{card}
 
-

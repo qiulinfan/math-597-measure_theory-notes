@@ -1110,7 +1110,7 @@
 % mathfrak
 \nc\mfS{\mathfrak{S}}
 \nc\mfg{\mathfrak{g}}
-
+\nc\fL{\mathfrak{L}}
 
 \renewcommand{\bold}[1]{\medskip \noindent {\bf #1 }\nopagebreak}
 
