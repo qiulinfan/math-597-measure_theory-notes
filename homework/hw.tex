@@ -1382,7 +1382,7 @@ Suppose that $f\colon X\to\bar\R$ is $\bar{\cA}$-measurable. Prove that there is
 
 
 \section{Measurability of limit loci.}
-  Let $(X, \cA)$ be a measurable space. For each $n\in \bN$, let $f_n\colon X\to \mathbb{R}$ be a measurable function. Consider the set
+  Let $(X, \mathcal{A})$ be a measurable space. For each $n\in \mathbb{N}$, let $f_n\colon X\to \mathbb{R}$ be a measurable function. Consider the set
   \[
     E:=\{x\in X\mid\lim_{n\to\infty} f_n(x)\ \text{converges to a real number}\}.
   \]
@@ -1396,14 +1396,14 @@ Suppose that $f\colon X\to\bar\R$ is $\bar{\cA}$-measurable. Prove that there is
     \[
       E_{i,j,k}=\{x\mid |f_j(x)-f_k(x)|<\tfrac1{i}\},
     \]
-    where $i,j,k\in\bN$.
+    where $i,j,k\in\mathbb{N}$.
     \textit{Hint}: a sequence $(a_n)_n$ of real numbers converges iff it is a Cauchy
     sequence, i.e. for every  $ \epsilon >0$
     there is $n$ such that for every $j,k\ge n$, $|a_j-a_k|< \epsilon$.
   \end{itemize}
-  \textit{Hint}: note that $\pm\infty$ are not real numbers, and please avoid considering $\infty-\infty$; you may want to prove a lemma to the effect that if $g,h\colon X\to\bar\R$ are measurable functions, then the set
+  \textit{Hint}: note that $\pm\infty$ are not real numbers, and please avoid considering $\infty-\infty$; you may want to prove a lemma to the effect that if $g,h\colon X\to    \overline{\mathbb{R}}$ are measurable functions, then the set
   \[
-    \{x\in X\mid g(x)=h(x)\in\R\}
+    \{x\in X\mid g(x)=h(x)\in \overline{\mathbb{R}}    \}
   \]
   is measurable; to do this, you may want to consider functions like $\max\{g,\kappa\}$, $\min\{h,\kappa\}$ and $\min\{g,-\kappa\}$, $\min\{h,-\kappa\}$ for large real constants $\kappa>0$.
 
@@ -1413,7 +1413,7 @@ Suppose that $f\colon X\to\bar\R$ is $\bar{\cA}$-measurable. Prove that there is
 \[
 g(x):=\limsup_{n\to\infty} f_n(x) \quad\text{and}\quad h(x):=\liminf_{n\to\infty} f_n(x)
 \]
-Since each $f_n$ is measurable function, by proposition in lecture (sequential preservation of measurability), $g,h$ are measurable.
+Since each $f_n$ is measurable function, by proposition in lecture (sequential preservation of measurability), \textbf{$g,h$ are measurable.}
 
 And as we know, for any real sequence \((a_n)\),
 \[
@@ -1432,61 +1432,82 @@ E = \{x\in X \mid g(x)=h(x)\in \mathbb{R}   \}
 
 Note: here we want to have a difference function of the two functions, but it is undefined on $\infty - \infty$ type of points. So actually it is not valid to take the difference for functions mapping to $\overline{\mathbb{R}}$. This is why we use the following method instead:
 
-For each \(\kappa \in \mathbb{N}\), we define:
+For each \(n \in \mathbb{N}\), we define:
 \[
-g_\kappa(x):=\min\{\max\{g(x), -\kappa\}, \kappa\} \quad \text{and} \quad h_\kappa(x):=\min\{\max\{h(x), -\kappa\}, \kappa\}.
+g_n(x):=\min\{\max\{g(x), -n\}, n\} \quad \text{and} \quad h_n(x):=\min\{\max\{h(x), -n\},n\}
 \]
-
-\textbf{Claim 1.1: \[
-g(x)=h(x)\in\mathbb{R}\quad\Longleftrightarrow\quad \exists \kappa_0>0,\ \forall \kappa\ge\kappa_0,\quad g_\kappa(x)=h_\kappa(x).
+Notice that, \textbf{each $g_n, h_n$ is measurable}, since $g,h$ are measurable and constant function is measurable and we have proved in lecture that taking the max, min of two measurable functions is measurable.\\\\
+\noindent \textbf{Claim 1.1: \[
+g(x)=h(x)\in\mathbb{R}\quad\Longleftrightarrow\quad \exists N_0>0,\ \forall n\ge N_0,\quad g_n(x)=h_n(x)
 \]}
-\textbf{proof of claim 1.1:}
+\noindent \textbf{proof of claim 1.1:}
+Suppose $g(x)=h(x)\in\mathbb{R}$. Let \(M:=\max\{|g(x)|, |h(x)|\} < \infty\), then for any \(n> M\), we have
+   \(
+   g_n(x)=g(x),  h_n(x)=h(x)\), so \(g_n(x)=h_n(x)\). 
 
-
-1. **充分性**  
-   如果 \(g(x)\) 和 \(h(x)\) 都是有限数且相等，则设
-   \[
-   M=\max\{|g(x)|, |h(x)|\} < \infty.
+Suppose \(\exists N_0>0,\ \forall n\ge N_0,\quad g_n(x)=h_n(x)\), Then it is clear that  \[
+ g(x) =  g_{N_0}(x) = h_{N_0}(x)=h(x) < \infty
    \]
-   取任何 \(\kappa > M\)，显然有
-   \[
-   g_\kappa(x)=g(x) \quad \text{和} \quad h_\kappa(x)=h(x).
-   \]
-   故 \(g_\kappa(x)=h_\kappa(x)\)。而由于 \(M\)固定，对于所有 \(\kappa>M\) 都有 \(g_\kappa(x)=h_\kappa(x)\)。
+\pic[0.5]{hw4.assets/33121738963658\_.pic.jpg}
 
-2. **必要性**  
-   反过来，若存在一个 \(x\) 满足：对于所有足够大的 \(\kappa\)（即当 \(\kappa\) 超过某个阈值后），都有 \(g_\kappa(x)=h_\kappa(x)\)。  
-   记住，对于任一 \(x\)，当 \(\kappa\) 超过 \(|g(x)|\) 或 \(|h(x)|\) 时，截断函数就“稳定”了，即
-   \[
-   g_\kappa(x)=g(x) \quad \text{和} \quad h_\kappa(x)=h(x).
-   \]
-   因此必须有 \(g(x)=h(x)\)（且必然是有限的）。
-
-综合上述，可以看出：  
+\noindent \textbf{proof of remaining:}
+Therefore we have:
+\begin{equation}
+    E = \bigcup_{N=1}^\infty \bigcap_{n\ge N} \{x\in X \mid g_{n}(x)=h_{n}(x)\}
+\end{equation}
+Foe each $n \in \mathbb{N}$, we define
 \[
-g(x)=h(x)\in\mathbb{R}\quad\Longleftrightarrow\quad \exists \kappa_0>0,\ \forall \kappa\ge\kappa_0,\quad g_\kappa(x)=h_\kappa(x).
+E_n := \{x\in X \mid  g_{n}(x)=h_{n}(x)\}
 \]
-
-
-
-
-
+Since each $g_n, h_n$ is measurable and real-valued (finite), $g_n - h_n$ is measurable and $|g_n - h_n|$ is measurable, so we have for each $m\in \mathbb{N}$,
+\[
+\{x\in X: |g_{\kappa_n}(x)-h_{\kappa_n}(x)|<1/m\}  = |g_n - h_n|^{-1} ([0,1/m)) \in \mathcal{A}
+\]
+Thus \[E_n = \bigcap_{m\in \mathbb{N}}|g_n - h_n|^{-1} ([0,1/m)) \in \mathcal{A}\] is a measurable set.
 \end{proof}
 
 
 
-
+\begin{proof}
+    \textbf{of method (ii):}\\
+Recall: \textbf{a seq of real numbers converges iff it is a Cauchy.}
+Now we fix an arbitrary \(i\in\mathbb{N}\) and let \(\epsilon = 1/i\). Define:
+\[
+E_{i,j,k} = \{x\in X: |f_j(x)-f_k(x)| < 1/i\}
+\]
+Since each \(f_j\) is measurable, the function \(x\mapsto |f_j(x)-f_k(x)|\) is measurable (since each term in the sequence maps to $\mathbb{R}$ but not $\overline{\mathbb{R}}$), and hence \textbf{each \(E_{i,j,k} = |f_j(x)-f_k(x)|^{-1} ([0,1/i))\) is measurable.}\\\\
+\noindent For each \(i\), consider the set of \(x\in X\) for which the sequence \((f_n(x))\) satisfies the Cauchy condition with respect to \(\epsilon=1/i\). That is,
+\[
+E_i = \Big\{x\in X:  \exists N\in\mathbb{N} \text{ s.t. } \forall j,k\ge N,\; |f_j(x)-f_k(x)|<\frac1{i}\Big\}
+\]
+We can write \(E_i\) as
+\[
+E_i = \bigcup_{N=1}^\infty \bigcap_{j,k\ge N} E_{i,j,k}
+\]
+Since countable unions and intersections of measurable sets are measurable, \textbf{\(E_i\) is measurable.}\\\\
+\noindent Now, since \((f_n(x))\) converges in $\mathbb{R}$ i\textbf{ff it is Cauchy, i.e. it is in $E_i$ for each $i\in\mathbb{N}$}, we have:
+\[
+E = \bigcap_{i=1}^\infty E_i 
+= \bigcap_{i=1}^\infty \Big(\bigcup_{N=1}^\infty \bigcap_{j,k\ge N} E_{i,j,k}\Big)
+\]
+This is a countable intersection of measurable sets, and therefore \(E\) is measurable.
+\end{proof}
 
 
   
   
   \section{Measurability of continuity loci.}
-    Let $(X,d)$ be a metric space, and $f\colon X\to\bC$ any function. Prove that the set of points $x\in X$ such that $f$ is continuous at $x$ is a $G_\delta$-set, and in particular a Borel set.
+    Let $(X,d)$ be a metric space, and $f\colon X\to\mathbb{C}$ any function. Prove that the set of points $x\in X$ such that $f$ is continuous at $x$ is a $G_\delta$-set, and in particular a Borel set.
     \textit{Hint}: consider sets of the form
     \[
       \{x\in X\mid |f(y)-f(z)|\le\tfrac1n\ \text{whenever $\max\{d(y,x),d(z,x)\}\le\delta$}\}
     \]
     and show off your skills with quantifiers.
+
+
+
+
+    
     
 \section{Measurability of differentiability loci.}
   Let $f\colon\R\to\R$ be any function. Let us say (as usual) that $f$ is \emph{differentiable} at $x$ if there exists $\lambda\in\R$ such that $\lim_{y\to x}\frac{f(y)-f(x)}{y-x}=\lambda$. We also declare $f$ to be \emph{strongly differentiable} at $x$ if there exists $\lambda\in\R$ with the following property: for each $\epsilon>0$ there exists $\delta>0$ such that if $|y-x|\le\delta$ and $|z-x|\le\delta$, then $|f(y)-f(z)-\lambda(y-z)|\le\e|y-z|$.
