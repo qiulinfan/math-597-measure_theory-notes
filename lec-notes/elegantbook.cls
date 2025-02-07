@@ -1189,6 +1189,7 @@
 \DeclareMathOperator{\Map}{Map}
 \DeclareMathOperator{\conv}{conv}
 
+
 \newcommand{\sub}{\subseteq}
 \newcommand{\ul}{\underline}
 \newcommand{\ol}{\overline}
@@ -1202,6 +1203,12 @@
 \newcommand{\bigintsec}{\displaystyle\bigcap}
 \newcommand{\BR}{\mathbb{R}}
 
+\newcommand{\borel}{\mathcal{B}}
+\newcommand{\extR}{\overline{\mathbb{R}}}
+
+
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
 
 \DeclareMathOperator{\Res}{Res}
 \DeclareMathOperator{\card}{card}

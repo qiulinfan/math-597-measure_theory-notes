@@ -1225,4 +1225,10 @@
 \newcommand{\ds}{\displaystyle}
 
 \DeclareMathOperator{\card}{card}
+\newcommand{\borel}{\mathcal{B}}
+\newcommand{\extR}{\overline{\mathbb{R}}}
+
+
+\DeclareMathOperator{\re}{Re}
+\DeclareMathOperator{\im}{Im}
 

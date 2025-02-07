@@ -1100,13 +1100,33 @@ We apply the case where $E$ is bounded, confirming that there is some interval $
     \pic[0.25]{hw3.assets/image-20250131212337897.png}
 \end{proof}
 
+\begin{solution}
+        \textbf{of (c):} $C-C$ contain a nonempty open interval centered at the origin, and we will prove that one such interval is $(-1,1)$.
 \begin{proof}
-    \textbf{of (c):}\\
-    $C-C$ contain a nonempty open interval centered at the origin, and we will prove that one such interval is $(-1,1)$.\\
-    
+Recall the balanced ternary representation of $[-1/2, 1/2]$: $\forall x\in [-1/2, 1/2]$, there is a seq of $(a_n)_{n\in\bN} $ in $\{-1,0,1\}$ s,t,
+\[
+x=\sum_{n=1}^\infty \frac{a_n}{3^n},\qquad a_n\in\{-1,0,1\},
+\]
+Thus every $x\in [-1,1]$ can be halved, ternary expanded and then doubled to recover:
+\begin{align}
+    x=2\sum_{n=1}^\infty \frac{a_n}{3^n} &= \sum_{n=1}^\infty \frac{2a_n}{3^n},\qquad a_n\in\{-1,0,1\} \\
+    &= \sum_{n=1}^\infty \frac{b_n}{3^n},\qquad b_n\in\{-2,0,2\} 
+\end{align}
+
+And by the problem "The middle-thirds Cantor set", we learned that \[
+    C=\{ \sum_{i=1}^\infty \frac{a_i}{3^i} \mid \text{ $a_i\in \{0,2\}$ for all $i\in \bN$} \}.
+  \]
+Therefore we can write every number $x \in [-1, 1]$ into a difference of two $x,y \in C$, i.e. an element of $C-C$:
+\begin{align}
+    x &= \sum_{n=1}^\infty \frac{b_n}{3^n},\qquad b_n\in\{-2,0,2\} \\
+    &= \sum_{n=1}^\infty \frac{p_n-q_n}{3^n},\qquad p_n,q_n\in\{-2,0,2\}\\
+    &= \sum_{n=1}^\infty \frac{p_n}{3^n} - \sum_{n=1}^\infty \frac{q_n}{3^n},\qquad p_n,q_n\in\{-2,0,2\}
+\end{align}
+since each series converges independently. Here we let $p_n = 2, q_n = 0$ if $b_n = 2$; $p_n = 0, q_n = 2$ if $b_n = -2$, $p_n = 0, q_n = 0$ if $b_n = 0$.\\
+Thus $x \in C-C$, so $[-1,1] \sub C-C$.
 \end{proof}
 
-
+\end{solution}
 
 
 \section{a holey set}
@@ -1122,17 +1142,64 @@ We apply the case where $E$ is bounded, confirming that there is some interval $
 \item[(c)]
   Prove that there exists $t>0$ such that $m(A_t)=597/2025$.
 \end{itemize}
+\begin{proof}
+   \textbf{ of a:}
+   \pic[0.7]{hw3.assets/image-20250131221847429.png}
+\end{proof}
+\begin{proof}
+   \textbf{ of b:}
+Define for each $n\in \bN$
+$$
+I_n(t) = (x_n - 2^{-n}t, x_n + 2^{-n}t)
+$$
+Then $$A_t = [0,1] \setminus \union_{n=1}^\infty I_n(t)$$So
+$$
+m(A_t) = m([0,1]) - m(\union_{n=1}^\infty I_n(t)) = 1 - m(\union_{n=1}^\infty I_n(t))
+$$
 
+\textbf{Thus it suffices to show $t \mapsto m(\union_{n=1}^\infty I_n(t))$ is continuous.}
 
+Let $\epsilon >0$.
+Let $t >0$.\\
+We consider $p \in (t, t+\epsilon/2)$:
 
+By set inclusion relation and measure's property, we have:
+\begin{align}
+    m(\union_{n=1}^\infty I_n(p)) -    m(\union_{n=1}^\infty I_n(t)) &=  m(\union_{n=1}^\infty I_n(p) \setminus \union_{n=1}^\infty I_n(t))
+\end{align}
+Since 
+$$
+(\union_{n=1}^\infty I_n(p)) \setminus (\union_{n=1}^\infty I_n(t)) \sub \union_{n=1}^\infty (I_n(p) \setminus I_n(t))
+$$
+We have:
+\begin{align}
+      m(\union_{n=1}^\infty I_n(p)) -    m(\union_{n=1}^\infty I_n(t))  &\leq m(\union_{n=1}^\infty (I_n(p) \setminus I_n(t)))\\
+      & \leq \sum_{n=1}^\infty (m(I_n(p)) - m(I_n(t)))\\
+      &= \sum_{n=1}^\infty 2 \cdot 2^{-n}(p-t) \\
+      & = 2(p-t) \\
+      & \leq \epsilon
+\end{align}
+
+Similarly for $p \in (t-\epsilon/2,t)$, we get the same bound. This finishes the proof pf (b).
+\end{proof}
+\begin{proof}
+ \textbf{   of c:\\}
+ We use the same notation of $I_n(t)$ as in (b). We have:
+ $$
+ m(\union_{n=1}^\infty I_n(t) )  \leq  \sum_{n=1}^\infty m(I_n(t)) = \sum_{n=1}^\infty m(I_n(t)) =  \sum_{n=1}^\infty2\cdot 2^{-n} t = 2t.
+ $$
+ So by choosing $t:= 1/6$, we have $m(A_t) = 1 -  m(\union_{n=1}^\infty I_n(t) ) \geq 2/3$.
+ And by choosing $t:= 4$, $I_1(t)$ covers an interval of length $4$, so $A_t = \varnothing$, $m(A_t) = 0$.
+ By intermediate value theorem, there exists some $t \in(1/6, 4)$ such that $m(A_t)=597/2025$.
+\end{proof}
 
 
 \section{a Cantor measure}
   (A Cantor measure.)
-  Let $E\subset\bR$ be a nonempty compact set with the following property: for every $x\in E$ and every $\epsilon>0$, the set $(x-\epsilon,x)\cup(x,x+\epsilon)$ has nonempty intersection with both $E$ and $E^c$. Prove that there exists a Borel measure $\mu$ on $\mathbb{R}$ with the following properties:
+  Let $E\subset \mathbb{R}$ be a nonempty compact set with the following property: for every $x\in E$ and every $\epsilon>0$, the set $(x-\epsilon,x)\cup(x,x+\epsilon)$ has nonempty intersection with both $E$ and $E^c$. Prove that there exists a Borel measure $\mu$ on $\mathbb{R}$ with the following properties:
   \begin{itemize}
   \item[(i)]
-    if $I\subset\R$ is a nonempty open interval, then $\mu(I)>0$ iff $I\cap E\ne\emptyset$.
+    if $I\subset \mathbb{R}$ is a nonempty open interval, then $\mu(I)>0$ iff $I\cap E\ne\emptyset$.
   \item[(ii)]
     $\mu(\{x\})=0$ for all $x\in\mathbb{R}$; 
   \item[(iii)]
@@ -1140,6 +1207,339 @@ We apply the case where $E$ is bounded, confirming that there is some interval $
   \end{itemize}
   \textit{Hint}: set $\mu=\mu_F$, where $F$ is a distribution function whose graph is similar to the Devil's staircase above.
  
+\begin{proof}
+   Write $T:=0.597597597\dots$\\
+    Since $E$ is compact, $E^c$ is open.  Also, since $E$ is compact, it takes min and max element.\\
+    Thus we consider $A:= E^c \cap (\min E, \max E)$, this is an open set. We know any open set in $\mathbb{R}$ is a countable disjoint union of open intervals, so $A:=E^c \cap (\min E, \max E)  = \bigsqcup_{n=1}^\infty I_n$ for some disjoint intervals $I_1 = (a_1,b_1), I_2=(a_2,b_2), \cdots$ .\\\\
+Now we construct a function $G: A \rightarrow [0,T)$ by sending $G(x) = \sum_{b_i \leq a_N} \frac{T}{2^n}$, for $x \in I_N$.\\
+This is an \textbf{increasing step function} since, each $I_n$ is disjoint and on a fixed interval $I_N$, the number of $b_i$ that its $a_N$ surpasses is constant. And suppose $y>x$ is on $I_M$, we have must $G(y) \geq G(x)$ because he number of $b_i$ that $a_M$ surpasses is at least at many as that $a_N$ surpasses. \\
+And for each $x \in A$, we have \textbf{$G(x) < T$}, by geometric series\\
+Then we construct $F$ out of $G$, define:
+$$
+F:= \begin{cases}
+    0, \quad \quad x \leq \min E\\
+    \inf {\{G(y) \mid y \geq x, y\in A} \}, \quad \quad x \in (\min E, \max E)\\
+    T, \quad \quad x \geq \max E\\
+    
+\end{cases}
+$$
+\textbf{$F$ is increasing:} It is constant on $(-\infty, \min E) \cup (\max E, \infty)$ and is the infimum of $G(y)$ with $y\geq x$ on $(\min E, \max E)$. Since $G$ is increasing, $F$ is also increasing.\\
+\textbf{$F$ is right continuous:} It suffices to prove the right-continuity of $F$ on $x \in E^c \cap (\min E, \max E)$. \\
+Fix $x_0 \in E^c \cap (\min E, \max E)$.\\
+Let $\epsilon > 0$. \\
+Let $k \in \bN$ such that $\epsilon > \frac{T}{2^k+1}$.\\
+We define for each $y$, $S_y := \{b_i \mid x_0 \leq  b_i  \leq y\}$ as the set of all $b_i$ (right endpoint of $I_k$) that is witin $x_0$ and $y$. Note that $I_z \sub I_y$ for all $y > z$.\\
+Consider $y_1 := \min (\{b_1, \cdots, b_k\} \setminus S_x)$.\\
+Then for all $y \in (x_0,y_1)$, we have:
+$$
+F(y)  \leq F(x_0)  + \sum_{i=k}^\infty \frac{T}{2^i} \leq F(x_0) + \epsilon
+$$
+By defining $\delta : = y_1 - x_0$, we have shown the right continuity of $F$.\\
+(By dual reason, we can prove that $F$ is left continuous. So $F$ is actually continuous.)
+Above, we have shown that $F$ is a distribution function.\\\\
+Now let $\mu_F$ be the Lebesgue-Stieljes measure associated with $F$. We will prove for the three properties above:\\
+\begin{itemize}
+    \item[(i)] Let $\{x\}$ be a singleton set in $\bR$, for each $n\in \bN$, we can construct an h-intervals seq of covering of $\{x\}$ by $(x-1/n,x]$ as the first covering set and $\varnothing$ as all other covering sets.\\
+Then by the definition of $\mu_F$, we have:
+$$
+\mu_F(\{x\}) = \inf_{n\in\bN} (F(x) - F(x-1/n))
+$$
+By continuity, it shows that $\mu_F(\{x\}) = 0$.
+\item[(ii)] $$ \mu_F(\bR) = \lim_{x \rar \infty} F(x)  -  \lim_{x \rar -\infty}  F(x)  = T-0 = T = 0.597597597\cdots$$
+
+\item[(iii)] Let $I = (a,b)$ be a nonempty open interval.\\
+Suppose $\mu(I)>0$, then $F(b) - F(a) > 0$, so by definition of $G$, some must be at least two different intervals $I_{n_1}$, $I_{n_2}$ in $A$ such that for some $x,y \in (a,b)$, $x\in I_{n_1}$ and $y \in I_{n_2}$, thus $\exists$ some $e \in E$ such that $e \in (x,y)$. Thus $I\cap E\ne\emptyset$.\\
+Suppose $I\cap E\ne\emptyset$. Let $e \in E \cap I$. Since $\forall \epsilon >0$, $(x-\epsilon,x) \cup (x,x+\epsilon)$ has nonempty intersection with both $E$ and $E^c$, $e$ has some open neighborhood $B_\epsilon(e) \sub I$, intersecting two different $I_N$, $I_M \sub A$. Take $n \in I_N$, $m \in I_m$. Then $F(m) - F(n) = G(m) - G(n) > 0$, so $\mu_F(E) \geq F(m) -F(n) > 0$ by monotinicity of measure.\\
+This finishes the proof.
+
+
+\end{itemize}
+
+\end{proof}
+
+
+
+`   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{on integration I}
+\begin{center}
+\textit{None of the following questions will be graded. Do them, but do not hand them in}.
+\end{center}
+
+
+\section{One with Vitali.}
+  Let $(X,\cA)$ be a measurable space, and $E\subset X$ a subset. Prove that $E\in\cA$ iff the function $\chi_E$ is measurable. Use this to construct a function  $f\colon\R\to\R$ that is not Lebesgue measurable.
+  
+\section{Truncations.}
+Let $(X,\cA,\mu)$ be a measure space and $f\colon X\to [0, \infty]$ a measurable function.
+\begin{itemize}
+\item[(a)] (Horizontal truncation) Suppose that $X=\bigcup_{n=1}^\infty X_n$ for some $X_1\subset X_2\subset \cdots$ 
+with $X_n\in \cA$. Prove that 
+\[
+  \int_X f \,d\mu = \lim_{n\to \infty} \int_{X_n} f\,d\mu
+\]
+\item[(b)] (Vertical truncation)
+  Prove that
+\[
+  \int f\,d\mu = \lim_{n\to \infty} \int \min\{ f,  n\}\,d\mu.
+\]
+\item[(c)]
+  Explain the terminology ``horizontal truncation'' and ``vertical truncation''.
+\end{itemize}
+
+\section{Disregarding null sets.}
+  Let $(X,\cA,\mu)$ be a \emph{complete} measure space.
+  \begin{itemize}
+  \item[(a)]
+    Let $f\colon X\to\bar\R$ and $g\colon X\to\bar\R$ be functions such that $f=g$ $\mu$-a.e.
+    \begin{itemize}
+    \item[(i)]
+      Prove that $f$ is measurable (i.e.\ $\cA$-measurable) iff $g$ is measurable.
+    \item[(ii)]
+      Prove the same statement when $f$ and $g$ are $\bC$-valued, rather than
+      $\bar\R$-valued.
+    \item[(iii)]
+      Give examples showing that the condition that $\mu$ be complete is necessary.
+    \end{itemize}
+  \item[(b)]
+    Let $f_n\colon X\to\bar\bR$, $n\in\bN$, and $f\colon X\to \extR$ be functions such that $\lim_{n\to\infty}f_n(x)=f(x)$ for a.e. $x\in X$. 
+    \begin{itemize}
+    \item[(i)]
+      Prove that if $f_n$ is measurable for all $n$, then so is $f$.
+    \item[(ii)]
+      Prove the same statement when $f_n$ and $f$ are $\bC$-valued, rather than
+      $\bar\R$-valued.
+    \item[(iii)]
+      Give examples showing that the condition that $\mu$ be complete is necessary.
+    \end{itemize}
+  \end{itemize}
+  \textit{Hint}: this is Proposition 2.11 of [Folland].
+  
+\section{Measurable functions and completions.}
+  Let $(X,\cA,\mu)$ be a measure space and let $(X, \bar{\cA}, \bar{\mu})$ be its completion. 
+Suppose that $f\colon X\to\bar\R$ is $\bar{\cA}$-measurable. Prove that there is an $\cA$-measurable function $g\colon X\to\bar\R$ such that $g=f$ $\bar{\mu}$-a.e.,  and hence $\int g  \;d\mu=\int f \;d\bar{\mu}$. 
+\textit{Hint}: this is Proposition 2.12 of [Folland].
+
+\section{Measurability on subsets.}
+  Let $(X,\cA)$ be a measurable space, and $Y\subset X$ a nonempty subset.
+  We say that a function $g\colon Y\to\bar\R$ is \emph{$\cA$-measurable on $Y$} if $g$ is $\cA|_Y$-measurable, where the $\sigma$-algebra $\cA|_Y$ on $Y$ is defined as in HW1.
+  \begin{itemize}
+  \item[(a)]
+    Prove that if $f\colon X\to\bar\R$ is measurable and $Y\subset X$, then $g=f|_Y$ is $\cA$-measurable on $Y$. 
+  \item[(b)]
+    Prove that if $g$ is $\cA$-measurable on $Y$ and $Y\in \cA$, then $g$ can be extended to an $\cA$-measurable function $f$ on $X$. Is the extension unique?
+  \item[(c)]
+    Let $f\colon X\to\bar\R$ be any function, and set $Y=f^{-1}(\R)$. Prove that $f$ is measurable iff $f^{-1}(\{\infty\})\in \cA$, $f^{-1}(\{-\infty\})\in \cA$, and 
+    $f|_Y\colon Y\to\R$ is $\cA$-measurable on $Y$.
+  \end{itemize}
+
+\section{Suprema of uncountable families.}
+  Construct (using the Axiom of Choice, if needed) an \emph{uncountable} family $(f_\alpha)_\alpha$ of real-valued Borel measurable functions on $\R$ such that the function $\sup_\alpha f_\alpha$ is not Lebesgue measurable, let alone Borel measurable.
+
+\section{Increasing functions again.}
+  Let $f\colon\R\to\R$ be an increasing function. Prove that $f$ is Borel measurable. Use this to give an example of a function $f\colon\R\to\R$ that cannot be written as a difference between increasing functions.
+
+\section{Lebesgue but not Borel.}
+  Let $F\colon[0,1]\to[0,1]$ be the function from HW3, whose graph is the Devil's Staircase. Define $G(x)=F(x)+x$. 
+  \begin{itemize}
+  \item[(a)]
+    Prove that $G:[0,1]\to [0,2]$ is an increasing homeomorphism. In other words, $G$ is increasing, bijective, and both $G$ and $G^{-1}$ are continuous. 
+  \item[(b)]
+    Let $C$ be the middle-thirds Cantor set, and set $K:=G(C)$. Prove that $m(K)=1$. 
+  \item[(c)]
+    Since $m(K)>0$, we know from HW3 that there is a set $A\subset K$ that is not 
+    Lebesgue measurable. Prove that $B=G^{-1}(A)$ is Lebesgue measurable but not 
+    Borel measurable. 
+  \end{itemize}
+
+\section{Measurability and absolute values.}
+  Let $(X,\cA)$ be a measure space. 
+  Suppose that $f\colon X\to\bC$ is a measurable function. Prove that the function $|f|\colon X\to\R$ is also measurable. Is the converse true? 
+
+
+
+  
+\begin{center}
+\textit{Some of the following questions will be graded. Do them, and do hand them in. You may use the results from the exercises above}.
+\end{center}
+
+
+
+\section{Measurability of limit loci.}
+  Let $(X, \cA)$ be a measurable space. For each $n\in \bN$, let $f_n\colon X\to \mathbb{R}$ be a measurable function. Consider the set
+  \[
+    E:=\{x\in X\mid\lim_{n\to\infty} f_n(x)\ \text{converges to a real number}\}.
+  \]
+  Prove that $E$ is a measurable set in two ways:
+  \begin{itemize}
+  \item[(i)]
+    by expressing $E$ in terms of the functions $g(x)=\displaystyle\limsup_{n\to \infty} f_n(x)$ and
+    $h(x)= \displaystyle \liminf_{n\to \infty} f_n(x)$;
+  \item[(ii)]
+    by expressing $E$ in terms of the sets
+    \[
+      E_{i,j,k}=\{x\mid |f_j(x)-f_k(x)|<\tfrac1{i}\},
+    \]
+    where $i,j,k\in\bN$.
+    \textit{Hint}: a sequence $(a_n)_n$ of real numbers converges iff it is a Cauchy
+    sequence, i.e. for every  $ \epsilon >0$
+    there is $n$ such that for every $j,k\ge n$, $|a_j-a_k|< \epsilon$.
+  \end{itemize}
+  \textit{Hint}: note that $\pm\infty$ are not real numbers, and please avoid considering $\infty-\infty$; you may want to prove a lemma to the effect that if $g,h\colon X\to\bar\R$ are measurable functions, then the set
+  \[
+    \{x\in X\mid g(x)=h(x)\in\R\}
+  \]
+  is measurable; to do this, you may want to consider functions like $\max\{g,\kappa\}$, $\min\{h,\kappa\}$ and $\min\{g,-\kappa\}$, $\min\{h,-\kappa\}$ for large real constants $\kappa>0$.
+
+\begin{proof}
+   \textbf{ of method (i):}\\
+   Define:
+\[
+g(x):=\limsup_{n\to\infty} f_n(x) \quad\text{and}\quad h(x):=\liminf_{n\to\infty} f_n(x)
+\]
+Since each $f_n$ is measurable function, by proposition in lecture (sequential preservation of measurability), $g,h$ are measurable.
+
+And as we know, for any real sequence \((a_n)\),
+\[
+\lim_{n\to\infty} a_n \text{ exists (as a real number)} \quad\Longleftrightarrow\quad \limsup_{n\to\infty} a_n = \liminf_{n\to\infty} a_n \in \mathbb{R}
+\]
+
+Thus, for each \(x\in X\) we have:
+\[
+x\in E \quad\Longleftrightarrow\quad \limsup_{n\to\infty} f_n(x)=\liminf_{n\to\infty} f_n(x)\in \mathbb{R}
+\]
+
+Thus, we can write $E$ as:
+\[
+E = \{x\in X \mid g(x)=h(x)\in \mathbb{R}   \}
+\]
+
+Note: here we want to have a difference function of the two functions, but it is undefined on $\infty - \infty$ type of points. So actually it is not valid to take the difference for functions mapping to $\overline{\mathbb{R}}$. This is why we use the following method instead:
+
+For each \(\kappa \in \mathbb{N}\), we define:
+\[
+g_\kappa(x):=\min\{\max\{g(x), -\kappa\}, \kappa\} \quad \text{and} \quad h_\kappa(x):=\min\{\max\{h(x), -\kappa\}, \kappa\}.
+\]
+
+\textbf{Claim 1.1: \[
+g(x)=h(x)\in\mathbb{R}\quad\Longleftrightarrow\quad \exists \kappa_0>0,\ \forall \kappa\ge\kappa_0,\quad g_\kappa(x)=h_\kappa(x).
+\]}
+\textbf{proof of claim 1.1:}
+
+
+1. **充分性**  
+   如果 \(g(x)\) 和 \(h(x)\) 都是有限数且相等，则设
+   \[
+   M=\max\{|g(x)|, |h(x)|\} < \infty.
+   \]
+   取任何 \(\kappa > M\)，显然有
+   \[
+   g_\kappa(x)=g(x) \quad \text{和} \quad h_\kappa(x)=h(x).
+   \]
+   故 \(g_\kappa(x)=h_\kappa(x)\)。而由于 \(M\)固定，对于所有 \(\kappa>M\) 都有 \(g_\kappa(x)=h_\kappa(x)\)。
+
+2. **必要性**  
+   反过来，若存在一个 \(x\) 满足：对于所有足够大的 \(\kappa\)（即当 \(\kappa\) 超过某个阈值后），都有 \(g_\kappa(x)=h_\kappa(x)\)。  
+   记住，对于任一 \(x\)，当 \(\kappa\) 超过 \(|g(x)|\) 或 \(|h(x)|\) 时，截断函数就“稳定”了，即
+   \[
+   g_\kappa(x)=g(x) \quad \text{和} \quad h_\kappa(x)=h(x).
+   \]
+   因此必须有 \(g(x)=h(x)\)（且必然是有限的）。
+
+综合上述，可以看出：  
+\[
+g(x)=h(x)\in\mathbb{R}\quad\Longleftrightarrow\quad \exists \kappa_0>0,\ \forall \kappa\ge\kappa_0,\quad g_\kappa(x)=h_\kappa(x).
+\]
+
+
+
+
+
+\end{proof}
+
+
+
+
+
+
+  
+  
+  \section{Measurability of continuity loci.}
+    Let $(X,d)$ be a metric space, and $f\colon X\to\bC$ any function. Prove that the set of points $x\in X$ such that $f$ is continuous at $x$ is a $G_\delta$-set, and in particular a Borel set.
+    \textit{Hint}: consider sets of the form
+    \[
+      \{x\in X\mid |f(y)-f(z)|\le\tfrac1n\ \text{whenever $\max\{d(y,x),d(z,x)\}\le\delta$}\}
+    \]
+    and show off your skills with quantifiers.
+    
+\section{Measurability of differentiability loci.}
+  Let $f\colon\R\to\R$ be any function. Let us say (as usual) that $f$ is \emph{differentiable} at $x$ if there exists $\lambda\in\R$ such that $\lim_{y\to x}\frac{f(y)-f(x)}{y-x}=\lambda$. We also declare $f$ to be \emph{strongly differentiable} at $x$ if there exists $\lambda\in\R$ with the following property: for each $\epsilon>0$ there exists $\delta>0$ such that if $|y-x|\le\delta$ and $|z-x|\le\delta$, then $|f(y)-f(z)-\lambda(y-z)|\le\e|y-z|$.
+  \begin{itemize}
+  \item[(a)]
+    Does $f$ being differentiable at $x$ imply that $f$ is strongly differentiable at $x$? Give a proof or a counterexample.
+  \item[(b)]
+    Prove that the set of points $x\in\R$ at which $f$ is strongly differentiable is a Borel set. \textit{Hint}: consider sets of the form
+    \[
+      E_{\lambda,m,n}:=\{x\in\R\mid |f(y)-f(z)-\lambda(y-z)|\le\tfrac1n|y-z|\
+      \text{whenever $\max\{|y-x|,|z-x|\le\tfrac1m$}\}.
+      \]
+  \item[(c)]
+    \textit{Extra credit}: is the set of points $x\in\R$ at which $f$ is differentiable a Borel set?
+  \end{itemize}
+  
+\section{Monotone convergence?}
+  Let $(f_n)_1^\infty$ be a \emph{decreasing} sequence of non-negative measurable functions on a measure space. 
+  \begin{itemize}
+  \item[(a)]
+    Prove that if $\lim_n\int f_n<\infty$, then $\lim_n\int f_n=\int\lim_nf_n$. 
+  \item[(b)]
+    Give an example of a decreasing sequence $(f_n)_n$ of nonnegative measurable functions such that $\lim_n\int f_n\ne\int\lim_nf_n$. 
+  \end{itemize}
+  \textit{Hint}: use MCT correctly. 
+
+\begin{proof}
+\textbf{of (a):}\\
+
+\end{proof}
+
+
+
+\section{Vitali meet Cantor.} 
+  Construct a function $f\colon[0,1]\to[0,1]$ such that:
+  \begin{itemize}
+  \item[(a)] $f$ fails to be Lebesgue measurable;
+  \item[(b)]there exists a compact subset $K\subset(0,1)$ of positive Lebesgue measure such that $f$ is differentiable at every point $x\in K$.
+  \end{itemize}
+  \textit{Hint}: use the function $g(x)=\inf\{|x-y|\mid y\in K\}$; then square this with the title of the problem.
+
+
+\begin{solution}
+    We consider the function: \[ f(x) = \chi_V \cdot d(x,C)^2\]
+\end{solution}
+
+
+
+\subsection{harder Vitali meet Cantor (extra credit)}
+We change the requirement of (a) to be: "the restriction of $f$ to any open interval $I\subset[0,1]$ fails to be Lebesgue measurable". Then how can we make the construction?
+
+
+
 
 
 
