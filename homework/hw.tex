@@ -1277,7 +1277,7 @@ This finishes the proof.
 
 
 
-\chapter{on integration I}
+\chapter{on measurable functions}
 \begin{center}
 \textit{None of the following questions will be graded. Do them, but do not hand them in}.
 \end{center}
@@ -1448,7 +1448,7 @@ Suppose $g(x)=h(x)\in\mathbb{R}$. Let \(M:=\max\{|g(x)|, |h(x)|\} < \infty\), th
 Suppose \(\exists N_0>0,\ \forall n\ge N_0,\quad g_n(x)=h_n(x)\), Then it is clear that  \[
  g(x) =  g_{N_0}(x) = h_{N_0}(x)=h(x) < \infty
    \]
-\pic[0.5]{hw4.assets/33121738963658\_.pic.jpg}
+\pic[0.35]{hw4.assets/33121738963658\_.pic.jpg}
 
 \noindent \textbf{proof of remaining:}
 Therefore we have:
@@ -1464,6 +1464,8 @@ Since each $g_n, h_n$ is measurable and real-valued (finite), $g_n - h_n$ is mea
 \{x\in X: |g_{\kappa_n}(x)-h_{\kappa_n}(x)|<1/m\}  = |g_n - h_n|^{-1} ([0,1/m)) \in \mathcal{A}
 \]
 Thus \[E_n = \bigcap_{m\in \mathbb{N}}|g_n - h_n|^{-1} ([0,1/m)) \in \mathcal{A}\] is a measurable set.
+Thus $E$ is a countable union of countable intersections of mea
+surable sets, then measurable. 
 \end{proof}
 
 
@@ -1504,40 +1506,244 @@ This is a countable intersection of measurable sets, and therefore \(E\) is meas
     \]
     and show off your skills with quantifiers.
 
+\begin{proof}
+Recall: \(f\colon X\to\mathbb{C}\) \textbf{from a metric space} is continuous at \(x\in X\) iff for every \(\varepsilon > 0\) there exists a \(\delta > 0\) such that\( |f(y)-f(x)| < \varepsilon \text{ whenever } d(y,x) < \delta \).
+We can easily check that, \textbf{this condition is equivalent to}: for every \(\varepsilon > 0\) there exists a \(\delta > 0\) such that \(|f(y)-f(z)| < \varepsilon \quad \forall y,z \in B_\delta(x)\), by the relation of diameter and radius of the open ball).\\\\
+Thus we have: 
+\[
+x \in C \Longleftrightarrow \forall n\in\mathbb{N},\ \exists m\in\mathbb{N} \text{ s.t.} y,z \text{ with } d(y,x) < \tfrac{1}{m} \text{ and } d(z,x) < \tfrac{1}{m},\; |f(y)-f(z)| < \tfrac{1}{n}
+\]
+In other words, \textbf{\(x\) is a continuity point iff it belongs to:}
+\[
+C = \bigcap_{n=1}^\infty \bigcup_{m=1}^\infty U_{n,m}.
+\] where \[
+U_{n,m} = \Big\{x\in X \mid  y,z\in B_\frac{1}{m} (x)\implies |f(y)-f(z)| < \tfrac{1}{n}\Big\}
+\]
+\textbf{Claim: \(U_{n,m}\) is open.}\\
+\textbf{Proof of Claim:}\\
+Let \(x\in U_{n,m}\). WTS: $\exists$ an \(\varepsilon > 0\) such that \(B_\varepsilon(x) \subset U_{n,m}\).\\
+Consider: \(\varepsilon = \tfrac{1}{2m}\). \\
+Let \(y \in B_\varepsilon(x)\). Take any two points \(z,w \in X\) satisfying
+\[
+d(z,y) < \tfrac{1}{2m} \quad \text{and} \quad d(w,y) < \tfrac{1}{2m}
+\]
+Then by the triangle inequality, we have:
+\[
+d(z,x) \le d(z,y) + d(y,x) < \tfrac{1}{2m} + \tfrac{1}{2m} = \tfrac{1}{m}
+\]
+Similarly, \(d(w,x) < \tfrac{1}{m}\).  Since \(x \in U_{n,m}\), it follows that
+\[
+|f(z) - f(w)| < \tfrac{1}{n}
+\]
+Thus, the condition defining \(U_{n,m}\) holds for \(y\), meaning \(y \in U_{n,m}\).  This proves that \(B_\varepsilon(x) \subset U_{n,m}\), thus $U_{n,m}$ is open since $x$ is arbitrary.\\\\
+Therefore:
+\[
+C = \bigcap_{n=1}^\infty \bigcup_{m=1}^\infty U_{n,m}
+\] is $G_\delta$ since each $ \bigcup_{m=1}^\infty U_{n,m}$ is a union of open sets, thus open; and $C$ is thus a countable intersection of open sets, namely a \(G_\delta\)-set. (thus Borel).
 
-
-
-    
+\end{proof}
+\begin{comment}
+\begin{remark}
+  对于任意一个 metric space, 它的所有连续点构成的集合都是 countable 个 open sets 的交集.  
+\end{remark}
+\end{comment}   
     
 \section{Measurability of differentiability loci.}
-  Let $f\colon\R\to\R$ be any function. Let us say (as usual) that $f$ is \emph{differentiable} at $x$ if there exists $\lambda\in\R$ such that $\lim_{y\to x}\frac{f(y)-f(x)}{y-x}=\lambda$. We also declare $f$ to be \emph{strongly differentiable} at $x$ if there exists $\lambda\in\R$ with the following property: for each $\epsilon>0$ there exists $\delta>0$ such that if $|y-x|\le\delta$ and $|z-x|\le\delta$, then $|f(y)-f(z)-\lambda(y-z)|\le\e|y-z|$.
+Let $f\colon\mathbb{R}\to\mathbb{R}$ be any function. Let us say (as usual) that $f$ is \textbf{\emph{differentiable}} at $x$ if there exists $\lambda\in \mathbb{R}$ such that $\lim_{y\to x}\frac{f(y)-f(x)}{y-x}=\lambda$. 
+  
+We also declare $f$ to be\textbf{ \emph{strongly differentiable} }at $x$ if there exists $\lambda\in \mathbb{R}$ with the following property: for each $\epsilon>0$ there exists $\delta>0$ such that if $|y-x|\le\delta$ and $|z-x|\le\delta$, then $|f(y)-f(z)-\lambda(y-z)|\le\epsilon |y-z|$.
+
+
   \begin{itemize}
-  \item[(a)]
-    Does $f$ being differentiable at $x$ imply that $f$ is strongly differentiable at $x$? Give a proof or a counterexample.
-  \item[(b)]
-    Prove that the set of points $x\in\R$ at which $f$ is strongly differentiable is a Borel set. \textit{Hint}: consider sets of the form
-    \[
-      E_{\lambda,m,n}:=\{x\in\R\mid |f(y)-f(z)-\lambda(y-z)|\le\tfrac1n|y-z|\
+  \item[(a)]Does $f$ being differentiable at $x$ imply that $f$ is strongly differentiable at $x$? Give a proof or a counterexample.
+  \item[(b)]Prove that the set of points $x\in \mathbb{R}$ at which $f$ is strongly differentiable is a Borel set. \textit{Hint}: consider sets of the form    \[
+      E_{\lambda,m,n}:=\{x\in \mathbb{R} \mid |f(y)-f(z)-\lambda(y-z)|\le\tfrac1n|y-z|\
       \text{whenever $\max\{|y-x|,|z-x|\le\tfrac1m$}\}.
       \]
-  \item[(c)]
-    \textit{Extra credit}: is the set of points $x\in\R$ at which $f$ is differentiable a Borel set?
+  \item[(c)]\textit{Extra credit}: is the set of points $x\in \mathbb{R}$ at which $f$ is differentiable a Borel set?
   \end{itemize}
+  
+\begin{solution}
+    \textbf{of (a):} No. Consider the following counterexample: \\
+\[
+f(x)=
+\begin{cases}
+x^2\sin\Bigl(\frac{1}{x}\Bigr), & x\neq 0\\
+0, & x=0
+\end{cases}
+\]
+We know that
+\[
+\frac{f(x)-f(0)}{x-0} = \frac{x^2\sin(1/x)}{x} = x\sin(1/x)
+\]
+Note \(|x\sin(1/x)|\le |x|\), so when \( x\to 0 \) we have:
+\[
+\lim_{x\to 0} x\sin(1/x) = 0
+\]
+Thus $f$ is differentiable at $0$ and \( f'(0)=0 \).
+
+\begin{lemma}
+ $f:\mathbb{R} \rightarrow \mathbb{ R}$ is strongly differentiable at $x$ $\implies$ it is differentiable at $x$, and $\lambda$ is uniquely equal to the derivative at $x$.
+\end{lemma}
+\begin{proof}
+    \textbf{of lemma 4.1:}\\
+   Suppose $f:\mathbb{R} \rightarrow \mathbb{ R}$ is strongly differentiable at $x$, so for any \(\epsilon>0\), there exists \(\delta>0\) s.t. for all $y,z\in B_\delta (x)$, we have: \[
+\Bigl|f(y)-f(z)-\lambda(y-z)\Bigr|\le \epsilon\,|y-z|.
+\]
+Suppose $y\not = z$, then dividing by \(|y-z|\) on both sides, we have
+\[
+\Bigl|\frac{f(y)-f(x)}{y-x}-\lambda\Bigr|\le \epsilon
+\]
+Since $\epsilon$ is arbitrary, this proves that 
+\[
+f'(x) = \lim_{y\to x}\frac{f(y)-f(x)}{y-x}=\lambda  
+\]
+\end{proof}
+
+Now we go back to the counterexample. Suppose for contradiction that $f$ is strongly differentiable at $0$, then $\lambda = 0$, so for all \(\epsilon>0\), there exist \(\delta>0\) s.t. for all $y,z \in B_\delta(0)$, we have
+\[
+|f(y)-f(z)| \le \epsilon\,|y-z|
+\]
+Consider \(\epsilon=\tfrac{1}{4}\). Let $\delta > 0$. Take $n\in\mathbb{N}$ s.t.
+\[
+\frac{1}{(2n+\tfrac{3}{2})\pi} < \delta
+\]and then take
+\[
+y_n:= \frac{1}{\left(2n+\tfrac{1}{2}\right)\pi},\quad
+z_n:= \frac{1}{\left(2n+\tfrac{3}{2}\right)\pi}
+\]Note that each $|y_n|,|z_n| < \delta$. And we have \[
+   \sin\Bigl[\Bigl(2n+\tfrac{1}{2}\Bigr)\pi\Bigr]=(-1)^n,\quad
+   \sin\Bigl[\Bigl(2n+\tfrac{3}{2}\Bigr)\pi\Bigr]= -(-1)^n
+   \]Thus \[
+   f(y_n)-f(z_n)= (-1)^n\bigl[y_n^2+z_n^2\bigr]
+   \]while 
+\[
+y_n-z_n = \frac{1}{\left(2n+\tfrac{1}{2}\right)\pi} - \frac{1}{\left(2n+\tfrac{3}{2}\right)\pi}
+=\frac{1}{\pi\left(2n+\tfrac{1}{2}\right)\left(2n+\tfrac{3}{2}\right)}
+\]
+Taking limit of this behavior (increasing $n$), we get the sequential limit of \(\frac{|f(y_n)-f(z_n)|}{|y_n-z_n|} \) indexing over $n$ is $\frac{\frac{1}{2\pi^2 n^2}}{\frac{1}{4\pi n^2}} = \frac{2}{\pi}$.
+By taking large enough $n$, we can alwasy get \(\frac{|f(y_n)-f(z_n)|}{|y_n-z_n|} \) to be arbitrarily close to \( \frac{2}{\pi}> \frac{1}{4}\).
+This shows that $f$ is not strongly differentiable at $0$.
+\end{solution}
+
+
+\begin{proof}
+   \textbf{ of (b):}\\
+Let $f\colon\mathbb{R}\to\mathbb{R}$ be any a function.Denote \[ E: = \{x\in \mathbb{R}\mid f \text{ is strongly differentiable at } x\}\]
+WTS: $E$ is a Borel set.
+
+Set for each $\lambda \in \mathbb{R}, m,n\in\mathbb{N}$: \[ E_{\lambda,m,n}:=\{x\in \mathbb{R} \mid |f(y)-f(z)-\lambda(y-z)|\le\tfrac1n|y-z|\   \;\; \forall y,z \in B_{\frac{1}{m}}(x)\}\]
+where $ B_{\frac{1}{m}}(x)$ denote the open ball centered at $x$ with radius $\frac{1}{m}$.
+
+Then by the definition of strongly differentiable, we have: \[
+   E=\bigcup_{\lambda\in\mathbb{R}}\bigcap_{n\in\mathbb{N}}\bigcup_{m\in\mathbb{N}} E_{\lambda,m,n}\,
+   \]
+\noindent \textbf{Claim 3.1: Each $ E_{\lambda,m,n}$ is open.}\\
+\textbf{Proof of Claim 3.1:} Let \(x\in E_{\lambda,m,n}\). Then
+\[\forall y,z\in B_{1/m}(x),\quad \bigl|f(y)-f(z)-\lambda(y-z)\bigr|\le \frac1n\,|y -z|\]
+In particular, the inequality holds for all \(y,z\in B_{1/(2m)}(x)\). Now consider $B_{1/(2m)}(x)$, let $x' \in B_{1/(2m)}(x)$, then for every \(y\in B_{1/(2m)}(x')\), we have \[
+|y-x|\le |y-x'|+|x'-x|<\frac{1}{2m}+\frac{1}{2m}=\frac{1}{m} \]
+so \(B_{1/(2m)}(x')\subset B_{1/m}(x)\). Hence the inequality holds for all \(y,z\in B_{1/(2m)}(x')\). This confirms that every \(x\in E_{\lambda,m,n}\) has a neighborhood contained in \(E_{\lambda,m,n}\), proving that \(E_{\lambda,m,n}\) is open.\\\\
+
+
+Now that each $ E_{\lambda,m,n}$ is open, we have $\bigcup_{m\in\mathbb{N}} E_{\lambda,m,n}$ is each for each $\lambda , n$; thus each for each $\lambda$, \(\ G_\lambda := \bigcap_{n\in\mathbb{N}}\bigcup_{m\in\mathbb{N}} E_{\lambda,m,n}\) is a $G_\delta$ set.
+
+\[E = \bigcup_{\lambda\in\mathbb{R}} G_\lambda \]
+is a union of $G_\delta$ sets.
+
+(I do not now how to deal with it then, it might be that we somehow reduce it to countable union of $G_\delta$ sets, getting something like $E = \bigcup_{\lambda\in\mathbb{Q}} G_\lambda $ using the density of $\mathbb{Q}$ in $\mathbb{R}$, thus confirming that it is Borel.)
+\end{proof}
+
+
   
 \section{Monotone convergence?}
   Let $(f_n)_1^\infty$ be a \emph{decreasing} sequence of non-negative measurable functions on a measure space. 
   \begin{itemize}
-  \item[(a)]
-    Prove that if $\lim_n\int f_n<\infty$, then $\lim_n\int f_n=\int\lim_nf_n$. 
-  \item[(b)]
-    Give an example of a decreasing sequence $(f_n)_n$ of nonnegative measurable functions such that $\lim_n\int f_n\ne\int\lim_nf_n$. 
+  \item[(a)]  Prove that if $\lim_n\int f_n<\infty$, then $\lim_n\int f_n=\int\lim_nf_n$. 
+  \item[(b)]Give an example of a decreasing sequence $(f_n)_n$ of nonnegative measurable functions such that $\lim_n\int f_n\ne\int\lim_nf_n$. 
   \end{itemize}
   \textit{Hint}: use MCT correctly. 
 
 \begin{proof}
 \textbf{of (a):}\\
+Since \((f_n)\) is a decreasing sequence, i.e. for every \(x\in X\) we have
+\[
+f_1(x) \ge f_2(x) \ge f_3(x) \ge \cdots 
+\]
+We can define the function
+\[
+g_n(x) = f_1(x) - f_n(x)
+\] for each $n \in \mathbb{N}$. Then for the seq $(g_n(x))$ we have:
+\begin{itemize}
+    \item non-negatice: \(g_n(x) \ge 0 \;\; \forall x\) because \(f_1(x) \ge f_n(x)\).
+    \item  increasing in $n$:\[
+  g_n(x) = f_1(x) - f_n(x) \le f_1(x) - f_m(x) = g_m(x) \;\;\forall  m\geq n, \forall x
+  \] since \((f_n)\) is decreasing.\\\\
+\end{itemize}
 
+Define $f(x) := \lim_n f_n(x) \in \overline{\mathbb{R}}$ for each $x \in X$.
+
+Since \(f_n(x)\) decreases to \(f(x):=\lim_{n\to\infty} f_n(x)\), we have \[
+  \lim_{n\to\infty} g_n(x) = f_1(x) - \lim_{n\to\infty} f_n(x) = f_1(x) - f(x)
+  \]
+Now we \textbf{apply MCT to the increasing sequence \((g_n)\)}. We have:
+\[
+\lim_{n\to\infty} \int g_n\,d\mu = \int \Bigl(\lim_{n\to\infty} g_n\Bigr)\,d\mu = \int (f_1 - f)\,d\mu
+\]
+And since \(\lim_{n\to\infty}\int f_n\,d\mu < \infty\), we have\[
+\lim_{n\to\infty} \int g_n\,d\mu = \int f_1 \, d\mu - \int f \;d\mu
+\] Also, because of \(\lim_{n\to\infty}\int f_n\,d\mu < \infty\), \textbf{$\int f_n $ is eventually finite}. Say, it is finite after $n\geq N \in \mathbb{N}$. We only need to consider $n\geq N$ when considering the limit behavior.\\
+Then for each \(n \geq N\),
+\[
+\int g_n\,d\mu = \int \bigl(f_1 - f_n\bigr)\,d\mu = \int f_1\,d\mu - \int f_n\,d\mu
+\]
+Taking the limit as \(n\to\infty\), have
+\[
+\lim_{n\to\infty} \int g_n\,d\mu = \lim_{n\to\infty} \left(\int f_1\,d\mu - \int f_n\,d\mu\right) = \int f_1\,d\mu - \lim_{n\to\infty} \int f_n\,d\mu
+\]
+by linearity of numerical sequence.\\
+Thus, combining with the result from MCT we have:
+\[
+\int f_1\,d\mu - \lim_{n\to\infty} \int f_n\,d\mu =  \int f_1 \,d\mu- \int f \;d\mu
+\]
+Rearrange to get:
+\[
+\lim_{n\to\infty} \int f_n\,d\mu = \int f\,d\mu,
+\]
+which is exactly what we wanted to prove.
 \end{proof}
+
+\begin{solution}
+    \textbf{of (b):}\\
+ Consider defining $(f_n: \mathbb{R} \rightarrow \mathbb{ R})_{n\in\mathbb{N}}$ with
+\[
+f_n(x) = \chi_{[n,\infty)}(x)
+\]
+Note that: \begin{itemize}
+    \item  \textbf{$f_n$ is a decreasing seq}: For each \(n\) and every \(x\in\mathbb{R}\),\[
+   f_{n+1}(x) = \chi_{[n+1,\infty)}(x) \le \chi_{[n,\infty)}(x) = f_n(x)
+   \]
+since \([n+1,\infty) \subset [n,\infty)\).
+\item \textbf{$(f_n)$ the pointwise limit}:\[
+   \lim_{n\to\infty} f_n(x) = 0 \quad \forall x\in\mathbb{R}
+   \]since for each $x$ there exists an \(N\) (any integer greater than \(x\)) such that for all \(n \ge N\), \(x < n\) and hence \(f_n(x)=0\).
+   \item For each $n$, \[
+     \int_{\mathbb{R}} f_n\,d\lambda = \int_n^\infty 1\,dx = \infty
+     \]
+   But on the other hand
+     \[
+     \int_{\mathbb{R}} \Bigl(\lim_{n\to\infty} f_n\Bigr)\,d\lambda = \int_{\mathbb{R}} 0\,d\lambda = 0
+     \]
+
+\end{itemize}
+Then we have the decreasing seq of function with
+\[
+\lim_{n\to\infty} \int f_n\,d\lambda = \infty \quad \text{while} \quad \int \Bigl(\lim_{n\to\infty} f_n\Bigr)\,d\lambda = 0
+\]
+This shows that in the absence of the finiteness assumption, the limit and integration need not commute.
+\end{solution}
+
+
 
 
 
@@ -1551,14 +1757,57 @@ This is a countable intersection of measurable sets, and therefore \(E\) is meas
 
 
 \begin{solution}
+Let $V$ be a Vitali set on $[0,1]$, $C$ be the fat Cantor set on $[0,1]$ by recursively taking away the middle open subinterval of length $\frac{1}{4^{n}}$ on the $n$th recursion. 
     We consider the function: \[ f(x) = \chi_V \cdot d(x,C)^2\]
+where \[d(x,C) := \{\inf\{|x-y|\mid y\in C\}\]
+By Hw3, we know $V$ is not Lebesgue measurable, and $C$ is compact with positive Lebesgue measure $\frac{1}{2}$.
+
+And since $f^{-1} (\{1\}) = V$, mapping a not measurable set to a measurable set, \textbf{$\chi_V$ is not measurable function. }
+
+And since the distance function $d(x,C)$ is a continuous function of $[0,1]$, it is measurable, by the result proved in class that a continuous funciton on a topological space is measurable.
+
+\begin{lemma}
+The product of a measurable $f:\mathbb{R}\rightarrow \mathbb{R}_{>0}$ and a not measurable $g: \mathbb{R}\rightarrow \mathbb{R}$ is not measurable.
+\end{lemma}
+
+\noindent \textbf{Proof of Lemma 4.2: } 
+$f$ measurable $\implies$ $1/f$ measurable. Suppose for contradiction that $fg$ is measurable, then  $g = \frac{1}{f}(f g) $ is the product of two measurable functions, thus measurable, contradicting the fact that $g$ is not measurable. Thus $fg$ is not measurable.\\\\
+
+\noindent \textbf{Claim 5.1: $f$ is not measurable.}
+\noindent \textbf{Proof of claim 5.1:}
+Thus on the open set $A = [0,1] \setminus C$, $d(x,C)^2$ is positive, so $\chi_V |_A d(x,C)^2|_A $  is not measurable since it is a product of measurable and not measurable function by lemma 4.2. Thus\textbf{ $f$ is not measurable,} otherwise its restriction on $A$ should also be measurable.\\\\
+
+\noindent \textbf{Claim 5.2: $f$ is differentiable on $C$.}
+\textbf{Proof of claim 5.2:} 
+Fix \(x\in C\), then $f(x) = 0$. We want to show:\(f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h} = \lim_{h\to 0}\frac{f(x+h)}{h}\) exists
+Let $h > 0$.
+Case 1: \(x+h\notin V\), then \(\chi_V(x+h)=0\), so we have \(f(x+h)=\chi_V(x+h)\,d(x+h,C)^2=0
+  \), then 
+  \(\frac{f(x+h)}{h}=0\). 
+Case 2: \(x+h\in V\), we have: \[
+  d(x+h,C)=\inf_{y\in C}|(x+h)-y|\le |(x+h)-x|=|h|
+  \] So  \[
+  \left|\frac{f(x+h)}{h}\right|=\frac{d(x+h,C)^2}{|h|}\le\frac{|h|^2}{|h|}=|h|
+  \]
+Therefore for all cases we have:
+\[
+\left|\frac{f(x+h)-f(x)}{h}\right|=\left|\frac{f(x+h)}{h}\right|\le |h|
+\]
+This confirms that 
+\[
+f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}=0
+\]
+
+This finishes the proof of required properties of $f$.
 \end{solution}
 
 
 
 \subsection{harder Vitali meet Cantor (extra credit)}
 We change the requirement of (a) to be: "the restriction of $f$ to any open interval $I\subset[0,1]$ fails to be Lebesgue measurable". Then how can we make the construction?
-
+\begin{solution}
+    I don't know.
+\end{solution}
 
 
 
