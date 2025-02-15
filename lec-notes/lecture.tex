@@ -1753,7 +1753,7 @@ By Chebyshev, each $A_n$ 都有: $\mu(A_n) \leq \frac{1}{n} \int t$, 从而 by c
 
 
 
-\chapter{integration of real and complex functions}
+\chapter{integration of real and complex functions I}
 
 我们目前只定义了 non-negative $\overline{\mathbb{R}}$-valued measurable function 的积分, 而我们想要完整地定义: $\overline{\mathbb{R}}$-valued measurable function 的积分 $\int f \in \extR$, 以及 $\mathbb{C}$-valued  measurable function 的积分 $\int f \in \mathbb{C}$.
 
@@ -1780,7 +1780,7 @@ recall: 对于任意 $\extR$-valued $f$, \[f = f^+ - f^-\]
 
 
 
-
+\section{$\tilde{L}(X, \mu, \mathbb{C})$ and $L^1(X, \mu, \mathbb{C}$)}
 \begin{definition}{real-valued integrable function}
 Given measure space $(X,\mathcal{M},\mu)$,  \textbf{measurable $f : X \rightarrow \extR$ 被称为 integrable} 的, 如果它满足 \[ \int |f| < \infty\] 并定义其 integral 为: \[\int f = \int f^+ - \int f^-\]
 \end{definition}
@@ -1802,27 +1802,682 @@ Given measure space $(X,\mathcal{M},\mu)$,  \textbf{measurable $f : X \rightarro
 \end{proposition}
 \begin{proof}
     trivial.
-    由此可见我们可以定义这个 vector space 并在上面进行一定研究.
 \end{proof}
-
-以下为一个 temporary 的记号:
-\begin{definition}{$\tilde{L}(\mu, \mathbb{R})$ 以及$\tilde{L}(\mu, \mathbb{C})$ space}
+下面我们可以定义这个 vector space 并在上面进行一定研究. 此处为一个 temporary 的记号:
+    
+\begin{definition}{$\tilde{L}(X, \mu, \mathbb{R})$ 以及$\tilde{L}(X, \mu, \mathbb{C})$ space}
 给定 measure space $(X, \mathcal{M},\mu)$
-    我们定义 \[\tilde{L}(\mu, \mathbb{R}) := \{  \text{all (extended) real-valued integrable functions on } X\} \] 以及 \[\tilde{L}(\mu, \mathbb{C}) := \{  \text{all complex-valued integrable functions on } X\} \]
+    我们定义 \[\tilde{L}(X,\mu, \mathbb{R}) := \{  \text{all (extended) real-valued integrable functions on } X\} \] 以及 \[\tilde{L}(X, \mu, \mathbb{C}) := \{  \text{all complex-valued integrable functions on } X\} \]
 \end{definition}
 \begin{remark}
     这基本接近我们最终的可积空间的定义了. 只需要再 quotient 掉所有的 a.e. 相等的函数就可以. 在此之间, 我们首先在这临时的空间上证明一些结论.
 
-   \textbf{ 我们基本不使用 \(\tilde{L}(\mu, \mathbb{R})\), 因为它是 \(\tilde{L}(\mu, \mathbb{C})\) 的 subspace, 而且大部分结论基本都在更 general 的 \(\tilde{L}(\mu, \mathbb{C})\) 上成立.}
+   \textbf{ 我们基本不使用 \(\tilde{L}(X,\mu, \mathbb{R})\), 因为它是 \(\tilde{L}(X,\mu, \mathbb{C})\) 的 subspace, 而且大部分结论基本都在更 general 的 \(\tilde{L}(X,\mu, \mathbb{C})\) 上成立.}
+\end{remark}
+\begin{remark}
+    这个 $\mathbb{C}$-vector space 的 dimension 是多少呢: \\
+    如果 $X$ 是一个 finite set, 那么 \(\tilde{L}(X,\mu, \mathbb{C})\)  的 dimension 是 $|X|$, 因为 $e_i : x_j \mapsto \delta_{ij}$ 是一个 basis; 同样的, 如果 $X$ countable, 那么 \(\tilde{L}(X,\mu, \mathbb{C})\) 的 dimension 也是 countably infinite 的; 如果 $X$ uncountable, 那么 \(\tilde{L}(X,\mu, \mathbb{C})\) 的 dimension 也是 uncountable 的.\\
+    比如, \(\tilde{L}(\mathbb{R}^n,\mu, \mathbb{C})\) 的 dimension 就是 uncountable 的.
+\end{remark}
+
+\begin{proposition}
+    \(\tilde{L}(X, \mu, \mathbb{C})\) 上, $f\mapsto \int f$ 为一个 linear functional.
+\end{proposition}
+因为积分是 linear 的, as we have proved.
+
+
+\begin{proposition}
+$$f \in \tilde{L}(X,\mu, \mathbb{C}) \implies |\int f| \leq \int |f|$$
+\end{proposition}
+\begin{proof}
+    For real-valued case, $$ \Big| \int f  \Big| =\Big|\int f^+ - \int f^- \Big|  \leq \Big|\int f^+\Big| +  \Big|  \int f^- \Big|  = \int f^+  + \int f^- = \int |f|$$
+For complex-valued case,
+Set $$\alpha = \frac{\int f}{|\int f|}$$
+    于是有 $\alpha \in \mathbb{C}$ 且 $|\alpha| = 1$. \textbf{Note: 一个绝对值为 1 的 complex number 的倒数是它的 conjuate.} \\
+   因而:
+   $$
+  \Big|\int f \Big| = \overline{\alpha} \int f = \int \overline{ \alpha } f  \in \mathbb{ R}
+   $$
+   从而 $$ \Big| \int f \Big|  = \int \overline{\alpha} f = \int \re (\overline{\alpha } f) \leq \int |\re (\overline{\alpha} f)  | \leq \int |\overline{\alpha} f| = \int |f|$$
+\end{proof}
+
+
+
+\begin{definition}{integratal restricted to a measurable set}
+    if $f \in \tilde{L}(X, \mu, \mathbb{C})$, $E \in \mathcal{A}$ ($\mu$ 的 $\sigma$-algebra), 我们 define: $$\int_E f   \, d \mu := \int f  \chi_E \, d \mu$$\end{definition}
+\begin{remark}
+    容易验证, restricted to a measurable set 的积分也是 linear 且 monotone 的.
 \end{remark}
 
 
 
+\begin{proposition}{可积函数几乎处处相等的等价条件}
+    if $f,g \in \tilde{L}(X, \mu, \mathbb{C})$, 则 TFAE: 
+    \begin{itemize}
+        \item $f=g $ a.e.
+        \item $\int |f-g| = 0$
+        \item $\int _E f = \int _E g$ for all $E \in \mathcal{A}$
+    \end{itemize}
+\end{proposition}
+\begin{proof}
+    $(i) \Longleftrightarrow (ii) $: by last time proposition.\\
+    $(ii) \implies (iii)$: 因为 $$
+    \Bigg|\int_E f - \int _E g  \Bigg|  = \Bigg| \int (f-g_)\chi_E  \Bigg| \leq \int |f-g| \chi_E \leq \int|f-g| = 0
+    $$
+    $(iii) \implies (ii)$: 令 $u := \Re (f-g)$, $v := \Im (f-g)$, 则 $$
+    \int |f-g| = \int u^+ + \int u^- + i\int v^+ + i\int v^-
+    $$
+\textbf{这四个积分都是正值. }容易发现如果 $u^+$ 在一个 positive measure set $E$ 上非 0, 那么 $\int_E u^+ > 0$ , 那么 $\int |f-g| > 0$. (其他三个积分同理.)
+\end{proof}
+\begin{remark}
+    $\int |f-g| = 0$ 是一个比 $\int f-g = 0$ 更强的条件. $\int f-g = 0$ 可以是非零集有交错并且正负抵消, 而 $\int |f-g| = 0$ 则表示 a.e. 相等.
+    \end{remark}
+
+
+
+\begin{remark}
+    有这个定理得:\textbf{ 我们可以 integrate $f:X\rightarrow \mathbb{C}$ a.e. defined}.\\
+    即: $$
+    f: E^c \rightarrow \mathbb{C}\quad , \quad \mu(E) = 0
+    $$
+    其中的一种情况是: $$
+    f: X \rightarrow \overline{\mathbb{R}} \quad s.t. \quad |f| < \infty  \;\;\ a.e.
+    $$
+\end{remark}
+
+并且我们发现, a.e. 相等的两个可积函数 $f,g \in \tilde{L}(X, \mu, \mathbb{C})$ 在任意可测集上的积分都相等. 于是这两个函数在 $\tilde{L}(X, \mu, \mathbb{C})$ 中的表现是相等的. 因而我们可以把 a.e. 相等的这种关系 quotient 掉, 简化这个空间:
+
+
+\begin{definition}{$L^1(\mu)$ space}
+    我们定义 $L^1(X, \mu, \mathbb{C})$, 或简称为 $L^1(\mu)$, 为:$$
+    \tilde{L}(X, \mu, \mathbb{C}) / \sim 
+    $$
+其中 $\sim$ 表示一个 equivalent class: $f\sim g$ if $f=g$ a.e. (等价于 $\int |f-g| = 0$)
+ \end{definition}
+$L^1(\mu)$ 中的每个函数之间彼此至少都在一个正测度集上相互不同. 这减去了分析上考虑几乎处处相等的集合的顾虑, 对于处处相等的函数, 我们认为它们在 $L^1(\mu)$ 上直接相等. 并且, 我们有: $$
+f \mapsto \int f
+$$
+在 $L^1(\mu)$ 上是一个 well-defined function.
+
+
+
+\section{DCT}
+
+
+\begin{lemma}
+    令 $(f_n)$ 为 a seq of \textbf{a.e. defined functions} on $X$., s.t. \[
+    f(x) := \lim_{n\to \infty} f_n(x) 
+    \] \textbf{exists a.e.}
+    Claim: \textbf{$f$ is measurable.}
+\end{lemma}
+
+
+
+\begin{theorem}{dominated convergence theorem}
+    \label{DCT}
+    Let $(f_n)$ be a seq of functions in $L^1(\mu)$, s.t.$f_n \rightarrow f $ a.e., 并且存在 $g \in L^1(\mu)$ s.t. $|f_n| \leq |g| $ a.e. for all $n$. \\
+    Claim: $f \in L^1(\mu)$ 并且 \[
+    \int f = \lim_n \int f_n
+    \]
+\end{theorem}
+\begin{remark}
+存在 $g \in L^1(\mu)$ s.t. $|f_n| \leq |g| $ a.e. for all $n$ 这一条件可以被弱化为:
+    我们可以 weaken "存在 $g \in L^1$ s.t. $|f_n| \leq |g| $ a.e. for all $n$. " 这一 hypothesis, 只需要: 存在一个 seq $(g_n)$ 以及 $g$ in $L^1$, 使得 \begin{itemize}
+        \item $|f_n| \leq g_n$
+        \item  $g_n \to g$ a.e.
+        \item $\int g_n \to \int g$
+    \end{itemize}
+Proof 在 hw 5.
+\end{remark}
+
+\begin{example}
+    Suppose $u:[0,1] \to [0,1]$ is Lebesgue measurable. \\
+    考虑这一 seq of function: $( u^n)$.\\
+    容易发现 $u^n \rightarrow \chi_{\{u = 1\}}$ p.w.
+    我们可以用 $g = 1$ 作为 bound function. 
+\end{example}
+
+
+\begin{example}
+    compute \[
+    I = \lim_{n\to \infty} \int_{[0,1]} \frac{1 + n x^2}{(1+ x^2)^n}
+    \]
+令 $f_n(x) : = \frac{1 + n x^2}{(1+ x^2)^n}$, 有: $f_n(x) \to 0$ as $n\to \infty$ for $x \in (0,1]$;\\
+并且考虑 $g=1$, 作为 bound.\\
+因而有 $I = 0$
+\end{example}
+
+
+\chapter{integration of real and complex functions II}
+\section{corollaries of DCT}
+以下为 DCT 的 corollaries:
+
+\begin{corollary}{Fubini for series and integral}
+对于 $L^1(\mu)$ 中的 sequence $(f_n)$,  如果 $\sum_{n=1}^\infty \int |f_n| < \infty$, 则 $\sum_1^\infty f_n(x) \to F(x)$ a.e. for some $F \in L^1(\mu)$, 并且
+\begin{itemize}
+    \item \[\int |F| \leq \sum_{i=1}^\infty \int |f_n|  \]
+    \item \[\int F = \sum_{n=1}^\infty \int f_n\]
+\end{itemize}
+\end{corollary}
 
 
 
 
 
+
+\begin{corollary}
+  令 $(X,\mathcal{A}, \mu)$ be a measure space.\\
+  如果 $f: X \times [a,b] \to \mathbb{C}$ 满足 $f(\cdot, t) \in L^1(\mu)$ for all $t \in [a,b]$, 那么 set \[
+F := \int f(x,t) \; d\mu(x)
+  \] 则有:
+  \begin{enumerate}
+      \item 如果 $t \mapsto f(x,t) $  对于任意 $x$ 都连续, 并且存在一个 $g \in L^1(\mu)$ 使得 $|f(t,x)| \leq g(x)$ for all $t,x$, 那么 \textbf{$F$ 也是 ctn 的.}
+      \item 如果 $\frac{\partial f}{\partial t} (x,t)$ 对于任意 $x,t$ 都存在, 并且存在一个 $g \in L^1(\mu)$ 使得 $|\frac{\partial f}{\partial t} (x,t)| \leq g(x)$ for all $t,x$, 那么 $F$ 是 differentiable 的, 并且 $$F'(t) = \int \frac{\partial f}{\partial t} (x,t) \; d\mu(x)$$
+  \end{enumerate}
+\end{corollary}
+
+
+\section{$L^1$ as a Banach space}
+\begin{theorem}{$L^1(\mu)$ 以 integral w.r.t. $\mu$ 作为 norm 是一个 normed VS}  在 $L^1(\mu)$ 上, 我们 set \[
+||f||  := \int |f|
+\]
+    则 $(L^1(\mu), ||\cdot||)$ 为一个 normed $\mathbb{C}$-vector space. 即, 这是一个 well-defined norm.
+\end{theorem}
+
+\begin{corollary}{$(L^1(\mu), ||\cdot||)$ 是一个 Banach space}
+    $(L^1(\mu), ||\cdot||)$ 的 induced metric space 是 complete 的. 即, every Cauchy seq converges.\\
+    从而这是一个 Banach space.
+\end{corollary}
+
+
+
+
+
+
+\section{dense subspaces of $L^1(\mu)$}
+
+\begin{theorem}{density of simple functions in $L^1(\mu)$}
+  令 $(X, \mathcal{A}, \mu)$ 为一个 measure space,  令 $f \in L^1(\mu)$, \\
+    对于任意 $\epsilon > 0$, 都存在 simple $\phi: X \rightarrow \mathbb{C}$ in $L^1(\mu)$, 使得 \[
+    \int |f - \phi| 
+< \epsilon
+    \]
+\end{theorem}
+
+
+
+
+
+
+\begin{theorem}{LS measure space 的 $L^1$ space 上的 density of step functions}
+考虑 $(\mathbb{R}, \mathcal{L}, \mu)$ where $\mu$ 为一个 Lebesgue-Stieljes measure on $\mathbb{R}$, let $f \in L^1 (\mu)$,\\
+对于任意 $\epsilon >0$, 都存在 step function $\phi = \sum_{j=1}^N c_j \chi_{I_j}$, 使得 \[
+\int (f-\phi) < \epsilon
+\] where each $I_j$ 都是 open intervals.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+\chapter{integration of real and complex functions III}
+
+\section{$C_c (X)$ as a dense subspace of $L^1(\mu)$}
+
+\begin{definition}{$C_c (X)$}
+
+令 $X$ be a metric space, 我们定义:
+\[
+C_c(X) := \{\text{all ctn functions }f:X \to \mathbb{C}  \text{ with cpt supp}  \}
+\]
+\end{definition}
+
+\begin{theorem}{$C_c(X) \subset L^1(\mu)$ 是一个 dense linear subspace}
+    对于 metric space $X$, 取一个 Borel measure $\mu$, 则: $C_c(X) \subset L^1(\mu)$ 为一个 dense linear subspace.
+\end{theorem}
+
+
+
+\section{Riemann v.s. Lebesgue integral}
+我们已经完成了一个任意的 measure space 上的 Lebesgue 积分的定义, 以及可积空间的定义.\\
+Recall: Riemann integral 是对于 $\mathbb{R}^n \rightarrow \mathbb{R}$ 的函数定义的, 经典定义为 $\mathbb{R} \to \mathbb{R}$ 的函数.\\
+现在我们比较对于 $\mathbb{R} \to \mathbb{R}$ 的函数的 Riemann 和 Lebesgue 积分. 我们将会得出结论: Riemann 积分是 Lebesgue 积分的特殊情况, 即, Riemann 可积的函数一定也 Lebesgue 可积, 并且积分值相同. (对于 $\mathbb{R}^n \rightarrow \mathbb{ R}$ 的函数也一样, 之后将展开.)\\
+
+Recall 
+
+
+
+\chapter{modes of convergence}
+
+recall: 4 modes of convergence, of $f_n,f:X \rightarrow \mathbb{C}$.\\
+
+2 general ones:
+\begin{itemize}
+    \item pointwise convergence
+    \item uniform convergence
+\end{itemize}
+
+2 in a measure space:
+\begin{itemize}
+    \item a.e. convergence: ptwise convergence for a.e. $x$
+    \item convergence in $L^1$: $\int |f_n -f| \rightarrow 0$
+\end{itemize}
+
+
+
+\begin{example}
+    on $(\mathbb{R}, \mathfrak{L}, m)$, 以下 $(f_n)$:
+
+    \begin{itemize}
+        \item $$f_n = \frac{1}{n} \chi_{(0,n)}$$
+        $f_n \rightarrow 0$ uniformly 但 $\not\rightarrow 0$ in $L^1$
+
+        \item $$f_n = \chi_{(n,n+1)}$$
+        $f_n \rightarrow 0$ ptwisely 但并不 uniformly, 并且 $\not\rightarrow 0$ in $L^1$
+
+        \item $$f_n = n \chi_{[0,\frac{1}{n})}$$
+        $f_n \rightarrow 0$ a.e., 但是并不 ptwisely, 当然也并不 uniformly, 并且$\not\rightarrow 0$ in $L^1$
+        
+        \item "typewriter": $f_N \rightarrow 0$ in $L^1$, 但是 $\forall x\in[0,1]$, $f_n(x)\not\rightarrow 0$ ptwisely.
+    \end{itemize}
+\end{example}
+
+
+
+
+
+
+\[B_{n,k} := \{  x\in X \mid |f_n(x) -f(x) \leq \frac{1}{k}   \}\]
+
+\[
+\{ x \mid f_n(x) \rightarrow f(x) = \bigcap_{k=1}^\infty \bigcup_{N=1}^\in \bigcap_{n \geq N} B_{n,k}
+ \}
+\]
+
+
+By Chebyshev:
+\[
+g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
+\]
+
+
+
+
+
+\begin{proposition}{"Fast" $L^1$-conv $\implies$ a.e. conv.}
+\[
+\sum_{j=1}^\infty \int  |f_n-f| < \infty \implies f_n\rightarrow f \;a.e.
+\]
+\end{proposition}
+
+\begin{proof}
+    我们取\[
+\{ x \mid f_n(x) \rightarrow f(x) = \bigcap_{k=1}^\infty \bigcup_{N=1}^\in \bigcap_{n \geq N} B_{n,k}\}\] 的 complement
+\[E := \bigcup_{k=1}^\infty \bigcap_{N=1}^\in \bigcup_{n \geq N} B_{n,k}^C = \{f_n \rightarrow f\}\]
+
+
+By Cheb:\[ \mu(B_{n,k}^C)  \leq k \int |f_n-f|\]
+
+因而 \[ \forall k \forall N , \mu(\bigcup_{n\geq N} B_{n,k}^C) \leq k \sum_{n=N}^\infty \int |f_n-f|  \rightarrow 0\]
+ as $N\rightarrow \infty$
+
+By CFA, \[ \mu (\bigcap_{N=1}^\infty\bigcup_{n\geq N} B_{n,k}^C)  =0\]
+Thus
+\[\mu(E) = 0\]
+\end{proof}
+
+
+
+\begin{corollary}
+    if $f_n \rightarrow f$ in $L^1$, then there exists subseq $(f_{n_j})_{j\in \mathbb{N}}$ s.t. 
+    $f_{n_j} \rightarrow f$ a.e.
+\end{corollary}
+\begin{proof}
+    Pick $(n_j)_{j\in\mathbb{N}}$ s.t. 
+    \[
+    \int |f_{n_j} - f| \leq \frac{1}{j^n}
+    \]
+    Then \[
+    \sum_{j=1}^\infty \int |f_{n_j}-f| < \infty
+    \]
+    由刚才的 prop 得, $f_{n_j}\rightarrow f$ a.e.
+\end{proof}
+
+
+
+\begin{definition}{convergence in measure}
+    我们称 $f_n \rightarrow f$ in measure, if $\forall \varepsilon >0$, 都有 \[
+    \mu(\{|f_n-f| > \epsilon\}) \rightarrow 0
+    \] as $n\rightarrow \infty$
+\end{definition}
+
+examples: (1), (3), (4) but not (2).
+
+
+
+(此处插入convergence 关系图)
+
+
+
+
+\begin{definition}
+    我们称 $f_n\rightarrow f$ almost uniformly (a.u.), 如果 $\forall \varepsilon > 0$, 都存在 $E \subseteq A$ s.t. $\mu(E) < \varepsilon$ 并且    $f_n \rightarrow f$ uniformly on $E^C$
+\end{definition}
+
+
+
+\begin{theorem}{Egorov's Theorem}
+\label{Egorov's Theorem}
+如果 $\mu$ 是个 finite measure ($\mu(X) < \infty$), 那么 
+\[
+f_n \rightarrow f \;\;a.e. \;\; \Longleftrightarrow f_n \rightarrow f \;\; a.u.
+\]
+\end{theorem}
+\begin{proof}
+    a.u. $\implies$ a.e.: DIY
+    a.e. $\implies$ a.u.: Fix $\varepsilon > 0$, 我们有 \[
+    f_n \rightarrow f \;\; a.e. \;\; \Longleftrightarrow \;\; \mu( \bigcup_{k=1}^\infty \bigcap_{N=1}^\in \bigcup_{n \geq N} B_{n,k}^c)  = 0
+    \]
+    因而 \[
+    \forall k, \;\; \mu( \bigcup_{k=1}^\infty \bigcap_{N=1}^\in \bigcup_{n \geq N} B_{n,k}^c) =0 
+    \]
+    By Ctn from Above: \[
+    \forall k,\;\;  \lim_{N\rightarrow \infty} \mu(\bigcup_{n\geq N} B_{n,k}) = 0
+    \]
+    Then: \[
+    \forall k,\;\; \exists N_k \;\;s.t. \;\;  \mu(\bigcup_{n\geq N} B_{n,k}) < \frac{\varepsilon}{2^k}
+    \]
+    Set\[
+    E:= \bigcup_{K=1}^\infty \bigcup_{n\geq N_k} B_{n,k}^c
+    \]
+    Then we have: \[
+    \begin{cases}
+        \mu(E) < \sum_{1}^\infty \frac{\varepsilon}{2^k} = \varepsilon \\
+        f_n \rightarrow f \;\;\text{unif. on } E^c = \bigcap_{k=1}^\infty \bigcap_{n\geq N_k} B_{n,k}
+    \end{cases}
+    \]
+\end{proof}
+\begin{remark}
+    在 Prob Theory 中很有用, 因为 prob space 是 finite measure space.
+\end{remark}
+
+\begin{example}
+    考虑 escape to hat function $f_n := \chi_{(n,n+1)}$ on $(\mathbb{R}, \mathfrak{L},m)$.\\
+    $f_n \rightarrow 0$ a.e. 但是并不 a.u., 因为 $\mu(X) = \infty$.
+\end{example}
+
+
+
+
+\begin{theorem}{Lusin's Theorem}
+\label{Lusin's Theorem}
+    If $f: [a,b] \rightarrow \mathbb{C}$ 是 Leb. mble 的, 那么 $\forall \varepsilon > 0$, 都存在 $K \subseteq [a,b]$ s.t. $m(K^c) < \varepsilon$ 并且 $f|_K$ ctn.
+\end{theorem}
+\begin{proof}
+我们知道 $C^0([a,b]) \subseteq L^1(m)$ 是 dense subset.\\
+First assume $f$ bounded, then $f\in L^1(m)$, $\int|f| < \infty$.\\
+Then: \[\exists (f_n)  \subseteq C^0([a,b])  \;\;s.t. \;\; f_n\rightarrow f \text{ in } L^1 \]
+Pass to subseq: $f_n\rightarrow f$ a.e.\\
+Then by \textbf{Egorov}: \[
+\exists F \subseteq [a,b] \text{ mble } s.t. \;\; \mu(F) < \frac{\varepsilon}{2}
+\]
+并且 $f_n \rightarrow f$ uniformly on $F^c$.\\
+By inner regu: 存在 $K \subseteq [a,b] $ cpt s.t. $K \subseteq F^c$ 并且 $n(F^c \setminus K ) < \frac{\varepsilon}{2}$
+$m(K^c) < \varepsilon$ 并且 $f_n$ conv unif., so $f$ ctn.
+
+\end{proof}
+
+
+
+
+
+
+\chapter{product measure}
+
+
+
+
+Goal: Given $(X_i, \mathcal{A}_i, \mu_i)$, construct $X = \prod X_i $, s.t. 
+\[
+\mu(E_1 \times E_2 )  = \mu_1(E_1) \mu_2(E_2)
+\]
+So that we can do Fubini (iterated integration) like that in Riemann integral.
+
+
+
+\begin{definition}{product $\sigma$-algebra}
+Suppose $(X_i, \mathcal{A}_i)$ mble, $1 \leq i\leq n$, the product $\sigma$-algebra $A_1 \otimes \cdots \otimes A_n$ on $X_1 \times \cdots \times X_n$ is the smallest $\sigma$-algebra s.t.$$ \pi_j: X_1 \times \cdots \times X_n \rightarrow X_j$$is measurable.
+\end{definition}
+
+
+
+
+\begin{proposition}
+$$A_1 \otimes \cdots \otimes A_n = <\{  E_1\times \cdots \times E_n \mid \text{ rectangle }\in \mathcal{A}_i \times \cdots \times \mathcal{A}_n  \}>$$
+\end{proposition}
+\begin{proof}
+    DIY. (Prop 1.14 in book).
+\end{proof}
+
+
+
+
+\begin{proposition}
+    If $X_1,\cdots, X_n $ are metric spaces. Let $X := X_1 \times \cdots \times X_n$ (with product metric), then: $$\bigotimes_{i=1}^n \mathcal{B}_{X_i} \subseteq \mathcal{B}_X$$
+and the equality holds if $X_i$ separable $\forall i$.
+\end{proposition}
+\begin{proof}
+   $$\bigotimes_{i=1}^n \mathcal{B}_{X_i}  \overset{\text{by prop}}{=} < \{ U_1\times \cdots \times U_n  \text{ each open} \} > \subseteq\mathcal{B}_X $$
+   Now let $C_i \subseteq X_i$ dense, ctbl. \\
+   Set $$\mathcal{E}_i  := \{  B_r(x) \mid x\in C_i \;,\; r\in \mathbb{Q}_{>0}  \} \subseteq \mathcal{B}_{X_i} $$
+   Then: every open set in $X_1 \times \cdots \times X_n$ is a ctbl union of products $B_1 \times \cdots \times B_n$, each $B_1 \in \mathcal{E}_i$.
+   Then we have: $$B_X = <\{B_1 \times ...\times B_n\}> \subset \bigotimes_1^n B_{X_i}$$
+\end{proof}
+
+\begin{example}
+    $$\mathcal{B}_{\mathbb{R}^n} = \mathcal{B}_{\mathbb{R}} \otimes \cdots \otimes \mathcal{B}_{\mathbb{R}}$$
+\end{example}
+
+
+\begin{corollary}
+    if $(X,\mathcal{A})$ is a mble space, then $$f:X\rightarrow \mathbb{C}  \;\;(\mathcal{A},\mathcal{B}_{\mathbb{C}})\text{-mble } \Longleftrightarrow \re f, \im f \;\;\mathcal{A}\text{-mble}$$
+\end{corollary}
+
+
+   (pp 64.) Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
+    And let $X := X_1 \times ... \times X_n$, $\mathcal{A}:= \mathcal{A}_i \otimes \cdots \otimes \mathcal{A}_n$
+Goal: 通过 Hahn-Kromolgrov 来构建 product measure on product mble space.
+Idea: Let $$\mathcal{A}' := \{   \text{disjoint  unions of rectangles }\}$$
+Then $\mathcal{A}' \subset \mathcal{A}$
+
+
+
+
+
+
+\begin{proposition}
+   $\mathcal{A}'$ is an algebra/
+\end{proposition}
+\begin{proof}
+    Sketch:  
+Step 1:
+The set $\mathcal{E}:= \{\text{rectangles}\} \subseteq \mathcal{P}(X)$ satisfies:
+    \begin{itemize}
+        \item $\varnothing \in \mathcal{E}$
+        \item $E,F \in \mathcal{E} \implies E \cap F \in \mathcal{E}$
+        \item $E \in \mathcal{ E} \implies E^c \text{ is a finite disjoint union of recs}$ (画图可知)
+    \end{itemize}
+
+Step 2: $\mathcal{A}' := \{\text{finite disjoint unions of elts of } E'\} $ is an algebra, by prop 1.7
+
+
+\end{proof}
+
+
+
+
+\begin{proposition}
+    Now define $$\mu' : \mathcal{A}' \rightarrow [0,\infty]$$ as follows: $$ \mu'(\bigsqcup_{k=1}^N E_1^{(k)} \times \cdots \times E_N^{(k)}) = \sum_{k=1}^N \prod_{i=1}^n \mu_i (E_i^{(k)}) $$
+Claim:
+    (1) $\mu'$ is a well-defined premeasure on $\mathcal{A}'$.
+    (2) If each $\mu_i$ is $\sigma$-finite, so is $\mu'$.
+\end{proposition}
+\begin{proof}
+    Sketch: (2) DIY.
+    (1) STS(check): if $E = E_1 \times \cdots E_n$ is a finite or ctbl uniono f rects $E^{(k)} = E_1^{(k)}\times \cdots \times E_n^{(k)} $, then $$\prod_1^n  \mu_i(E_i) = \sum_k \prod_1^n \mu_i(E_i^{(k)})  $$
+    Use Tonelli for sums and integrals: \begin{align}
+        \prod_1^n \chi_{E_i} (x_i) &= \chi_E (x_1\,, \cdots \,,x_n) \\
+        &= \sum_k \chi_{E^{(k)}} (x_1 \,, \cdots \,, x_n) \\
+        &= \sum_k \prod_1^n \chi_{E_i^{(k)}} (x_i)
+    \end{align}
+Integrate w.r.t.  $x_1$ (check): 
+\begin{align}
+\mu_1(E_1) \prod_{i=1}^n \chi_{E_i} (x_i)& = \int \sum_k \prod_1^n \chi_{E_i ^{(k)}} (x_i)    \\
+&\overset{\text{Tonelli}}{=}  \sum_k  \int (\prod_1^n   \chi_{E_i ^{(k)}} (x_i) )  d \, \mu_1 (x_1) \\
+& = \sum_k \mu_1(E_1^{(k)}) \prod_{i=1}^n \chi_{E_i^{(k)}} (x_i)
+\end{align}
+And repeat for $i=2,\cdots,n$.
+\end{proof}
+
+
+Now use HK:
+\begin{corollary}
+    $\exists$ measure $\mu := \mu_1 \times \cdots \times \mu_n$ on $\mathcal{A} = \mathcal{A}_1 \otimes \cdots \mathcal{A}_n$ extending $\mu$.\\
+    And if each $\mu_i $ are $\sigma$-finite, hen $\mu$ is the unique extension.
+\end{corollary}
+
+
+\begin{corollary}{assotiativity}
+$$ \mathcal{A}_1 \otimes \mathcal{A}_2  \otimes \mathcal{A}_3 =  (\mathcal{A}_1 \otimes \mathcal{A}_2)  \otimes \mathcal{A}_3 =   \mathcal{A}_1 \otimes (\mathcal{A}_2  \otimes \mathcal{A}_3 ) $$
+If $\mu_1, \mu_2,\mu_3$ are $\sigma$-finite, then: $$\mu_1 \times \mu_2 \times \mu_3 = (\mu_1 \times \mu_2) \times \mu_3  = \mu_1 \times (\mu_2 \times \mu_3 )$$
+\end{corollary}
+
+\begin{proof}
+    DIY.a
+\end{proof}
+
+\begin{definition}{product measures}
+    (pp 64.) Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
+    And let $X := X_1 \times ... \times X_n$, $\mathcal{A}:= \mathcal{A}_i \otimes \cdots \otimes \mathcal{A}_n$
+
+    
+\end{definition}
+
+
+
+\chapter{Tonelli's Thm}
+
+We focus on the case $n=2$: $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$
+
+\begin{definition}
+    Given $E \subset X \times Y$, $x \in X$, $y\in Y$, we define:
+\[E_x : = \{  y\in Y \mid (x,y) \in E \}\]
+\[
+E^y := \{x\in X \mid (x,y) \in Y  \}
+\]
+\end{definition}
+
+
+\begin{example}
+    $E = A \times B $, $A \in \mathcal{A}, B \in \mathcal{B}$
+    $E_x = \begin{cases}
+        \varnothing ,\quad x\not\in A \\
+        B ,\quad x\in A
+    \end{cases}$
+
+
+GIven $f: X \times Y \to \mathbb{C}$
+$f_x(y) =  f(x,y) = f^y(x)$
+
+
+$f = \chi_E, E \subset X \times Y$
+$f_x = \chi_{E_x}$, $f^y = \chi_{E^y}$
+\end{example}
+
+
+
+\begin{proposition}
+    $E \in \mathcal{A} \otimes \mathcal{B} \implies \begin{cases}
+        E_x \subset \mathcal{B},\quad \forall x \in X\\
+        E^y \in \mathcal{A}\quad, \forall y \in Y
+    \end{cases}$
+
+    $f$ is $\mathcal{A} \otimes \mathcal{B}$-measurable $\implies \begin{cases}
+        f_x, \quad \mathcal{B}\text{-measurable} \;\;\forall x \\
+         f^y, \quad \mathcal{A}\text{-measurable} \;\;\forall y
+    \end{cases}$ \\
+\end{proposition}
+
+
+\begin{proof}
+    (a) Let $\mathcal{E}:= \{    E \subset X \times Y \mid \text{ (a) holds for } E  \}$
+Claim: $\mathcal{E}$ contains rectangles and $\mathcal{E}$ a $\sigma$-algebra.\\
+thus $\mathcal{A} \otimes \mathcal{B} \subset \mathcal{E}$
+
+(a) $\implies$ (b): $f_x^{-1} (V) = (f^{-1}(V) )_x$
+    Similar for $f_y$
+\end{proof}
+
+
+
+
+
+\begin{definition}{monotone class}
+Given a set $X$, a collection $C \subset \mathcal{P}(X)$ is called a monotone class, if it is closed under countable increasing unions and countable decreasing intersections
+\end{definition}
+For sure, a $\sigma$-algebra is a monotone class
+
+
+\begin{lemma}{monotone class lemma}
+    If $\mathcal{A} \subset \mathcal{P}(X)$ is an algebra, then $<\mathcal{A>}$ is the smallest monotone class $C$ containing $\mathcal{A}$.
+\end{lemma}
+\begin{proof}
+    $C \subset <\mathcal{A}>$ is trivial.\\
+    $<\mathcal{A} \subset C$: see p.66
+\end{proof}
+
+
+
+
+
+
+\begin{theorem}{Tounelli for sets}
+Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$, each $\sigma$-finite.\\
+Take $E \in \mathcal{A} \otimes \mathcal{B}$. Then: 
+(1) $x \mapsto \nu(E_x)$, $y \mapsto \mu(E_y)$ are measurable
+
+(2) \[
+\mu_x \nu(E) = \int \nu(E_x)  \; d\mu(x) = \int \mu(E^y) \; d \nu(y)
+\]
+    
+\end{theorem}
+\begin{proof}
+    $C = \{ E \subset X \times Y \mid \text{ (1),(2) holds}\}$
+    Step 1: $C$ contains rectangles
+    Step 2: $C$ contains finite unions of rectangles  (is an algebra)
+  By the MC class lemma, Suffices to show $C$ is a monotone class.
+
+  Step 2: Take $E_1 \subset E_2 \subset \cdots $ s.t. $E = \bigcup_{n=1}^\infty E_n$
+$f_n(y) := \mu((E_n)^y)$
+$f_n \nearrow f(y) := \mu()(E)^y$
+then MCT.\\
+Step 3: Case $\mu,\nu$ finite measure: $E_1 \subset$
+\end{proof}
+
+
+
+
+\begin{theorem}{Tounelli for sets}
+ Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$, each $\sigma$-finite.\\
+Take $E \in \mathcal{A} \otimes \mathcal{B}$. Then: 
+(a) 
+\end{theorem}
 
 
 
