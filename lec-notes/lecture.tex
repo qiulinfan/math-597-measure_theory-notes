@@ -1607,8 +1607,7 @@ $$
     \end{center}
 \end{remark}
 
-
-
+\subsection{Tonelli for sum and integrals}
 \begin{corollary}{Tonelli for sum and integrals}
 \label{Tonelli for sum and integrals}
 for $\{f_i\}_{i\in\mathbb{N}}$ in $L^+(\mu)$, 有:
@@ -1639,14 +1638,16 @@ $$ 可得证.
 \begin{proof}
     Set \[g_n := \inf_{m \geq n }     f_n   \]于是 \[g_n \nearrow \liminf_n f_n\]
 于是\textbf{ by MCT}, we have: \[  \lim_n \int g_n =  \int \lim_n g_n =      \int \liminf_n f_n  \]
-By def, 我们有 $g_n \leq f_n \forall n$, 于是 by monotonicity, $\int g_n \leq \int f_n$. 因而 \[  \liminf_n \int f_n \geq \liminf_n \int g_n  = \lim_n \int g_n = \int \liminf_n f_n   \]
+By def, 我们有 $g_n \leq f_n \;\;\forall n$, 于是 by monotonicity, $\int g_n \leq \int f_n$. 因而 \[  \liminf_n \int f_n \geq \liminf_n \int g_n  = \lim_n \int g_n = \int \liminf_n f_n   \]
 \end{proof}
 \begin{remark}
     对于 increasing 的从而有 limit 的可测 $(f_n)$, 我们可以使用 MCT.
 
     但是对于任意的可测 $(f_n)$, 我们无法使用 MCT, 不过有弱化的版本 Fatou's Lemma. 它表示\textbf{下极限的积分 小于等于 积分的下极限}.
 
-    这是一个符合直觉的事情, 因为取极限是一个很容易极端的事情, 而积分则是一个比较稳定的时候.
+    这是一个符合直觉的事情, 因为取函数的 pointwise 极限是一个很容易极端的事情. 
+    
+    积分的极限是一个 numerical seq 的极限, 比较 robust. 而函数的逐点极限是一个比较不稳定的事情, \textbf{在对函数逐点极限的过程中, 它的 "质量" 会存在一个比较大的损失, 因为其中可能包含了 uncountably many 个点的函数值的逐点极限的累积, 而积分的极限只是单个点的逐点极限. 因而大小关系很显然. }
 \end{remark}
 
 
@@ -1901,6 +1902,7 @@ $$
 
 
 
+
 \section{DCT}
 
 
@@ -1910,19 +1912,52 @@ $$
     \] \textbf{exists a.e.}
     Claim: \textbf{$f$ is measurable.}
 \end{lemma}
+\begin{remark}
+    Measurability is well preserved by taking limit, 并且更改一个零测集上函数的 definedness 不会改变这个 behavior. (这是一个很宽的条件了)
+\end{remark}
 
 
 
 \begin{theorem}{dominated convergence theorem}
     \label{DCT}
-    Let $(f_n)$ be a seq of functions in $L^1(\mu)$, s.t.$f_n \rightarrow f $ a.e., 并且存在 $g \in L^1(\mu)$ s.t. $|f_n| \leq |g| $ a.e. for all $n$. \\
+    Let $(f_n)$ be a seq of functions in $L^1(\mu)$, s.t. \begin{itemize}
+        \item $f_n \rightarrow f $ a.e.
+        \item 存在 $g \in L^1(\mu)$ s.t. $|f_n| \leq g $ a.e. for all $n$. 
+    \end{itemize}
     Claim: $f \in L^1(\mu)$ 并且 \[
     \int f = \lim_n \int f_n
     \]
 \end{theorem}
+\begin{proof}
+    首先由于 $f_n \to f$ a.e.,  by lemma 可以得到 $f$ 是 measurable 的.\\
+    并且 $$|f_n| \leq |g| \text{ a.e. } \implies  |f| \leq |g| \text{ 
+a.e.}$$ 于是 \[\int |f| \leq \int |g| < \infty \] 即 $f \in L^1$. (从而 $|f|$ 至多在一个 measure zero set 上无穷).\\
+并且 $ g(x) \pm f_n(x) \geq 0 $ a.e. 这一点很重要, 因为从而我们可以对 $g+f_n$, $g-f_n$ 使用 Fatou's Lemma: 
+\begin{align}
+    \int g + \int f = \int (g+f) &= \int (g + \lim_{n\to\infty} f_n) \\
+    &= \int \lim_{n\to\infty} (g+f_n) \\
+    &  \overset{\text{by Fatou}}{\leq }  \liminf_n \int (g+f_n) \\
+    &= \int g + \liminf_n \int f_n
+\end{align}从而 (由于 $\int g < \infty$)\[
+\int f \leq \liminf_n \int f_n
+\]
+以及 similarly get: \[
+\int g - \int f \overset{\text{by Fatou}}{\leq } \liminf_n \int (g-f_n) = \int g - \limsup_n \int f_n
+\]
+从而: \[
+\int f  \geq \limsup_n \int f_n
+\]
+(这里注意, negate 一个 numerical seq 后 liminf 变 limsup. 由此可见 Fatou'e Lemma 其实是很强大的, 只需要对 $\int g + \int f$ 和 $\int  g - \int f$ 各用一次就可以得到: )\[
+\int f = \lim_{n\to \infty } \int f_n
+\]
+\end{proof}
+
 \begin{remark}
-存在 $g \in L^1(\mu)$ s.t. $|f_n| \leq |g| $ a.e. for all $n$ 这一条件可以被弱化为:
-    我们可以 weaken "存在 $g \in L^1$ s.t. $|f_n| \leq |g| $ a.e. for all $n$. " 这一 hypothesis, 只需要: 存在一个 seq $(g_n)$ 以及 $g$ in $L^1$, 使得 \begin{itemize}
+DCT 是 MCT 在 $L^1$ 上的推广. MCT 只作用于非负的可测函数, 并且要求序列递增. 而 DCT 则作用于更加广泛的情况.\\
+
+DCT 增加的要求是存在一个 $L^1$ 的 (a.e.) bound function, 以及极限 a.e. 存在于 extened $\mathbb{R}$. 这两个要求都是合理的, 一个控制了函数的上下浮动程度, 一个控制了序列的收敛性.\\
+
+而进一步, 我们可以把 "存在 $g \in L^1$ s.t. $|f_n| \leq |g| $ a.e. for all $n$." 这一 条件放宽到 : 存在一个 seq $(g_n)$ 以及 $g$ in $L^1$, 使得 \begin{itemize}
         \item $|f_n| \leq g_n$
         \item  $g_n \to g$ a.e.
         \item $\int g_n \to \int g$
@@ -1934,7 +1969,9 @@ Proof 在 hw 5.
     Suppose $u:[0,1] \to [0,1]$ is Lebesgue measurable. \\
     考虑这一 seq of function: $( u^n)$.\\
     容易发现 $u^n \rightarrow \chi_{\{u = 1\}}$ p.w.
-    我们可以用 $g = 1$ 作为 bound function. 
+    我们可以用 $g = 1$ 作为 bound function. 从而得到: \[
+\int f=    \lim_{n\to\infty} \int f_n = \int_{\{u=1\}}1 = m(\{\mu =1 \})
+    \]
 \end{example}
 
 
@@ -1952,49 +1989,144 @@ Proof 在 hw 5.
 \section{corollaries of DCT}
 以下为 DCT 的 corollaries:
 
+\subsection{Fubini for series and integral}
 \begin{corollary}{Fubini for series and integral}
-对于 $L^1(\mu)$ 中的 sequence $(f_n)$,  如果 $\sum_{n=1}^\infty \int |f_n| < \infty$, 则 $\sum_1^\infty f_n(x) \to F(x)$ a.e. for some $F \in L^1(\mu)$, 并且
-\begin{itemize}
-    \item \[\int |F| \leq \sum_{i=1}^\infty \int |f_n|  \]
-    \item \[\int F = \sum_{n=1}^\infty \int f_n\]
-\end{itemize}
+对于 $L^1(\mu)$ 中的 sequence $(f_n)$,  如果 $\sum_{n=1}^\infty \int |f_n| < \infty$, 则 $$\sum_{n=1}^\infty f_n   \overset{a.e.}{\to}  F\in L^1(\mu) \;\;$$ 并且 \[  \int \sum_{n=1}^\infty f_n 
+ =    \int F = \sum_{n=1}^\infty \int f_n\]
 \end{corollary}
+\begin{proof}
+Recall \textbf{Tonelli for sum and integrals}: 对于 $\{f_n\}_{n\in\mathbb{N}}$ in $L^+(\mu)$, 有:
+$$
+\int \sum_{n=1}^\infty f_n = \sum_{n=1}^\infty \int f_n
+$$
+(又是经典 Fubini 补充 Tonelli) 这个定理是 Tonelli for sum and integrals 在 $L^1$ 上的推广.\\
+我们 set \[
+F_n : = \sum_{i=1}^n f_j\quad G:= \sum_{n=1}^\infty  |f_n|
+\]
+By Tonelli for sum and integrals, 有: \[
+\int G = \int \sum_{n=1}^\infty  |f_n| =  \sum_{n=1}^\infty \int  |f_n| 
+\]
+由条件知道, $\int G < \infty$, 因而 $G \in L^1(\mu)$.
+所以 $G$ 可以作为 $F_n $ 的 DCT bound: \[
+\int |F| \leq \int G = \sum_{n=1}^\infty \int  |f_n| 
+\] 因而 by DCT:: \[
+\int F = \lim_{n\to \infty } \sum_{i=1}^n \int f_i =  \sum_{n=1}^\infty \int f_n
+\]
+\end{proof}
+\begin{remark}
+    Fubini's for sum and integrals : 对于一个 seq of 可积函数, \textbf{如果它们的绝对积分和收敛, 那么它们的 infinite sum 函数也是可积的}, 并且可以交换积分和极限次序. \\
+    其实显然. 因为绝对积分和肯定 by tri ineq 是大于等于和的积分的, 绝对积分和能作为一个 bound function.
+\end{remark}
 
 
-
-
-
+\subsection{a function that is measurable in one var and ctn/diffble in another}
 
 \begin{corollary}
   令 $(X,\mathcal{A}, \mu)$ be a measure space.\\
-  如果 $f: X \times [a,b] \to \mathbb{C}$ 满足 $f(\cdot, t) \in L^1(\mu)$ for all $t \in [a,b]$, 那么 set \[
-F := \int f(x,t) \; d\mu(x)
+  如果 $f: X \times [a,b] \to \mathbb{C}$ 满足 $f(\cdot, t) \in L^1(\mu)$ for all $t \in [a,b]$, 令 \[
+F(t) := \int f(x,t) \; d\mu(x)
   \] 则有:
   \begin{enumerate}
       \item 如果 $t \mapsto f(x,t) $  对于任意 $x$ 都连续, 并且存在一个 $g \in L^1(\mu)$ 使得 $|f(t,x)| \leq g(x)$ for all $t,x$, 那么 \textbf{$F$ 也是 ctn 的.}
-      \item 如果 $\frac{\partial f}{\partial t} (x,t)$ 对于任意 $x,t$ 都存在, 并且存在一个 $g \in L^1(\mu)$ 使得 $|\frac{\partial f}{\partial t} (x,t)| \leq g(x)$ for all $t,x$, 那么 $F$ 是 differentiable 的, 并且 $$F'(t) = \int \frac{\partial f}{\partial t} (x,t) \; d\mu(x)$$
+      \item 如果 $\frac{\partial f}{\partial t} (x,t)$ 对于任意 $x,t$ 都存在, 并且存在一个 $g \in L^1(\mu)$ 使得 $|\frac{\partial f}{\partial t} (x,t)| \leq g(x)$ for all $t,x$, 那么 \textbf{$F$ 是 differentiable 的}, 并且 $$F'(t) = \int \frac{\partial f}{\partial t} (x,t) \; d\mu(x)$$
   \end{enumerate}
 \end{corollary}
+\begin{proof}
+    这一证明并不困难.\\
+    For part(1), STS: $t_n \to t \implies F(t_n) \to F(t)$\\
+    Apply DCT with $f_n(x) = f(x,t_n)$, $f(x) = f(x,t)$.\\
+    For part(2), Suppose $t_n \to t$.\\
+    Apply DCT to \[
+    h_n(x) := \frac{f(x,t_n) - f(x,t)}{t_n - t}
+    \]
+    由可导得连续得 $x \mapsto \frac{\partial f}{\partial t}(x,t)$ measurable.\\
+    并且 \textbf{by MVT, }\[
+    |h_n(x)| \leq \sup_{t \in [a,b]} \Big| \frac{\partial f}{\partial t} (x,t) \Big| \leq g(x)
+    \]
+    从而我们也用 $g$ bound 住了 $h_n(x)$. \textbf{Apply DCT: }\[
+  F'(t) = \lim_{n\to \infty}  \frac{F(t_n) - F(t)}{t_n -t}  =  \lim_{n\to \infty} \int \frac{f(x, t_n) - f(x,t)}{t_n - t} = \lim_{n\to \infty} \int h_n  = \int \frac{\partial f}{\partial t} (x,t) \; d\mu(x)
+    \]
+\end{proof}
+\begin{remark}
+    由 DCT, 我们不仅可以交换积分和求极限的次序, 还可以在足够的条件下交换多变量的求导和积分的次序. 这一点是值得注意的, 因为 \textbf{DCT 描述的 sequential behavior 可以应用到证明函数 continuous 和 derivative 存在}, 使用 sequential definition. \\
+    如: 如果一个多变量函数对于 $x$ 是 measurable 的, 并且满足对于 $t$ 的 partial derivative 处处符合 DCT 条件. 那么我们可以\textbf{调换它对于 $x$ 积分和对于 $t$ 求导的顺序}.\\
+    看起来很雾但是我们看一个例子 (此为一个反例):
+\end{remark}
+
+\begin{example}
+是否有: \[
+    \frac{\partial}{\partial t} \int_{\mathbb{R}_{> 0}} e^{-tx} \; dm(x)  \overset{???}{=} \int_{\mathbb{R}_{> 0}} -x e^{-tx} \; dm(x)   = -\frac{1}{t^2} 
+    \]
+Here \[
+f(t,x) = e^{-tx}, \quad t>0, x>0
+\] 因而 \[
+\bigg| \frac{\partial}{\partial t} f(t,x) \bigg|=  xe^{-tx}, \quad t> 0 , x> 0
+\]
+尝试找到它的 dominating $g(x)$: 这个函数在 $t \to 0$ 处的上极限是 $g(x,t) = x$, 但是这个 $g$ 却不是一个 $L^1$ 函数 (在半轴上积分为 $\infty$). 从而它不可以这么交换积分和求导顺序. 但是如果把 $t$ 的范围限制在 $t \geq a \in \mathbb{R}_+$ 而不是 $t>0$, 我们就可以交换这个积分和求导顺序, 因为此时可以设定 \[
+g(x,t)  = xe^{-ax}
+\]
+\end{example}
+
+
 
 
 \section{$L^1$ as a Banach space}
 \begin{theorem}{$L^1(\mu)$ 以 integral w.r.t. $\mu$ 作为 norm 是一个 normed VS}  在 $L^1(\mu)$ 上, 我们 set \[
 ||f||  := \int |f|
 \]
-    则 $(L^1(\mu), ||\cdot||)$ 为一个 normed $\mathbb{C}$-vector space. 即, 这是一个 well-defined norm.
+    则 $(L^1(\mu), ||\cdot||)$ 为一个 \textbf{normed $\mathbb{C}$-vector space. 即, 这是一个 well-defined norm.}
 \end{theorem}
+\begin{proof}
+    recall norm 的定义, 需要符合: \begin{itemize}
+        \item Homogeneity: \[
+        ||af|| = |a|\cdot ||f||
+        \]
+        \item triangle ineq: \[
+        ||f+g|| \leq ||f|| + ||g||
+        \]
+        \item nonnegativity: \[
+        ||f|| \geq 0,\quad = \text{ iff  } f=0 \in L^1 \text{ (i.e. } f(x) = 0 \text{ a.e.)}
+        \]
+    \end{itemize}
+前两条是积分的 linearity 的下位推论. 后一条 by def.
+\end{proof}
 
 \begin{corollary}{$(L^1(\mu), ||\cdot||)$ 是一个 Banach space}
     $(L^1(\mu), ||\cdot||)$ 的 induced metric space 是 complete 的. 即, every Cauchy seq converges.\\
-    从而这是一个 Banach space.
+    (\textbf{从而这是一个 Banach space}. )
 \end{corollary}
+\begin{proof}
+    取一个 Cauchy seq $(f_n) $ in $L^1$.\\
+这里有一个值得 recall 的 proposition: \begin{proposition}
+在一个 metric space 中, 一个 Cauchy seq converges 当且仅当它存在一个 convergent 的 subsequence.
+\end{proposition}
+证明很简单. 对于任意的 $\epsilon$, 可以取 $\max(N,M)$, 其中 N 为使得这个子序列所有元素距离 $x_* < \epsilon / 2$ 的下标，M 为使得主序列所有元素两两之间距离 $< \epsilon / 2$ 的下标. \\
+因而我们\textbf{只需要证明存在一个 subseq $(f_{n_j}) $ s.t. $f_{n_j} \overset{j\to \infty}{\longrightarrow} f \in L^1$ 即可.}\\
+已知 Cauchy, WTS: $f_n$ 收敛且极限在 $L^1$ 中. 我们直觉: 用 Cachy 条件构造 $1/\epsilon^2$ argument. \\
+我们 pick 子下标 $(n_j)_{j\in \mathbb{N}}$ 使得对于每个 $j$ 都有 \[
+m,n \geq n_j \implies       ||f_m - f_n||_1 \leq \frac{1}{2^j}
+\]
+并 set \[
+g_j := f_{n_j} - f_{n_{j-1}}, \quad g_1 = f_{n_1}
+\]则有 \[
+\sum_{j=1}^\infty \int |g_j| \leq 1 < \infty
+\]
+从而 \textbf{by Fubini's Thm for series and seqs,} 存在: 
+\[
+f: = \lim_{j \to \infty} \sum_{i=1}^j g_j = \lim_{j \to \infty} f_{n_j}  \in L^1 \;\; \exists a.e.
+\]
+同时有 \[
+\int |f - f_{n_j} | \leq \sum_{j+1}^\infty  \int |g_j|  \leq \frac{1}{2^j} \overset{j\to \infty}{\longrightarrow} 0
+\]
+\end{proof}
+\begin{remark}
+这里就发现了 Fubini for series and seq 的用处: 把求和与积分的换序从有限推广到无限求和上, 以绝对积分和有限为条件. 因而, \textbf{绝对积分和有限的 seq 是性质强大的. }\\
+而我们可以运用这一点来发掘 function seq 的性质, 比如这里\textbf{把一个 function seq 通过构造前后项差的方式, induce 出一个绝对积分和有限的 seq, 从而用这个 seq 的积分和反向证明原 seq 的性质}.
+\end{remark}
 
 
 
-
-
-
-\section{dense subspaces of $L^1(\mu)$}
+\section{density of simple function of $L^1(\mu)$}
 
 \begin{theorem}{density of simple functions in $L^1(\mu)$}
   令 $(X, \mathcal{A}, \mu)$ 为一个 measure space,  令 $f \in L^1(\mu)$, \\
@@ -2003,22 +2135,31 @@ F := \int f(x,t) \; d\mu(x)
 < \epsilon
     \]
 \end{theorem}
+\begin{proof}
+    这是显然的, by 积分的定义. 我么首先把 $f$ divide 为 \[
+    f = u +iv, \quad u = u^+ - u^-,\quad v = v^+ - v^-
+    \]
+    而后对这四个非负函数 $u^+,u^-, v^+, v^-$分别使用 simple function seq approximation, 再使用 DCT:
+    \[
+   \int \lim \phi_n =     \int u^+ =  \lim \int \phi_n
+    \]
+    比方说 $(\phi_n)$ 为从下逼近 $u^+$ 的 simple function seq, 那么 $u^+$ 是它的 dominating function, 同时也是极限. 那么对于任意的 $\epsilon > 0$ 都存在一个 $n$ 使得  \[
+||u^+ - \phi_n||_1 \leq  \int u^+ -    \int \phi_n  < \epsilon
+    \]
+\end{proof}
 
 
-
-
-
-
+尤其是这一特殊情况: 
+\subsection{density of step functions in $L^1(m)$ }
 \begin{theorem}{LS measure space 的 $L^1$ space 上的 density of step functions}
-考虑 $(\mathbb{R}, \mathcal{L}, \mu)$ where $\mu$ 为一个 Lebesgue-Stieljes measure on $\mathbb{R}$, let $f \in L^1 (\mu)$,\\
+考虑 $(\mathbb{R}, \mathcal{L}, m_s)$ where $m_s$ 为一个 Lebesgue-Stieljes measure on $\mathbb{R}$, let $f \in L^1 (\mu)$,\\
 对于任意 $\epsilon >0$, 都存在 step function $\phi = \sum_{j=1}^N c_j \chi_{I_j}$, 使得 \[
 \int (f-\phi) < \epsilon
 \] where each $I_j$ 都是 open intervals.
 \end{theorem}
-
-
-
-
+\begin{proof}
+和 general case 相似. 利用 the fact that 任意一个 Lebesgue mble function 都可以用 step function 来 approximate.
+\end{proof}
 
 
 
@@ -2027,11 +2168,15 @@ F := \int f(x,t) \; d\mu(x)
 
 
 \chapter{integration of real and complex functions III}
+\section{another dense subspace of $L^1(m_s)$: $C_c (\mathbb{R})$}
 
-\section{$C_c (X)$ as a dense subspace of $L^1(\mu)$}
+上一节课我们知道了: 所有的 simple functions 在 $L^1(\mu)$ 中构成了一个 dense subspace. 尤其是特殊情况: 对于 $(\mathbb{R}, \mathcal{L}, m_s)$, \textbf{所有的 step functions 构成了一个 dense subspace of $L^1(m_s)$. }
+
+今天我们先介绍另一个特殊情况 $(\mathbb{R}, \mathcal{L}, m_s)$ 的 $L^1(m_s)$ 的 \textbf{另一个 dense subspace: 所有的 cpt supported continuous function. }
+
+也就是说, \textbf{任意的 Lebesgue intble function 都可以用 ctn function with compact supp 来近似. } 一个可积函数可以是 supp 非常怪异的以及非常 unctn 的, 但是却可以用 ctn and cpt supp functions 来逼近, in $L^1$ sense. 当然这是一种弱逼近. 函数可以差异很大.
 
 \begin{definition}{$C_c (X)$}
-
 令 $X$ be a metric space, 我们定义:
 \[
 C_c(X) := \{\text{all ctn functions }f:X \to \mathbb{C}  \text{ with cpt supp}  \}
@@ -2039,17 +2184,31 @@ C_c(X) := \{\text{all ctn functions }f:X \to \mathbb{C}  \text{ with cpt supp}  
 \end{definition}
 
 \begin{theorem}{$C_c(X) \subset L^1(\mu)$ 是一个 dense linear subspace}
-    对于 metric space $X$, 取一个 Borel measure $\mu$, 则: $C_c(X) \subset L^1(\mu)$ 为一个 dense linear subspace.
+$C_c(\mathbb{R}) \subset L^1(\mu_m)$ 为一个 dense linear subspace.
 \end{theorem}
+\begin{proof}
+对于 $f \in L^1(m_s)$, let $\epsilon > 0$.我们首先 pick 一个 step function 来approximate $f$:   \[
+\phi = \sum_{j=1}^n c_j \chi_{I_j} , \quad  s.t. ||f-\phi||_1 < \frac{\epsilon}{2}
+\]
+至于另外
+\end{proof}
+
+
+
 
 
 
 \section{Riemann v.s. Lebesgue integral}
 我们已经完成了一个任意的 measure space 上的 Lebesgue 积分的定义, 以及可积空间的定义.\\
 Recall: Riemann integral 是对于 $\mathbb{R}^n \rightarrow \mathbb{R}$ 的函数定义的, 经典定义为 $\mathbb{R} \to \mathbb{R}$ 的函数.\\
-现在我们比较对于 $\mathbb{R} \to \mathbb{R}$ 的函数的 Riemann 和 Lebesgue 积分. 我们将会得出结论: Riemann 积分是 Lebesgue 积分的特殊情况, 即, Riemann 可积的函数一定也 Lebesgue 可积, 并且积分值相同. (对于 $\mathbb{R}^n \rightarrow \mathbb{ R}$ 的函数也一样, 之后将展开.)\\
+现在我们比较对于 $\mathbb{R} \to \mathbb{R}$ 的函数的 Riemann 和 Lebesgue 积分. 我们将会得出结论: \textbf{Riemann 积分是 Lebesgue 积分的特殊情况, 即, Riemann 可积的函数一定也 Lebesgue 可积, 并且积分值相同}. (对于 $\mathbb{R}^n \rightarrow \mathbb{ R}$ 的函数也一样, 之后将展开.)\\
 
 Recall 
+
+
+
+
+
 
 
 
@@ -2478,6 +2637,165 @@ Step 3: Case $\mu,\nu$ finite measure: $E_1 \subset$
 Take $E \in \mathcal{A} \otimes \mathcal{B}$. Then: 
 (a) 
 \end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Fubini's Theorem and Lebesgue integral in $\mathbb{R}^n$}
+recall Tonelli's Theorem: Given $f \in L^+(X \times Y)$, set $g(x) := \int f_x d\nu $, $h(y) := \int f^y d \mu$. 
+Then $g \in L^+(X)$, $h \in L^+(Y)$, 以及有: \[
+\int f \; d(\mu \times \nu) = \int g \; d \mu = \int h \; d\nu
+\]
+展开后可写作: \[
+\int f \; d(\mu \times \nu)  = \iint  f(x,y) \; d\nu(y) d\mu(x) = \iint f(x,y) \; d\mu(x) d\nu(y)
+\]更加简洁可写作: \[
+\int f \; d(\mu \times \nu) = \int f \; d\nu d\mu  = \int f \; d\mu d\nu
+\]
+
+\begin{corollary}
+    if $f \in L^1(X\times Y)$ and $f \geq 0$ then 
+    \begin{itemize}
+        \item     $g(x) < \infty$ for a.e. $x$
+        \item $h(x) < \infty$ for a.e. $y$
+    \end{itemize}
+\end{corollary}
+
+
+Now do $\mathbb{C}$-valued version:
+
+
+
+
+
+\begin{theorem}{Fubini's Theorem}
+    If $f \in L^1(\mu \times \nu)$, 
+    \begin{itemize}
+        \item $f_x \in L^1(\nu)$ for a.e. $x$, $f^y \in L^1(\mu)$ for a.e. y
+        \item The a.e. defined functions: \[ g(x) := \int f_x \;d\nu \in L^1(\mu),\quad h(x) := \int f^y \;d\nu \in L^1(\nu) \]
+        \item \[ \int f \; d(\mu \times \nu)  = \int g \; d\mu = \int h \; d\nu \]
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+\(f = \Re f + i \Im f \), so WLOG can assume $f$ is $\mathbb{R}$-valued.\\
+又 $f = f^+ - f^-$, 直接 apply Tonellis's Thm 可得.
+\end{proof}
+
+
+
+\begin{example}
+    $(X, \mathcal{A}, \mu) = (Y , \mathcal{B}, \nu) = (\mathbb{N}, \mathcal{P}(\mathbb{N}), \mu_{counting})$
+if $a_{mn} \in \mathbb{C}$ for $(m,n) \in \mathbb{N}^2$ and \[
+\infty > \sum_{m,n} |a_{mn}| =: \sup_{F \subset \mathbb{N}^2  \text{finite}} \sum_{(m,n) \in F}  |a_{m,n}|
+\]
+Thm: $\sum_m a_{mn}$ conv absly to $b_n \in \mathbb{C}$, for all $n$
+$\sum_n a_{mn}$ conv absly to $c_m \in \mathbb{C}$, for all $m$
+以及 $\sum_n b_n, \sum_m c_m$ conv absly to $\sum_{m,n} a_{mn}$
+\end{example}
+
+
+
+Now suppose \((X, \mathcal{A}, \mu)\), $ (Y , \mathcal{B}, \nu)$ complete. Then \((X\times Y , \mathcal{A} \otimes \mathcal{B} , \mu\times \nu  )\) \textbf{may not be complete!}
+
+\begin{example}
+      考虑 $(X, \mathcal{A}, \mu) = (Y , \mathcal{B}, \nu) = (\mathbb{R}, \mathcal{L}, m)$
+       考虑一个 Vitali set. \[
+       V \times \{0\} \subset \mathbb{R} \times \{0\} \text{ is a subnull set, not measurable}
+       \]
+\end{example}
+
+
+
+Now consider completion: \[
+(X \times Y , \overline{\mathcal{A} \otimes \mathcal{B}},  \overline{\mu \times \nu}   ) 
+\]
+
+
+
+\begin{theorem}{complete Fubini-Tonelli}
+ consider completion of a product measure space: \[
+(X \times Y , \overline{\mathcal{A} \otimes \mathcal{B}},  \overline{\mu \times \nu}   ) 
+\]
+我们将 $\overline{\mathcal{A} \otimes \mathcal{B}}$ 简易写作 $\mathcal{L}$, $\overline{\mu \times \nu}   $ 简易写作 $\lambda$.\\
+Suppose $f: X \times Y \to \mathbb{C}$ is $\mathcal{L}$-measurable 并且 either: 
+
+$f \geq 0$ or $f \in L^1(\lambda)$, then: 
+\begin{itemize}
+    \item 
+\end{itemize}
+
+    
+\end{theorem}
+
+
+
+\section{Lebesgue measure in $\mathbb{R}^n$}
+
+\begin{definition}
+    $(\mathbb{R}^n, \mathcal{L}^n, m^n)$ Lebesgue measure is \textbf{completion of } $(\mathbb{R}^n, \mathcal{B}_{\mathbb{R}^n}, m^n)$. 
+\end{definition}
+where $ \mathcal{B}_{\mathbb{R}^n} =  \mathcal{B}_{\mathbb{R}} \otimes \cdots \otimes \mathcal{B}_{\mathbb{R}}  $
+\(\mathcal{L^n }  = \{ \text{Leb meas sets} \}  \supset  \mathcal{B}_{\mathbb{R}^n}\)
+Write: \[  \int f \;d m^n   \quad 
+\]
+
+
+\begin{theorem}{Fubini-Tonelli for $m^n$}
+    Suppose $f \in L^+(\mathbb{R}^n)$ or $L^1(\mathbb{R}^n)$
+\begin{align}
+\int f \; dm &= \int \cdots \int f(x_1, \cdots, x_n) 
+\; dx_1 \cdots dx_n        \\
+& = \int \cdots \int f(x_1, \cdots, x_n) 
+\; dx_n \cdots dx_1
+\end{align}
+\end{theorem}
+
+\begin{example}
+    Show: \[
+    \int_0^\infty e^{-sx} \frac{\sin^2(x)}{x} \; dx = \frac{1}{4} \log(1+ 4s^{-2})
+    \]
+for $s > 0$, by integrating $e^{-sx} \sin 2xy = f(x,y)$ over the rectangle $x \in (0,\infty), y \in (0,1)$.\\
+Sketch: $f \in L^1$ (since it is ctn on $\mathbb{R}$)
+以及 \[
+|f| \leq e^{-sx}, \quad \int_{\mathbb{R}} e^{-sx} < \infty
+\]
+可计算得 \[
+\int_0 ^1 \sin 2xy \; dy = \frac{1}{2x} \sin^2 x
+\]
+而后 compute \[
+\int_0 ^1    e^{-sx} \sin 2xy \; dy
+\] by integration by part for twice.
+\end{example}
+
+\begin{theorem}{regularities of $\mathcal{L}^n$}
+If $E \subset \mathcal{L}^n$, 则有: 
+\begin{itemize}
+    \item \textbf{outer regularity}: \[ m(E) = \inf \{  m(U) \mid U  \text{ open}   \supset E\}  \]
+    \item \textbf{inner regularity}: \[ m(E) = \inf \{  m(K) \mid K  \text{ compact}   \subset E\}  \]
+    \item if $m(E) < \infty$, 则对于任意 $\epsilon > 0$, 都存在 disjoint rectangles $R_1, \cdots R_N$ with sides that are open intervals s.t. \[ m(E  \Delta \bigcup_{j} R_j ) < \epsilon \] 
+\end{itemize}
+\end{theorem}
+
+
+
+
+
+\chapter{Lebesgue measure in $\mathbb{R}^n$}
+
+
+
+
 
 
 

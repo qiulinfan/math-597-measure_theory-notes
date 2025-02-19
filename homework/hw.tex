@@ -2058,15 +2058,74 @@ Suppose that there is a function $f\colon X\to [0, \infty]$ such that
 \item[(a)] Assume that $ \int f<\infty$. Show that $ \lim_{n\to \infty} \int_E f_n =\int_E f$ for every $E\in \mathcal{A}$. 
 \textit{Hint}: Use Fatou twice. %for $f_n1_E$ and one more time for $f_n1_{E^c}$.) 
 It may be useful to note that even though $\liminf (\alpha_n+\beta_n)\ge \liminf \alpha_n + \liminf \beta_n$ in general, if $\lim \alpha_n$ exists, then $\liminf (\alpha_n+\beta_n)=  \lim \alpha_n + \liminf \beta_n$ for sequences of extended real numbers $\alpha_n, \beta_n$.
-
 \item[(b)]Find an example of $f_n\colon \mathbb{R}\to [0, \infty]$ on the measure space $(\mathbb{R}, \mathcal{B}(\mathbb{R}), m)$ showing that (a) does not necessarily hold if $ \int f=\infty$.
 \end{itemize}
 
 \begin{proof}
     \textbf{of (a):} \\
-    
+    By Fatou’s Lemma, since \(f_n \to f\) pointwise and all \(f_n\) are nonnegative,
+\[
+\liminf_{n\to\infty} \int_E f_n    =    \liminf_{n\to\infty} \int f_n \chi_E  \geq \int f\chi_E  =
+\int_E f
+\]
+For the same reason, \[
+     \liminf_{n\to\infty} \int_{E^c} f_n \,\ge\, \int_{E^c} f
+   \]
+Since \[
+\int f \; d\mu = \int _X f \; d\mu  = \int _E f \; d\mu + \int _{E^c} f\; d\mu
+\], we have: \begin{align}
+    \int  f \; d\mu - \int _E f \; d\mu &= \int _{E^c} f \; d\mu \\
+     &\leq \liminf_n \int_{E^c} f_n \; d\mu \\
+     &= \liminf_n (\int f_n \; d\mu - \int_E f_n \;d \mu)\\
+     & = \lim_{n \rightarrow \infty} \int f_n \; d\mu +  \liminf_n (-\int_E f_n \;d \mu) \\
+     & = \lim_{n \rightarrow \infty} \int f_n \; d\mu - \limsup_n \int_E f_n \;d \mu \\
+     & = \int f \; d\mu - \limsup_{n} \int_E f_n \;d \mu
+\end{align}
+Rearranging the terms, gives: \[
+\int _E f  \geq \limsup_n \int_E f_n \;d \mu
+\]
+Combining with the statement given by Fatou's Lemma: \[
+\liminf_{n\to\infty} \int_E f_n      \geq  
+\int_E f
+\]
+We then have: 
+\[
+    \liminf_{n\to\infty} \int_E f_n =\int_E f \geq  \limsup_n \int_E f_n
+   \]
+Since also by definition of limsup and liminf we have: \[
+\liminf_{n\to\infty} \int_E f_n \leq \limsup_{n\to\infty} \int_E f_n
+\]
+We have:  \[
+\liminf_{n\to\infty} \int_E f_n  =  \limsup_{n\to\infty} \int_E f_n =  \lim_{n\to\infty} \int_E f_n = \int_E f
+\]
+This completes the proof.
 \end{proof}
-
+\begin{solution}
+    \textbf{of (b):}
+Define for each $n \in \mathbb{N}$ \[
+f_n(x) := \chi_{[n,n+1]}  + \chi_{(-\infty, 0]}
+\]
+Then we have: \[
+\int f_n(x) = 1 + \infty = \infty 
+\]
+for each $n$. So \[
+\lim_{n\to\infty} \int f_n(x) = \infty
+\]
+And the pointwise limit of $f_n$ is \[
+f(x) : = \lim_{n\to \infty} f_n(x) =   \chi_{(-\infty, 0]} \]
+So the integral of $f$ is also: \[
+\int \lim_{n\to \infty} f_n(x) = \int f(x) = \infty
+\]
+But consider the subset $E = [0,\infty)$, we have: \[
+\int_E f_n  = \int \chi_{[n,n+1]}  = 1 \quad \text{for all } n
+\]
+So \[
+\lim_{n\rightarrow \infty} \int_E f_n  = 1
+\]while \[
+\int_E f = 0 \not = \lim_{n\rightarrow \infty} \int_E f_n
+\]
+This completes the counterexample.
+\end{solution}
 
 
 
@@ -2142,14 +2201,82 @@ This finishes the calculation.
 
 \begin{solution}
     \textbf{of (b):}\\
-
-
-
-
-
-
-
-    
+Define for each $n \in \mathbb{N}$ \[
+f_n(x) = x^m \left(1 - \frac{x}{n}\right)^n 
+\quad \text{for} \quad 0 \le x \le n
+\]
+and $f_n(x) = 0$ for $x > n$.\\
+Then the integral we wish to evaluate can be written as \[
+ \lim_{n\to \infty} \int_0^n x^m \left(1 - \frac{x}{n}\right)^n \, dx  = \lim_{n\to \infty} 
+\int_0^\infty f_n(x) \, dx
+\]
+We first evaluate the ptwise limit function $f:= \lim_{n\to \infty} f_n(x)$.\\
+For \(x = 0\): \[
+   f_n(0) \;=\; 0^m \left(1 - \frac{0}{n}\right)^n = 0^m \cdot 1 =0^m e^{-x} \quad \forall n
+   \]
+For \(0 < x < \infty\): \[
+   f_n(x) \;=\; x^m \left(1 - \frac{x}{n}\right)^n
+   \]
+for all large enough $n$. \\
+Recall the standard limit \(\lim_{n \to \infty} \left(1 - \tfrac{x}{n}\right)^n = e^{-x}\), hence \[
+  f(x) := \lim_{n \to \infty} f_n(x) = \lim_{n \to \infty}   x^m \left(1 - \frac{x}{n}\right)^n = 
+   x^m e^{-x}
+   \]
+Thus \[
+f(x) = \begin{cases}
+    0, \quad x< 0 \\
+       x^m e^{-x}, \quad x \geq 0
+\end{cases}
+\]
+Now we determine the dominating function $g$.\\
+Consider the same function as $f$:
+\[
+g(x) :=  \begin{cases}
+    0,\quad x< 0\\
+    x^m  e^{-x}, \quad x\geq 0
+\end{cases}
+\]
+We now prove this same function $g$ works.\\
+Let $n \in \mathbb{N}$.\\
+It is sure that for $x > n$, $g(x) \geq |f_n(x)|$ since $f_n(x) = 0$.\\
+So consider $x\in[0,n]$.\\
+Recall the inequality: \[ \ln(1-t)\le -t \quad \forall t\in[0,1]\]
+Thus we have: 
+\[
+\left(1 - \frac{x}{n}\right)^n \leq
+e^{-\frac{x}{n}n} =
+e^{-x}
+\]
+Therefore,
+\[
+0 
+\;\le\;
+x^m \left(1 - \frac{x}{n}\right)^n 
+\;\le\;
+x^m e^{-x}
+\quad
+\text{for all } 0 \le x \le n
+\]
+Thus in all cases,
+\[|f_n(x)|=f_n(x) \leq 
+x^m e^{-x} =
+g(x)
+\]
+Recall:
+\[
+\int_0^\infty x^m e^{-x}\,dx = \Gamma(m+1) = m!
+\]
+is \textbf{finite} for all nonnegative integers \(m\). Thus \(g\) is \textbf{integrable}. Then \textbf{$g$ is indeed a dominating function for $(f_n)$.} \\
+Applying the DCT, we exchange the limit and the integral:
+\[
+\lim_{n \to \infty} \int_0^\infty f_n(x)\, dx =
+\int_0^\infty \lim_{n\to\infty} f_n(x)\, dx =
+\int_0^\infty x^m e^{-x}\, dx
+\] thus
+\[
+\lim_{n \to \infty} \int_0^n x^m \left(1 - \frac{x}{n}\right)^n \, dx =
+\int_0^\infty x^m e^{-x}\, dx = \Gamma(m+1) = m!
+\] This finishes the evalutation of this integral.
 \end{solution}
 
 
@@ -2163,37 +2290,35 @@ This finishes the calculation.
   \]
   \textit{Hint}: approximate $f$. 
 \begin{proof}
-
+We write: \[
+||f-g||_1 := \int |f-g| \;dm
+\] for $f,g\in L^1(\mathbb{R}, \mathcal{L}, m)$.
 Let $\epsilon > 0$.\\
-Recall that \( C_c(\mathbb{R}) \) is dense in \( L^1(\mathbb{R}) \). SFor any \(\epsilon > 0\), there exists a function \( g \in C_c(\mathbb{R}) \) such that
+Recall that \( C_c(\mathbb{R}) \) is dense in \( L^1(\mathbb{R}) \). So there exists a function \( g \in C_c(\mathbb{R}) \) such that
 \[
 \| f - g \|_1 < \frac{\epsilon}{3}
-\] Since \( g \) is continuous and compactly supported, it is uniformly continuous. Denote $ K :=\supp (g) $. 
+\] Since \( g \) is continuous and compactly supported, it is \textbf{uniformly continuous}. Denote $ K :=\supp (g) $. 
 There exists \(\delta > 0\) such that for all \( x \in \mathbb{R} \),
 \[
 |s - t| < \delta \implies |g(x - s) - g(x - t)| < \frac{\epsilon}{3 \cdot m(K)}
 \]
-The measure of the support of \( g \) is finite, so integrating the difference over this support gives
+Integrating the difference over this support gives:
 \[
-\| g_s - g_t \|_1 \leq \epsilon' \cdot m(K) = \frac{\epsilon}{3}.
+\| g_s - g_t \|_1 \leq \frac{\epsilon}{3 \cdot m(K)} \cdot m(K) = \frac{\epsilon}{3}
 \]
-
-Step 3: Triangle Inequality Argument
-
-Using the triangle inequality for the original function \( f \):
+Recall that $L^1(\mathbb{R}, \mathcal{L}, m)$ is a normed vector space with $||\cdot||_1$ as the norm. So by the triangle inequality of a norm, we have:
 \[
-\| f_s - f_t \|_1 \leq \| f_s - g_s \|_1 + \| g_s - g_t \|_1 + \| g_t - f_t \|_1.
+\| f_s - f_t \|_1 \leq \| f_s - g_s \|_1 + \| g_s - g_t \|_1 + \| g_t - f_t \|_1\]
+By the translation invariance of Lebesgue measure, we have: 
+\[
+\| f_s - g_s \|_1 = \| f - g \|_1 < \frac{\epsilon}{3} \quad \text{and} \quad \| g_t - f_t \|_1 = \| g - f \|_1 < \frac{\epsilon}{3}
+\]By choosing \(\delta\) such that \(\| g_s - g_t \|_1 < \frac{\epsilon}{3}\), we get
+\[
+\| f_s - f_t \|_1 < \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} = \epsilon
 \]
-Since translation does not affect the \( L^1 \)-norm,
-\[
-\| f_s - g_s \|_1 = \| f - g \|_1 < \frac{\epsilon}{3} \quad \text{and} \quad \| g_t - f_t \|_1 = \| g - f \|_1 < \frac{\epsilon}{3}.
-\]
-By choosing \(\delta\) such that \(\| g_s - g_t \|_1 < \frac{\epsilon}{3}\), we get
-\[
-\| f_s - f_t \|_1 < \frac{\epsilon}{3} + \frac{\epsilon}{3} + \frac{\epsilon}{3} = \epsilon.
-\]Conclusion
-
-Thus, for any \( t \in \mathbb{R} \), \(\lim_{s \to t} \int |f_s - f_t| \, dm = 0 \), proving the continuity of the map \( s \mapsto f_s \).
+Since $\epsilon$ is arbitrary, this proves that for any \( t \in \mathbb{R} \), \[
+\lim_{s \to t} \int |f_s - f_t| \, dm =  ||f_s - f_t||_1  = 0
+\]finishing the proof of continuity of the map \( s \mapsto f_s \).
 \end{proof}
 
 
@@ -2232,23 +2357,19 @@ f(x) = \lim_{k \rightarrow \infty} f_k(x)
  Notice that, since each $g_{\alpha_n}$ is nonnegative, $f_k(x)$ is a \textbf{increasing} sequence of functions, so for any $x \in \mathbb{R}$, $ \lim_{k\to \infty} f_k(x)$ exists in $\overline{\mathbb{R}}$. This shows the well-definedness of $f  = \lim_{k\to \infty} f_k$. \\
 Now we \textbf{claim: each $h_n(x)$ is Borel measurable.}\\
 By translate invariance and scaling invariance of Borel measurability, to prove the claim, it \textbf{suffices to prove that each $g_{\alpha}$ is Borel measurable for any $\alpha \in (0,1)$}.\\
-Proof of the fact: for any interval $(a,\infty]$, let 
-\begin{align}
-(1-\alpha) x^{-\alpha} & > a \\    
-\frac{1}{x^\alpha} &> \frac{a}{1-\alpha} \\
-\end{align}
-Thus if $a < 0$, we have:  \[
-g_\alpha^{-1}((a,\infty]) =  \mathbb{R}
+\pic[0.3]{hw5.assets/image-20250214195825512.png}
+If $a < 0$, we have:  \[
+g_\alpha^{-1}((a,\infty)) =  \mathbb{R}
 \]
-if $a > 0$, then we have \[
-g_\alpha^{-1}((a,\infty]) = 
+if $ 0 \leq a \leq  1-\alpha$, then we have \[
+g_\alpha^{-1}((a,\infty)) = (0,1)
 \]
-
-    Since each $g_{1-n^{-n}}$ is a power function on $(0,1)$ and $0$ elsewhere, its only discontinuous points is $\{0,1\}$, so it is \textbf{Borel measurable and nonnegative.} \\
-
-    Thus each $f_k$ being a \textbf{finite sum of Borel measurable functions}, is Borel measurable.\\
-    
-    Then $f $ as \textbf{the limit of Borel measurable function sequence} $(f_k)$, is Borel measurable.\\\\
+if $ a > 1-\alpha$, then we have \[
+g_\alpha^{-1}((a,\infty)) = (0,(\frac{1-\alpha}{a})^{1/\alpha})
+\]
+This proves that $g_\alpha$ is Borel measurable for any $\alpha \in (0,1)$.\\
+Thus each $f_k$ being a \textbf{finite sum of Borel measurable functions}, is Borel measurable.\\
+Then $f $ as \textbf{the limit of Borel measurable function sequence} $(f_k)$, is Borel measurable.\\\\
 \end{proof}
 \begin{proof}
     \textbf{of (b):}\\
@@ -2333,7 +2454,7 @@ Suppose we have redefined $f$ on a measure $0$ set. We pick a rational $x_N \in 
 For arbitrary $M>0$, we can still always find an $x$ s.t. $x \in (x_N, x_N + (\frac{2^N M}{1-\alpha_N})^{\alpha_N}) \cap I$ that \textbf{keeps its original $f(x)$}, which guarantees that $f(x) > M$, implying $\sup_I f = \infty$. This is because, if not so, then it means that we have modified the whole interval $(x_N, x_N + (\frac{2^N M}{1-\alpha_N})^{\alpha_N}) \cap I$, \textbf{which is not a measure zero set}, \textbf{conflicting with the statement} "redefining $f$ on a measure zero set".
 So (e) must still hold true.\\
 For (d), we apply the same trick as original, getting an open interval around $x$ s.t. $|f(y) - f(x)| < \frac{1}{83}$ for all $y \in B_\delta (x) = (x-\delta, x+ \delta)$. And by the restated (d), even if we modified a set of measure zero on $(x-\delta, x+ \delta)$, we still reaches the the same conclusion that $\sup_{(x-\delta, x+ \delta)} f = \infty$, thus causing the same contradiction.\\
-This finishes the proof.
+This finishes the proof.\\\\
 \end{proof}
 
 
@@ -2347,7 +2468,7 @@ Since by translation invariance of Lebesgue integral,:
 \[
   \int_{\mathbb{R}} \Bigl(2^{-n}g_{\alpha_n}(x - x_n)\Bigr)^p \, d m
   \;=\;
-  2^{-np}\int_{\mathbb{R}} g_{\alpha_n}(x)^p \, d m_t 
+  2^{-np}\int_{\mathbb{R}} g_{\alpha_n}(x)^p \, d m
 \]
 where
 \[
@@ -2360,9 +2481,9 @@ where
   n^{-np}\,t^{-\,p\,(1 - n^{-n})}
 \]
 Since \(p > 1\), there eixst $N$ such that for all $N\geq n$, the exponent \(-p(1-n^{-n})\) is less than \(-1\), causing \(\int_0^1 t^{-p + p\,n^{-n}}\,dt = +\infty\) for sufficiently large \(n\).  Multiplying by the constant \(n^{-np}\) does not remove the infinity. \\
-Hence each individual summand has an infinite integral, then by monotonicity of integral, \[
-f^p(x) = (\sum_n 2^{-n}g_{\alpha_n}(x - x_n))^p \geq 2^{-N}g^p_{\alpha_N}(x - x_N))
-\]also fails to have a finite integral, finishing the proof.
+Hence for large enough $n$, each individual summand has an infinite integral, then by monotonicity of integral, \[
+f^p(x) = (\sum_n 2^{-n}g_{\alpha_n}(x - x_n))^p \geq 2^{-N}g^p_{\alpha_N}(x - x_N)
+\]also has an infinite integral, finishing the proof.\\\\
 \end{proof}
 
 
