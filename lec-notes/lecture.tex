@@ -2323,16 +2323,16 @@ To prove this: 见 395.
 \begin{example}
     on $(\mathbb{R}, \mathfrak{L}, m)$, 以下 $(f_n)$:
     \begin{itemize}
-        \item $$f_n = \frac{1}{n} \chi_{(0,n)}$$
-        $f_n \rightarrow 0$ uniformly 但 $\not\rightarrow 0$ in $L^1$
+        \item \textbf{escape to width }$$f_n = \frac{1}{n} \chi_{(0,n)}$$
+        $f_n \rightarrow 0$\textbf{ uniformly 但 $\not\rightarrow 0$ in $L^1$}
 
-        \item $$f_n = \chi_{(n,n+1)}$$
-        $f_n \rightarrow 0$ ptwisely 但并不 uniformly, 并且 $\not\rightarrow 0$ in $L^1$
+        \item \textbf{escape to hat}: $$f_n = \chi_{(n,n+1)}$$
+        $f_n \rightarrow 0$ \textbf{ptwisely} 但并不 uniformly, 并且\textbf{ $\not\rightarrow 0$ in $L^1$}
 
-        \item $$f_n = n \chi_{[0,\frac{1}{n})}$$
-        $f_n \rightarrow 0$ a.e., 但是并不 ptwisely, 当然也并不 uniformly, 并且$\not\rightarrow 0$ in $L^1$
+        \item \textbf{escape to height}: $$f_n = n \chi_{[0,\frac{1}{n})}$$
+        $f_n \rightarrow 0$ \textbf{a.e., 但是并不 ptwisely,} 当然也并不 uniformly, 并且$\not\rightarrow 0$ in $L^1$
         
-        \item "typewriter": 我们把区间$[0,1]$划分成$n$个等长子区间, 每个子区间的长度为$\frac{1}{n}$, 令$f_n(x)$在这些子区间上交替取$1$或$0$：    
+        \item \textbf{typewriter}: 我们把区间$[0,1]$划分成$n$个等长子区间, 每个子区间的长度为$\frac{1}{n}$, 令$f_n(x)$在这些子区间上交替取$1$或$0$：    
 \[
    f_n(x) = 
    \begin{cases}
@@ -2351,7 +2351,7 @@ To prove this: 见 395.
 在这些例子中, 我们发现, $L^1$-convergence 和 uniform, ptwise, a.e. 这三个 modes of covergence 都互不推导. 对于 uniform convergence 和 ptwise convergence, 这是很合理的, 因为可以函数越来越宽和扁使得积分不变但是却 uni conv; 也可以函数积分收敛但是在一个零测集上反复跳跃.\\
 
 并且我们进一步发现, 就算是 a.e. 收敛, 也和 $L^1$ 收敛没有互推关系. 比如 ex (3), 这个函数只在 $0$ 处不收敛至 0, 但是整体的积分却是 const 1. \\
-我们 recall: 两个函数 a.e. 相等, 等价于它们的 $L^1$ distance 为 0. 但是作为极限行为并不相干.
+我们 recall: 两个函数 a.e. 相等, 等价于它们的 $L^1$ distance 为 0. 但是\textbf{它们作为函数列极限行为, 并不相干}. 
 
 
 
@@ -2363,22 +2363,32 @@ To prove this: 见 395.
 
 对于  $f_n,f:X \rightarrow \mathbb{C}$, 我们定义以下三种 convergence:
 \begin{itemize}
-    \item fast $L^1$-convergence: if  \[
+    \item \textbf{fast $L^1$-convergence}: if  \[
     \sum_{n=1}^\infty \int |f_n - f| < \infty    
     \]
-    \item convergence in measure: if \[
-    \mu(x : |f_n - f| > \epsilon) \to 0
+    \item \textbf{convergence in measure}: if \[
+    \mu(x : |f_n(x) - f(x)| > \epsilon) \overset{n\to \infty}{\longrightarrow} 0
     \]
-    \item subseq a.e. convergence: if 存在一个 subseq $(f_{n_j})$ 使得 \[
+    \item \textbf{subseq a.e. convergence}: if 存在一个 subseq $(f_{n_j})$ 使得 \[
     f_{n_j} \overset{j\to \infty}{\longrightarrow} f \;\;\; a.e.
     \]
 \end{itemize}
 \end{definition}
 显然, fast $L^1$-convergence $\implies $ $L^1$-convergence;\\
-我们接下来将说明, fast $L^1$-convergence 也 $\implies$ a.e. convergence, 同时作为 a.e. convergence 和 $L^1$-convergence 的上位收敛, 作为这两条线路的上位交汇.\\
+我们接下来将说明, \textbf{fast $L^1$-convergence 也 $\implies$ a.e. convergence} (于是它同时作为 a.e. convergence 和 $L^1$-convergence 的上位收敛, 作为这两条线路的上位交汇.)\\
 并且我们也将说明, $L^1$-convergence $\implies$ convergence in measure, \\
-而 convergence in measure 和 a.e. convergence 都 $\implies$ subseq a.e. convergence, 作为这两条线路的下位交汇.\\\\
+而 \textbf{convergence in measure 和 a.e. convergence 都 $\implies$ subseq a.e. convergence}, 作为这两条线路的下位交汇.\\\\
 
+\begin{remark}
+    对于 convergence in measure, 还有一个值得提的定义是 \textbf{Cachy in measure}: 对于任意 $\epsilon>0$,  \[
+    \mu(x : |f_n(x) - f_m(x)| > \epsilon) \overset{n,m\to \infty}{\longrightarrow} 0
+    \]
+    我们容易发现: \[\text{Cauchy in measure} \implies \text{convergent in measure}\]
+    但是反向并不成立. examples 中,\textbf{ escape to width, escape to hat 以及 typewritter 是 convergent to $0$ in measure 的, 但不 Cauchy in measure; }\\
+    这里和我们在 metric space 上 distance function 的定义中的 "convergent" 和 "Cauchy" 是不同的, \textbf{在 metric space 上, convergent 是比 Cauchy 更强的性质.} 
+\end{remark}
+
+以下的标记将在之后几个定理的证明中用到:
 我们现在 define:
 \[B_{n,k} := \{  x\in X  :  | f_n(x) -f(x)| \leq \frac{1}{k}   \}\]
 这个集合表示\textbf{对第 $n$th term, error 控制在 $\frac{1}{k}$ 以内的点.}\\
@@ -2392,7 +2402,7 @@ g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
 \]
 
 
-\begin{proposition}{"Fast" $L^1$-conv $\implies$ a.e. conv.}
+\begin{proposition}{\textbf{fast $L^1$-conv $\implies$ a.e. conv.}}
 \[
 \sum_{j=1}^\infty \int  |f_n-f| < \infty \implies f_n\rightarrow f \;a.e.
 \]
@@ -2415,7 +2425,7 @@ g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
 
 \begin{corollary}{$L^1$-convergence ($\implies$conv. in measure) $\implies$ subseq a.e. conv. }
     if $f_n \rightarrow f$ in $L^1$, then there exists subseq $(f_{n_j})_{j\in \mathbb{N}}$ s.t. $f_{n_j} \rightarrow f$ a.e. \\
-    (即 $L^1$ convergence implies subseq a.e. convergence)
+    (即 \textbf{$L^1$ convergence implies subseq a.e. convergence})
 \end{corollary}
 \begin{proof}
     注意: \textbf{对于 $L^1$-convergent 的 seq, 我们可以 pick 出一个 fast $L^1$-convergent 的 subseq.}\\
@@ -2429,27 +2439,29 @@ g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
     由刚才的 prop 得, $f_{n_j}\rightarrow f$ a.e.
 \end{proof}
 \begin{remark}
-这里直接证明了 $L^1$-convergence $\implies$ subseq a.e. conv, 而我们也可以在中间加上 conv. in measure 这一过渡.\\
-我们可以通过\[ \mu(B_{n,k}^c)  \leq k \int |f_n-f|\] 的关系, 加上 $L^1$-convergence 对这个积分的控制, 简单得到 \textbf{$L^1$ convergent implies convergent in measure}. 然后再用 convergent in measure 证明 subseq a.e. conv. \\
-Note: 这一部分在 Folland 2.30. Convergent in measure implies Cauchy in measure, and Cauchy in measure implies subseq a.e. conv.
-    而后, convergence in measure 推出 subseq a.e. convergence 的证明也是简单的, 因为 convergent in measure 表示 fix error bound $\epsilon$, 对于任意的 measure bound $\delta$, 都可以找到一个 $N$ 使得其之后, 函数值超出这个 error bound 的点集 measure 被这个 $\delta$ bound, 即 函数值超出这个 error bound 的点集 measure 可以控制为任意小.\\
-
-    从而, 我们可以选取一个 subseq, 是的
+这里直接证明了 $L^1$-convergence $\implies$ subseq a.e. conv, 而我们也可以\textbf{在中间加上 conv. in measure }这一过渡.\\
+我们可以通过\[ \mu(B_{n,k}^c)  \leq k \int |f_n-f|\] 的关系, 加上 $L^1$-convergence 对这个积分的控制, 简单得到 \textbf{$L^1$ convergent implies convergent in measure}.\\
+至于 convergent in measure 证明 subseq a.e. conv, 这一部分在 Folland 2.30. \textbf{Convergent in measure implies Cauchy in measure, and Cauchy in measure implies subseq a.e. conv.} (这个证明看起来还挺麻烦的.)
+    \begin{comment}
+    我们取一个 subseq $(g_j) := (f_{n_j})$, 其满足 \[
+    \mu( E_j := \{x: |g_j(x)- g_{j+1} (x) | \geq \frac{1}{2^j}\}) \leq \frac{1}{2^j} 
+    \]
+    \end{comment}
 \end{remark}
 
 
 
 
 
-\subsection{a.e. and a.u. convergence}
+\section{a.e. and a.u. convergence, and Egoroff's Theorem}
 \begin{definition}
     我们称 $f_n\rightarrow f$ almost uniformly (a.u.), 如果 $\forall \varepsilon > 0$, 都存在 $E \subseteq A$ s.t. $\mu(E) < \varepsilon$ 并且 $f_n \rightarrow f$ uniformly on $E^C$
 \end{definition}
 
 
 
-\begin{theorem}{Egorov's Theorem}
-\label{Egorov's Theorem}
+\begin{theorem}{Egoroff's Theorem}
+\label{Egoroff's Theorem}
 如果 $\mu$ 是个 finite measure ($\mu(X) < \infty$), 那么 
 \[
 f_n \rightarrow f \;\;a.e. \;\; \Longleftrightarrow f_n \rightarrow f \;\; a.u.
@@ -2504,22 +2516,20 @@ Then by \textbf{Egorov}: \[
 \exists F \subseteq [a,b] \text{ mble } s.t. \;\; \mu(F) < \frac{\varepsilon}{2}
 \]
 并且 $f_n \rightarrow f$ uniformly on $F^c$.\\
-By inner regu: 存在 $K \subseteq [a,b] $ cpt s.t. $K \subseteq F^c$ 并且 $n(F^c \setminus K ) < \frac{\varepsilon}{2}$
+By inner regu: 存在 $K \subseteq [a,b] $ cpt s.t. $K \subseteq F^c$ 并且 $m(F^c \setminus K ) < \frac{\varepsilon}{2}$
 $m(K^c) < \varepsilon$ 并且 $f_n$ conv unif., so $f$ ctn.
-
 \end{proof}
 
 
 
 \section{summary: convergence mode relations}
-\pic[0.85]{ch2-pics.assets/image-20250219190348233.png}
+\pic[0.85]{ch2-pics.assets/image-20250219225353932.png}
 一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 最后聚集在 subseq a.e. conv.
 
 
 
 
 \chapter{product measure}
-
 
 Goal: Given $(X_i, \mathcal{A}_i, \mu_i)$, construct $X = \prod X_i $, s.t. 
 \[
@@ -2528,33 +2538,41 @@ Goal: Given $(X_i, \mathcal{A}_i, \mu_i)$, construct $X = \prod X_i $, s.t.
 So that we can do Fubini (iterated integration) like that in Riemann integral.
 
 
-
+\section{product $\sigma$-algebra}
 \begin{definition}{product $\sigma$-algebra}
-Suppose $(X_i, \mathcal{A}_i)$ mble, $1 \leq i\leq n$, the product $\sigma$-algebra $A_1 \otimes \cdots \otimes A_n$ on $X_1 \times \cdots \times X_n$ is the smallest $\sigma$-algebra s.t.$$ \pi_j: X_1 \times \cdots \times X_n \rightarrow X_j$$is measurable.
+Suppose $(X_i, \mathcal{A}_i)$ mble, $1 \leq i\leq n$, the product $\sigma$-algebra $A_1 \otimes \cdots \otimes A_n$ on $X_1 \times \cdots \times X_n$ is the smallest $\sigma$-algebra s.t. the\textbf{ coordinate map }$$ \pi_j: X_1 \times \cdots \times X_n \rightarrow X_j$$\textbf{is measurable.}\\
+即 the $\sigma$-algebra generated by: \(
+\{  \pi_\alpha (E_\alpha) : E_\alpha  \in \mathcal{A_\alpha} \}
+\). \[
+A_1 \otimes \cdots \otimes A_n : = <\{  \pi_\alpha (E_\alpha) : E_\alpha  \in \mathcal{A_\alpha} \}>
+\]
+
 \end{definition}
 
 
-
-
+我们容易发现:
 \begin{proposition}
-$$A_1 \otimes \cdots \otimes A_n = <\{  E_1\times \cdots \times E_n \mid \text{ rectangle }\in \mathcal{A}_i \times \cdots \times \mathcal{A}_n  \}>$$
+$$A_1 \otimes \cdots \otimes A_n = <\{  E_1\times \cdots \times E_n \in \mathcal{A}_i \times \cdots \times \mathcal{A}_n  \}>$$
 \end{proposition}
 \begin{proof}
-    DIY. (Prop 1.14 in book).
+    By def 易得. (Prop 1.14 in book).\\
 \end{proof}
+\begin{remark}
+  这里只考虑了有限情况, 但是无限的乃至于 ctblly 无限的相似. 取所有可能的 set product 作为 geneating 即可.
+\end{remark}
 
 
 
-
+\subsection{product Borel algebra $\subset$ Borel algebra of the product space}
 \begin{proposition}
     If $X_1,\cdots, X_n $ are metric spaces. Let $X := X_1 \times \cdots \times X_n$ (with product metric), then: $$\bigotimes_{i=1}^n \mathcal{B}_{X_i} \subseteq \mathcal{B}_X$$
-and the equality holds if $X_i$ separable $\forall i$.
+\textbf{and the equality holds if $X_i$ separable $\forall i$.}
 \end{proposition}
 \begin{proof}
    $$\bigotimes_{i=1}^n \mathcal{B}_{X_i}  \overset{\text{by prop}}{=} < \{ U_1\times \cdots \times U_n  \text{ each open} \} > \subseteq\mathcal{B}_X $$
    Now let $C_i \subseteq X_i$ dense, ctbl. \\
    Set $$\mathcal{E}_i  := \{  B_r(x) \mid x\in C_i \;,\; r\in \mathbb{Q}_{>0}  \} \subseteq \mathcal{B}_{X_i} $$
-   Then: every open set in $X_1 \times \cdots \times X_n$ is a ctbl union of products $B_1 \times \cdots \times B_n$, each $B_1 \in \mathcal{E}_i$.
+   Then: \textbf{every open set in $X_1 \times \cdots \times X_n$ is a ctbl union of products $B_1 \times \cdots \times B_n$}, each $B_1 \in \mathcal{E}_i$.
    Then we have: $$B_X = <\{B_1 \times ...\times B_n\}> \subset \bigotimes_1^n B_{X_i}$$
 \end{proof}
 
@@ -2564,88 +2582,75 @@ and the equality holds if $X_i$ separable $\forall i$.
 
 
 \begin{corollary}
-    if $(X,\mathcal{A})$ is a mble space, then $$f:X\rightarrow \mathbb{C}  \;\;(\mathcal{A},\mathcal{B}_{\mathbb{C}})\text{-mble } \Longleftrightarrow \re f, \im f \;\;\mathcal{A}\text{-mble}$$
+    if $(X,\mathcal{A})$ is a mble space, then $$f:X\rightarrow \mathbb{C}  \;\;(\mathcal{A},\mathcal{B}_{\mathbb{C}})\text{-mble } \Longleftrightarrow \Re f, \Im f \;\;\mathcal{A}\text{-mble}$$
 \end{corollary}
+\begin{proof}
+    略.
+\end{proof}
 
-
-   (pp 64.) Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
+\section{product measure}
+下面我们构建 product measure: 
+Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
     And let $X := X_1 \times ... \times X_n$, $\mathcal{A}:= \mathcal{A}_i \otimes \cdots \otimes \mathcal{A}_n$
 Goal: 通过 Hahn-Kromolgrov 来构建 product measure on product mble space.
-Idea: Let $$\mathcal{A}' := \{   \text{disjoint  unions of rectangles }\}$$
-Then $\mathcal{A}' \subset \mathcal{A}$
-
-
-
-
-
-
+Idea: Let $$\mathcal{A}' := \{   \text{all disjoint  unions of rectangles } A_1 \times \cdots \times A_n\}$$
+\textbf{Step 1: }
 \begin{proposition}
-   $\mathcal{A}'$ is an algebra/
+   $\mathcal{A}'$ is an algebra.
 \end{proposition}
 \begin{proof}
-    Sketch:  
-Step 1:
 The set $\mathcal{E}:= \{\text{rectangles}\} \subseteq \mathcal{P}(X)$ satisfies:
     \begin{itemize}
         \item $\varnothing \in \mathcal{E}$
         \item $E,F \in \mathcal{E} \implies E \cap F \in \mathcal{E}$
-        \item $E \in \mathcal{ E} \implies E^c \text{ is a finite disjoint union of recs}$ (画图可知)
+        \item $E \in \mathcal{ E} \implies E^c \text{ is a finite disjoint union of recs}$ (画图可知).\\\\
     \end{itemize}
-
-Step 2: $\mathcal{A}' := \{\text{finite disjoint unions of elts of } E'\} $ is an algebra, by prop 1.7
-
-
 \end{proof}
 
-
-
-
-\begin{proposition}
-    Now define $$\mu' : \mathcal{A}' \rightarrow [0,\infty]$$ as follows: $$ \mu'(\bigsqcup_{k=1}^N E_1^{(k)} \times \cdots \times E_N^{(k)}) = \sum_{k=1}^N \prod_{i=1}^n \mu_i (E_i^{(k)}) $$
-Claim:
-    (1) $\mu'$ is a well-defined premeasure on $\mathcal{A}'$.
-    (2) If each $\mu_i$ is $\sigma$-finite, so is $\mu'$.
-\end{proposition}
-\begin{proof}
-    Sketch: (2) DIY.
-    (1) STS(check): if $E = E_1 \times \cdots E_n$ is a finite or ctbl uniono f rects $E^{(k)} = E_1^{(k)}\times \cdots \times E_n^{(k)} $, then $$\prod_1^n  \mu_i(E_i) = \sum_k \prod_1^n \mu_i(E_i^{(k)})  $$
-    Use Tonelli for sums and integrals: \begin{align}
+\textbf{Step 2: }
+Now define $$\mu' : \mathcal{A}' \rightarrow [0,\infty]$$ as follows: $$ \mu'(\bigsqcup_{k=1}^N E_1^{(k)} \times \cdots \times E_n^{(k)}) = \sum_{k=1}^N \prod_{i=1}^n \mu_i (E_i^{(k)}) $$
+Claim 2:
+   \textbf{ (1) $\mu'$ is a well-defined premeasure on $\mathcal{A}'$.
+    (2) If each $\mu_i$ is $\sigma$-finite, so is $\mu'$.}
+Proof of the Claim 2: 
+ Sketch: (2) DIY.
+    (1) STS(check): if $E = E_1 \times \cdots E_n$ is a finite or ctbl union of rects $E^{(k)} = E_1^{(k)}\times \cdots \times E_n^{(k)} $, then $$\prod_1^n  \mu_i(E_i) = \sum_k \prod_1^n \mu_i(E_i^{(k)})  $$
+ Use Tonelli for sums and integrals: \begin{align}
         \prod_1^n \chi_{E_i} (x_i) &= \chi_E (x_1\,, \cdots \,,x_n) \\
         &= \sum_k \chi_{E^{(k)}} (x_1 \,, \cdots \,, x_n) \\
         &= \sum_k \prod_1^n \chi_{E_i^{(k)}} (x_i)
     \end{align}
-Integrate w.r.t.  $x_1$ (check): 
+Integrate w.r.t. $x_1$: 
 \begin{align}
 \mu_1(E_1) \prod_{i=1}^n \chi_{E_i} (x_i)& = \int \sum_k \prod_1^n \chi_{E_i ^{(k)}} (x_i)    \\
 &\overset{\text{Tonelli}}{=}  \sum_k  \int (\prod_1^n   \chi_{E_i ^{(k)}} (x_i) )  d \, \mu_1 (x_1) \\
 & = \sum_k \mu_1(E_1^{(k)}) \prod_{i=1}^n \chi_{E_i^{(k)}} (x_i)
 \end{align}
-And repeat for $i=2,\cdots,n$.
-\end{proof}
+And repeat for $i=2,\cdots,n$.\\\\
 
 
+
+\textbf{Step 3: 现在已经有了 $\sigma$-finite 的 premeasure, 我们可以应用 HK Thm 构建出完整的 measure.}
 Now use HK:
 \begin{corollary}
-    $\exists$ measure $\mu := \mu_1 \times \cdots \times \mu_n$ on $\mathcal{A} = \mathcal{A}_1 \otimes \cdots \mathcal{A}_n$ extending $\mu$.\\
-    And if each $\mu_i $ are $\sigma$-finite, hen $\mu$ is the unique extension.
+    $\exists$ measure $\mu := \mu_1 \times \cdots \times \mu_n$ on $\mathcal{A} = \mathcal{A}_1 \otimes \cdots \mathcal{A}_n$ extending $\mu'$.\\
+    (\textbf{And if each $\mu_i $ are $\sigma$-finite, then $\mu$ is the unique extension.)}
 \end{corollary}
+由此, 我们从 $\mathcal{A}_1 , \cdots ,\mathcal{A}_n$ 的 measure 中构建出了它们的 product measure.\\\\
 
 
+\subsection{associativity of product $\sigma$-algebra and $\sigma$-finite product measure}
 \begin{corollary}{assotiativity}
 $$ \mathcal{A}_1 \otimes \mathcal{A}_2  \otimes \mathcal{A}_3 =  (\mathcal{A}_1 \otimes \mathcal{A}_2)  \otimes \mathcal{A}_3 =   \mathcal{A}_1 \otimes (\mathcal{A}_2  \otimes \mathcal{A}_3 ) $$
 If $\mu_1, \mu_2,\mu_3$ are $\sigma$-finite, then: $$\mu_1 \times \mu_2 \times \mu_3 = (\mu_1 \times \mu_2) \times \mu_3  = \mu_1 \times (\mu_2 \times \mu_3 )$$
 \end{corollary}
-
 \begin{proof}
-    DIY.a
+    DIY.    
 \end{proof}
 
-\begin{definition}{product measures}
-    (pp 64.) Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
-    And let $X := X_1 \times ... \times X_n$, $\mathcal{A}:= \mathcal{A}_i \otimes \cdots \otimes \mathcal{A}_n$
 
-    
-\end{definition}
+
+
 
 
 
