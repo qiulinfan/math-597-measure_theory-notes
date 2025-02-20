@@ -8,7 +8,7 @@
 
 
 
-![image-20250220152857547](ch2-pics.assets/image-20250220152857547.png)
+![image-20250220154229379](ch2-pics.assets/image-20250220154229379.png)
 
 
 
