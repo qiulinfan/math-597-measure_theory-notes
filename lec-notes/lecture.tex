@@ -2302,6 +2302,7 @@ To prove this: 见 395.
 
 
 \chapter{modes of convergence}
+\section{convergence family}
 对于 $f_n,f:X \rightarrow \mathbb{C}$, 我们目前有 4 种不同的 convergence.\\
 2 \textbf{general ones}:
 \begin{itemize}
@@ -2331,8 +2332,7 @@ To prove this: 见 395.
         \item $$f_n = n \chi_{[0,\frac{1}{n})}$$
         $f_n \rightarrow 0$ a.e., 但是并不 ptwisely, 当然也并不 uniformly, 并且$\not\rightarrow 0$ in $L^1$
         
-        \item "typewriter": 
-构造: 我们把区间$[0,1]$划分成$n$个等长子区间, 每个子区间的长度为$\frac{1}{n}$, 令$f_n(x)$在这些子区间上交替取$1$或$0$：    
+        \item "typewriter": 我们把区间$[0,1]$划分成$n$个等长子区间, 每个子区间的长度为$\frac{1}{n}$, 令$f_n(x)$在这些子区间上交替取$1$或$0$：    
 \[
    f_n(x) = 
    \begin{cases}
@@ -2348,32 +2348,48 @@ To prove this: 见 395.
    \] 因而 $g_n \rightarrow 0$ in $L^1$, 但是 $\forall x\in[0,1]$, $g_n(x)\not\rightarrow 0$ ptwisely. (也不 a.e.)
     \end{itemize}
 \end{example}
-在这写例子中, 我们发现, $L^1$-convergence 和 uniform, ptwise, a.e. 这三个 modes of covergence 都互不推导. 对于 uniform convergence 和 ptwise convergence, 这是很合理的, 因为可以函数越来越宽和扁使得积分不变但是却 uni conv; 也可以函数积分收敛但是在一个零测集上反复跳跃.\\
+在这些例子中, 我们发现, $L^1$-convergence 和 uniform, ptwise, a.e. 这三个 modes of covergence 都互不推导. 对于 uniform convergence 和 ptwise convergence, 这是很合理的, 因为可以函数越来越宽和扁使得积分不变但是却 uni conv; 也可以函数积分收敛但是在一个零测集上反复跳跃.\\
 
 并且我们进一步发现, 就算是 a.e. 收敛, 也和 $L^1$ 收敛没有互推关系. 比如 ex (3), 这个函数只在 $0$ 处不收敛至 0, 但是整体的积分却是 const 1. \\
-
-我们现在
-
+我们 recall: 两个函数 a.e. 相等, 等价于它们的 $L^1$ distance 为 0. 但是作为极限行为并不相干.
 
 
 
+关于 $L^1$-convergence 和 uniform, ptwise, a.e. convergence 的关系我们已经讨论完了. \\
+接下来我们将关于 $L^1$-convergence 这一条线, 引入一些新的 convergence modes, 在更大的 convergence family 中讨论这些 convergence 的关系. 
 
+\section{3 new modes of convergence w.r.t. measure}
+\begin{definition}{fast $L^1$-convergence, convergence in measure, subseq a.e. convergence}
 
+对于  $f_n,f:X \rightarrow \mathbb{C}$, 我们定义以下三种 convergence:
+\begin{itemize}
+    \item fast $L^1$-convergence: if  \[
+    \sum_{n=1}^\infty \int |f_n - f| < \infty    
+    \]
+    \item convergence in measure: if \[
+    \mu(x : |f_n - f| > \epsilon) \to 0
+    \]
+    \item subseq a.e. convergence: if 存在一个 subseq $(f_{n_j})$ 使得 \[
+    f_{n_j} \overset{j\to \infty}{\longrightarrow} f \;\;\; a.e.
+    \]
+\end{itemize}
+\end{definition}
+显然, fast $L^1$-convergence $\implies $ $L^1$-convergence;\\
+我们接下来将说明, fast $L^1$-convergence 也 $\implies$ a.e. convergence, 同时作为 a.e. convergence 和 $L^1$-convergence 的上位收敛, 作为这两条线路的上位交汇.\\
+并且我们也将说明, $L^1$-convergence $\implies$ convergence in measure, \\
+而 convergence in measure 和 a.e. convergence 都 $\implies$ subseq a.e. convergence, 作为这两条线路的下位交汇.\\\\
+
+我们现在 define:
 \[B_{n,k} := \{  x\in X  :  | f_n(x) -f(x)| \leq \frac{1}{k}   \}\]
-
+这个集合表示\textbf{对第 $n$th term, error 控制在 $\frac{1}{k}$ 以内的点.}\\
+从而我们可以用交并的形式来表示 ptwise 收敛点的集合:
 \[
-\{ x \mid f_n(x) \rightarrow f(x) = \bigcap_{k=1}^\infty \bigcup_{N=1}^\in \bigcap_{n \geq N} B_{n,k}
- \}
+\{ x \mid f_n(x) \rightarrow f(x)\} = \bigcap_{k=1}^\infty \bigcup_{N=1}^\infty \bigcap_{n \geq N} B_{n,k}
 \]
-
-
-By Chebyshev:
+Recall Chebyshev:
 \[
 g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
 \]
-
-
-
 
 
 \begin{proposition}{"Fast" $L^1$-conv $\implies$ a.e. conv.}
@@ -2383,28 +2399,26 @@ g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
 \end{proposition}
 
 \begin{proof}
-    我们取\[
-\{ x \mid f_n(x) \rightarrow f(x) = \bigcap_{k=1}^\infty \bigcup_{N=1}^\in \bigcap_{n \geq N} B_{n,k}\}\] 的 complement
-\[E := \bigcup_{k=1}^\infty \bigcap_{N=1}^\in \bigcup_{n \geq N} B_{n,k}^C = \{f_n \rightarrow f\}\]
-
-
-By Cheb:\[ \mu(B_{n,k}^C)  \leq k \int |f_n-f|\]
-
-因而 \[ \forall k \forall N , \mu(\bigcup_{n\geq N} B_{n,k}^C) \leq k \sum_{n=N}^\infty \int |f_n-f|  \rightarrow 0\]
- as $N\rightarrow \infty$
-
-By CFA, \[ \mu (\bigcap_{N=1}^\infty\bigcup_{n\geq N} B_{n,k}^C)  =0\]
-Thus
+我们取\[
+\{ x \mid f_n(x) \rightarrow f(x) \}= \bigcap_{k=1}^\infty \bigcup_{N=1}^\infty \bigcap_{n \geq N} B_{n,k}\] 的 complement
+\[E := \bigcup_{k=1}^\infty \bigcap_{N=1}^\infty \bigcup_{n \geq N} B_{n,k}^c = \{f_n \not\rightarrow f\}\]\textbf{By Cheb, for each $n,k$ we have:}\[ \mu(B_{n,k}^c)  \leq k \int |f_n-f|\]
+因而由 fast $L^1$-convergence 的条件可得 \[ \forall k \forall N ,\quad  \mu(\bigcup_{n\geq N} B_{n,k}^c) \leq k \sum_{n=N}^\infty \int |f_n-f|  \quad  (\rightarrow 0 \text{ as $N\rightarrow \infty$})\]因而 by ctn from above, \[ \mu (\bigcap_{N=1}^\infty\bigcup_{n\geq N} B_{n,k}^c)  =0\]
+因而
 \[\mu(E) = 0\]
 \end{proof}
+\begin{remark}
+    我们知道, $L^1$-convergence 和 a.e. convergence 互不能推, 因为这一个是逐点的性质, 一个是整体的性质. 但是 $L^1$-convergence 作为一个整体的性质又不够强大 (它允许用函数的纵深来换取宽度, 从而在收敛的情况下保持积分不变.). 然而, fast $L^1$-convergence 则是一个足够强大的整体性质. 因而它可以 imply a.e. convergence. 
+\end{remark}
 
 
 
-\begin{corollary}
-    if $f_n \rightarrow f$ in $L^1$, then there exists subseq $(f_{n_j})_{j\in \mathbb{N}}$ s.t. 
-    $f_{n_j} \rightarrow f$ a.e.
+
+\begin{corollary}{$L^1$-convergence ($\implies$conv. in measure) $\implies$ subseq a.e. conv. }
+    if $f_n \rightarrow f$ in $L^1$, then there exists subseq $(f_{n_j})_{j\in \mathbb{N}}$ s.t. $f_{n_j} \rightarrow f$ a.e. \\
+    (即 $L^1$ convergence implies subseq a.e. convergence)
 \end{corollary}
 \begin{proof}
+    注意: \textbf{对于 $L^1$-convergent 的 seq, 我们可以 pick 出一个 fast $L^1$-convergent 的 subseq.}\\
     Pick $(n_j)_{j\in\mathbb{N}}$ s.t. 
     \[
     \int |f_{n_j} - f| \leq \frac{1}{j^n}
@@ -2414,28 +2428,22 @@ Thus
     \]
     由刚才的 prop 得, $f_{n_j}\rightarrow f$ a.e.
 \end{proof}
+\begin{remark}
+这里直接证明了 $L^1$-convergence $\implies$ subseq a.e. conv, 而我们也可以在中间加上 conv. in measure 这一过渡.\\
+我们可以通过\[ \mu(B_{n,k}^c)  \leq k \int |f_n-f|\] 的关系, 加上 $L^1$-convergence 对这个积分的控制, 简单得到 \textbf{$L^1$ convergent implies convergent in measure}. 然后再用 convergent in measure 证明 subseq a.e. conv. \\
+Note: 这一部分在 Folland 2.30. Convergent in measure implies Cauchy in measure, and Cauchy in measure implies subseq a.e. conv.
+    而后, convergence in measure 推出 subseq a.e. convergence 的证明也是简单的, 因为 convergent in measure 表示 fix error bound $\epsilon$, 对于任意的 measure bound $\delta$, 都可以找到一个 $N$ 使得其之后, 函数值超出这个 error bound 的点集 measure 被这个 $\delta$ bound, 即 函数值超出这个 error bound 的点集 measure 可以控制为任意小.\\
+
+    从而, 我们可以选取一个 subseq, 是的
+\end{remark}
 
 
 
 
-我们再引入第 5 种 convergence: 
-\begin{definition}{convergence in measure}
-    我们称 $f_n \rightarrow f$ in measure, if $\forall \varepsilon >0$, 都有 \[
-    \mu(\{|f_n-f| > \epsilon\}) \rightarrow 0
-    \] as $n\rightarrow \infty$
-\end{definition}
 
-examples: (1), (3), (4) but not (2).
-
-
-
-(此处插入convergence 关系图)
-
-
-
-
+\subsection{a.e. and a.u. convergence}
 \begin{definition}
-    我们称 $f_n\rightarrow f$ almost uniformly (a.u.), 如果 $\forall \varepsilon > 0$, 都存在 $E \subseteq A$ s.t. $\mu(E) < \varepsilon$ 并且    $f_n \rightarrow f$ uniformly on $E^C$
+    我们称 $f_n\rightarrow f$ almost uniformly (a.u.), 如果 $\forall \varepsilon > 0$, 都存在 $E \subseteq A$ s.t. $\mu(E) < \varepsilon$ 并且 $f_n \rightarrow f$ uniformly on $E^C$
 \end{definition}
 
 
@@ -2448,12 +2456,12 @@ f_n \rightarrow f \;\;a.e. \;\; \Longleftrightarrow f_n \rightarrow f \;\; a.u.
 \]
 \end{theorem}
 \begin{proof}
-    a.u. $\implies$ a.e.: DIY
+    a.u. $\implies$ a.e.: DIY (显然)\\
     a.e. $\implies$ a.u.: Fix $\varepsilon > 0$, 我们有 \[
-    f_n \rightarrow f \;\; a.e. \;\; \Longleftrightarrow \;\; \mu( \bigcup_{k=1}^\infty \bigcap_{N=1}^\in \bigcup_{n \geq N} B_{n,k}^c)  = 0
+    f_n \rightarrow f \;\; a.e. \;\; \Longleftrightarrow \;\; \mu( \bigcup_{k=1}^\infty \bigcap_{N=1}^\infty \bigcup_{n \geq N} B_{n,k}^c)  = 0
     \]
     因而 \[
-    \forall k, \;\; \mu( \bigcup_{k=1}^\infty \bigcap_{N=1}^\in \bigcup_{n \geq N} B_{n,k}^c) =0 
+    \forall k, \;\; \mu( \bigcup_{k=1}^\infty \bigcap_{N=1}^\infty \bigcup_{n \geq N} B_{n,k}^c) =0 
     \]
     By Ctn from Above: \[
     \forall k,\;\;  \lim_{N\rightarrow \infty} \mu(\bigcup_{n\geq N} B_{n,k}) = 0
@@ -2503,17 +2511,14 @@ $m(K^c) < \varepsilon$ 并且 $f_n$ conv unif., so $f$ ctn.
 
 
 
-
 \section{summary: convergence mode relations}
-\pic[0.8]{ch2-pics.assets/image-20250219190049489.png}
-
+\pic[0.85]{ch2-pics.assets/image-20250219190348233.png}
+一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 最后聚集在 subseq a.e. conv.
 
 
 
 
 \chapter{product measure}
-
-
 
 
 Goal: Given $(X_i, \mathcal{A}_i, \mu_i)$, construct $X = \prod X_i $, s.t. 
