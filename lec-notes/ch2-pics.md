@@ -8,13 +8,7 @@
 
 
 
-![image-20250219190348233](ch2-pics.assets/image-20250219190348233.png)
-
-
-
-![image-20250219225353932](ch2-pics.assets/image-20250219225353932.png)
-
-
+![image-20250220152857547](ch2-pics.assets/image-20250220152857547.png)
 
 
 
