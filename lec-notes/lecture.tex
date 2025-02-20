@@ -2456,7 +2456,9 @@ g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
 \begin{definition}
     我们称 $f_n\rightarrow f$ almost uniformly (a.u.), 如果 $\forall \varepsilon > 0$, 都存在 $E \subseteq A$ s.t. $\mu(E) < \varepsilon$ 并且 $f_n \rightarrow f$ uniformly on $E^C$
 \end{definition}
-
+\begin{remark}
+    和 a.e. convergence 的定义不同, \textbf{a.u. convergence 并不能保证在一个零测集外都 uniform convergence, 但是它仍然 imply a.e. convergence.}
+\end{remark}
 
 
 \begin{theorem}{Egoroff's Theorem}
@@ -2495,7 +2497,7 @@ f_n \rightarrow f \;\;a.e. \;\; \Longleftrightarrow f_n \rightarrow f \;\; a.u.
 \end{remark}
 
 \begin{example}
-    考虑 escape to hat function $f_n := \chi_{(n,n+1)}$ on $(\mathbb{R}, \mathfrak{L},m)$.\\
+   $\mu = \infty$ 时的反例: 考虑 escape to hat function $f_n := \chi_{(n,n+1)}$ on $(\mathbb{R}, \mathfrak{L},m)$.\\
     $f_n \rightarrow 0$ a.e. 但是并不 a.u., 因为 $\mu(X) = \infty$.
 \end{example}
 
@@ -2504,32 +2506,38 @@ f_n \rightarrow f \;\;a.e. \;\; \Longleftrightarrow f_n \rightarrow f \;\; a.u.
 
 \begin{theorem}{Lusin's Theorem}
 \label{Lusin's Theorem}
-    If $f: [a,b] \rightarrow \mathbb{C}$ 是 Leb. mble 的, 那么 $\forall \varepsilon > 0$, 都存在 $K \subseteq [a,b]$ s.t. $m(K^c) < \varepsilon$ 并且 $f|_K$ ctn.
+    If $f: [a,b] \rightarrow \mathbb{C}$ 是 Leb. mble 的, 那么 $\forall \varepsilon > 0$, 都存在 compact $K \subseteq [a,b]$ s.t. $m(K^c) < \varepsilon$ 并且 $f|_K$ ctn.
 \end{theorem}
 \begin{proof}
-我们知道 $C^0([a,b]) \subseteq L^1(m)$ 是 dense subset.\\
+这里我们 restrict $(\mathbb{R}, \mathfrak{L},m)$ to $[a,b]$, 得到这个 subspace 是一个 finite ($=b-a$) 的 measure space. 
+我们知道 $C_c([a,b]) \subseteq L^1(m)$ 是 dense subset.\\
 First assume $f$ bounded, then $f\in L^1(m)$, $\int|f| < \infty$.\\
-Then: \[\exists (f_n)  \subseteq C^0([a,b])  \;\;s.t. \;\; f_n\rightarrow f \text{ in } L^1 \]
-Pass to subseq: $f_n\rightarrow f$ a.e.\\
+Then: \[\exists (f_n)  \subseteq C_c ([a,b])  \;\;s.t. \;\; f_n\rightarrow f \text{ in } L^1 \]
+Pass to subseq: $(f_{n_j})\rightarrow f$ a.e.\\
 Then by \textbf{Egorov}: \[
 \exists F \subseteq [a,b] \text{ mble } s.t. \;\; \mu(F) < \frac{\varepsilon}{2}
 \]
-并且 $f_n \rightarrow f$ uniformly on $F^c$.\\
-By inner regu: 存在 $K \subseteq [a,b] $ cpt s.t. $K \subseteq F^c$ 并且 $m(F^c \setminus K ) < \frac{\varepsilon}{2}$
-$m(K^c) < \varepsilon$ 并且 $f_n$ conv unif., so $f$ ctn.
+并且 $(f_{n_j})\rightarrow f$ uniformly on $F^c$.\\
+By inner regu: 存在 $K \subseteq [a,b] $ cpt s.t. $K \subseteq F^c$ 并且 $m(F^c \setminus K ) < \frac{\varepsilon}{2}$, \textbf{从而 $m(K^c) < \varepsilon$ 并且 $f_n$ conv unif. on $K$, so $f$ ctn on $K$.}
 \end{proof}
-
+\begin{remark}
+    这个定理的证明中展示了 subseq a.e. convergence 的用处. \\
+    我们可以从一个 $L^1$-convergent 的 seq 中 "蒸馏" 出一个 a.e. convergent 的 subseq, conv to 同一个函数. \\
+    并且如果把空间限制在 measure finite 的 subset 上, 还能获取到一个 a.u. convergent 的 seq.\\ 
+    a.u. convergent 的作用很大, 比如可以保留函数在一个比较大的空间上的 ctn 性质.\\
+    因而 \textbf{subseq convergent 的性质可以 as good as convergent, a.u. 的性质可以 as good as uniform.}
+\end{remark}
 
 
 \section{summary: convergence mode relations}
-\pic[0.85]{ch2-pics.assets/image-20250220152857547.png}
+\pic[0.85]{ch2-pics.assets/image-20250220154229379.png}
 一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 汇聚在 subseq a.e. conv. subseq a.e. conv. 是最弱的 convergence.\\
-convergence in measure 是 $L^1$ convergence 的下位 convergence, 但是和逐点的 convergence 线没有关系.
+这里可能还有其他的 convergence 关系. 但是我们不关心. 因为不太会用到它们的关系.
 
 
 
 
-\chapter{product measure}
+\chapter{product space and product measure}
 
 Goal: Given $(X_i, \mathcal{A}_i, \mu_i)$, construct $X = \prod X_i $, s.t. 
 \[
@@ -2575,6 +2583,10 @@ $$A_1 \otimes \cdots \otimes A_n = <\{  E_1\times \cdots \times E_n \in \mathcal
    Then: \textbf{every open set in $X_1 \times \cdots \times X_n$ is a ctbl union of products $B_1 \times \cdots \times B_n$}, each $B_1 \in \mathcal{E}_i$.
    Then we have: $$B_X = <\{B_1 \times ...\times B_n\}> \subset \bigotimes_1^n B_{X_i}$$
 \end{proof}
+\begin{remark}
+    显然. \textbf{有限 index} 情况下, 在 product topology 中, \textbf{product of open sets仍然是 open set}, 但是 open sets 可以不止是 product of open sets 这些. 因而 \(\bigotimes_{i=1}^n \mathcal{B}_{X_i} \subseteq \mathcal{B}_X\). \\
+ 并且在 separable 的 topological space 上, 比如 $\mathbb{R}$, 我们有: $\mathbb{R}^n$ 中的任意 open set 都是 a ctbl union of open boxes. 于是 \(\bigotimes_{i=1}^n \mathcal{B}_{\mathbb{R}}  = \mathcal{B}_{\mathbb{R}^n}\)
+\end{remark}
 
 \begin{example}
     $$\mathcal{B}_{\mathbb{R}^n} = \mathcal{B}_{\mathbb{R}} \otimes \cdots \otimes \mathcal{B}_{\mathbb{R}}$$
@@ -2593,7 +2605,7 @@ $$A_1 \otimes \cdots \otimes A_n = <\{  E_1\times \cdots \times E_n \in \mathcal
 Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
     And let $X := X_1 \times ... \times X_n$, $\mathcal{A}:= \mathcal{A}_i \otimes \cdots \otimes \mathcal{A}_n$
 Goal: 通过 Hahn-Kromolgrov 来构建 product measure on product mble space.
-Idea: Let $$\mathcal{A}' := \{   \text{all disjoint  unions of rectangles } A_1 \times \cdots \times A_n\}$$
+Idea: Let $$\mathcal{A}' := \{   \text{all finite disjoint unions of rectangles (each measurable)} A_1 \times \cdots \times A_n\}$$
 \textbf{Step 1: }
 \begin{proposition}
    $\mathcal{A}'$ is an algebra.
@@ -2656,15 +2668,21 @@ If $\mu_1, \mu_2,\mu_3$ are $\sigma$-finite, then: $$\mu_1 \times \mu_2 \times \
 
 \chapter{Tonelli's Thm}
 
-We focus on the case $n=2$: $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$
+ 我们将 focus on the case $n=2$: $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$, 考虑 \[
+ (X \times Y, \mathcal{A} \otimes \mathcal{B}, \mu \times \nu)
+ \]
+ 从而, 它可以推广到任何 finite 个 measure space 的 product 上.
 
-\begin{definition}
+\begin{definition}{$x$-section, $y$-section}
     Given $E \subset X \times Y$, $x \in X$, $y\in Y$, we define:
 \[E_x : = \{  y\in Y \mid (x,y) \in E \}\]
 \[
 E^y := \{x\in X \mid (x,y) \in Y  \}
 \]
 \end{definition}
+
+
+
 
 
 \begin{example}
@@ -2714,7 +2732,7 @@ thus $\mathcal{A} \otimes \mathcal{B} \subset \mathcal{E}$
 \begin{definition}{monotone class}
 Given a set $X$, a collection $C \subset \mathcal{P}(X)$ is called a monotone class, if it is closed under countable increasing unions and countable decreasing intersections
 \end{definition}
-For sure, a $\sigma$-algebra is a monotone class
+当然, 一个 $\sigma$-algebra 是一个 monotone class. 
 
 
 \begin{lemma}{monotone class lemma}
