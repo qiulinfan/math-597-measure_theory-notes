@@ -2190,7 +2190,9 @@ $C_c(\mathbb{R}) \subset L^1(\mu_m)$ 为一个 dense linear subspace.
 对于 $f \in L^1(m_s)$, let $\epsilon > 0$.我们首先 pick 一个 step function 来approximate $f$:   \[
 \phi = \sum_{j=1}^n c_j \chi_{I_j} , \quad  s.t. ||f-\phi||_1 < \frac{\epsilon}{2}
 \]
-至于另外
+空出来的 $\frac{\epsilon}{2}$, 我们使用 ctn and cpt supp function $f_j$对每个 $\chi_{I_j}$ 进行逼近, by:
+ \pic[0.6]{ch2-pics.assets/image-20250219092808932.png}
+从而 $||\sum_j f_j  - \phi|| < \frac{\epsilon}{2}$, 因此 $||\sum_j f_j  - f|| < \frac{\epsilon}{2}$ by tri ineq. 得证.
 \end{proof}
 
 
@@ -2203,36 +2205,122 @@ $C_c(\mathbb{R}) \subset L^1(\mu_m)$ 为一个 dense linear subspace.
 Recall: Riemann integral 是对于 $\mathbb{R}^n \rightarrow \mathbb{R}$ 的函数定义的, 经典定义为 $\mathbb{R} \to \mathbb{R}$ 的函数.\\
 现在我们比较对于 $\mathbb{R} \to \mathbb{R}$ 的函数的 Riemann 和 Lebesgue 积分. 我们将会得出结论: \textbf{Riemann 积分是 Lebesgue 积分的特殊情况, 即, Riemann 可积的函数一定也 Lebesgue 可积, 并且积分值相同}. (对于 $\mathbb{R}^n \rightarrow \mathbb{ R}$ 的函数也一样, 之后将展开.)\\
 
-Recall 
+Recall Riemann integral 的定义: \begin{definition}
+    对于 $f: [a,b] \rightarrow \mathbb{R}$ bdd, 一个 \textbf{partition} $\mathcal{P} = \{t_j\}_{j=0}^n$ on $[a,b]$ 满足 \[
+    a = t_0 < t_1 < \cdots < t_n = b
+    \]
+Define: \[
+S_{\mathcal{P}}(f) : = \sum_{j=1}^n \sup _{[t_{j-1}, t_j]}  f(t_j - t_{j-1})
+\]\[
+s_{\mathcal{P}}(f) : = \sum_{j=1}^n \inf _{[t_{j-1}, t_j]}  f(t_j - t_{j-1})
+\]
+Define over all possible partition on $[a,b]$: \textbf{lower integral} and \textbf{upper integral}\[
+\overline{I}(f) : = \inf_\mathcal{P \text{ partition}} S_{\mathcal{P}}(f)
+\]\[
+\underline{I}(f) : = \sup_\mathcal{P \text{ partition}} s_{\mathcal{P}}(f)
+\]
+注意到, 对于任意的 $f$, 总是有 \[
+\underline{I}(f) \leq \overline{I}(f)
+\]
+我们称 $f$ 是 \textbf{Riemann integrable} 的, if \[
+\underline{I}(f) = \overline{I}(f) := I(f)
+\]
+这个 $I(f)$ 称为 $f$ 在 $[a,b]$ 上的 Riemann integral. 
+\end{definition}
+
+
+\subsection{Riemann intble $\implies$ Lebesgue intble  }
+\begin{theorem}{Riemann integral 是 Lebesgue integral 的特殊情况}
+\[  f \text{ Riemann integrable} \implies\begin{cases}
+        f \in L^1([a,b], \mathcal{L}. m) \\
+        I(f) = \int_{[a,b]} f \; dm
+    \end{cases} \]
+\end{theorem}
+\begin{proof}
+    for (a): 对于给定 partition $\mathcal{P}$, 我们 set: \[
+    G_\mathcal{P} : = \sum_j M_j  \chi_{[t_{j-1},t_j]} , \quad     g_\mathcal{P} : = \sum_j m_j  \chi_{[t_{j-1},t_j]} 
+    \]
+    从而有: \[
+    S_\mathcal{P}(f) = \int G_\mathcal{P} \; dm , \quad s_\mathcal{P}(f) = \int g_\mathcal{P} \; dm
+    \]
+    我们知道, refinement 能增加 $s_\mathcal{P}$, 减小 $S_\mathcal{P}$ 从而增加逼近精度, 这一点在 Lebesgue integral 中更加明显: \begin{align}
+ \mathcal{P } \subset \mathcal{P}' &\implies g_\mathcal{P} \leq g_\mathcal{P'} \leq f \leq G_{\mathcal{P}'} \leq  G_\mathcal{P}         \\
+ & \implies s_\mathcal{P} \leq s_{\mathcal{P}'} \leq I(f) \leq S_\mathcal{P'} \leq S_\mathcal{P}
+    \end{align}
+由于$f$ Riem integrable, \textbf{存在一个 seq of partitions $(\mathcal{P}_n)$ 使得 $\mathcal{P_n}\subset \mathcal{P}_{n+1}$, $||\mathcal{P}|| \to 0$ (mesh), 并且} \[
+s_{\mathcal{P_n}}, S_{\mathcal{P_n}} \overset{n \to \infty}{\longrightarrow}  I(f)
+\]
+因而 settiing \[
+g : = \lim_{n\to \infty} g_{\mathcal{P}_n} 
+\] 为一个 increasing limit; \[
+G : = \lim_{n\to \infty} G_{\mathcal{P}_n} 
+\] 为一个 decreasing limit; 由 mble seq 的 limit behvior 得 $g,G \in L^1(m)$ 且 $g \leq f \leq G$
+并且 by DCT: \[
+\int g \; dm = \lim_n \int g_{\mathcal{P}_n} = I(f) 
+\]\[
+\int G \; dm = \lim_n \int G_{\mathcal{P}_n} = I(f) 
+\]
+从而 \[
+g \leq f \leq G , \quad \text{and }  \int (G-g) \; dm = 0
+\]因而 \[ g =G \;\; a.e.  \;\;(\implies = f \;\; a.e.)
+\]
+因而 \[
+I(f)  = \int f  \; dm
+\]
+(由于  $m$ complete, $f$ 是 Lebesgue mble 的.)
+\end{proof}
+\begin{remark}
+    整体 intuitive. 对定义域的切分是对值域的切分的特殊情况. 
+\end{remark}
 
 
 
+\subsection{Lebesgue's criterion for Riemann integrability}
+
+\begin{theorem}{Lebesgue's characterization of Riemann integrability}
+     定义 \[
+    D_f = \{ x \text{ where } f \text{ is not ctn at}   \}
+    \]
+    则有 \[
+    f \text{ Riemann intble } \Longleftrightarrow m(D_f) = 0 \]
+\end{theorem}
+\begin{proof}
+    在 395 中已经证明一次. 这里再回顾一次.\\
+    Backward direction: trivial. \\
+    Forward direction: assume $   f \text{ Riemann intble }$. \\
+    对于 $f:[a,b] \to \mathbb{R}$,  我们 define: \[
+    H(x)  := \lim_{\delta \to 0} \sup_{|y-x| \leq \delta} f(y), \quad h(x) := \lim_{\delta \to 0} \inf_{|y-x| \leq \delta} f(y)
+     \]
+    即 $f$ 在 $x$ 处的上下极限. 从而: \[
+    f \text{ ctn at } x \Longleftrightarrow  \lim_{y \to x} f(y) = f(x)  \Longleftrightarrow H(x) = h(x)
+    \]因而要证明 $m(D_f) = 0$, STS: $H(x) = h(x)$ a.e.\\
+To prove this: 见 395.
+\end{proof}
 
 
 
 
 
 \chapter{modes of convergence}
-
-recall: 4 modes of convergence, of $f_n,f:X \rightarrow \mathbb{C}$.\\
-
-2 general ones:
+对于 $f_n,f:X \rightarrow \mathbb{C}$, 我们目前有 4 种不同的 convergence.\\
+2 \textbf{general ones}:
 \begin{itemize}
-    \item pointwise convergence
-    \item uniform convergence
+    \item \textbf{pointwise convergence}: 字面意思. 
+    \item \textbf{uniform convergence} (on a subset): 对于任意 error bound $\epsilon$, 存在同一个序号 $N$ 可以 $\epsilon$-bound 住这个集合里所有的 $x$ 的函数值和 limit 函数值的 error. 
+\end{itemize}
+2 \textbf{in a measure space}:
+\begin{itemize}
+    \item \textbf{a.e. convergence}: ptwise convergence for a.e. $x$, 即 outside a null $E$.
+    \item \textbf{convergence in $L^1$}: $\int |f_n -f| \rightarrow 0$
 \end{itemize}
 
-2 in a measure space:
-\begin{itemize}
-    \item a.e. convergence: ptwise convergence for a.e. $x$
-    \item convergence in $L^1$: $\int |f_n -f| \rightarrow 0$
-\end{itemize}
-
-
-
+我们 recall trivial relation: \[
+\text{uni. conv} \implies \text{ptwise. conv} \implies \text{conv. a.e.}
+\]
+但是我们不清楚 $L^1$-convergence 和它们之间的关系.\\
+我们看以下的 examples: 
 \begin{example}
     on $(\mathbb{R}, \mathfrak{L}, m)$, 以下 $(f_n)$:
-
     \begin{itemize}
         \item $$f_n = \frac{1}{n} \chi_{(0,n)}$$
         $f_n \rightarrow 0$ uniformly 但 $\not\rightarrow 0$ in $L^1$
@@ -2243,16 +2331,35 @@ recall: 4 modes of convergence, of $f_n,f:X \rightarrow \mathbb{C}$.\\
         \item $$f_n = n \chi_{[0,\frac{1}{n})}$$
         $f_n \rightarrow 0$ a.e., 但是并不 ptwisely, 当然也并不 uniformly, 并且$\not\rightarrow 0$ in $L^1$
         
-        \item "typewriter": $f_N \rightarrow 0$ in $L^1$, 但是 $\forall x\in[0,1]$, $f_n(x)\not\rightarrow 0$ ptwisely.
+        \item "typewriter": 
+构造: 我们把区间$[0,1]$划分成$n$个等长子区间, 每个子区间的长度为$\frac{1}{n}$, 令$f_n(x)$在这些子区间上交替取$1$或$0$：    
+\[
+   f_n(x) = 
+   \begin{cases}
+   1, & x \in \left[ \frac{k}{n}, \frac{k+1}{n} \right) \text{ for some even } k, \\
+   0, & \text{otherwise}.
+   \end{cases}
+   \]
+再取: \[
+   g_n(x) = f_n(x) / n
+   \]
+有  \[
+   \| g_n \|_1 = \int_0^1 g_n(x) dx = \frac{1}{2n} \to 0
+   \] 因而 $g_n \rightarrow 0$ in $L^1$, 但是 $\forall x\in[0,1]$, $g_n(x)\not\rightarrow 0$ ptwisely. (也不 a.e.)
     \end{itemize}
 \end{example}
+在这写例子中, 我们发现, $L^1$-convergence 和 uniform, ptwise, a.e. 这三个 modes of covergence 都互不推导. 对于 uniform convergence 和 ptwise convergence, 这是很合理的, 因为可以函数越来越宽和扁使得积分不变但是却 uni conv; 也可以函数积分收敛但是在一个零测集上反复跳跃.\\
+
+并且我们进一步发现, 就算是 a.e. 收敛, 也和 $L^1$ 收敛没有互推关系. 比如 ex (3), 这个函数只在 $0$ 处不收敛至 0, 但是整体的积分却是 const 1. \\
+
+我们现在
 
 
 
 
 
 
-\[B_{n,k} := \{  x\in X \mid |f_n(x) -f(x) \leq \frac{1}{k}   \}\]
+\[B_{n,k} := \{  x\in X  :  | f_n(x) -f(x)| \leq \frac{1}{k}   \}\]
 
 \[
 \{ x \mid f_n(x) \rightarrow f(x) = \bigcap_{k=1}^\infty \bigcup_{N=1}^\in \bigcap_{n \geq N} B_{n,k}
@@ -2310,6 +2417,8 @@ Thus
 
 
 
+
+我们再引入第 5 种 convergence: 
 \begin{definition}{convergence in measure}
     我们称 $f_n \rightarrow f$ in measure, if $\forall \varepsilon >0$, 都有 \[
     \mu(\{|f_n-f| > \epsilon\}) \rightarrow 0
@@ -2778,30 +2887,129 @@ Sketch: $f \in L^1$ (since it is ctn on $\mathbb{R}$)
 \] by integration by part for twice.
 \end{example}
 
+
+
+
+\chapter{Lebesgue measure in $\mathbb{R}^n$}
+今日: Lebesgue measure in $\mathbb{R}^n$ 的 \begin{itemize}
+    \item regularity
+    \item behavior under affine transformation
+    \item behavior under diffeomorphism
+\end{itemize}
+
+
+
 \begin{theorem}{regularities of $\mathcal{L}^n$}
 If $E \subset \mathcal{L}^n$, 则有: 
 \begin{itemize}
     \item \textbf{outer regularity}: \[ m(E) = \inf \{  m(U) \mid U  \text{ open}   \supset E\}  \]
     \item \textbf{inner regularity}: \[ m(E) = \inf \{  m(K) \mid K  \text{ compact}   \subset E\}  \]
-    \item if $m(E) < \infty$, 则对于任意 $\epsilon > 0$, 都存在 disjoint rectangles $R_1, \cdots R_N$ with sides that are open intervals s.t. \[ m(E  \Delta \bigcup_{j} R_j ) < \epsilon \] 
+    \item if $m(E) < \infty$, 则对于任意 $\epsilon > 0$, 都存在 disjoint rectangles $R_1, \cdots R_N$ with sides that are open intervals (literally rectangles) s.t. \[ m(E  \Delta \bigcup_{j} R_j ) < \epsilon \]
 \end{itemize}
 \end{theorem}
+\begin{proof}
+ \textbf{   for (a,b) i.e. regularities: }\\
+ Fix $\epsilon > 0 $. By construction, 存在 finite disjoint union of rectangle $T_j$ for each $j$, 使得 \[
+ E \subset \bigcup_{j=1}^\infty T_j \quad \text{ and } \quad \sum_{j=1}^\infty m(T_j) \leq m(E) + \epsilon
+ \]
+By outer regularity of $m^1$, 存在 $U_j \supset T_j$ open rect s.t. $m(U_j) \leq m(T_j) + \epsilon / 2^j$
+Then: \[
+E \subset U := \bigcup_{j=1}^\infty U_j \quad \text{and} \quad m(U) \leq \sum_{j=1}^\infty m(U_j)
+\]
+Construct $K$ as in dim $1$ (DIY) $\leq m(E) + 2\epsilon$
+\end{proof}
+\begin{proof}
+ \textbf{   for (b):} \\
+Notation as above.\\
+\[
+m(E) < \infty \implies m(U) < \infty \implies m(U_j)  < \infty \;\; \; \forall j
+\]
+Sides of $U_j$ are disjoint union of ctbly many open finite intervals.\\
+因而存在 open rectangle $V_j \subset U_j$ for each $j$ that are finite disjoint union of finite open intervals s.t. \[
+m(U_j  \setminus   V_j) < \epsilon / 2^j
+\]
+Now pick $R_1, \cdots, R_N$ from honest rectangles insides $V_j$ (DIY).
+\end{proof}
+
+
+
+
+\begin{corollary}
+For $f \in L^1(m)$, 
+    if $f \in L^1 (m)$ and $\epsilon > 0$ then \begin{itemize}
+        \item 对于任意 $\epsilon>0$, 都存在 $\phi = \sum_{j=1}^N c_j \chi_{R_j} $ s.t. \[\int |\phi - f|\; dm < \epsilon  \]其中 each $c_j \in \mathbb{C}$, $R_j$ 是 rectangles with sides as finite open intervals.
+        \item 存在 $\phi \in C_c^0(\mathbb{R}^n)$ s.t. \[\int |f - \phi| \; dm < \epsilon \]
+    \end{itemize}
+\end{corollary}
 
 
 
 
 
-\chapter{Lebesgue measure in $\mathbb{R}^n$}
+\section{behavior under affine transformation}
+Affine transformation 即 linear transformation + translation
+对于 $a \in \mathbb{R}^n$, 一个 translation $t: \mathbb{R}^n \to \mathbb{R}^n, x \mapsto x+ a$ 是 ctn 的并且 \[
+t_a^{-1} = t_{-a}
+\]
+
+\begin{theorem}
+(a) for any $a \in \mathbb{R}^n$, 
+\[
+E \in \mathcal{L}^n \implies  t_a(E) \in \mathcal{L}^n \quad \text{ and }\quad m(t_a(E)) = m(E)
+\]
+
+(b) if $f: \mathbb{R}^n \to \mathbb{C}$ is Leb measurable, then so is $f \circ t_a$. \\
+More, if $f \in L^+$ or $f \in L^1$, then $f \circ t_a \in L^1$ 并且  \[
+\int (f \circ t_a) \; dm = \int f \; dm
+\]
+\end{theorem}
+\begin{proof}
+    (Folland 2.42)\\
+    (a)
+    $t_a $ ctn $\implies$ $t_a(\mathcal{B}_{\mathbb{R}^n}) \subset \mathcal{B}_{\mathbb{R}^n}$, 因而  $t_a(\mathcal{B}_{\mathbb{R}^n})=\mathcal{B}_{\mathbb{R}^n}$
+    $E$ rectangle, so $E = E_1 \times \cdots \times E_n $, each in $\mathcal{B}_\mathbb{R}$
+    $m(E) = \prod_1^n m(E_i)$, $t_a(E) = \prod t_{a_i} (E_i)$ 
+    因而  \[
+    m(t_a(E)) = \prod m(t_{a_i} (E_i)) = \prod m(E_i) \subset m(E)
+    \]
+    BY HK uniqueness, get \[
+    m(t_a(E)) = m(E) \quad \forall E \in \mathcal{B}_{\mathbb{R}^n}
+    \]
+    if $N \subset \mathbb{R}^n$ subnull set, so is $t_a(N)$. 因而 \[
+    m(t_a(E)) = m(E) \quad \forall E \in \mathcal{L}^n 
+    \]
+    (b) Pick $B \in \mathcal{B}_\mathbb{C} \implies f^{-1}(B) \in \mathcal{L}$.
+    因而 $f^{-1}(B) = E \cup N$, $E \in \mathcal{B}_{\mathbb{R}^n}$, $N$ null set
+    因而 \begin{align}
+        (f\circ t_a)^{-1}(B) & = t_a^{-1}( f^{-1}(B)) \\&= t_a^{-1}(E) \cup t_a^{-1}(N) \text{ (one Borel, one null)} \\
+        &= t_{-a}(f^{-1}(B)
+    \end{align}
+(c) Prove $\int f \; dm = \int f \circ t_a \;d m$ in steps: \begin{itemize}
+    \item $f = \chi_E$
+    \item $f$ is simple 
+    \item $f \in L^+$
+    \item $F \in L^1$
+\end{itemize}    
+\end{proof}
 
 
 
 
 
+\begin{theorem}
+For $T: \mathbb{R}^n \to \mathbb{R}^n$ linear. 
+(a) \[ E \in \mathcal{L}^n  \implies T(E) \in \mathcal{L}^n  \quad \text{and}\quad    m(T(E)) = |\det T| m(E)  \]
+(b) if $T \in GL(n,\mathbb{R})$ (即可逆), 且 $f: \mathbb{R}^n \to \mathbb{C}$ is Lebesgue measurable, then so is $f \circ T$.\\
+Moreover if $f \in L^+$ or $f \in L^1$, then $f \circ T \in L^+$, $f \circ T \in L^1$ respectively. And \[
+  \int f \; dm = |\det T| \int f \circ T \; dm
+\]
+\end{theorem}
 
-
-
-
-
+\begin{proof}
+    Stetch: need this lemma: \begin{lemma}{row reduction}
+        Can write $T$ as a finite product, each factor of which is of one of the following forms: 
+    \end{lemma}
+\end{proof}
 
 
 
