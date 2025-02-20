@@ -8,4 +8,4 @@
 
 
 
-![image-20250219190049489](ch2-pics.assets/image-20250219190049489.png)
+![image-20250219190348233](ch2-pics.assets/image-20250219190348233.png)
