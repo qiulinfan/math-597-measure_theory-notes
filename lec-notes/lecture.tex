@@ -2351,9 +2351,7 @@ To prove this: 见 395.
 在这些例子中, 我们发现, $L^1$-convergence 和 uniform, ptwise, a.e. 这三个 modes of covergence 都互不推导. 对于 uniform convergence 和 ptwise convergence, 这是很合理的, 因为可以函数越来越宽和扁使得积分不变但是却 uni conv; 也可以函数积分收敛但是在一个零测集上反复跳跃.\\
 
 并且我们进一步发现, 就算是 a.e. 收敛, 也和 $L^1$ 收敛没有互推关系. 比如 ex (3), 这个函数只在 $0$ 处不收敛至 0, 但是整体的积分却是 const 1. \\
-我们 recall: 两个函数 a.e. 相等, 等价于它们的 $L^1$ distance 为 0. 但是\textbf{它们作为函数列极限行为, 并不相干}. 
-
-
+我们 recall: 两个函数 a.e. 相等, 等价于它们的 $L^1$ distance 为 0. 但是\textbf{它们作为函数列极限行为, 并不相干}.\\ 
 
 关于 $L^1$-convergence 和 uniform, ptwise, a.e. convergence 的关系我们已经讨论完了. \\
 接下来我们将关于 $L^1$-convergence 这一条线, 引入一些新的 convergence modes, 在更大的 convergence family 中讨论这些 convergence 的关系. 
@@ -2374,18 +2372,18 @@ To prove this: 见 395.
     \]
 \end{itemize}
 \end{definition}
-显然, fast $L^1$-convergence $\implies $ $L^1$-convergence;\\
+显然, \textbf{fast $L^1$-convergence $\implies $ $L^1$-convergence;}\\
 我们接下来将说明, \textbf{fast $L^1$-convergence 也 $\implies$ a.e. convergence} (于是它同时作为 a.e. convergence 和 $L^1$-convergence 的上位收敛, 作为这两条线路的上位交汇.)\\
-并且我们也将说明, $L^1$-convergence $\implies$ convergence in measure, \\
-而 \textbf{convergence in measure 和 a.e. convergence 都 $\implies$ subseq a.e. convergence}, 作为这两条线路的下位交汇.\\\\
+而我们也将说明:  \textbf{$L^1$-convergence 和 a.e. convergence 都 $\implies$ subseq a.e. convergence, 作为这两条线路的下位交汇.}\\
+以及, $L^1$-convergence $\implies$ convergence in measure.\\\\
 
 \begin{remark}
-    对于 convergence in measure, 还有一个值得提的定义是 \textbf{Cachy in measure}: 对于任意 $\epsilon>0$,  \[
+    对于 convergence in measure, 还有一个可提及的定义是 \textbf{Cachy in measure}: 对于任意 $\epsilon>0$,  \[
     \mu(x : |f_n(x) - f_m(x)| > \epsilon) \overset{n,m\to \infty}{\longrightarrow} 0
     \]
-    我们容易发现: \[\text{Cauchy in measure} \implies \text{convergent in measure}\]
+    我们可以证明 (Folland 2.30)\[\text{Cauchy in measure} \implies \text{convergent in measure}\]
     但是反向并不成立. examples 中,\textbf{ escape to width, escape to hat 以及 typewritter 是 convergent to $0$ in measure 的, 但不 Cauchy in measure; }\\
-    这里和我们在 metric space 上 distance function 的定义中的 "convergent" 和 "Cauchy" 是不同的, \textbf{在 metric space 上, convergent 是比 Cauchy 更强的性质.} 
+    这里和我们在 metric space 上 distance function 的定义中的 "convergent" 和 "Cauchy" 是不同的, \textbf{在 以 distance 为收敛条件的意义上, convergent 是比 Cauchy 更强的性质.} 
 \end{remark}
 
 以下的标记将在之后几个定理的证明中用到:
@@ -2438,17 +2436,18 @@ g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
     \]
     由刚才的 prop 得, $f_{n_j}\rightarrow f$ a.e.
 \end{proof}
+  \begin{comment}
 \begin{remark}
 这里直接证明了 $L^1$-convergence $\implies$ subseq a.e. conv, 而我们也可以\textbf{在中间加上 conv. in measure }这一过渡.\\
 我们可以通过\[ \mu(B_{n,k}^c)  \leq k \int |f_n-f|\] 的关系, 加上 $L^1$-convergence 对这个积分的控制, 简单得到 \textbf{$L^1$ convergent implies convergent in measure}.\\
 至于 convergent in measure 证明 subseq a.e. conv, 这一部分在 Folland 2.30. \textbf{Convergent in measure implies Cauchy in measure, and Cauchy in measure implies subseq a.e. conv.} (这个证明看起来还挺麻烦的.)
-    \begin{comment}
+  
     我们取一个 subseq $(g_j) := (f_{n_j})$, 其满足 \[
     \mu( E_j := \{x: |g_j(x)- g_{j+1} (x) | \geq \frac{1}{2^j}\}) \leq \frac{1}{2^j} 
     \]
-    \end{comment}
-\end{remark}
 
+\end{remark}
+\end{comment}
 
 
 
@@ -2523,8 +2522,9 @@ $m(K^c) < \varepsilon$ 并且 $f_n$ conv unif., so $f$ ctn.
 
 
 \section{summary: convergence mode relations}
-\pic[0.85]{ch2-pics.assets/image-20250219225353932.png}
-一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 最后聚集在 subseq a.e. conv.
+\pic[0.85]{ch2-pics.assets/image-20250220152857547.png}
+一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 汇聚在 subseq a.e. conv. subseq a.e. conv. 是最弱的 convergence.\\
+convergence in measure 是 $L^1$ convergence 的下位 convergence, 但是和逐点的 convergence 线没有关系.
 
 
 
