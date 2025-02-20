@@ -2507,6 +2507,96 @@ f^p(x) = (\sum_n 2^{-n}g_{\alpha_n}(x - x_n))^p \geq 2^{-N}g^p_{\alpha_N}(x - x_
 
 
 
+\chapter{on product measure and mode of convergence}
+\begin{center}
+\textit{Some of the following questions will be graded. Do them, and do hand them in}.
+\end{center}
+
+\section{Order of integration}
+  Use Tonelli's Theorem and 1-variable calculus to give a rigorous proof for the equality
+  \[
+    \int_0^\infty\int_x^\infty e^{-y^2/2}\;d y \;d x=1
+  \]
+
+
+
+
+
+\section{Area under the curve}
+  Let $(X,\mathcal{A},\mu)$ be a $\sigma$-finite measure space, and let $f\in L^+(X)$. Consider the subset  $G_f\subset X\times[0,\infty)$ consisting of all points $(x,y)$ with $y<f(x)$.
+  \begin{itemize}
+  \item[(a)]Prove that $G_f$ is $\mathcal{A}\otimes\mathcal{B}_\mathbb{R}$-measurable.
+  \item[(b)]Prove that $(\mu\otimes m)(G_f)=\int f\; d\mu$.
+  \end{itemize}  
+
+
+
+
+
+\section{Oscillations}
+  Consider the sequence $f_n(x)=(\sin(\pi n x))^n$, $n=1,2,\dots$, on the interval $[0,1]$. Prove that there exists a set $E\subset[0,1]$ such that $m(E^c)\le 2^{-597}$ and a sequence $1\le n_1<n_2<\dots$ such that $f_{n_j}(x)\le j^{-597}$ for all $x\in E$ and all $j\ge1$. \textit{Hint}: use E.
+
+
+
+
+
+
+\section{Indicator limit}
+  Let $(X,\mathcal{A},\mu)$ be any measure space. Let $M\subset L^+$ be the set of indicator functions $\chi_E$, where $E\in\mathcal{A}$ and $\mu(A)<\infty$. Prove that $M$ is a closed subset of $L^1$. In other words, prove that $M\subset L^1$, and that if $f_n\in M$, $f\in L^1$, and $\int|f_n-f|\to0$, then $f\in M$.
+
+
+
+
+
+
+
+\section{a metric space of measurable functions}
+  Suppose that $(X,\mathcal{A},\mu)$ is a measure space such that $\mu(X)<\infty$. Set $\chi(t)=\frac{t}{1+t}$ for $t\ge 0$.
+%  Consider a function $\chi\colon[0,\infty)\to[0,\infty)$
+  Given measurable functions $f,g\colon X\to\mathbb{C}$, set
+  \[
+    \rho(f,g):=\int\chi(|f-g|)\; d\mu
+  \]
+  \begin{itemize}
+  \item[(a)]Prove that $\rho$ induces a metric, also denoted $\rho$, on the space \[
+      L:=\{f\colon X\to\mathbb{C}\ \text{measurable}\}/\!\!\sim,
+    \]
+    where $f\sim g$ iff $f=g$ a.e. \textit{Hint}: prove that $\chi(s+t)\le\chi(s)+\chi(t)$ for $s,t\ge0$.
+  \item[(b)]Prove that if $f_n,f\in L$, then $\rho(f_n,f)\to0$ iff $f_n\to f$ in measure.
+  \item[(c)] Prove that $(L,\rho)$ is a complete metric space.
+  \end{itemize}    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Nur f\"ur Verr\"uckte}
+(It's \textbf{really} not necessary to attempt these problems. Do not, under any circumstances, hand them in!)
+\begin{enumerate}
+\item Prove that the category of measurable spaces (see HW1) admits finite products, and that the product of $(X,\mathcal{A})$ and $(Y,\mathcal{B})$ equals $(X\times Y,\mathcal{A}\otimes\mathcal{B})$. 
+\item Now consider the category of measure spaces (see HW2). Consider two 
+  measure spaces $(X_i,\mathcal{A}_i,\mu_i)$, $i=1,2$, and set $X=X_1\times X_2$, $\mathcal{A}=\mathcal{A}_1\otimes \mathcal{A}_2$, and $\mu=\mu_1\times\mu_2$.
+  \begin{itemize}
+  \item[(a)]Prove that the projection maps $X\to X_i$ are measurable, and that they are measure preserving iff $\mu_j(X_j)=1$ for $j=1,2$. Thus $(X,\mathcal{A},\mu)$ is \emph{not} the categorical product of $(X_i,\mathcal{A}_i,\mu_i)$ in general.
+  \item[(b)]Prove that even if $\mu_i(X_i)=1$, the measure space $(X,\mathcal{A},\mu)$ is \emph{not} the categorical product of $(X_i,\mathcal{A}_i,\mu_i)$ in general.
+    \textit{Hint}: consider the case when the $X_i$ consist of two elements, for example $X_i=\{\mathfrak{o}_i,\mathfrak{v}_i\}$.
+  \end{itemize}
+\end{enumerate}
+
+
+
+
+
+
 
 
 
