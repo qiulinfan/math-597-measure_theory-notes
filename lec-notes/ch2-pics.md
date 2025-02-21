@@ -14,5 +14,5 @@
 
 
 
-![image-20250220185317785](ch2-pics.assets/image-20250220185317785.png)
+![image-20250220190452148](ch2-pics.assets/image-20250220190452148.png)
 
