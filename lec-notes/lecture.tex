@@ -2530,8 +2530,9 @@ By inner regu: 存在 $K \subseteq [a,b] $ cpt s.t. $K \subseteq F^c$ 并且 $m(
 
 
 \section{summary: convergence mode relations}
-\pic[0.85]{ch2-pics.assets/image-20250220154229379.png}
-一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 汇聚在 subseq a.e. conv. subseq a.e. conv. 是最弱的 convergence.\\
+\pic[0.85]{ch2-pics.assets/image-20250225185214948.png}
+一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 汇聚在 subseq a.e. conv. \\
+\textbf{subseq a.e. conv. 是最弱的 convergence, 这里所有的 convergence 都可以推到它.}\\
 这里可能还有其他的 convergence 关系. 但是我们不关心. 因为不太会用到它们的关系.
 
 
@@ -2607,6 +2608,7 @@ Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
 Goal: 通过 Hahn-Kromolgrov 来构建 product measure on product mble space.
 Idea: Let $$\mathcal{A}' := \{   \text{all finite disjoint unions of rectangles (each measurable)} A_1 \times \cdots \times A_n\}$$
 \textbf{Step 1: }
+\subsection{all finite disjoint unions of rectangles as an algebra}
 \begin{proposition}
    $\mathcal{A}'$ is an algebra.
 \end{proposition}
@@ -2620,6 +2622,7 @@ The set $\mathcal{E}:= \{\text{rectangles}\} \subseteq \mathcal{P}(X)$ satisfies
 \end{proof}
 
 \textbf{Step 2: }
+\subsection{各维度 measure 的 product 作为 rectangle 的 measure, 从而定义 premeasure}
 Now define $$\mu' : \mathcal{A}' \rightarrow [0,\infty]$$ as follows: $$ \mu'(\bigsqcup_{k=1}^N E_1^{(k)} \times \cdots \times E_n^{(k)}) = \sum_{k=1}^N \prod_{i=1}^n \mu_i (E_i^{(k)}) $$
 Claim 2:
 \begin{proposition}
@@ -2644,6 +2647,7 @@ And repeat for $i=2,\cdots,n$.\\\\
     
 \end{proof}
 
+\subsection{HK extension of the premeasure as definition of product measure}
 \textbf{Step 3: 现在已经有了 $\sigma$-finite 的 premeasure, 我们可以应用 HK Thm 构建出完整的 measure.}
 Now use HK:
 \begin{corollary}
@@ -2674,6 +2678,7 @@ Now use HK:
  \]
  从而, 它可以推广到任何 finite 个 measure space 的 product 上.
 
+\section{$E\subset X \times Y $ 的 section }
 \begin{definition}{$x$-section, $y$-section}
 给定 product space 上的集合 $E \subset X \times Y$, 对于 $x \in X$, $y\in Y$, 我们定义:
 \[E_x : = \{  y\in Y \mid (x,y) \in E \}\]
@@ -2713,7 +2718,7 @@ f_x = \chi_{E_x},\quad f^y = \chi_{E^y}
 \end{proposition}
 
 \begin{proof}
-    (a) Let $$\mathcal{E}:= \{    E \subset X \times Y \mid \text{ (a) 中的条件 holds for } E  \}$$
+    (a) Let $$\mathcal{E}:= \{    E \subset X \times Y \mid  E_x \in \mathcal{B}\;\; \forall x \in X \quad\text{ and }\quad E^y \in \mathcal{A}\;\;\forall y \in Y  \}$$
 Claim: $\mathcal{E}$ 包含了所有的 rectangles, 并且 $\mathcal{E}$ a $\sigma$-algebra.\\
 容易证明这一点. 从而, 由 $\mathcal{A} \otimes \mathcal{B}$ 的定义 (为包含所有 rectangles 的最小 $\sigma$-algebra) 得  $\mathcal{A} \otimes \mathcal{B} \subset \mathcal{E}$, 从而 (a) 成立\\
 并且由于 (check) $f_x^{-1} (V) = (f^{-1}(V) )_x$ (Similar for $f_y$),  (a)$\implies$(b).
@@ -2725,6 +2730,10 @@ Claim: $\mathcal{E}$ 包含了所有的 rectangles, 并且 $\mathcal{E}$ a $\sig
         \item 对于一个 product measurable set, 任意 \textbf{section 也 measurable}
         \item 对于一个 product measurable function, 任意 \textbf{section function 也 measurable}
     \end{itemize}
+\end{remark}
+\begin{remark}
+    记录一下这里的证明方法, 以前见的比较少. 这里\textbf{证明条件 A 推出条件 B} 的方法: \textbf{证明所有满足条件 B 的元素构成的集合 包含了 所有满足条件 A 得元素构成的集合.} \\
+    这一方法的好处在于: 可以运用所有满足条件 B 的元素构成的集合的整体性质, 比如是 $\sigma$-algebra 等.
 \end{remark}
 
 
@@ -2749,7 +2758,7 @@ Claim: \[
 \end{proof}
 \begin{remark}
     即, 对于一个已经是 algebra 的集合, 它生成的 monotone class 等于它生成的 $\sigma$-algebra.\\
-    这个 lemma 的好处在于, 我们在证明了一个集合是 algebra 后, 证明它是一个 $\sigma$-algebra, 只需要证明它 closed under ctbl increasing union 和 decreasing interection 即可.
+    这个 lemma 的好处在于, \textbf{我们在证明了一个集合是 algebra 后, 证明它是一个 $\sigma$-algebra, 只需要证明它 closed under ctbl increasing union 和 decreasing interection 即可. 我们可以利用这种 set seq 的单调性. } 
 \end{remark}
 
 
@@ -2763,8 +2772,9 @@ x \mapsto \nu(E_x), y \mapsto \mu(E_y) \text{ are measurable }
 \]
 \end{theorem}
 \begin{remark}
-这个定理说明的是: 在 $\sigma$-finite 的 measure spaces 构成的 product measure space 中, 任意 product measurable set, 把 $x$ 映射到这个 set 的 $x$-section 的 measure (用一根轴 "扫描" 这个集合在一个方向上的宽度变化) 的行为是可测的.\\
-并且, 我们可以把 product measure 用 \textbf{"在 subspace $X$ 取 $y$-section, 并对这一行为在 $X$ 上进行积分"}来刻画. 这就把 product measure 拆分了开来. 其 following 是 Tonelli "\textbf{把 $n$ 个 spaces 的 product 上的积分拆成 $n$ 个积分}" 的强大定理.
+这个定理说明的是: 在 $\sigma$-finite 的 measure spaces 构成的 product measure space 中, 任意 product measurable set $E$, 把 $x$ 映射到 $E$ 的 $x$-section 的 measure (\textbf{"扫描" 这个集合在一个方向上的宽度变化) 的行为是可测的.}\\
+并且, 我们可以把 $E$ 的 measure 用 \textbf{``对每个 $x$, 在 $Y$ 上取 $E$ 的 $x$-section 的 measure, 并对这一行为在 $X$ 上进行积分"}来刻画. 这就把 product measure 拆分了开来. 其 following 是 Tonelli \textbf{``把 $n$ 个 measure spaces 的 product 上的积分拆成 $n$ 个积分}" 的强大定理.
+
 \end{remark}
 \begin{proof}
 Define:    $$\mathcal{C} = \{ E \subset X \times Y \mid \text{ (1),(2) holds}\}$$
