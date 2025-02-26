@@ -2762,11 +2762,11 @@ Claim: \[
 \end{remark}
 
 
-
-\begin{theorem}{Tounelli for sets}
-Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$ be $\sigma$-finite measure spaces.\\
+\section{Tonelli for sets: integrating a section to get product measure}
+\begin{theorem}{Tonelli for sets}
+Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$ be\textbf{ $\sigma$-finite} measure spaces.\\
 Take $E \in \mathcal{A} \otimes \mathcal{B}$. Then:  \[
-x \mapsto \nu(E_x), y \mapsto \mu(E_y) \text{ are measurable }
+x \mapsto \nu(E_x), y \mapsto \mu(E_y) \text{ are \textbf{measurable} }
 \] 并且 \[
 (\mu \times \nu)(E) = \int \nu(E_x)  \; d\mu(x) = \int \mu(E^y) \; d \nu(y)
 \]
@@ -2774,39 +2774,67 @@ x \mapsto \nu(E_x), y \mapsto \mu(E_y) \text{ are measurable }
 \begin{remark}
 这个定理说明的是: 在 $\sigma$-finite 的 measure spaces 构成的 product measure space 中, 任意 product measurable set $E$, 把 $x$ 映射到 $E$ 的 $x$-section 的 measure (\textbf{"扫描" 这个集合在一个方向上的宽度变化) 的行为是可测的.}\\
 并且, 我们可以把 $E$ 的 measure 用 \textbf{``对每个 $x$, 在 $Y$ 上取 $E$ 的 $x$-section 的 measure, 并对这一行为在 $X$ 上进行积分"}来刻画. 这就把 product measure 拆分了开来. 其 following 是 Tonelli \textbf{``把 $n$ 个 measure spaces 的 product 上的积分拆成 $n$ 个积分}" 的强大定理.
-
+\pic[0.3]{ch2-pics.assets/image-20250225215218999.png}
 \end{remark}
 \begin{proof}
-Define:    $$\mathcal{C} = \{ E \subset X \times Y \mid \text{ (1),(2) holds}\}$$
-容易验证, $\mathcal{C}$ contains rectangles, 并且 contains finite unions of rectangles, 因而是一个 \textbf{algebra}.\\
-我们想要证明 $\mathcal{C}$ 是一个 $\sigma$-alegbra. \textbf{By the MC class lemma, STS: $\mathcal{C}$ 是一个 monotone class.}\\
-Take $E_1 \subset E_2 \subset \cdots $ s.t. $E = \bigcup_{n=1}^\infty E_n$. 并定义: \[f_n(y) := \mu((E_n)^y)\]
-我们可以证明: \[f_n \nearrow f(y) := \mu((E)^y)\] 而后使用 MCT.\\
-Step 3: Case $\mu,ny\nu$ finite measure: $E_1 \subset$
+Define:    $$\mathcal{C} = \{ E \subset X \times Y \mid x \mapsto \nu(E_x), y \mapsto \mu(E_y) \text{ are measurable } \forall (x,y)\in E \text{ and} \cdots (2)  \}$$
+\textbf{Claim 1: }$\mathcal{C}$\textbf{ contains 所有的 rectangles.}
+\textbf{Proof of Claim 1:} 考虑 $E = A\times B \in \mathcal{A}\times \mathcal{B}$, 即为一个 rectangle. 上一 lec 中, 我们 by def confirm: $\mathcal{A}\times \mathcal{B}\subset  \mathcal{A}\otimes \mathcal{B} $.\\
+那么对于任意的 $(x,y) \in E$, 我们有: \(\nu(E_x) =  \nu(B)\), 对于所有的 $(x,y) \not \in E$, 则有 \(\nu(E_x) =  \varnothing\).\\
+所以对于任意的 $x$, $\nu(E_x) =  \chi_A(x) \nu(B)$, 同理 $\mu(E^y) = \chi_A(x) \mu (A)$. \\
+由此得到 $x\mapsto \nu(E_x), y\mapsto \mu(E^y)$ 是 measurable 的, 并且 \[
+\mu \times \nu (E) = \mu(A) \times \nu(B) = \mu(A) \int \chi_B(y) \;d \nu(y) = \int \mu(E^y) \; d  \nu(y) 
+\]
+同理, \(\mu\times \nu (E) = \int \nu (E_x) \; d\mu(x)   \). 从而得证. 从而, \textbf{对于任意 union of finite disjoint rectangles, 这个结论也成立}, by additivity in definition. 因而 $\mathcal{C}$ \textbf{为一个 algebra.}\\\\
+Note: 由于 $\mathcal{A} \otimes \mathcal{B}$ 为包含所有 rectangles 的最小 $\sigma$-algebra, 我们\textbf{只需要证明 $\mathcal{C}$ 为一个 $\sigma$-algebra}, 那么它一定包含 $\mathcal{A} \otimes \mathcal{B}$. 并且 by Monotone Class Lemma, \textbf{STS: $\mathcal{C}$ 为一个 monotone class.}\\\\
+\textbf{Claim 2: $\mathcal{C}$ 为一个 monotone class.}
+令 $\{E_n\}$ 为一个 increasing seq in $\mathcal{C}$, 定义其 union 为 $E := \bigcup_{n=1}^\infty E_n$. 并定义: \[f_n(y) := \mu((E_n)^y)\]
+根据 $\mathcal{C}$ 的 definition, 每个 $f_n$ 都是 measurable 的, 并且我们容易证明: \[f_n \nearrow f(y) := \mu((E)^y) \text{ ptwise.}\]于是使用 MCT, 容易得到 \[
+\int \mu(E^y) \; d\nu(y) = \lim \int \mu((E_n)^y) \; d\nu(y) = \lim \mu \times \nu(E_n) \overset{\text{CFB}}{=} \mu \times \nu (E)
+\]
+从而 $E \in \mathcal{C}$. \\
+It remains to show: $\mathcal{C}$ closed under ctbl decreasing intersection. 不过这里我们涉及到一个 decreasing sequence 中间突然从 infinite measure 变为 finite measure 的问题, 所以我们从这里开始要分 $\mu ,\nu$ finite 和 not finite (but still $\sigma$-finite) 的两种情况讨论. finite measure 不用担心上述这一问题.\\
+\textbf{Case 1:  $\mu ,\nu$ finite}, 于是令 $\{E_n\}$ 为一个 decreasing seq in $\mathcal{C}$, 和 increasing 的情况 similar, 得到 \(\mu((E_n)^y)=: f_n  \searrow f(y) := \mu((E)^y) \text{ ptwise.}\), 从而  by DCT (取 $\mu(X)$ 为 donimating function), 得到 \[
+\int \mu(E^y) \; d\nu(y) = \lim \int \mu((E_n)^y) \; d\nu(y) = \lim \mu \times \nu(E_n) \overset{\text{CFA}}{=} \mu \times \nu (E)
+\] 从而我们证明了在  $\mu,\nu$ 为 finite measure 的情况下, $\mathcal{C}$ 为一个 monotone class, 从而为一个 $\sigma$-algebra, 从而 $\mathcal{M} \otimes \mathcal{N} \subset \mathcal{C}$. \\\\
+\textbf{Case 2: $\mu,\nu$ $\sigma$-finite measure}: 我们可以把 $X \times Y$ 写作 union of a seq of finite measure sets $\{ X_i \times Y_i\}_{i\in \mathbb{N}}$, 从而也是 a union of increaasing seq of finite measure sets $\{ X_j \times Y_j\}_{j\in \mathbb{N}}$. (取 $X_j \times Y_j  = \bigcup_{i=1}^j X_j \times Y_j$) 从而对于任意的 $E \in \mathcal{M}\otimes \mathcal{N}$, $$E = \lim_{j\to\infty} (E \cap (X_j\times Y_j))$$
+对于每个 $E \cap (X_j\times Y_j)$, 我们可以应用前一结论, 得到 \[
+\mu \times \nu (E \cap (X_j\times Y_j)) = \int \chi_{Y_j}(y) \mu(E^y \cap X_j) \; d\nu(y)
+\]
+从而\textbf{应用 MCT}, 得到 \[
+\mu \times \nu (E ) = \int \mu(E^y) \; d\nu(y)
+\]
+ 同理 \(\mu \times \nu (E ) = \int \mu(E_x) \; d\mu(x)\), 从而 $E \in \mathcal{C}$, 得证.
 \end{proof}
 
 
+\section{Tonelli's Theorem}
 
-
-\begin{theorem}{Tounelli for sets}
- Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$, each $\sigma$-finite.\\
-Take $E \in \mathcal{A} \otimes \mathcal{B}$. Then: 
-(a) 
-\end{theorem}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{theorem}{Tonelli}
+ Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$ be $\sigma$-finite measure spaces.\\
+条件: 令 $f \in L^+ (X \times Y)$,\\
+结论:$$g(x) := \int f(x,y) \; d\nu\; \in L^+(X)\quad h(y) := \int f(x,y) \; d\mu \; \in L^+(Y) $$ (显然) 并且
+\begin{align}
+    \int f \; d(\mu\times \nu) &= \int \Big[   \int f(x,y) \; d\nu(y)  \Big] d\mu(x)\\
+    &=  \int \Big[   \int f(x,y) \; d\mu(x)  \Big] d\nu(y)
+\end{align}
+\end{theorem}\begin{remark}
+    Tonelli for sets 表示了 product measure 的计算方式: 通过对 $x$-section 的 $y$ measure, 在 $x\in X$ 上进行积分可得到. 这就把 product measure 拆成了单个 measure 与积分.\\
+    而 Tonelli's Theorem 表示\textbf{对一个非负 product measurable function 积分可以转化成对逐个 measure 积分.} \\
+recall: 非负 measurable 函数的积分, 就是一个 seq of simple functions 的积分的 sup, 而 simple function 的积分, 就是\textbf{几个 measurable set 的 measure 的加权和}.
+因而 Tonelli's Theorem 基本上 naturally follows from Tonelli for sets.
+\end{remark}
+\begin{proof}
+首先,\textbf{ 对于 $f$ 是 simple function 的 case, 直接 follows from Tonelli for sets.} (mentioned in remark.)\\
+对于 general case: $f \in L^+(X\times Y)$, 令 $\{f_n\}$ 为一个 seq of simple functions ptwisely converging to $f$.\\
+于是 \[
+\int g \; d\mu = \lim \int g_n \; d\mu  = \lim \int f_n \;  d(\mu\times \nu) = \int f \; d(\mu\times \nu)
+\]
+\[
+\int h \; d\mu = \lim \int h_n \; d\mu  = \lim \int f_n \;  d(\mu\times \nu) = \int f \; d(\mu\times \nu)
+\]
+by MCT.
+\end{proof}
 
 
 \chapter{Fubini's Theorem and Lebesgue integral in $\mathbb{R}^n$}
@@ -2817,52 +2845,58 @@ Then $g \in L^+(X)$, $h \in L^+(Y)$, 以及有: \[
 展开后可写作: \[
 \int f \; d(\mu \times \nu)  = \iint  f(x,y) \; d\nu(y) d\mu(x) = \iint f(x,y) \; d\mu(x) d\nu(y)
 \]更加简洁可写作: \[
-\int f \; d(\mu \times \nu) = \int f \; d\nu d\mu  = \int f \; d\mu d\nu
+\int f \; d(\mu \times \nu) = \iint f \; d\nu d\mu  = \iint f \; d\mu d\nu
 \]
 
 \begin{corollary}
     if $f \in L^1(X\times Y)$ and $f \geq 0$ then 
     \begin{itemize}
         \item     $g(x) < \infty$ for a.e. $x$
-        \item $h(x) < \infty$ for a.e. $y$
+        \item $h(y) < \infty$ for a.e. $y$
     \end{itemize}
 \end{corollary}
-
-
-Now do $\mathbb{C}$-valued version:
-
-
-
-
-
+\begin{remark}
+    在 product measure space 上 measurable 的可积函数, 在每个成分上, 都不能有过多的 infinity point.
+\end{remark}
+Next: Fubini's Theorem.\\
+Fubini's Theorem 是 Tonelli's Theorem 对 $\mathbb{C}$-valued 函数 (instead of $\mathbb{R}_{\geq 0}$-valued) 的推广. 但是其实证明很 trivial. 
+\section{Fubini's Theorem}
 \begin{theorem}{Fubini's Theorem}
-    If $f \in L^1(\mu \times \nu)$, 
+ 条件: $f \in L^1(\mu \times \nu)$,\\
+ 结论:
     \begin{itemize}
-        \item $f_x \in L^1(\nu)$ for a.e. $x$, $f^y \in L^1(\mu)$ for a.e. y
+        \item $f_x \in L^1(\nu)$ for a.e. $x$, $f^y \in L^1(\mu)$ for a.e. 
         \item The a.e. defined functions: \[ g(x) := \int f_x \;d\nu \in L^1(\mu),\quad h(x) := \int f^y \;d\nu \in L^1(\nu) \]
-        \item \[ \int f \; d(\mu \times \nu)  = \int g \; d\mu = \int h \; d\nu \]
+        \item \[ \int f \; d(\mu \times \nu)  = \int g \; d\mu = \int h \; d\nu  \;\; (= \iint f\; d\mu d\nu)\]
     \end{itemize}
 \end{theorem}
 \begin{proof}
 \(f = \Re f + i \Im f \), so WLOG can assume $f$ is $\mathbb{R}$-valued.\\
 又 $f = f^+ - f^-$, 直接 apply Tonellis's Thm 可得.
 \end{proof}
+\begin{remark}
+    Tonelli and Fubini's Theorem 不仅有用在可以拆分积分以进行计算, 而且有用在积分换序. \\
+    实际上, 根据它的条件可以发现, 积分可换序的条件是很宽裕的, 只要这个函数 $f$ 在 $L^+$ 或者 $L^1$ space 中就可以了.
+\end{remark}
 
 
-
-\begin{example}
-    $(X, \mathcal{A}, \mu) = (Y , \mathcal{B}, \nu) = (\mathbb{N}, \mathcal{P}(\mathbb{N}), \mu_{counting})$
-if $a_{mn} \in \mathbb{C}$ for $(m,n) \in \mathbb{N}^2$ and \[
+\begin{example} 
+求和换序的合理性:\\
+考虑 $$(X, \mathcal{A}, \mu) = (Y , \mathcal{B}, \nu) = (\mathbb{N}, \mathcal{P}(\mathbb{N}), \mu_{counting})$$if $a_{mn} \in \mathbb{C}$ for $(m,n) \in \mathbb{N}^2$ and \[
 \infty > \sum_{m,n} |a_{mn}| =: \sup_{F \subset \mathbb{N}^2  \text{finite}} \sum_{(m,n) \in F}  |a_{m,n}|
 \]
-Thm: $\sum_m a_{mn}$ conv absly to $b_n \in \mathbb{C}$, for all $n$
-$\sum_n a_{mn}$ conv absly to $c_m \in \mathbb{C}$, for all $m$
-以及 $\sum_n b_n, \sum_m c_m$ conv absly to $\sum_{m,n} a_{mn}$
+Thm: 对于任意 $n\in\mathbb{N}$,  $\sum_m a_{mn}$ conv absly to some $b_n \in \mathbb{C}$; \\
+同样, 对于任意 $m\in\mathbb{N}$, $\sum_n a_{mn}$ conv absly to $c_m \in \mathbb{C}$.
+以及 $\sum_n b_n, \sum_m c_m$ conv absly to $\sum_{m,n} a_{mn}$.\\
+即: \[
+\sum_{n=1}^\infty \sum_{m=1}^\infty |a_{mn}| = \sum_{m=1}^\infty \sum_{n=1}^\infty |a_{mn}| = \sum_{(m,n) \in\mathbb{N}^2} |a_{mn}|
+\]
 \end{example}
 
 
-
-Now suppose \((X, \mathcal{A}, \mu)\), $ (Y , \mathcal{B}, \nu)$ complete. Then \((X\times Y , \mathcal{A} \otimes \mathcal{B} , \mu\times \nu  )\) \textbf{may not be complete!}
+\begin{remark}
+即便 \((X, \mathcal{A}, \mu)\), $ (Y , \mathcal{B}, \nu)$ 都 complete, product space \((X\times Y , \mathcal{A} \otimes \mathcal{B} , \mu\times \nu  )\) \textbf{不一定 complete! (甚至说基本很少 complete)}
+\end{remark}
 
 \begin{example}
       考虑 $(X, \mathcal{A}, \mu) = (Y , \mathcal{B}, \nu) = (\mathbb{R}, \mathcal{L}, m)$
@@ -2871,33 +2905,33 @@ Now suppose \((X, \mathcal{A}, \mu)\), $ (Y , \mathcal{B}, \nu)$ complete. Then 
        \]
 \end{example}
 
-
-
-Now consider completion: \[
+但是如果我们 consider completion: \[
 (X \times Y , \overline{\mathcal{A} \otimes \mathcal{B}},  \overline{\mu \times \nu}   ) 
 \]
-
-
-
 \begin{theorem}{complete Fubini-Tonelli}
- consider completion of a product measure space: \[
+对于 complete measure space \((X, \mathcal{A}, \mu)\), $ (Y , \mathcal{B}, \nu)$, 取它们的 product measure space 的 completion: \[
 (X \times Y , \overline{\mathcal{A} \otimes \mathcal{B}},  \overline{\mu \times \nu}   ) 
 \]
 我们将 $\overline{\mathcal{A} \otimes \mathcal{B}}$ 简易写作 $\mathcal{L}$, $\overline{\mu \times \nu}   $ 简易写作 $\lambda$.\\
-Suppose $f: X \times Y \to \mathbb{C}$ is $\mathcal{L}$-measurable 并且 either: 
-
-$f \geq 0$ or $f \in L^1(\lambda)$, then: 
+Suppose $f: X \times Y \to \mathbb{C}$ is $\mathcal{L}$-measurable 并且 $f \in L^+(\lambda)$ or $f \in L^1(\lambda)$, 则有
 \begin{itemize}
-    \item 
+    \item $f_x$ 是 $\mathcal{B}$-measurable 的 for a.e. $x$ 且 $x \mapsto \int f_x \; d\nu$ 是 measurable 的
+    \item $f_y$ 是 $\mathcal{A}$-measurable 的 for a.e. $y$ 且 $y \mapsto \int f_y \; d\mu$ 是 measurable 的
 \end{itemize}
-
-    
+并且, 在 $f \in L^1(\lambda)$ 的情况下,  $f_x, f_y$, $x \mapsto \int f_x \; d\nu$, $y \mapsto \int f_y \; d\mu$ 也是 \textbf{integrable} 的, 即 $\in L^1(\lambda)$, 并且 \[
+\int f \; d\lambda = \iint  f \; d\mu d\nu =  \iint  f \; d\nu d\mu 
+\]
 \end{theorem}
-
-
+\begin{proof}
+    exercise. 比较简单.
+\end{proof}
+\begin{remark}
+    这一定理的意思是, 在 $\mu,\nu$ 是 complete measure 的情况下, $\mu \times \nu$ 的 completion  $\overline{\mu \times \nu}   $ \textbf{虽然并不等于 $\mu \times \nu$, 但是 $ L^1(\overline{\mu \times \nu})$ 的函数的积分却可以当作 $ L^1(\mu \times \nu)$ 的函数的积分, 从而分成两个积分.}
+    这是因为 因为完备化测度只是增加了一些\textbf{原本测度为零的集合的子集}, 这些集合不会影响积分计算. 这一定理的直接应用是 Lebesgue integral on $\mathbb{R}^n$.
+\end{remark}
 
 \section{Lebesgue measure in $\mathbb{R}^n$}
-
+这是 product measure 最常见的应用和例子.
 \begin{definition}
     $(\mathbb{R}^n, \mathcal{L}^n, m^n)$ Lebesgue measure is \textbf{completion of } $(\mathbb{R}^n, \mathcal{B}_{\mathbb{R}^n}, m^n)$. 
 \end{definition}
@@ -2910,7 +2944,7 @@ Write: \[  \int f \;d m^n   \quad
 \begin{theorem}{Fubini-Tonelli for $m^n$}
     Suppose $f \in L^+(\mathbb{R}^n)$ or $L^1(\mathbb{R}^n)$
 \begin{align}
-\int f \; dm &= \int \cdots \int f(x_1, \cdots, x_n) 
+\int f \; dm^n &= \int \cdots \int f(x_1, \cdots, x_n) 
 \; dx_1 \cdots dx_n        \\
 & = \int \cdots \int f(x_1, \cdots, x_n) 
 \; dx_n \cdots dx_1
@@ -3076,6 +3110,49 @@ Moreover if $f \in L^+$ or $f \in L^1$, then $f \circ T \in L^+$, $f \circ T \in
 
 
 \chapter{2/24}
+
+
+
+
+\chapter{Lebesgue differentiation Theorem}
+
+Hardy-Littlewood max function: \[
+Hf(x) = \sup_{r > 0} \int_{B_r(x)} |f| 
+\]
+
+HL max thm: \[
+f \in L^1 \implies m(Hf > \alpha) \leq \frac{3^n}{\alpha} \int |f| 
+\]
+Lebesuge set: \[
+L_f := \{ x \in \mathbb{R}^n \mid \lim_{r \to 0^+} \int |f(y) - f(x) | \; dy = 0   \}
+\]
+
+
+\begin{theorem}
+$L_f$ is Leb mble and $m({L_f}^c) = 0$ 
+\end{theorem}
+Not proved yet.
+
+\begin{corollary}
+    $x \in L^f \implies \lim_{r\to \infty} \prime\int_{B_r(x)} f= f(x)$
+\end{corollary}
+
+
+
+Proof of LDT
+
+Step 1: WLOG $f \in L^1$
+
+
+
+
+
+
+
+
+
+
+
 
 
 
