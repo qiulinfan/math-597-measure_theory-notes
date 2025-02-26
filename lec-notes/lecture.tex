@@ -2622,9 +2622,11 @@ The set $\mathcal{E}:= \{\text{rectangles}\} \subseteq \mathcal{P}(X)$ satisfies
 \textbf{Step 2: }
 Now define $$\mu' : \mathcal{A}' \rightarrow [0,\infty]$$ as follows: $$ \mu'(\bigsqcup_{k=1}^N E_1^{(k)} \times \cdots \times E_n^{(k)}) = \sum_{k=1}^N \prod_{i=1}^n \mu_i (E_i^{(k)}) $$
 Claim 2:
-   \textbf{ (1) $\mu'$ is a well-defined premeasure on $\mathcal{A}'$.
-    (2) If each $\mu_i$ is $\sigma$-finite, so is $\mu'$.}
-Proof of the Claim 2: 
+\begin{proposition}
+   \textbf{ (1) $\mu'$ is a well-defined premeasure on $\mathcal{A}'$.\\
+    (2) If each $\mu_i$ is $\sigma$-finite, so is $\mu'$.}   
+\end{proposition}
+\begin{proof}
  Sketch: (2) DIY.
     (1) STS(check): if $E = E_1 \times \cdots E_n$ is a finite or ctbl union of rects $E^{(k)} = E_1^{(k)}\times \cdots \times E_n^{(k)} $, then $$\prod_1^n  \mu_i(E_i) = \sum_k \prod_1^n \mu_i(E_i^{(k)})  $$
  Use Tonelli for sums and integrals: \begin{align}
@@ -2639,25 +2641,24 @@ Integrate w.r.t. $x_1$:
 & = \sum_k \mu_1(E_1^{(k)}) \prod_{i=1}^n \chi_{E_i^{(k)}} (x_i)
 \end{align}
 And repeat for $i=2,\cdots,n$.\\\\
-
-
+    
+\end{proof}
 
 \textbf{Step 3: 现在已经有了 $\sigma$-finite 的 premeasure, 我们可以应用 HK Thm 构建出完整的 measure.}
 Now use HK:
 \begin{corollary}
     $\exists$ measure $\mu := \mu_1 \times \cdots \times \mu_n$ on $\mathcal{A} = \mathcal{A}_1 \otimes \cdots \mathcal{A}_n$ extending $\mu'$.\\
-    (\textbf{And if each $\mu_i $ are $\sigma$-finite, then $\mu$ is the unique extension.)}
+    (\textbf{And if each $\mu_i $ are $\sigma$-finite, then product measure 也 $\sigma$-finite, 从而 $\mu$ 是 unique extension.)}
 \end{corollary}
 由此, 我们从 $\mathcal{A}_1 , \cdots ,\mathcal{A}_n$ 的 measure 中构建出了它们的 product measure.\\\\
 
 
 \subsection{associativity of product $\sigma$-algebra and $\sigma$-finite product measure}
 \begin{corollary}{assotiativity}
-$$ \mathcal{A}_1 \otimes \mathcal{A}_2  \otimes \mathcal{A}_3 =  (\mathcal{A}_1 \otimes \mathcal{A}_2)  \otimes \mathcal{A}_3 =   \mathcal{A}_1 \otimes (\mathcal{A}_2  \otimes \mathcal{A}_3 ) $$
-If $\mu_1, \mu_2,\mu_3$ are $\sigma$-finite, then: $$\mu_1 \times \mu_2 \times \mu_3 = (\mu_1 \times \mu_2) \times \mu_3  = \mu_1 \times (\mu_2 \times \mu_3 )$$
+总有 $$ \mathcal{A}_1 \otimes \mathcal{A}_2  \otimes \mathcal{A}_3 =  (\mathcal{A}_1 \otimes \mathcal{A}_2)  \otimes \mathcal{A}_3 =   \mathcal{A}_1 \otimes (\mathcal{A}_2  \otimes \mathcal{A}_3 ) $$ 并且, if $\mu_1, \mu_2,\mu_3$ are $\sigma$-finite, then: $$\mu_1 \times \mu_2 \times \mu_3 = (\mu_1 \times \mu_2) \times \mu_3  = \mu_1 \times (\mu_2 \times \mu_3 )$$
 \end{corollary}
 \begin{proof}
-    DIY.    
+    DIY. 前者 play with def, 后者直接由 $\sigma$-finite 的 premeasure 的 HK extension unique 得到. 
 \end{proof}
 
 
@@ -2674,99 +2675,104 @@ If $\mu_1, \mu_2,\mu_3$ are $\sigma$-finite, then: $$\mu_1 \times \mu_2 \times \
  从而, 它可以推广到任何 finite 个 measure space 的 product 上.
 
 \begin{definition}{$x$-section, $y$-section}
-    Given $E \subset X \times Y$, $x \in X$, $y\in Y$, we define:
+给定 product space 上的集合 $E \subset X \times Y$, 对于 $x \in X$, $y\in Y$, 我们定义:
 \[E_x : = \{  y\in Y \mid (x,y) \in E \}\]
 \[
 E^y := \{x\in X \mid (x,y) \in Y  \}
 \]
-\pic[0.3]{ch2-pics.assets/image-20250220185317785.png}
+\pic[0.3]{ch2-pics.assets/image-20250220190452148.png}
+给定从 product space 出发的函数 $f: X \times Y \to \mathbb{C}$, 对于 $x \in X$, $y\in Y$, 我们定义: \[
+f_x (y) := f^y(x) := f(x,y)
+\]
+表示固定住一个变量, 另一个变量的变化.
 \end{definition}
 
-
 \begin{example}
-    $E = A \times B $, $A \in \mathcal{A}, B \in \mathcal{B}$
-    $E_x = \begin{cases}
+对于任意的 $E \subset X \times Y$如果定义: \[
+    f:= \chi_E
+    \]
+那么有: \[
+f_x = \chi_{E_x},\quad f^y = \chi_{E^y}
+\]
+对于 \textbf{rectangle:} $E = A \times B $, $A \in \mathcal{A}, B \in \mathcal{B}$, 有 $$E_x = \begin{cases}
         \varnothing ,\quad x\not\in A \\
         B ,\quad x\in A
-    \end{cases}$
-
-
-GIven $f: X \times Y \to \mathbb{C}$
-$f_x(y) =  f(x,y) = f^y(x)$
-
-
-$f = \chi_E, E \subset X \times Y$
-$f_x = \chi_{E_x}$, $f^y = \chi_{E^y}$
+    \end{cases}$$
 \end{example}
 
 
 
 \begin{proposition}
-    $E \in \mathcal{A} \otimes \mathcal{B} \implies \begin{cases}
-        E_x \subset \mathcal{B},\quad \forall x \in X\\
+(a) $$E \in \mathcal{A} \otimes \mathcal{B} \implies \begin{cases}
+        E_x \in \mathcal{B},\quad \forall x \in X\\
         E^y \in \mathcal{A}\quad, \forall y \in Y
-    \end{cases}$
-
-    $f$ is $\mathcal{A} \otimes \mathcal{B}$-measurable $\implies \begin{cases}
-        f_x, \quad \mathcal{B}\text{-measurable} \;\;\forall x \\
-         f^y, \quad \mathcal{A}\text{-measurable} \;\;\forall y
-    \end{cases}$ \\
+    \end{cases}$$ (b) $$ f \text{ is } \mathcal{A} \otimes \mathcal{B}\text{-measurable} \implies \begin{cases}
+        f_x \text{ is } \mathcal{B}\text{-measurable} \;\;\forall x \\
+         f^y \text{ is }  \mathcal{A}\text{-measurable} \;\;\forall y
+    \end{cases}$$
 \end{proposition}
 
-
 \begin{proof}
-    (a) Let $\mathcal{E}:= \{    E \subset X \times Y \mid \text{ (a) holds for } E  \}$
-Claim: $\mathcal{E}$ contains rectangles and $\mathcal{E}$ a $\sigma$-algebra.\\
-thus $\mathcal{A} \otimes \mathcal{B} \subset \mathcal{E}$
-
-(a) $\implies$ (b): $f_x^{-1} (V) = (f^{-1}(V) )_x$
-    Similar for $f_y$
+    (a) Let $$\mathcal{E}:= \{    E \subset X \times Y \mid \text{ (a) 中的条件 holds for } E  \}$$
+Claim: $\mathcal{E}$ 包含了所有的 rectangles, 并且 $\mathcal{E}$ a $\sigma$-algebra.\\
+容易证明这一点. 从而, 由 $\mathcal{A} \otimes \mathcal{B}$ 的定义 (为包含所有 rectangles 的最小 $\sigma$-algebra) 得  $\mathcal{A} \otimes \mathcal{B} \subset \mathcal{E}$, 从而 (a) 成立\\
+并且由于 (check) $f_x^{-1} (V) = (f^{-1}(V) )_x$ (Similar for $f_y$),  (a)$\implies$(b).
 \end{proof}
-
-
-
+\begin{remark}
+    这里三件需要记住的事情:
+    \begin{itemize}
+        \item \textbf{section 和取 preimage 可以交换顺序}
+        \item 对于一个 product measurable set, 任意 \textbf{section 也 measurable}
+        \item 对于一个 product measurable function, 任意 \textbf{section function 也 measurable}
+    \end{itemize}
+\end{remark}
 
 
 \begin{definition}{monotone class}
-Given a set $X$, a collection $C \subset \mathcal{P}(X)$ is called a monotone class, if it is closed under countable increasing unions and countable decreasing intersections
+Given a set $X$, a collection $C \subset \mathcal{P}(X)$ is called a monotone class, if it is closed under \textbf{countable increasing unions} and \textbf{countable decreasing intersections}
 \end{definition}
-当然, 一个 $\sigma$-algebra 是一个 monotone class. 
+当然, 一个 $\sigma$-algebra 是一个 monotone class. monotone class 是一个比 $\sigma$-algebra 更弱的定义.
 
 
 \begin{lemma}{monotone class lemma}
-    If $\mathcal{A} \subset \mathcal{P}(X)$ is an algebra, then $<\mathcal{A>}$ is the smallest monotone class $C$ containing $\mathcal{A}$.
+Let $\mathcal{A} \subset \mathcal{P}(X)$ be an algebra.\\ 
+Define $\mathcal{C}$ 为包含 $\mathcal{A}$ 的最小的 montone class.\\
+Claim: \[
+<\mathcal{A}> = \mathcal{C}
+\]
 \end{lemma}
 \begin{proof}
-    $C \subset <\mathcal{A}>$ is trivial.\\
-    $<\mathcal{A} \subset C$: see p.66
+    $\mathcal{C} \subset <\mathcal{A}>$ is trivial.\\
+    $<\mathcal{A}> \subset \mathcal{C}$: STS $\mathcal{C}$ 是一个 $\sigma$-algebra. see p.66. 具体做法比较 tricky, 但是思路是先证明 $\mathcal{C}$ 是一个 algebra (这一部分较难. 我们对于 $E \in \mathcal{C}$, define $\mathcal{C}(E)$ 为 $\mathcal{C}$ 中所有和它的交和差也仍然在 $\mathcal{C}$ 中的 $F$ 构成的集合, 并发现这个子集 $\mathcal{C}(E)$ 也同样是一个 monotone class. 从而 $\mathcal{C} = \mathcal{C}(E)$ );
+    
+然后对于任意的 seq, 其 前 $n$ 项的 finite union $(\cup_{i=1}^nE_i)$seq 是一个 increasing seq, 其 limit 等于原 seq limit, 是属于 $\mathcal{C}$ 的.
 \end{proof}
-
-
-
+\begin{remark}
+    即, 对于一个已经是 algebra 的集合, 它生成的 monotone class 等于它生成的 $\sigma$-algebra.\\
+    这个 lemma 的好处在于, 我们在证明了一个集合是 algebra 后, 证明它是一个 $\sigma$-algebra, 只需要证明它 closed under ctbl increasing union 和 decreasing interection 即可.
+\end{remark}
 
 
 
 \begin{theorem}{Tounelli for sets}
-Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$, each $\sigma$-finite.\\
-Take $E \in \mathcal{A} \otimes \mathcal{B}$. Then: 
-(1) $x \mapsto \nu(E_x)$, $y \mapsto \mu(E_y)$ are measurable
-
-(2) \[
-\mu_x \nu(E) = \int \nu(E_x)  \; d\mu(x) = \int \mu(E^y) \; d \nu(y)
+Let $(X,\mathcal{A}, \mu)$, $(Y, \mathcal{B}, \nu)$ be $\sigma$-finite measure spaces.\\
+Take $E \in \mathcal{A} \otimes \mathcal{B}$. Then:  \[
+x \mapsto \nu(E_x), y \mapsto \mu(E_y) \text{ are measurable }
+\] 并且 \[
+(\mu \times \nu)(E) = \int \nu(E_x)  \; d\mu(x) = \int \mu(E^y) \; d \nu(y)
 \]
-    
 \end{theorem}
+\begin{remark}
+这个定理说明的是: 在 $\sigma$-finite 的 measure spaces 构成的 product measure space 中, 任意 product measurable set, 把 $x$ 映射到这个 set 的 $x$-section 的 measure (用一根轴 "扫描" 这个集合在一个方向上的宽度变化) 的行为是可测的.\\
+并且, 我们可以把 product measure 用 \textbf{"在 subspace $X$ 取 $y$-section, 并对这一行为在 $X$ 上进行积分"}来刻画. 这就把 product measure 拆分了开来. 其 following 是 Tonelli "\textbf{把 $n$ 个 spaces 的 product 上的积分拆成 $n$ 个积分}" 的强大定理.
+\end{remark}
 \begin{proof}
-    $C = \{ E \subset X \times Y \mid \text{ (1),(2) holds}\}$
-    Step 1: $C$ contains rectangles
-    Step 2: $C$ contains finite unions of rectangles  (is an algebra)
-  By the MC class lemma, Suffices to show $C$ is a monotone class.
-
-  Step 2: Take $E_1 \subset E_2 \subset \cdots $ s.t. $E = \bigcup_{n=1}^\infty E_n$
-$f_n(y) := \mu((E_n)^y)$
-$f_n \nearrow f(y) := \mu()(E)^y$
-then MCT.\\
-Step 3: Case $\mu,\nu$ finite measure: $E_1 \subset$
+Define:    $$\mathcal{C} = \{ E \subset X \times Y \mid \text{ (1),(2) holds}\}$$
+容易验证, $\mathcal{C}$ contains rectangles, 并且 contains finite unions of rectangles, 因而是一个 \textbf{algebra}.\\
+我们想要证明 $\mathcal{C}$ 是一个 $\sigma$-alegbra. \textbf{By the MC class lemma, STS: $\mathcal{C}$ 是一个 monotone class.}\\
+Take $E_1 \subset E_2 \subset \cdots $ s.t. $E = \bigcup_{n=1}^\infty E_n$. 并定义: \[f_n(y) := \mu((E_n)^y)\]
+我们可以证明: \[f_n \nearrow f(y) := \mu((E)^y)\] 而后使用 MCT.\\
+Step 3: Case $\mu,ny\nu$ finite measure: $E_1 \subset$
 \end{proof}
 
 
@@ -2921,6 +2927,14 @@ Sketch: $f \in L^1$ (since it is ctn on $\mathbb{R}$)
 
 
 
+
+
+
+
+
+
+
+
 \chapter{Lebesgue measure in $\mathbb{R}^n$}
 今日: Lebesgue measure in $\mathbb{R}^n$ 的 \begin{itemize}
     \item regularity
@@ -3041,6 +3055,19 @@ Moreover if $f \in L^+$ or $f \in L^1$, then $f \circ T \in L^+$, $f \circ T \in
         Can write $T$ as a finite product, each factor of which is of one of the following forms: 
     \end{lemma}
 \end{proof}
+
+
+
+
+
+\chapter{2/21}
+
+
+
+
+\chapter{2/24}
+
+
 
 
 
