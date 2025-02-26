@@ -19,3 +19,7 @@
 
 
 ![image-20250225185214948](ch2-pics.assets/image-20250225185214948.png)
+
+
+
+![image-20250225215218999](ch2-pics.assets/image-20250225215218999.png)
