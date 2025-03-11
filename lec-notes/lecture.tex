@@ -8,7 +8,7 @@
 
 \title{Math 597: advanced Real Analysis}
 \subtitle{Following Folland' book.}
-
+\setcounter{tocdepth}{2}
 \begin{document}
 \frontmatter
 \tableofcontents
@@ -459,7 +459,7 @@ $$
     \]
     Claim:
     \[
-    \ol{M}  := \{   E\cap F \mid E \in \cM, F \sub N \text{ for some } N \in \cN \}
+    \ol{M}  := \{   E\cup F \mid E \in \cM, F \sub N \text{ for some } N \in \cN \}
     \]
     is a $\sigma$-algebra, 并且在 $\ol{\cM}$ 上存在一个 unique 的 extension $\ol{\mu}$ of $\mu$.
 \end{theorem}
@@ -472,11 +472,11 @@ $$
 
 \section{outer measure}
 \begin{definition}{outer measure}
-    An outer measure on $X$ is a function $\mu^*: \cP(X) \rar {0,\infty)}$ such that
+    An outer measure on $X$ is a function $\mu^*: \mathcal{P}(X) \rightarrow {[0,\infty)}$ such that
     \begin{enumerate}
         \item $\mu(\varnothing) = 0$
-        \item monotone ($A \sub B \implies \mu^*(A) \leq \mu^*(B)$)
-        \item countable subadditive ($\mu^*(\union_{i=1}^\infty E_i)  \leq \sum_{i=1}^\infty \mu^*(E_i)$)
+        \item monotone ($A \subset  B \implies \mu^*(A) \leq \mu^*(B)$)
+        \item countable subadditive ($\mu^*(\bigcup_{i=1}^\infty E_i)  \leq \sum_{i=1}^\infty \mu^*(E_i)$)
     \end{enumerate}
 \end{definition}
 \begin{remark}
@@ -1662,7 +1662,7 @@ $f_n$ 在 $\mathbb{R}$ 上平移
    \noindent 2. \textbf{escape to width}: \[f_n = \frac{1}{n}  \chi_{(0,n)}\]
     $f_n$逐渐变得平坦
     
- \noindent   3. \textbf{escape to height}: \[ f_n = n \chi_{(0,n)}\]
+ \noindent   3. \textbf{escape to height}: \[ f_n = n \chi_{(0,\frac{1}{n})}\]
 $f_n$ 逐渐变成一根针.
 
 这三个例子中都有 $f_n \rightarrow 0$ pointwisely. 因而 $$\int \lim f_n = 0$$, 而 $$\lim \int f_n = 1$$, 因为对于所有 $f_n$ 都有 $\int f_n = 1$
@@ -1907,9 +1907,9 @@ $$
 
 
 \begin{lemma}
-    令 $(f_n)$ 为 a seq of \textbf{a.e. defined functions} on $X$., s.t. \[
+    令 $(f_n)$ 为 a seq of \textbf{a.e. defined measurable functions} on $X$., s.t. \[
     f(x) := \lim_{n\to \infty} f_n(x) 
-    \] \textbf{exists a.e.}
+    \] \textbf{exists a.e.}\\
     Claim: \textbf{$f$ is measurable.}
 \end{lemma}
 \begin{remark}
@@ -2894,6 +2894,7 @@ Thm: 对于任意 $n\in\mathbb{N}$,  $\sum_m a_{mn}$ conv absly to some $b_n \in
 \end{example}
 
 
+\subsection{complete Fubini's Theorem}
 \begin{remark}
 即便 \((X, \mathcal{A}, \mu)\), $ (Y , \mathcal{B}, \nu)$ 都 complete, product space \((X\times Y , \mathcal{A} \otimes \mathcal{B} , \mu\times \nu  )\) \textbf{不一定 complete! (甚至说基本很少 complete)}
 \end{remark}
@@ -2930,10 +2931,37 @@ Suppose $f: X \times Y \to \mathbb{C}$ is $\mathcal{L}$-measurable 并且 $f \in
     这是因为 因为完备化测度只是增加了一些\textbf{原本测度为零的集合的子集}, 这些集合不会影响积分计算. 这一定理的直接应用是 Lebesgue integral on $\mathbb{R}^n$.
 \end{remark}
 
+\subsection{other remarks: integral of 非负函数等于 area under graph, 以及反向 Fubini}
+\begin{theorem}
+    令 $(X,\mathcal{A}, \mu)$ 为一个 arbitrary measure space, $f \in L^+(\mu)$ 为 arbitrary 可测非负函数, 我们定义: \[
+    G_f := \{(x,y) \in X \times [0,\infty] : 0 \leq y \leq f(x)\}
+    \]
+    Claim: $G_f$ 是 $(\mathcal{A}\times \mathcal{B}(\mathbb{R}))$-measurable 的, 并且 \[
+    (\mu \times m) (G_f) = \int f \; d\mu
+    \]
+\end{theorem}
+\begin{proof}
+    In hw 6.
+\end{proof}
+\begin{remark}
+$G_f$ 即 area under the graph of $f$. 这一 statment 是一个\textbf{正式的表达 of ``integral of 非负函数等于 area under graph"}. 我们也可以推广它到 $L^1$ 上 (正负 part 的差), which is trivial.
+\end{remark}
+
+\begin{theorem}{反向(easier) Fubini}
+条件: $(X,\mathcal{A},\mu)$, $(Y,\mathcal{B}, \nu)$ 为 arbitrary measure space (不需要 $\sigma$-finite.), $f:X\to \mathbb{C}$, $g:Y \to \mathbb{C}$ 为 measurable functions.\\
+结论: \[
+h:= fg  \quad \text{is } (\mathcal{A} \otimes \mathcal{B}) \text{-measurable}
+\]
+并且如果 $f,g$ 是 $L^1$ 的, 那么 $h \in L^1(\mu \times \nu)$ 并且 \[
+\int h \; d(\mu\times \nu) = \Big( \int f \; d\mu \Big)\Big( \int g \; d\nu \Big)
+\]
+\end{theorem}
+ 
+
 \section{Lebesgue measure in $\mathbb{R}^n$}
-这是 product measure 最常见的应用和例子.
+这是 product measure 最常见的应用和例子. 
 \begin{definition}
-    $(\mathbb{R}^n, \mathcal{L}^n, m^n)$ Lebesgue measure is \textbf{completion of } $(\mathbb{R}^n, \mathcal{B}_{\mathbb{R}^n}, m^n)$. 
+    $(\mathbb{R}^n, \mathcal{L}^n, m)$ Lebesgue measure is \textbf{completion of } $(\mathbb{R}^n, \mathcal{B}_{\mathbb{R}^n}, m|_{borel})$. 
 \end{definition}
 where $ \mathcal{B}_{\mathbb{R}^n} =  \mathcal{B}_{\mathbb{R}} \otimes \cdots \otimes \mathcal{B}_{\mathbb{R}}  $
 \(\mathcal{L^n }  = \{ \text{Leb meas sets} \}  \supset  \mathcal{B}_{\mathbb{R}^n}\)
@@ -2979,20 +3007,20 @@ Sketch: $f \in L^1$ (since it is ctn on $\mathbb{R}$)
 
 
 
-\chapter{Lebesgue measure in $\mathbb{R}^n$}
+\chapter{Lebesgue measure in $\mathbb{R}^n$-I}
 今日: Lebesgue measure in $\mathbb{R}^n$ 的 \begin{itemize}
     \item regularity
     \item behavior under affine transformation
     \item behavior under diffeomorphism
 \end{itemize}
 
-
+\section{regularities of Lebesgue measure in $\mathbb{R}^n$ }
 
 \begin{theorem}{regularities of $\mathcal{L}^n$}
 If $E \subset \mathcal{L}^n$, 则有: 
 \begin{itemize}
     \item \textbf{outer regularity}: \[ m(E) = \inf \{  m(U) \mid U  \text{ open}   \supset E\}  \]
-    \item \textbf{inner regularity}: \[ m(E) = \inf \{  m(K) \mid K  \text{ compact}   \subset E\}  \]
+    \item \textbf{inner regularity}: \[ m(E) = \sup \{  m(K) \mid K  \text{ compact}   \subset E\}  \]
     \item if $m(E) < \infty$, 则对于任意 $\epsilon > 0$, 都存在 disjoint rectangles $R_1, \cdots R_N$ with sides that are open intervals (literally rectangles) s.t. \[ m(E  \Delta \bigcup_{j} R_j ) < \epsilon \]
 \end{itemize}
 \end{theorem}
@@ -3005,10 +3033,11 @@ By outer regularity of $m^1$, 存在 $U_j \supset T_j$ open rect s.t. $m(U_j) \l
 Then: \[
 E \subset U := \bigcup_{j=1}^\infty U_j \quad \text{and} \quad m(U) \leq \sum_{j=1}^\infty m(U_j)
 \]
-Construct $K$ as in dim $1$ (DIY) $\leq m(E) + 2\epsilon$
+Construct $K$ as in dim $1$ (DIY) $\leq m(E) + 2\epsilon$.\\
+(完整 Pf 可见 395 笔记, 此略)
 \end{proof}
 \begin{proof}
- \textbf{   for (b):} \\
+ \textbf{   for (c):} \\
 Notation as above.\\
 \[
 m(E) < \infty \implies m(U) < \infty \implies m(U_j)  < \infty \;\; \; \forall j
@@ -3017,7 +3046,8 @@ Sides of $U_j$ are disjoint union of ctbly many open finite intervals.\\
 因而存在 open rectangle $V_j \subset U_j$ for each $j$ that are finite disjoint union of finite open intervals s.t. \[
 m(U_j  \setminus   V_j) < \epsilon / 2^j
 \]
-Now pick $R_1, \cdots, R_N$ from honest rectangles insides $V_j$ (DIY).
+Now pick $R_1, \cdots, R_N$ from honest rectangles (即 sides 都是 intervals 的 rectangle) insides $V_j$ (DIY).
+(完整 Pf 可见 395 笔记, 此略)
 \end{proof}
 
 
@@ -3030,7 +3060,9 @@ For $f \in L^1(m)$,
         \item 存在 $\phi \in C_c^0(\mathbb{R}^n)$ s.t. \[\int |f - \phi| \; dm < \epsilon \]
     \end{itemize}
 \end{corollary}
-
+\begin{proof}
+By $\{\text{all step functions}\}$, $C_c^0(\mathbb{R}^n)$ being a dense subspace of $L^1(m)$.
+\end{proof}
 
 
 
@@ -3042,16 +3074,18 @@ t_a^{-1} = t_{-a}
 \]
 
 \begin{theorem}
-(a) for any $a \in \mathbb{R}^n$, 
+(a) 任取 $a \in \mathbb{R}^n$, 
 \[
 E \in \mathcal{L}^n \implies  t_a(E) \in \mathcal{L}^n \quad \text{ and }\quad m(t_a(E)) = m(E)
 \]
-
 (b) if $f: \mathbb{R}^n \to \mathbb{C}$ is Leb measurable, then so is $f \circ t_a$. \\
 More, if $f \in L^+$ or $f \in L^1$, then $f \circ t_a \in L^1$ 并且  \[
 \int (f \circ t_a) \; dm = \int f \; dm
 \]
 \end{theorem}
+\begin{remark}
+    集合的 measure 以及 measurable function 的积分在 translation 下保持不变.
+\end{remark}
 \begin{proof}
     (Folland 2.42)\\
     (a)
@@ -3071,15 +3105,19 @@ More, if $f \in L^+$ or $f \in L^1$, then $f \circ t_a \in L^1$ 并且  \[
     因而 $f^{-1}(B) = E \cup N$, $E \in \mathcal{B}_{\mathbb{R}^n}$, $N$ null set
     因而 \begin{align}
         (f\circ t_a)^{-1}(B) & = t_a^{-1}( f^{-1}(B)) \\&= t_a^{-1}(E) \cup t_a^{-1}(N) \text{ (one Borel, one null)} \\
-        &= t_{-a}(f^{-1}(B)
+        &= t_{-a}(f^{-1}(B))
     \end{align}
-(c) Prove $\int f \; dm = \int f \circ t_a \;d m$ in steps: \begin{itemize}
-    \item $f = \chi_E$
-    \item $f$ is simple 
-    \item $f \in L^+$
-    \item $F \in L^1$
-\end{itemize}    
+当 $f= \chi_E$ 时, 积分 reduce to measure, 即 (a);
+因而  \[
+\int (f \circ t_a) \; dm = \int f \; dm
+\] also holds for simple $f$, by linearity.\\
+从而 by def, 也 hold for $f \in L^+$ 和 $f \in L^1$.
 \end{proof}
+
+
+
+
+对于 $k \in \mathbb{Z}$, 令 $\mathcal{Q}_k$ be the collection of cubes whose side length is $\frac{1}{2^k}$ 且 vertices 在 lattice $(2^{-k} \mathbb{Z})^n$ 中, 即精细度为 $\frac{1}{2^k}$ 的网格中的所有 cubes.\\
 
 
 
@@ -3104,12 +3142,37 @@ Moreover if $f \in L^+$ or $f \in L^1$, then $f \circ T \in L^+$, $f \circ T \in
 
 
 
-\chapter{2/21}
+\chapter{Lebesgue measure in $\mathbb{R}^n$-II (COV)}
 
 
 
 
-\chapter{2/24}
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Differentiation in $\mathbb{R}^n$}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3154,6 +3217,143 @@ Step 1: WLOG $f \in L^1$
 
 
 
+
+
+\chapter{banach Space and $L_p$ space}
+Folland 5.1, 6.1
+
+Recall:
+\begin{definition}
+    A Banach sapce is a complete normed vector space $(V, ||\cdot||)$, i.e. every Cauchy sequence converges.
+\end{definition}
+
+\begin{example}
+    $\mathbb{R}^n, \mathbb{C}^n$ with Euclidean norm is a Banach space.\\
+    $C^0([0,1])$: space of ctn functions on $[0,1]$ equipped with $\sup$ norm is Banach. \[
+    ||f- g|| := \sup_{x\in[0,1]} |f(x) - g(x)|
+    \]
+    $C^0_c(\mathbb{R})$: space of ctn functions with cpt supp on $[0,1]$ equipped with $\sup$ norm is \textbf{not} Banach.
+    
+\end{example}
+
+\begin{lemma}
+    A metric space $(X,\rho)$ is complete iff every Cauchy seq has a subseq that converges.
+\end{lemma}
+\begin{proof}
+Trivial. \\
+\(\implies\): Clear. \\
+\(\impliedby\): subseq conv dist bound + Cauchy dist bound can bound the whole tail with arbitrary $\epsilon$.
+\end{proof}
+
+\begin{definition}
+对于一个 normed VS $(V,||\cdot||)$ 中的 seq $(v_n)$, 我们称 \(\sum_{n=1}^\infty v_n\) \textbf{converges}, 如果存在 $v\in V$ s.t. \[
+\lim_{N\to\infty} \sum_{n=1}^N v_n  = v
+\]
+我们称 \(\sum_{n=1}^\infty v_n\) \textbf{absolutely converges}, 如果 \[ \sum_{n=1}^\infty ||v_n|| < \infty\]
+\end{definition}
+\begin{remark}
+    Note, 这里 normed VS 上的定义, absolutely converge 并不 imply converge. 
+\end{remark}
+
+
+
+\begin{theorem}
+    A normed VS $(V,||\cdot||)$ is a Banach space iff every absolutely convergent series converges.
+\end{theorem}
+\begin{proof}
+    ``$\implies$": Suppose $\sum_{n=1}^\infty ||v_n|| < \infty$, set \[
+    S_N := \sum_{n=1}^N v_n 
+    \] Show that $(S_N)$ is Cauchy.\\
+    WLOG $N>M$, \[
+    ||S_N - S_M||  = ||\sum_{M+1}^N v_n|| \leq \sum_{M+1}^N ||v_n|| \to 0 \text{ as } N,M \to \infty 
+    \]
+    ``$\impliedby$": Let $(v_n)$ be Cauchy. Then for all $j$, exists $n_j$ s.t. $n \geq n_j \implies ||v_n  - v_{n_j} || < \frac{1}{3^j}$. 
+    Thus have subseq, say labeled $n_1 < n_2 < \cdots $, s.t. $||v_{n_{j+1}} - v_{n_j}|| < \frac{1}{3^j} $
+    Then \[
+    \sum_{j=1}^\infty ||v_{n_{j+1}} - v_{n_j}|| < \infty
+    \]
+    Let $(y_j)$ be s.t. $y_1 = v_{n_1}$, $y_j = v_{n_{j+1}} - v_{n_j}$, then \[
+    v_{n_j} = \sum_{k=1}^j y_k
+    \]
+    So \[
+    \lim_{j\to \infty} v_{n_j}  = \sum_{k=1}^\infty y_k \;\exists
+    \]
+    Thus by Lemma, $(v_n)$ converges
+\end{proof}
+
+\begin{definition}{$L_p$ spaces}
+    Consider $p\in(0,\infty)$.\\
+    Let $(X,\mathcal{A},\mu)$ 为一个 measure space.\\
+    Define for $f: X \to \mathbb{R}$ measurable: \[
+    ||f||_p : = \Big(\int |f|^p \; d\mu  \Big)^{\frac{1}{p}} \;\; \in [0,\infty]
+    \]
+    Define \[
+    L^p(\mu) : = \{ f :  ||f||_p  < \infty \} / \sim
+    \] where $f \sim g$ if $f=g$ a.e.
+\end{definition}
+
+
+
+\begin{example}
+    $(X,\mathcal{A},\mu) := (\mathbb{R},\mathcal{L}, m)$, \[
+    f(x) : = \frac{1}{x^\alpha} \chi_{(0,1)}, \;\; f\in L^p(m) \Longleftrightarrow   \alpha p < 1
+    \]  \[
+    f(x) : = \frac{1}{x^\alpha} \chi_{(1,\infty)}, \;\; f\in L^p(m) \Longleftrightarrow   \alpha p > 1
+    \]
+    $(X,\mathcal{A},\mu) := (\mathbb{N},\mathcal{P}(\mathbb{N}), \mu_{counting})$, \[
+    L^p( \mu_{counting}) = \{ (a_n)_{n\in\mathbb{N}} : \sum_{n=1}^\infty |a_n|^p < \infty   \}
+    \]
+\end{example}
+
+Question: Is $L^p$ space Banach?\\
+Answer: yes for $p\in [1,\infty)$, but not for $p \in (0,1)$
+
+
+\begin{lemma}{$L_p$ space is a vector space}
+    $L_p$ space is a $\mathbb{C}$-vector space.
+\end{lemma}
+\begin{proof}
+    $f, g\in L^p \implies f+g \in L^p$.\\
+    \begin{align}
+        |f+ g|^p   \leq (|f| + |g| )^p \leq (2 \max\{|f|, |g|\})^p 
+    \end{align}
+    Then \[
+    ||f + g||_p \leq 2\Big(\int (|f| + |g|)^p \; d\mu  \Big)^{\frac{1}{p}}
+    \]
+\end{proof}
+
+Question: Is $L_p$ a normed VS?
+A: True for $p\in [1,\infty)$, false for $p\in (0,1)$. 
+Since \[
+||f + g||_p \leq ||f||_p + ||g||_p
+\] fails for $p \in (0,1)$
+因而我们将 focus on $p \in [1,\infty)$ 的情况.
+
+\begin{theorem}{Hölder's ineq}
+    Consider conjugate pair: $p,q \in [1,\infty)$ s.t.  \[
+    \frac{1}{p} + \frac{1}{q} = 1
+    \]
+    
+\end{theorem}
+
+\begin{remark}
+    Cauchy-Swartz for $(p,q) = (2,2)$
+\end{remark}
+
+\begin{theorem}{Minkovski's ineq}
+    
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+\chapter{inequilities on $L^p$ spaces}
 
 
 
