@@ -4,6 +4,7 @@
 \usepackage{amsmath}%
 \usepackage{amssymb}%
 \usepackage{graphicx}
+\usepackage{xcolor}
 
 \title{597 Homeworks}
 
@@ -31,39 +32,39 @@ Prove that for any $N \geq 1$, there exists a finite subset $B_N \subset A$ such
 \]
 
 \begin{proof}
-We first take $A_N = A_N^+ \union A_N^- \sub A$  s.t.   $\lvert f(\alpha) \rvert \leq N^{-1}$ for all $\alpha \in A \setminus A_N$, as given by the conditions.\\
+We first take $A_N = A_N^+ \bigcup A_N^- \subset A$  s.t.   $\lvert f(\alpha) \rvert \leq N^{-1}$ for all $\alpha \in A \setminus A_N$, as given by the conditions.\\
 Now we define $pos(A_N) := \{ \alpha \in A_N \mid f(\alpha) \geq 0 \}$ and $neg(A_N) := \{ \alpha \in A_N \mid f(\alpha) < 0 \}$.\\
 Let $gap := \ds \sum_{\alpha \in A_N} f(\alpha) - 597$. This is a real number since $A_N$ is finite.\\\\
 Case 1: if $gap<0$, then we need to fill in more elements whose image under $f$ sum up to be positive to make the sum close to 597 from below. \\ 
-We then take a finite set $B_N^+ \sub A$ s.t. $\ds \sum_{\alpha \in B_N^+} f(\alpha) \geq \lceil -gap + \sum_{\alpha \in pos(A_N)} f(\alpha) \rceil$.\\
-Since $B_N^+ \intsec A_N \sub A_N$, we have 
+We then take a finite set $B_N^+ \subset A$ s.t. $\ds \sum_{\alpha \in B_N^+} f(\alpha) \geq \lceil -gap + \sum_{\alpha \in pos(A_N)} f(\alpha) \rceil$.\\
+Since $B_N^+ \bigcap A_N \subset A_N$, we have 
 \begin{equation}
-  \sum_{\alpha \in B_N^+ \intsec A_N} f(\alpha) \leq \sum_{\alpha \in pos(A_N)} f(\alpha)  
+  \sum_{\alpha \in B_N^+ \bigcap A_N} f(\alpha) \leq \sum_{\alpha \in pos(A_N)} f(\alpha)  
 \end{equation}
-and since $B_N^+ = (B_N^+ \setminus A_N) \coprod (B_N^+ \intsec A_N)$, we have
+and since $B_N^+ = (B_N^+ \setminus A_N) \coprod (B_N^+ \bigcap A_N)$, we have
 \begin{equation}
-    \sum_{\alpha \in B_N^+} f(\alpha)= \sum_{\alpha \in B_N^+ \setminus A_N} f(\alpha) + \sum_{\alpha \in B_N^+ \intsec A_N} f(\alpha)
+    \sum_{\alpha \in B_N^+} f(\alpha)= \sum_{\alpha \in B_N^+ \setminus A_N} f(\alpha) + \sum_{\alpha \in B_N^+ \bigcap A_N} f(\alpha)
 \end{equation}
 By (1) and (2), it is clear that 
 \begin{equation}
-   \ds \sum_{\alpha \in B_N^+ \setminus A_N} f(\alpha) \geq -gap 
+ \sum_{\alpha \in B_N^+ \setminus A_N} f(\alpha) \geq -gap 
 \end{equation}
 (3) means that the elements in $B_N^+ \setminus A_N$ have big enough image sum to fill the gap.
 And by definition, for all $\alpha \in B_N^+ \setminus A_N$, we have $|f(\alpha)|\leq {1\over N}$. This means that each element in this finite $B_N^+ \setminus A_N$ takes up only a small portion of the sum, bounded by $1/N$.
-Together with (3), it follows that there is some subset $B_N' \sub B_N^+ \setminus A_N$ s.t. $\ds \sum_{\alpha \in B_N'} f(\alpha) \in [-gap-1/N, -gap+1/N]$. So for the finite set $A_N \union B_N'$, we have 
+Together with (3), it follows that there is some subset $B_N' \subset B_N^+ \setminus A_N$ s.t. $\sum_{\alpha \in B_N'} f(\alpha) \in [-gap-1/N, -gap+1/N]$. So for the finite set $A_N \bigcup B_N'$, we have 
 \begin{equation}
-    \sum_{\alpha \in A_N \union B_N'}f(\alpha) = \sum_{\alpha \in A_N}f(\alpha) + \sum_{\alpha \in  B_N'}f(\alpha) \in [597-1/N, 597+1/N]
+    \sum_{\alpha \in A_N \bigcup B_N'}f(\alpha) = \sum_{\alpha \in A_N}f(\alpha) + \sum_{\alpha \in  B_N'}f(\alpha) \in [597-1/N, 597+1/N]
 \end{equation}
 \pic[0.3]{assets/hw0(1).png}
 Case 2: if $gap>0$, then we need to fill in more elements whose image under $f$ sum up to be negative to make the sum close to 597 from above.
-\\ We then take finite $B_N^- \sub A$ s.t. $\ds \sum_{\alpha \in B_N^-} f(\alpha) \leq \lfloor -gap + \sum_{\alpha \in neg(A_N)} f(\alpha) \rceil$.\\
+\\ We then take finite $B_N^- \subset A$ s.t. $\ds \sum_{\alpha \in B_N^-} f(\alpha) \leq \lfloor -gap + \sum_{\alpha \in neg(A_N)} f(\alpha) \rceil$.\\
 For the same reason as case 1, we get 
 \begin{equation}
      \sum_{\alpha \in B_N^- \setminus A_N} f(\alpha) \leq -gap 
 \end{equation}
-And by definition, for all $\alpha \in B_N^- \setminus A_N$, we have $|f(\alpha)|\leq {1\over N}$. Together with (5), it follows that there is some subset $B_N' \sub B_N^- \setminus A_N$ s.t. $\ds \sum_{\alpha \in B_N'} f(\alpha) \in [-gap-1/N, -gap+1/N]$. So for the finite set $A_N \union B_N'$, we have 
+And by definition, for all $\alpha \in B_N^- \setminus A_N$, we have $|f(\alpha)|\leq {1\over N}$. Together with (5), it follows that there is some subset $B_N' \subset B_N^- \setminus A_N$ s.t. $\ds \sum_{\alpha \in B_N'} f(\alpha) \in [-gap-1/N, -gap+1/N]$. So for the finite set $A_N \bigcup B_N'$, we have 
 \begin{equation}
-    \sum_{\alpha \in A_N \union B_N'}f(\alpha) = \sum_{\alpha \in A_N}f(\alpha) + \sum_{\alpha \in  B_N'}f(\alpha) \in [597-1/N, 597+1/N]
+    \sum_{\alpha \in A_N \bigcup B_N'}f(\alpha) = \sum_{\alpha \in A_N}f(\alpha) + \sum_{\alpha \in  B_N'}f(\alpha) \in [597-1/N, 597+1/N]
 \end{equation}\\
 Case 3: $gap = 0$, then we are done.\\
 This finishes the proof of the statement.
@@ -72,7 +73,7 @@ This finishes the proof of the statement.
     意思是说 $f$ 对于任意小的 bound 都存在一个 infinite set 上能够限于这一 bound 内(可逼近 0), 而在一个 finite set 上总和可以任意大. 要证明的是对于任意一个数, 我们都可以指定一个 finite set, 让这个函数在这个 finite set 上的总和无限接近这个数. 这里以 597 为例. 对于这个 bounded 的 infinite set, 我们简称它为 big flat set, 其补集称之为 small wavy set.\\\\
     这题思考甚久. 一开始卡住的原因就是局限于这个 big flat set 的 sum postive 和 sum negative 这两个划分上, 因为这占了条件中很大一部分笔墨. 但是最后却发现实际上这个集合在第一步构造中并没有用, 甚至作用一直都不大, 只用一边即可. 并且, 这两个条件不仅是透明条件, 而且我们甚至应该构建自己的 "all positive" 和 "all negative" set.\\\\
     为什么说这个 sum postive 和 sum negative 划分几乎没用: 因为它基本不给出任何 invariant 的信息. 举例: sum postive set 的 image sum $\geq 100$, sum negative set 的 image sum $\leq -100$, 它们交的部分, 其可能的 image sum 上下都可以 unboundly large, 可以是 99999, 唯一能 imply 的信息是两边 $A_N+ \setminus A_N^-$ 和 $A_N- \setminus A_N^+$ 之间的差距大于等于 200, 但是这也没用, 因为我们对元素个数也没有 control over.因而我们想要准确地逼近一个数, 必须要靠外界的大小全都 singly bounded 的元素.\\\\
-    于是关键的解题点在于: small wavy set 的有限性, 所以我们可以把它的值设做 $gap$, 并可以把它分为全正和全负的两个 portion. 这样的目的是: 我们等于给 $\cP(A)$ 中每个集合赋予了一个 measure, 等于 image sum under $f$, 而局限在 small wavy set 上, 这个 measure 最小的集合就是 all negative set, 最大的集合就是 all positive set. 从而, 我们先比较 $gap$ 和 597 的大小, 根据其正负, 制定一个 (差值 $\pm$ allPos/Neg set 的 function measure) 的 bound, 并创造第二个 big wavy set $B_N$. 这个 $B_N$ 和 $A_N$ 可能相交, 但是这一次, 我们可以 control over $B_N \setminus A_N$ 的部分, 因为这部分的值必须大于 $gap$ 和 597 的差值, 并且这个部分还属于 $A_N$ 外的 big flat set, 其中每个元素的函数值都是 bounded by a small number 的. 
+    于是关键的解题点在于: small wavy set 的有限性, 所以我们可以把它的值设做 $gap$, 并可以把它分为全正和全负的两个 portion. 这样的目的是: 我们等于给 $\mathcal{P}(A)$ 中每个集合赋予了一个 measure, 等于 image sum under $f$, 而局限在 small wavy set 上, 这个 measure 最小的集合就是 all negative set, 最大的集合就是 all positive set. 从而, 我们先比较 $gap$ 和 597 的大小, 根据其正负, 制定一个 (差值 $\pm$ allPos/Neg set 的 function measure) 的 bound, 并创造第二个 big wavy set $B_N$. 这个 $B_N$ 和 $A_N$ 可能相交, 但是这一次, 我们可以 control over $B_N \setminus A_N$ 的部分, 因为这部分的值必须大于 $gap$ 和 597 的差值, 并且这个部分还属于 $A_N$ 外的 big flat set, 其中每个元素的函数值都是 bounded by a small number 的. 
 \end{remark}
 
 
@@ -89,21 +90,21 @@ Characterize the sets $\limsup E_n$ and $\liminf E_n$ (see §0.1 in Folland for 
 \begin{solution}
 By definition, 
     $$
-    \limsup (E_n)  = \intsec_{k = 1}^\infty \union_{n=k}^\infty E_n
+    \limsup (E_n)  = \bigcap_{k = 1}^\infty \bigcup_{n=k}^\infty E_n
     $$
-For each $k \in \bN$, there are infinitely many $n \geq k$ such that $n$ is prime, and also there are infinitely many $n \geq k$ such that $n$ is not prime. So $ \union_{n=k}^\infty E_n = A \union B$.
+For each $k \in \mathbb{N}$, there are infinitely many $n \geq k$ such that $n$ is prime, and also there are infinitely many $n \geq k$ such that $n$ is not prime. So $ \bigcup_{n=k}^\infty E_n = A \bigcup B$.
 Therefore
 $$
-\limsup (E_n)  = \intsec_{k = 1}^\infty (A\union B) = A\union B
+\limsup (E_n)  = \bigcap_{k = 1}^\infty (A\bigcup B) = A\bigcup B
 $$
 By definition, 
     $$
-    \liminf (E_n)  = \union_{k = 1}^\infty \intsec_{n=k}^\infty E_n
+    \liminf (E_n)  = \bigcup_{k = 1}^\infty \bigcap_{n=k}^\infty E_n
     $$
-For each $k \in \bN$, there are infinitely many $n \geq k$ such that $n$ is prime, and also there are infinitely many $n \geq k$ such that $n$ is not prime. So $ \intsec_{n=k}^\infty E_n = A \intsec B$.
+For each $k \in \mathbb{N}$, there are infinitely many $n \geq k$ such that $n$ is prime, and also there are infinitely many $n \geq k$ such that $n$ is not prime. So $ \bigcap_{n=k}^\infty E_n = A \bigcap B$.
 Therefore
 $$
-\liminf (E_n)  = \union_{k = 1}^\infty (A\intsec B) = A\intsec B
+\liminf (E_n)  = \bigcup_{k = 1}^\infty (A\bigcap B) = A\bigcap B
 $$
 
 \end{solution}
@@ -131,10 +132,10 @@ Does it follow that $f(m,n) \to 0$ as $m, n \to \infty$? In other words, given $
 0, \;\; \text{otherwise} 
 \end{cases}
 $$
-Let \textbf{$p$ be arbitrary polynomial with integer coefficients.} Then there must be at most finite $n$ such that $p(n) = 2^n$. This is guaranteed by the asymptotic behavior of polynomial and exponential function: $\lim_{n\rar \infty} \frac{p(n)}{2^n} = 0$. So there exists some $N \in \bN$ s.t. $\frac{p(n)}{2^n} < 1/2$ for all $n \geq N$, therefore \textbf{$f(p(n), n)$ is eventually 0}.\\
-Also, there must be at most finite $n$ such that $2^{p(n)} = n$, i.e. $p(n) = \log_2 n$. This is guaranteed by the asymptotic behavior of polynomial and logarithmic function: $\lim_{n\rar \infty} \frac{\log_2 n}{p(n)} = 0$. So there exists some $N \in \bN$ s.t. $\frac{\log_2 n}{p(n)} < 1/2$ for all $n \geq N$, therefore \textbf{$f(n, p(n))$ is eventually 0}.\\
+Let \textbf{$p$ be arbitrary polynomial with integer coefficients.} Then there must be at most finite $n$ such that $p(n) = 2^n$. This is guaranteed by the asymptotic behavior of polynomial and exponential function: $\lim_{n\to \infty} \frac{p(n)}{2^n} = 0$. So there exists some $N \in \mathbb{N}$ s.t. $\frac{p(n)}{2^n} < 1/2$ for all $n \geq N$, therefore \textbf{$f(p(n), n)$ is eventually 0}.\\
+Also, there must be at most finite $n$ such that $2^{p(n)} = n$, i.e. $p(n) = \log_2 n$. This is guaranteed by the asymptotic behavior of polynomial and logarithmic function: $\lim_{n\to \infty} \frac{\log_2 n}{p(n)} = 0$. So there exists some $N \in \mathbb{N}$ s.t. $\frac{\log_2 n}{p(n)} < 1/2$ for all $n \geq N$, therefore \textbf{$f(n, p(n))$ is eventually 0}.\\
 This confirms that $\lim_{n \to \infty} f(n, p(n)) = \lim_{n \to \infty} f(p(n), n) = 0$ for any polynomial $p$ with integer coefficients.\\
-Then we consider the sequence $((2^n,n))_{n\in \bN}$. For any $n\in\bN$, $f((2^n,n))=1$, so the sequential limit is $1$. This completes the counterexample.
+Then we consider the sequence $((2^n,n))_{n\in \mathbb{N}}$. For any $n\in\mathbb{N}$, $f((2^n,n))=1$, so the sequential limit is $1$. This completes the counterexample.
 \pic[0.3]{assets/hw0(3).jpeg}
 \end{solution}
 
@@ -148,28 +149,25 @@ Then we consider the sequence $((2^n,n))_{n\in \bN}$. For any $n\in\bN$, $f((2^n
 
 
 
-
 \chapter{on $\sigma$-algebra (39/40)}
 
 \section{Borel vs Open}
 Let $X$ be a metric space such that every subset of $X$ is Borel set. Does it follow that every subset of $X$ is open? Give a proof or a counterexample.
 \begin{solution}
     It is not true.\\
-    Every subset of $X$ is Borel set $\Leftrightarrow \cP(X) \sub \cB_X$. And We know $\cB_X \sub \cP(X)$, so it is equivalent to saying that $\cB_X = \cP(X)$.\\
-    So consider this counterexample: $\bQ$ with the Euclidean metric.\\
-    Claim: every singleton set in $\bQ$ is closed, thus in $\cB_\bQ$.
+    Every subset of $X$ is Borel set $\Leftrightarrow \mathcal{P}(X) \subset \mathcal{B}_X$. And We know $\mathcal{B}_X \subset \mathcal{P}(X)$, so it is equivalent to saying that $\mathcal{B}_X = \mathcal{P}(X)$.\\
+    So consider this counterexample: $\mathbb{Q}$ with the Euclidean metric.\\
+    Claim: every singleton set in $\mathbb{Q}$ is closed, thus in $\mathcal{B}_\mathbb{Q}$.
     This is because this only sequence in a singleton set is the point itself repeating, thus converging to itself, in the singleton set. This proves the claim.\\
-    And since $\bR$ is countable, every subset of $\bQ$ is a countable union of singleton sets, thus by property of $\sigma$-algebra, every subset of $\bQ$ is in $\cB_{\bQ}$. This shows that 
+    And since $\mathbb{Q}$ is countable, every subset of $\mathbb{Q}$ is a countable union of singleton sets, thus by property of $\sigma$-algebra, every subset of $\mathbb{Q}$ is in $\mathcal{B}_{\mathbb{Q}}$. Thus: $$
+    \mathcal{B}_\mathbb{Q} = \mathcal{P}(\mathbb{Q})
     $$
-    \cB_\bQ = \cP(\bQ)
-    $$
-    But clearly, not every subset in $\bQ$ is open. Consider any singleton set, $\{1\}$ as an example. Any open ball centered at $1$ is not contained in $\{1\}$, thus contradicting the statement.
+    But clearly, \textbf{not every subset in $\mathbb{Q}$ is open.} Consider any singleton set, $\{1\}$ as an example. Any open ball centered at $1$ is not contained in $\{1\}$, thus contradicting the statement.
     
 \end{solution}
 
 \section{Restriction of a $\sigma$-algebra to a Subset}
 Let $X$ be a set, and $Y \subset X$ a subset.
-
 \begin{itemize}
     \item[(a)] Given a $\sigma$-algebra $\mathcal{A}$ on $X$, prove that
     \[
@@ -179,14 +177,17 @@ Let $X$ be a set, and $Y \subset X$ a subset.
     \item[(b)] Given a $\sigma$-algebra $\mathcal{B}$ on $Y$, prove that there exists a $\sigma$-algebra $\mathcal{A}$ on $X$ such that $\mathcal{A}|_Y = \mathcal{B}$.
     \item[(c)] Is the $\sigma$-algebra $\mathcal{A}$ in (b) unique? Give a proof or a counterexample.
 \end{itemize}
+\begin{remark}
+这表示任何一个 measurable space 都可以对其中的一个 subspace 取一个 submeasurable space
+\end{remark}
 
 \begin{proof}
     \begin{itemize}
     \item[(a)] 
     \begin{enumerate}
-        \item Since $\emptyset \in\cA$, $\emptyset \cap Y = \emptyset$, we have $\emptyset \in\cA|_{Y}$
-        \item Let $F \in \cA|_{Y}$, we must have $E \in \cA$ s.t. $E\cap Y = F$. Since $E\in \cA$, we have $X\setminus E \in \cA$, so $X \setminus E \cap Y \in \cA|_{Y}$. Since $E \cap Y = F$ and $Y = (E \cap Y) \sqcup ((X \setminus E) \cap Y)$, it implies $(X \setminus E) \cap Y = Y\setminus F$, therefore $Y \setminus F \in \cA|_{Y}$.
-        \item Let $F_1, F_2,\cdots$ be a sequence of subsets in $\cA|_{Y}$. Then for each $i\in \bN$, we have $F_i = E_i \cap Y$ for some $E_i \in \cA$. Then $\union_{i=1}^\infty F_i = \union_{i=1}^\infty (E_i\cap Y) = (\union_{i=1}^\infty E_i) \cap Y \in \cA|_{Y}$ since $\union_{i=1}^\infty E_i \in \cA$. 
+        \item Since $\emptyset \in\mathcal{A}$, $\emptyset \cap Y = \emptyset$, we have $\emptyset \in\mathcal{A}|_{Y}$
+        \item Let $F \in \mathcal{A}|_{Y}$, we must have $E \in \mathcal{A}$ s.t. $E\cap Y = F$. Since $E\in \mathcal{A}$, we have $X\setminus E \in \mathcal{A}$, so $X \setminus E \cap Y \in \mathcal{A}|_{Y}$. Since $E \cap Y = F$ and $Y = (E \cap Y) \sqcup ((X \setminus E) \cap Y)$, it implies $(X \setminus E) \cap Y = Y\setminus F$, therefore $Y \setminus F \in \mathcal{A}|_{Y}$.
+        \item Let $F_1, F_2,\cdots$ be a sequence of subsets in $\mathcal{A}|_{Y}$. Then for each $i\in \mathbb{N}$, we have $F_i = E_i \cap Y$ for some $E_i \in \mathcal{A}$. Then $\bigcup_{i=1}^\infty F_i = \bigcup_{i=1}^\infty (E_i\cap Y) = (\bigcup_{i=1}^\infty E_i) \cap Y \in \mathcal{A}|_{Y}$ since $\bigcup_{i=1}^\infty E_i \in \mathcal{A}$. 
     \end{enumerate}
     
     \item[(b)] Let $\mathcal{B}$ be a $\sigma$-algebra on $Y$.
@@ -195,19 +196,19 @@ Let $X$ be a set, and $Y \subset X$ a subset.
     prove that there exists a $\sigma$-algebra $\mathcal{A}$ on $X$ such that $\mathcal{A}|_Y = \mathcal{B}$.
     Consider let 
     $$
-    \cA := \{\,E \subset X \mid E \cap Y \in \mathcal{B}\}
+    \mathcal{A} := \{\,E \subset X \mid E \cap Y \in \mathcal{B}\}
     $$
     Then 
     $$
-    \cA |_{Y} = \{ E \cap Y \mid E,Y\sub X,E \cap Y \in \cB  \} = \cB
+    \mathcal{A} |_{Y} = \{ E \cap Y \mid E,Y\subset X,E \cap Y \in \mathcal{B}  \} = \mathcal{B}
     $$            
     We then prove that this is a $\sigma$-algebra on $X$. \\
     \begin{enumerate}
-        \item  $\emptyset \cap Y = \emptyset$ so $\emptyset \in \cA$. 
-        \item \textbf{Closed under complement}: Let $E \in \cA$, we have $E \cap Y \in \cB$, so $Y \setminus (E\cap Y ) = Y\setminus E \in \cB$.\\
+        \item  $\emptyset \cap Y = \emptyset$ so $\emptyset \in \mathcal{A}$. 
+        \item \textbf{Closed under complement}: Let $E \in \mathcal{A}$, we have $E \cap Y \in \mathcal{B}$, so $Y \setminus (E\cap Y ) = Y\setminus E \in \mathcal{B}$.\\
         Then $(X\setminus E) \cap Y  = Y \setminus E 
-        \in \cB$, so $X\setminus E \in \cA$. 
-        \item \textbf{Closed under countable union}: Let $E_1,E_2,\cdots$ be a sequence in $\cA$, then \(E_n \cap Y \in \mathcal{B}\). for each $n$. 
+        \in \mathcal{B}$, so $X\setminus E \in \mathcal{A}$. 
+        \item \textbf{Closed under countable union}: Let $E_1,E_2,\cdots$ be a sequence in $\mathcal{A}$, then \(E_n \cap Y \in \mathcal{B}\). for each $n$. 
         Hence
      \[
        \left(\bigcup_{n=1}^\infty E_n\right) \cap Y
@@ -223,11 +224,11 @@ Let $X$ be a set, and $Y \subset X$ a subset.
     This is not unique. \\
     \noindent Counterexample:
     \[
-    X = \{ 0,1,2\}, Y = \{0\} \sub X
+    X = \{ 0,1,2\}, Y = \{0\} \subset X
     \]
     Consider
     \[
-    A_1 := \cP(X), A_2 := \{\emptyset, \{0\}, \{1,2\}, X \}
+    A_1 := \mathcal{P}(X), A_2 := \{\emptyset, \{0\}, \{1,2\}, X \}
     \] are valid $\sigma$-algebra on $X$.\\
     \noindent Then we have $A_1 |_Y = A_2 |_Y = \{\emptyset,\{0\}   \}$, while $A_1$ is different from $A_2$.
 
@@ -236,6 +237,7 @@ Let $X$ be a set, and $Y \subset X$ a subset.
     
 \end{itemize}
 \end{proof}
+
 
 \section{Invariance Properties of the Borel $\sigma$-algebra on $\mathbb{R}^n$}
 \begin{itemize}
@@ -258,17 +260,17 @@ Fix \(t \in \mathbb{R}^n\). Define
 \[
 \mathcal{A} :=\{\, B \subseteq \mathbb{R}^n : t + B \in \mathcal{B}(\mathbb{R}^n) \}.
 \]
-We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show that $\cA$ is a $\sigma$-algebra.
+We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show that $\mathcal{A}$ is a $\sigma$-algebra.
 
 1. \(\emptyset     \in  \mathcal{A}\) since \(t + \emptyset = \emptyset \in \mathcal{B}(\mathbb{R}^n)\).
 
-2. $\cA$ is closed under complement: Let \(B \in \mathcal{A}\), then \(t + B \in \mathcal{B}(\mathbb{R}^n)\). The complement \((t + B)^c\) is also in \(\mathcal{B}(\mathbb{R}^n)\). Observe
+2. $\mathcal{A}$ is closed under complement: Let \(B \in \mathcal{A}\), then \(t + B \in \mathcal{B}(\mathbb{R}^n)\). The complement \((t + B)^c\) is also in \(\mathcal{B}(\mathbb{R}^n)\). Observe
 \[
    t + B^c  = t + \mathbb{R}^n \setminus B = (t+\mathbb{R}^n) \setminus (t+B) = \mathbb{R}^n  \setminus (t+B) =  (t+B)^c
    \]
 \noindent Since \(t + B\) is Borel, its complement is Borel, hence \(t + B^c\) is Borel, so \(B^c \in \mathcal{A}\).
 
-3. $\cA$ is closed under countable unions: Let \(B_k \in \mathcal{A}\) for \(k = 1, 2, \dots\), then \(t + B_k \in \mathcal{B}(\mathbb{R}^n)\). Thus
+3. $\mathcal{A}$ is closed under countable unions: Let \(B_k \in \mathcal{A}\) for \(k = 1, 2, \dots\), then \(t + B_k \in \mathcal{B}(\mathbb{R}^n)\). Thus
    \[
    t + \bigcup_{k=1}^{\infty} B_k
    \;=\;
@@ -279,10 +281,10 @@ We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show 
 \noindent Hence \(\bigcup_{k=1}^{\infty} B_k \in \mathcal{A}\).
 \noindent These three properties show that \(\mathcal{A}\) is a \(\sigma\)-algebra. \\
 
-\noindent Since \(t + U\) is open if \(U\) is open in $\bR^n$, \(\mathcal{A}\) contains all open sets. Since \(\mathcal{B}(\mathbb{R}^n)\) is the smallest \(\sigma\)-algebra containing all open sets in \(\mathbb{R}^n\), we have:\(
+\noindent Since \(t + U\) is open if \(U\) is open in $\mathbb{R}^n$, \(\mathcal{A}\) contains all open sets. Since \(\mathcal{B}(\mathbb{R}^n)\) is the smallest \(\sigma\)-algebra containing all open sets in \(\mathbb{R}^n\), we have:\(
 \mathcal{B}(\mathbb{R}^n) \;\subseteq\; \mathcal{A}
 \) 
-\noindent Hence suppose \(A \in \mathcal{B}(\mathbb{R}^n) \), then $A \in \cA$, so $t+A \in   \mathcal{B}(\mathbb{R}^n)$. This completes the proof of translation invariance.
+\noindent Hence suppose \(A \in \mathcal{B}(\mathbb{R}^n) \), then $A \in \mathcal{A}$, so $t+A \in   \mathcal{B}(\mathbb{R}^n)$. This completes the proof of translation invariance.
 \end{proof}
 
 (2)
@@ -295,12 +297,12 @@ Case 2: $\lambda \not = 0$. We define
 \mathcal{A} :=\{\, B \subseteq \mathbb{R}^n :  \lambda B \in \mathcal{B}(\mathbb{R}^n) \}.
 \]
 
-We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show that $\cA$ is a $\sigma$-algebra.
+We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show that $\mathcal{A}$ is a $\sigma$-algebra.
 
 1. \(\emptyset     \in  \mathcal{A}\) since \(\lambda\emptyset = \emptyset\).
 
-2. $\cA$ is closed under complement: Let \(B \in \mathcal{A}\), then \(\lambda B \in \mathcal{B}(\mathbb{R}^n)\), then \((\lambda B)^c\) is also in \(\mathcal{B}(\mathbb{R}^n)\). Observe $(\lambda B)^c = \lambda B^c$, so $\lambda B^c \in \mathcal{B}(\mathbb{R}^n)$, therefore $B^c \in \cA$.
-3. $\cA$ is closed under countable unions: Let \(B_k \in \mathcal{A}\) for \(k = 1, 2, \dots\), then \(\lambda B_k \in \mathcal{B}(\mathbb{R}^n)\). Thus
+2. $\mathcal{A}$ is closed under complement: Let \(B \in \mathcal{A}\), then \(\lambda B \in \mathcal{B}(\mathbb{R}^n)\), then \((\lambda B)^c\) is also in \(\mathcal{B}(\mathbb{R}^n)\). Observe $(\lambda B)^c = \lambda B^c$, so $\lambda B^c \in \mathcal{B}(\mathbb{R}^n)$, therefore $B^c \in \mathcal{A}$.
+3. $\mathcal{A}$ is closed under countable unions: Let \(B_k \in \mathcal{A}\) for \(k = 1, 2, \dots\), then \(\lambda B_k \in \mathcal{B}(\mathbb{R}^n)\). Thus
    \[
     \lambda \bigcup_{k=1}^{\infty} B_k
    \;=\;
@@ -311,15 +313,12 @@ We want to show that \(\mathcal{A} = \mathcal{B}(\mathbb{R}^n)\). We first show 
 \noindent Hence \(\bigcup_{k=1}^{\infty} B_k \in \mathcal{A}\).
 \noindent These three properties show that \(\mathcal{A}\) is a \(\sigma\)-algebra. \\
 
-\noindent Since $\lambda \not = 0$, \(\lambda U\) is open iff \(U\) is open in $\bR^n$, thus \(\mathcal{A}\) contains all open sets, so
+\noindent Since $\lambda \not = 0$, \(\lambda U\) is open iff \(U\) is open in $\mathbb{R}^n$, thus \(\mathcal{A}\) contains all open sets, so
 \(
 \mathcal{B}(\mathbb{R}^n) \;\subseteq\; \mathcal{A}
 \), 
 
-Hence if \(A\in \mathcal{B}(\mathbb{R}^n)\),  we have \(A  \in  \cA\), therefore $\lambda A \in \cB(\bR^n)$. This completes the proof of translation invariance.
-
-
-
+Hence if \(A\in \mathcal{B}(\mathbb{R}^n)\),  we have \(A  \in  \mathcal{A}\), therefore $\lambda A \in \mathcal{B}(\mathbb{R}^n)$. This completes the proof of translation invariance.
 \end{proof}
 
 
@@ -375,7 +374,7 @@ To prove this, we fix  an $N$ and define for each $n \geq N$
    \]
  \noindent  Then we have 
 $$
-E_n = \union_{d_i \in \{1,\cdots,F\}   \forall 1\leq i \leq n, d_n \not = 5}  C_{d_1d_2\cdots d_n}
+E_n = \bigcup_{d_i \in \{1,\cdots,F\}   \forall 1\leq i \leq n, d_n \not = 5}  C_{d_1d_2\cdots d_n}
 $$
  Thus \textbf{each $E_n$ is a Borel set} since it is a finite union of Borel set, which shows that $D_N$ is Borel set, since 
  \[
@@ -387,7 +386,7 @@ This finishes the proof that $B^c$ is a Borel set, and by a similar argument, $C
    
 \end{proof}
 
-\section{Admissible Annuli generating $\cB(\bR^n)$(-1)} 
+\section{Admissible Annuli generating $\mathcal{B}(\mathbb{R}^n)$} 
 Define an admissible annulus in $\mathbb{R}^2$ to be a set of the form
 \[
 \{(x, y) \in \mathbb{R}^2 \mid r^2 < (x - a)^2 + (y - b)^2 < R^2\},
@@ -401,21 +400,21 @@ where $a, b \in \mathbb{Q}$, $r, R \in \mathbb{Q}_{>0}$, and $r < R$.
 \end{itemize}
 
 (1) \begin{proof} Let 
-\[ A:=   \{     \text{all admissible annulis in $\bR^2$}   \}\]
+\[ A:=   \{     \text{all admissible annulis in $\mathbb{R}^2$}   \}\]
 And we define 
 \begin{align}
-     f:\bQ^4   & \rar A \\
+     f:\mathbb{Q}^4   & \to A \\
     (a,b,r,R)  & \mapsto \{(x, y) \in \mathbb{R}^2 \mid r^2 < (x - a)^2 + (y - b)^2 < R^2\}
 \end{align}
-Since a Annuli defined by this $(a,b,r,R)$ is unique, this is a well-defined function; and since every admissible annulis can be defined by an element of $\bQ^4$, this map is surjective. Therefore $\card(A) \leq \card(\bQ^4)$, so $A$ is countable.
+Since a Annuli defined by this $(a,b,r,R)$ is unique, this is a well-defined function; and since every admissible annulis can be defined by an element of $\mathbb{Q}^4$, this map is surjective. Therefore $\card(A) \leq \card(\mathbb{Q}^4)$, so $A$ is countable.
 \end{proof}
 (2) 
 \begin{proof}
-\noindent \textbf{Claim 1: every open set in $\bR^2$ is a countable union of open balls, each centered at some $q\in \bQ^2$.}\\
+\noindent \textbf{Claim 1: every open set in $\mathbb{R}^2$ is a countable union of open balls, each centered at some $q\in \mathbb{Q}^2$.}\\
 \noindent Proof for Claim 1:\\
-\noindent Let $U$ be an open set in $\bR^2$.
+\noindent Let $U$ be an open set in $\mathbb{R}^2$.
 \noindent Define
-\[\bQ_U  :=    U \cap \bQ^2\]
+\[\mathbb{Q}_U  :=    U \cap \mathbb{Q}^2\]
 \noindent By definition, every point in $U$ have an open ball centered at it that is completely contained in $U$, so we pick such ball $B_{r_x}(x)$ for each $x \in U$.
 \noindent Since \(\mathbb{Q}^2\) is dense in \(\mathbb{R}^2\), for each \(x \in U\) and each corresponding \(r_x\), we can find a rational point \(q_x \in \mathbb{Q}^2\) such that \(|q_x - x| < \frac{r_x}{3}\). (Or more generally, as small as we wish.)
 
@@ -430,7 +429,7 @@ Then observe that $x \in   B(q_x, r_{q_x}) $
 \noindent   which follows from the triangle inequality.
    \pic[0.2]{assets/hw1(1).png}
 
-For each $q \in \bQ_U$, we define:
+For each $q \in \mathbb{Q}_U$, we define:
 \[ r_{q,sup} := \sup\{  r_{q_x}  \mid q  \text{ is chosen by } x         \}     \]
 Now we have:
 \[  U \subset \bigcup_{q \in U_q}  B_{r_{q,sup}} (q)  \]
@@ -445,16 +444,17 @@ All togethe we have
 \]
 This finishes the proof of claim 1.
 
-\textbf{Claim 2: every open ball centered at some $q\in \bQ^2$ is a countable union of admissible annulises with the same center, together with another admissible annulis whose center is also rational.}
+\textbf{Claim 2: every open ball centered at some $q\in \mathbb{Q}^2$ is a countable union of admissible annulises with the same center, together with another admissible annulis whose center is also rational.}
 Proof for Claim 2: 
-\noindent Let $q = (a,b) \in \bQ^2$.\\
+\noindent Let $q = (a,b) \in \mathbb{Q}^2$.\\
 We have
 \[    
    B\bigl(q, R)  \setminus \{q\}
    \;=\; 
    \bigcup_{n=1}^{\infty} \Bigl\{(x,y) : (R-\tfrac{1}{n})^2 < (x-a)^2 + (y-b)^2 < R^2\Bigr\}
 \]
-It remains to cover the center. Let $q' := (a',b') \in \bQ^2$ such that $R/6 < |q' - q| < R/3$, $r' := R/6$ and $R' := R/2$ . Then the annuli $A(a',b',r',R')$ defined by the four parameters is contained in the $ B\bigl(q, R)$ and it covers $\{q\}$. 
+\textcolor{red}{-1, 这里写的略有问题, 因为 $R$ 不一定是 rational 的, 不过我们可以用 density of $\mathbb{Q}$ in $\mathbb{R}$ 来写.}
+It remains to cover the center. Let $q' := (a',b') \in \mathbb{Q}^2$ such that $R/6 < |q' - q| < R/3$, $r' := R/6$ and $R' := R/2$ . Then the annuli $A(a',b',r',R')$ defined by the four parameters is contained in the $ B\bigl(q, R)$ and it covers $\{q\}$. 
 Therefore
 \[    
    B\bigl(q, R)
@@ -470,25 +470,25 @@ Combining Claim 1 and Claim 2, we can conclude that \textbf{every open subset of
 
 As defined,
 \[
-\cB(\bR^2) = <\cT_{metric}> = <\{\text{all open sets in }\bR^2\}>
+\mathcal{B}(\mathbb{R}^2) = <\mathcal{T}_{metric}> = <\{\text{all open sets in }\mathbb{R}^2\}>
 \]
  Let 
-\[ A:=   \{     \text{all admissible annulis in $\bR^2$}   \}\]
-Every admissible annuli is open in $\bR^2$, so 
+\[ A:=   \{     \text{all admissible annulis in $\mathbb{R}^2$}   \}\]
+Every admissible annuli is open in $\mathbb{R}^2$, so 
 \[
-A \subset \{\text{all open sets in }\bR^2\}
+A \subset \{\text{all open sets in }\mathbb{R}^2\}
 \]
-and since $\cB(\bR^2)$ is a $\sigma$-algebra, we have 
+and since $\mathcal{B}(\mathbb{R}^2)$ is a $\sigma$-algebra, we have 
 \[
-<A> \subset <\{\text{all open sets in }\bR^2\}> =\cB(\bR^2)
+<A> \subset <\{\text{all open sets in }\mathbb{R}^2\}> =\mathcal{B}(\mathbb{R}^2)
 \]by the proposition proved in class.
 \noindent And by (2), any open set is a countable union of admissible annulis, therefore every open set is in $<A>$ since any countable union of sets in a $\sigma$-algebra is still in the set. So
 \[   
- \{\text{all open sets in } \bR^2\} \subset <A>
+ \{\text{all open sets in } \mathbb{R}^2\} \subset <A>
 \]
 This finishes the proof that 
 \[
-<A> = <\{\text{all open sets in }\bR^2\}> =\cB(\bR^2)
+<A> = <\{\text{all open sets in }\mathbb{R}^2\}> =\mathcal{B}(\mathbb{R}^2)
 \]
 \end{proof}
 
@@ -521,7 +521,11 @@ This finishes the proof that
 
 
 
-\chapter{on Carathéodory's and Hahn-Holmogrov Thm}
+\chapter{on Carathéodory's and Hahn-Holmogrov Thm(40/40)}
+
+\begin{center}
+\textit{None of the following questions will be graded. Do them, but do not hand them in}.
+\end{center}
 
 \section{The Borel--Cantelli Lemma}
 Let \((X, \mathcal{A}, \mu)\) be a measure space. Let \(A_i \in \mathcal{A}\) for \(i \in \mathbb{N}\), and suppose that
@@ -535,10 +539,49 @@ Let \((X, \mathcal{A}, \mu)\) be a measure space. Let \(A_i \in \mathcal{A}\) fo
 (By the way, why is \(\limsup_i A_i\) measurable?)
 
 (b) Conversely, is it true that if \(A_i \in \mathcal{A}\) for \(i \in \mathbb{N}\), and \(\mu(\limsup_i A_i) = 0\), then \(\sum_i \mu(A_i) < \infty\)? Provide a proof or a counterexample.
+(Wrong)
+\begin{remark}
+\begin{theorem}{Borel--Cantelli Lemma}
+    一个 measure 和有限的 set seq, 其 $\lim \sup$ (出现 infinitely many times 的元素) 是零测的.
+\end{theorem}
+其实这是 trivial 的, 因为如果出现 infinitely many times 的元素不是零测的, say $\mu(\lim\sup_i A_i) := k>0$, 那么有 infinitely many 个 $A_i$ 的测度大于等于 $k$, 那么 \(\sum_{i=1}^\infty \mu(A_i) > k \times \infty\) 就一定不是有限的了.\\
+其 application: 一个 prob space 中, a ctbl seq of 事件发生的概率的和如果收敛, 那么它们包含的任何事件发生无穷多次的概率为 0，意味着事件至多发生有限次 (almost surely).
+\end{remark}
 
-\textbf{Remark:} In probability theory, the Borel–Cantelli lemma gives a simple sufficient condition for the measure (i.e., probability) of the set (i.e., the event) \(\limsup_i A_i\) to be zero.
 
-\section{Empty Thoughts}
+\section{The Completion of a Measure Space}
+Let \((X, \mathcal{A}, \mu)\) be a measure space, and set
+\[
+\overline{\mathcal{A}} := \{E \cup F \mid E \in \mathcal{A} \text{ and } F \text{ is a } \mu\text{-subnull set}\}.
+\]
+
+(a) Prove that \(\overline{\mathcal{A}}\) is a \(\sigma\)-algebra.
+(b) Define \(\overline{\mu}(A) := \mu(E)\) if \(A = E \cup F \in \overline{\mathcal{A}}\). Prove that \(\overline{\mu}\) is a well-defined measure on \(\overline{\mathcal{A}}\).
+(c) Prove that \(\overline{\mu}\) extends \(\mu\) (i.e., \(\overline{\mu}(A) = \mu(A)\) if \(A \in \mathcal{A}\)).
+(d) Prove that\textbf{ \(\overline{\mu}\) is the unique extension of \(\mu\) to \((X, \overline{\mathcal{A}})\)}. In other words, prove that if \(\mu'\) is another measure on \((X, \overline{\mathcal{A}})\) that extends \(\mu\), then \(\mu' = \overline{\mu}\).
+(e) Prove that \textbf{\(\overline{\mu}\) is complete}.
+(f) Suppose \((X, \mathcal{A}', \mu')\) is another complete measure space that extends \((X, \mathcal{A}, \mu)\) (i.e., \(\mathcal{A} \subset \mathcal{A}'\) and \(\mu'|_{\mathcal{A}} = \mu\)). Show that \textbf{\(\overline{\mathcal{A}} \subset \mathcal{A}'\) and \(\mu'|_{\overline{\mathcal{A}}} = \overline{\mu}\).} 
+\textbf{Hint:} Start by reading Theorem 1.9 in Folland.
+\begin{proof}
+    略.(嘻嘻)
+\end{proof}
+
+
+\section{The Hahn--Kolmogorov Extension as a Completion}
+Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure space, and \((X, \mathcal{A}, \mu)\) its Hahn–Kolmogorov extension. Prove that \((X, \mathcal{A}, \mu)\) is the completion of its restriction to the \(\sigma\)-algebra \(\langle \mathcal{A}_0 \rangle\) generated by \(\mathcal{A}_0\).
+\begin{proof}
+    Proved in lec notes.
+\end{proof}
+
+
+
+\newpage
+\begin{center}
+\textit{Some of the following questions will be graded. Do them, and do hand them in}.
+\end{center}
+
+
+\section{\(\mu(\emptyset) = 0\) 的定义并非 redundant}
 Let \((X, \mathcal{A})\) be a measurable space. Is the condition \(\mu(\emptyset) = 0\) in the definition of a measure on \((X, \mathcal{A})\) redundant? In other words, if \(\mu : \mathcal{A} \to [0, \infty]\) is a function such that
 \[
 \mu\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mu(A_i),
@@ -546,12 +589,12 @@ Let \((X, \mathcal{A})\) be a measurable space. Is the condition \(\mu(\emptyset
 for any disjoint subsets \(A_i \in \mathcal{A}\), \(i \in \mathbb{N}\), does it follow that \(\mu(\emptyset) = 0\)? If not, what can you say?
 \begin{proof}
     It does not follow.\\
-    Counterexample: Consider $\mu(E) = \infty \;\; \forall E \in \cA$.\\
-    This measure satisfies the countably disjoint additivity condition, since for every disjoint sequence of sets in $\cA$, $\mu\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mu(A_i) = \infty$ has infinite measure. 
+    Counterexample: Consider $\mu(E) = \infty \;\; \forall E \in \mathcal{A}$.\\
+    This measure satisfies the countably disjoint additivity condition, since for every disjoint sequence of sets in $\mathcal{A}$, $\mu\left(\bigcup_{i=1}^\infty A_i\right) = \sum_{i=1}^\infty \mu(A_i) = \infty$ has infinite measure. 
 \end{proof}
 
 
-\section{Commuting Limits}
+\section{measurable set seq 的 limit 也 measurable (且如果 seq tail $\sigma$-finite $\implies$ limit commute )}
 Let \((X, \mathcal{A}, \mu)\) be a measure space, and let \(A_i \in \mathcal{A}, i \in \mathbb{N}\). Assume that the sets \(A_i\) converge to the set \(A \subset X\) in the sense that:
 - If \(x \in A\), then \(x \in A_i\) for all but finitely many \(i\);
 - If \(x \notin A\), then \(x \notin A_i\) for all but finitely many \(i\).
@@ -559,25 +602,25 @@ Let \((X, \mathcal{A}, \mu)\) be a measure space, and let \(A_i \in \mathcal{A},
 \noindent \textbf{(a) Prove that \(A\) is measurable, that is, \(A \in \mathcal{A}\).}
 \begin{proof}
     Deduing from the conditions:
-    If \(x \in A\), then \(x \in A_i\) for all but finitely many \(i\); $\implies $ $A \sub \liminf A_i$
-    If \(x \notin A\), then \(x \notin A_i\) for all but finitely many \(i\). $\implies $ if \(x \in A_i\) for all but finitely many \(i\) then $x\in A$ $\implies$  $\limsup A_i \sub A$
+    If \(x \in A\), then \(x \in A_i\) for all but finitely many \(i\); $\implies $ $A \subset \liminf A_i$
+    If \(x \notin A\), then \(x \notin A_i\) for all but finitely many \(i\). $\implies $ if \(x \in A_i\) for all but finitely many \(i\) then $x\in A$ $\implies$  $\limsup A_i \subset A$
     Thus 
     \begin{equation}
-    \limsup A_i \sub A \sub \liminf A_i    
+    \limsup A_i \subset A \subset \liminf A_i    
     \end{equation}
     
-\noindent   \textbf{Claim1: For any sequence of sets $(A_i)_{i \in \bN}$, we have 
-$$\liminf A_i \sub \limsup A_i$$} 
+\noindent   \textbf{Claim1: For any sequence of sets $(A_i)_{i \in \mathbb{N}}$, we have 
+$$\liminf A_i \subset \limsup A_i$$} 
 Proof of Claim 1: Follows trivially from the definition, since \(x \notin A_i\) for all but finitely many \(i\) $\implies$ \(x \notin A_i\) for infinitely many \(i\).\\\\
 Combining claim (1) with (2.1) we have
 \begin{equation}
 \limsup A_i  =  A  = \liminf A_i    
 \end{equation}
-\noindent \textbf{Claim 2: For any sequence of sets $(A_i)_{i\in \bN}$ in a $\sigma$-algebra, $\liminf_i Ai$ and $\limsup_i A_i$ is also in the $\sigma$-algebra.}\\
+\noindent \textbf{Claim 2: For any sequence of sets $(A_i)_{i\in \mathbb{N}}$ in a $\sigma$-algebra, $\liminf_i Ai$ and $\limsup_i A_i$ is also in the $\sigma$-algebra.}\\
 Proof of Claim 2: This follows from the def and fact that union and intersection of a countable sequence sets in a $\sigma$-algebra is also in this $\sigma$-algebra. We have
 \pic[0.8]{assets/hw2(1).jpeg}    
 This finishes the proof of Claim 2.\\
-\noindent Combining claim 2 with (2.2), $A \in \cA$, this finishes the proof.\\
+\noindent Combining claim 2 with (2.2), $A \in \mathcal{A}$, this finishes the proof.\\
 \end{proof}
 
 \noindent \textbf{(b)  Prove that if there exists \(n \geq 1\) such that \(\mu\left(\bigcup_{i=n}^\infty A_i\right) < \infty\), then \(\mu(A) = \lim_i \mu(A_i)\).}
@@ -590,7 +633,7 @@ This finishes the proof of Claim 2.\\
 
 \noindent \textbf{(c) Give an example showing that the condition in (b) is necessary}.
 \begin{solution}
-\noindent  Let $\mu$ be the Lebesgue measure defined on $\cB(\bR)$. We set for each $i\in \bN$ that
+\noindent  Let $\mu$ be the Lebesgue measure defined on $\mathcal{B}(\mathbb{R})$. We set for each $i\in \mathbb{N}$ that
 \[
    A_i =(i,i+1)
 \]
@@ -600,13 +643,13 @@ $$
 $$
 \noindent So $A = \varnothing$, we have $\lim_i \mu(A_i) = 0$.
 \noindent But we have $\lim_i \mu(A_i)  = 1$ since it is true for every $i$.\\
-\noindent In this case, $\mu(\union_{i=1}^\infty A_i) = \infty$, which causes (b) to fail.
+\noindent In this case, $\mu(\bigcup_{i=1}^\infty A_i) = \infty$, which causes (b) to fail.
 \end{solution}
 
 
 \noindent \textbf{Hint:} In analysis, it is often fruitful to use \(\limsup\) and \(\liminf\) to study limits.\\
 
-\section{Duopoly}
+\section{measure space of two elements}
 \noindent Let \(X\) be a set with two elements, for example, \(X = \{O, Q\}\).\\
 \noindent \textbf{(a) Find all \(\sigma\)-algebras on \(X\).}
 \begin{solution}
@@ -630,7 +673,7 @@ These are the only $\sigma$-algebras on $X$.\\\\
 \end{solution}
 \noindent \textbf{(c) Find all outer measures \(\mu^*\) on \(X\). For each outer measure on \(X\), find the \(\sigma\)-algebra of \(\mu^*\)-measurable sets (see Carathéodory’s theorem).}
 \begin{solution}
-    Suppose \(\mu^*\) is an outer measure on \(X\). Since $\cP(X)$  only has four elements: \(\varnothing\), \(\{O\}\), \(\{Q\}\), \(X\); and the outer measure of $\varnothing$ is 0, so we first parametrize \(\mu^*\) by:
+    Suppose \(\mu^*\) is an outer measure on \(X\). Since $\mathcal{P}(X)$  only has four elements: \(\varnothing\), \(\{O\}\), \(\{Q\}\), \(X\); and the outer measure of $\varnothing$ is 0, so we first parametrize \(\mu^*\) by:
 \[
 a :=\mu^*(\{O\}),\quad
 b :=\mu^*(\{Q\}),\quad
@@ -649,7 +692,7 @@ c := \mu^*(X).
 can make $\mu^*$ a well-defined outer measure on \(X\).\\
 \noindent Therefore
 \[
-S :=\{\text{all } \sigma \text{-algebra on } X\} = \{ \mu^* : \cP(X) \rar [0,\infty]\mid \max(\mu^*(\{O\}), \mu^*(\{Q\})) \leq \mu^*(X) \leq \mu^*(\{O\})+ \mu^*(\{Q\})\} 
+S :=\{\text{all } \sigma \text{-algebra on } X\} = \{ \mu^* : \mathcal{P}(X) \to [0,\infty]\mid \max(\mu^*(\{O\}), \mu^*(\{Q\})) \leq \mu^*(X) \leq \mu^*(\{O\})+ \mu^*(\{Q\})\} 
 \]
 \\
 Now we specify the \(\sigma\)-algebra of \(\mu^*\)-measurable sets for each $\mu^* \in S$.\\
@@ -659,7 +702,7 @@ By Carathéodory's criterion, a set \(E\subset X\) is \(\mu^*\)-measurable iff f
 \;=\;
 \mu^*(A\cap E)\;+\;\mu^*(A\cap E^c).
 \]
-Note that \(\varnothing\), \( X\) are always measurable since for any \(A \sub X\), \(A\cap \varnothing=\varnothing,\;A\cap ( \varnothing)^c = A\); and \(A\cap X=A,\;A\cap (X)^c=\varnothing\).  So it suffices to check for $\{O\}, \{Q\}$. We first check for $\{O\}$. $\{O\}$ is \(\mu^*\)-measurable iff \(
+Note that \(\varnothing\), \( X\) are always measurable since for any \(A \subset X\), \(A\cap \varnothing=\varnothing,\;A\cap ( \varnothing)^c = A\); and \(A\cap X=A,\;A\cap (X)^c=\varnothing\).  So it suffices to check for $\{O\}, \{Q\}$. We first check for $\{O\}$. $\{O\}$ is \(\mu^*\)-measurable iff \(
   \mu^*(A) \;=\;
   \mu^*(A\cap \{O\}) \;+\;\mu^*(A\cap \{O\}^c)
   \) for any choice of $A$.
@@ -673,7 +716,7 @@ There are only four possibilities for \(A\): \(\varnothing\), \(\{O\}\), \(\{Q\}
 \noindent Therefore $\{O\}$ is \(\mu^*\)-measurable iff $c =a+b$.  For the same reasoning, \(\{Q\}\) is \(\mu^*\)-measurable iff \(c = a+b\).\\
 Thus we can conclude that:
 \begin{enumerate}
-    \item If \(c = a+b\), $\{   \mu^* \text{-measurable sets}   \} =  \cP(X)$.
+    \item If \(c = a+b\), $\{   \mu^* \text{-measurable sets}   \} =  \mathcal{P}(X)$.
     \item otherwise, $\{   \mu^* \text{-measurable sets}   \} =  \{\varnothing, X\}$.
 \end{enumerate}
 \noindent \textbf{(d) Find an example of a collection \(\mathcal{E}\) of subsets of \(X\) with \(\emptyset, X \in \mathcal{E}\) and a function \(\rho : \mathcal{E} \to [0, \infty]\) with \(\rho(\emptyset) = 0\) such that \(\mathcal{E} \not\subset \mathcal{A}\), where \(\mathcal{A}\) is the Carathéodory \(\sigma\)-algebra for the outer measure \(\mu^*\) induced by \((\mathcal{E}, \rho)\).}
@@ -682,14 +725,17 @@ Thus we can conclude that:
 \noindent Since \(c \not = a+b\), by (4), the Carathéodory \(\sigma\)-algebra by $\mu^*$ by $\cE$ is \(\{\varnothing,X\}\), so \(\mathcal{E}\not\subset \mathcal{A}\).\\\\
 \end{solution}
 \noindent \textbf{Remark:} The Hahn–Kolmogorov theorem states that if \(\mathcal{E} = \mathcal{A}_0\) is an algebra and \(\rho = \mu_0\) is a pre-measure, then \(\mathcal{A}_0 \subset \mathcal{A}\). This exercise provides a counterexample when \(\mathcal{E}\) and \(\rho\) are general.
+、
 
-\section{Hahn–Kolmogorov Collapse}
+
+
+\section{Hahn–Kolmogorov Collapse (when $\mu_0$ not $\sigma$-finite)}
 Let \(X \subset \mathbb{R}\) be the set of dyadic rational numbers, that is, the set of numbers of the form \(\frac{r}{2^n}\), where \(r\) and \(n\) are integers. Let \(\mathcal{A}_0 \subset \mathcal{P}(X)\) be the collection of finite unions of intervals of the form \((a, b] \cap X\), where \(-\infty \leq a < b \leq \infty\).
 
 \noindent \textbf{(a) Prove that \(\mathcal{A}_0\) is an algebra.}
 \begin{proof}
 \begin{enumerate}
-    \item \(\varnothing \in \cA_0\), since it is the empty union of intervals of the given form.
+    \item \(\varnothing \in \mathcal{A}_0\), since it is the empty union of intervals of the given form.
     \item \textbf{Closed under complements}:  Let \(A\in \mathcal{A}_0\). Then \(A\) is a finite union of intervals of the form \((a_i,b_i]\cap X\).  So  \begin{align}
      A^c \cap X  &= X\setminus A \\
      &=  X\setminus \bigcup_{i=1}^n \bigl((a_i,b_i]\cap X\bigr) \bigr) \\
@@ -705,13 +751,13 @@ Note that finite intersection of intervals of the form \((-\infty,a_i]\), \((b_i
 
 \noindent \textbf{(b) Prove that the \(\sigma\)-algebra on \(X\) generated by \(\mathcal{A}_0\) equals \(\mathcal{P}(X)\).}
 \begin{proof}
-Since $<\cA_0> \sub \cP(X)$, it suffices to show that $\cP(X) \sub <\cA_0>$.
-\noindent Note that $X$ is countable, so any set in $\cP(X)$ is a countable union of singleton sets. Thus it suffices to show that any singleton set $\{x\}$ where $x\in X$ is in $<\cA_0>$, since if so, then any countable union of singleton sets from $\cP(X)$ is also in $<\cA_0>$, with implies that $\cP(X) \sub <\cA_0>$\\
+Since $<\mathcal{A}_0> \subset \mathcal{P}(X)$, it suffices to show that $\mathcal{P}(X) \subset <\mathcal{A}_0>$.
+\noindent Note that $X$ is countable, so any set in $\mathcal{P}(X)$ is a countable union of singleton sets. Thus it suffices to show that any singleton set $\{x\}$ where $x\in X$ is in $<\mathcal{A}_0>$, since if so, then any countable union of singleton sets from $\mathcal{P}(X)$ is also in $<\mathcal{A}_0>$, with implies that $\mathcal{P}(X) \subset <\mathcal{A}_0>$\\
 \noindent Let $x \in X$. Then we have: 
    \[
      \{x\} \;=\; \bigcap_{n=1}^\infty \bigl( (x - \frac{1}{2^{n}},\,x]\cap X \bigr),
    \]
- since $x$ is in the RHS set, and for any $y <x$, we can find a $n \in \cB$ such that $x - \frac{1}{2^n} > y$.\\
+ since $x$ is in the RHS set, and for any $y <x$, we can find a $n \in \mathcal{B}$ such that $x - \frac{1}{2^n} > y$.\\
  \noindent This finishes the proof that  \(<\mathcal{A}_0> = \mathcal{P}(X)\).
 \end{proof}
 
@@ -719,16 +765,16 @@ Since $<\cA_0> \sub \cP(X)$, it suffices to show that $\cP(X) \sub <\cA_0>$.
 \noindent \textbf{(c) Define \(\mu_0 : \mathcal{A}_0 \to [0, \infty]\) by \(\mu_0(\emptyset) = 0\) and \(\mu_0(A) = \infty\) for \(A \neq \emptyset\). Prove that \(\mu_0\) is a pre-measure on \(\mathcal{A}_0\)}
 \begin{proof}
 It suffices to show the countable disjoint additivity.\\
-Let $(A_i)_{i\in\cN}$ be a sequence of disjoint sets in $\cA_0$.\\
-Case 1: all $A_i = \varnothing$, then $\sqcup_{i\in \cN} A_i = \varnothing$, so $\mu_0(\sqcup_{i\in \cN} A_i) = \sum_{i\in\cN}\mu_0(A_i) = 0$.\\
-Case 2: $A_k \not = \varnothing$ for some $k$, then $\mu_0 (A_k) = \infty$ and $\sqcup_{i\in \cN} A_i \not= \varnothing$. Thus $\sum_{i\in\cN}\mu_0(A_i) \geq \mu_0(A_k)= \infty = \mu_0(\sqcup_{i\in \cN} A_i )$.\\
+Let $(A_i)_{i\in\mathcal{N} }$ be a sequence of disjoint sets in $\mathcal{A}_0$.\\
+Case 1: all $A_i = \varnothing$, then $\sqcup_{i\in \mathcal{N} } A_i = \varnothing$, so $\mu_0(\sqcup_{i\in \mathcal{N} } A_i) = \sum_{i\in\mathcal{N} }\mu_0(A_i) = 0$.\\
+Case 2: $A_k \not = \varnothing$ for some $k$, then $\mu_0 (A_k) = \infty$ and $\sqcup_{i\in \mathcal{N} } A_i \not= \varnothing$. Thus $\sum_{i\in\mathcal{N} }\mu_0(A_i) \geq \mu_0(A_k)= \infty = \mu_0(\sqcup_{i\in \mathcal{N} } A_i )$.\\
 The two cases cover all circumstances, finishing the proof.\\
 \end{proof}
 
 
 \noindent \textbf{(d) Prove that there exist infinitely many different measures \(\mu\) on \(\mathcal{P}(X)\) whose restriction to \(\mathcal{A}_0\) equals \(\mu_0\).}
 \begin{proof}
-    Given $n \in \bN$, We define the "n-timed counting measure" on a $\sigma$-algebra $S$ as:
+    Given $n \in \mathbb{N}$, We define the "n-timed counting measure" on a $\sigma$-algebra $S$ as:
 $$
     \mu_{count_n}(E) := \begin{cases}
         n\times  \#(E) \;\;, \text{ if }  E \text{ is finite }  \\
@@ -736,44 +782,24 @@ $$
     \end{cases}
  $$
 
- \noindent \textbf{Claim 1: For any set $X$ and any $\sigma$-algebra $S$ on $X$, the "n-timed counting measure" is a well-defined measure on $S$, for all $n \in \bN$.}\\
+ \noindent \textbf{Claim 1: For any set $X$ and any $\sigma$-algebra $S$ on $X$, the "n-timed counting measure" is a well-defined measure on $S$, for all $n \in \mathbb{N}$.}\\
 Proof of claim 1: $\mu_{count_n}(\varnothing) = 0$ since $\card(\varnothing)  =0$, and countable disjoint additivity trivially follows from the rule of counting.\\
-\noindent \textbf{Claim 2: for any $n \in \bN$, $\mu_{count_n}(E) $ on \(\mathcal{P}(X)\) restricted to \(\mathcal{A}_0\) equals \(\mu_0\).}
-Proof of claim 2: Let $E \in \cA_0 \setminus \varnothing$, then $E$ contains at least one interval of the form \((a, b] \cap X\), where \(-\infty \leq a < b \leq \infty\). Sicne $a < b$, there are infinitely many elements in \((a, b] \cap X\), so $\mu_{count_n}(E) = \infty$.\\
+\noindent \textbf{Claim 2: for any $n \in \mathbb{N}$, $\mu_{count_n}(E) $ on \(\mathcal{P}(X)\) restricted to \(\mathcal{A}_0\) equals \(\mu_0\).}
+Proof of claim 2: Let $E \in \mathcal{A}_0 \setminus \varnothing$, then $E$ contains at least one interval of the form \((a, b] \cap X\), where \(-\infty \leq a < b \leq \infty\). Sicne $a < b$, there are infinitely many elements in \((a, b] \cap X\), so $\mu_{count_n}(E) = \infty$.\\
 \noindent This finishes the proof of the original statement.\\
 \end{proof}
 
 \noindent \textbf{(e) Explain why (d) does not contradict the uniqueness part of the Hahn–Kolmogorov theorem (see Theorem 1.14 in Folland).}\\
 \begin{solution}
-    \noindent This is because Hahn–Kolmogorov theorem requires $\mu_0$ to be $\sigma$-finite to extend uniquely on $<\cA_0>$. But $\mu_0$ here is not $\sigma$-finite, since $\mu_0(\cA_0) = \infty$.\\
+    \noindent This is because Hahn–Kolmogorov theorem requires $\mu_0$ to be $\sigma$-finite to extend uniquely on $<\mathcal{A}_0>$. But $\mu_0$ here is not $\sigma$-finite.\\
 \end{solution}
 
-\section{The Completion of a Measure Space}
-Let \((X, \mathcal{A}, \mu)\) be a measure space, and set
-\[
-\overline{\mathcal{A}} := \{E \cup F \mid E \in \mathcal{A} \text{ and } F \text{ is a } \mu\text{-subnull set}\}.
-\]
-
-(a) Prove that \(\overline{\mathcal{A}}\) is a \(\sigma\)-algebra.
-
-(b) Define \(\overline{\mu}(A) := \mu(E)\) if \(A = E \cup F \in \overline{\mathcal{A}}\). Prove that \(\overline{\mu}\) is a well-defined measure on \(\overline{\mathcal{A}}\).
-
-(c) Prove that \(\overline{\mu}\) extends \(\mu\) (i.e., \(\overline{\mu}(A) = \mu(A)\) if \(A \in \mathcal{A}\)).
-
-(d) Prove that \(\overline{\mu}\) is the unique extension of \(\mu\) to \((X, \overline{\mathcal{A}})\). In other words, prove that if \(\mu'\) is another measure on \((X, \overline{\mathcal{A}})\) that extends \(\mu\), then \(\mu' = \overline{\mu}\).
-
-(e) Prove that \(\overline{\mu}\) is complete.
-
-(f) Suppose \((X, \mathcal{A}', \mu')\) is another complete measure space that extends \((X, \mathcal{A}, \mu)\) (i.e., \(\mathcal{A} \subset \mathcal{A}'\) and \(\mu'|_{\mathcal{A}} = \mu\)). Show that \(\overline{\mathcal{A}} \subset \mathcal{A}'\) and \(\mu'|_{\overline{\mathcal{A}}} = \overline{\mu}\). 
-
-\textbf{Hint:} Start by reading Theorem 1.9 in Folland.
-
-\section{The Hahn--Kolmogorov Extension as a Completion}
-Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure space, and \((X, \mathcal{A}, \mu)\) its Hahn–Kolmogorov extension. Prove that \((X, \mathcal{A}, \mu)\) is the completion of its restriction to the \(\sigma\)-algebra \(\langle \mathcal{A}_0 \rangle\) generated by \(\mathcal{A}_0\).
 
 
 
-\section{Nur für Verrückte (Only for nuts)}
+
+
+\section*{Nur für Verrückte (Only for nuts)}
 (It’s really not necessary to attempt these problems. Do not, under any circumstances, hand them in!)
 
 1. Let \((X, \mathcal{A}, \mu)\) and \((Y, \mathcal{B}, \nu)\) be measure spaces. Define a morphism from \((X, \mathcal{A}, \mu)\) to \((Y, \mathcal{B}, \nu)\) to be a map \(f : X \to Y\) that is measurable, that is, \(f^{-1}(B) \in \mathcal{A}\) for all \(B \in \mathcal{B}\), and moreover measure preserving, in the sense that \(\mu(f^{-1}(B)) = \nu(B)\) for all \(B \in \mathcal{B}\).
@@ -793,7 +819,7 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
 
 
 
-\chapter{on Lebesgue-Stieljes measures}
+\chapter{on Lebesgue-Stieljes measures(30/40)}
 
 \begin{center}
 \textit{None of the following questions will be graded. Do them, but do not hand them in}.
@@ -801,30 +827,30 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
 
 
 \section{Fun facts about increasing functions}
-    Let $F\colon\bR\to\bR$ be an increasing function, that is, $F(x)\le F(y)$ whenever $x\le y$. 
+    Let $F\colon\mathbb{R}\to\mathbb{R}$ be an increasing function, that is, $F(x)\le F(y)$ whenever $x\le y$. 
     \begin{itemize}
     \item[(a)]
       Prove that the following limits exist (and make sure you understand the definitions):
       \begin{itemize}
       \item[(i)]
-        $F(a-):=\lim_{x\to a-}F(x)\in\bR$ and $F(a+):=\lim_{x\to a+}F(x)\in\bR$ for $a\in\bR$;
+        $F(a-):=\lim_{x\to a-}F(x)\in\mathbb{R}$ and $F(a+):=\lim_{x\to a+}F(x)\in\mathbb{R}$ for $a\in\mathbb{R}$;
       \item[(ii)]
         $F(\infty):=\lim_{x\to\infty}F(x)\in(-\infty,\infty]$;
       \item[(iii)]
         $F(-\infty):=\lim_{x\to-\infty}F(x)\in[-\infty,\infty)$.
       \end{itemize}
     \item[(b)]
-      Fix any $a\in\bR$.
+      Fix any $a\in\mathbb{R}$.
       \begin{itemize}
       \item[(i)]
         Prove that $F(a-)\le F(a)\le F(a+)$;
       \item[(ii)]
         Prove that $F$ is continuous at $a$ iff $F(a-)=F(a+)$.
       \end{itemize}
-      We say that a function is \emph{left continuous} if $F(a-)=F(a)$ for every $a\in\bR$. It is \emph{right-continuous} if instead $F(a+)=F(a)$ for every $a\in\bR$.
+      We say that a function is \emph{left continuous} if $F(a-)=F(a)$ for every $a\in\mathbb{R}$. It is \emph{right-continuous} if instead $F(a+)=F(a)$ for every $a\in\mathbb{R}$.
     \item[(c)]
-      If $X$ is a metric space (or, more generally, a topological space), then a function $f\colon X\to\bR$ is \emph{upper semicontinuous} if the set $\{x\in X\mid f(x)<a\}$ is open for every $a\in\bR$. It is \emph{lower semicontinuous} if instead the set $\{x\in X\mid f(x)>a\}$ is open for every $a\in\bR$.
-      Prove that our function $F\colon\bR\to\bR$ is right-continuous (resp. left continuous) iff it is upper semicontinuous (resp.\ lower semicontinuous). Give an example showing that this is no longer true if $F$ is not assumed increasing.
+      If $X$ is a metric space (or, more generally, a topological space), then a function $f\colon X\to\mathbb{R}$ is \emph{upper semicontinuous} if the set $\{x\in X\mid f(x)<a\}$ is open for every $a\in\mathbb{R}$. It is \emph{lower semicontinuous} if instead the set $\{x\in X\mid f(x)>a\}$ is open for every $a\in\mathbb{R}$.
+      Prove that our function $F\colon\mathbb{R}\to\mathbb{R}$ is right-continuous (resp. left continuous) iff it is upper semicontinuous (resp.\ lower semicontinuous). Give an example showing that this is no longer true if $F$ is not assumed increasing.
   \item[(d)]
     Prove that the following are equivalent:
     \begin{itemize}
@@ -834,11 +860,11 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
       $F$ is continuous, $F(\infty)=\infty$, and $F(-\infty)=-\infty$.
     \end{itemize}
   \item[(e)]
-    Let $A\subset\bR$ be the set of points where $F$ fails to be continuous. Prove that $A$ is a countable  (i.e. empty, finite, or countably infinite) set. \textit{Hint}: prove that for any integers $m,n\ge 1$, the set of points $x\in[-m,m]$ where $F(x+)-F(x-)\ge 1/n$ is finite.
+    Let $A\subset\mathbb{R}$ be the set of points where $F$ fails to be continuous. Prove that $A$ is a countable  (i.e. empty, finite, or countably infinite) set. \textit{Hint}: prove that for any integers $m,n\ge 1$, the set of points $x\in[-m,m]$ where $F(x+)-F(x-)\ge 1/n$ is finite.
   \end{itemize}
 
 \section{Locally finite measures}
-  If $X$ is a metric space (or, more generally, a topological space), then a Borel measure $\mu$ on $X$ is said to be \emph{locally finite} if $\mu(K)<\infty$ for every compact set $K\subset X$. Now let $\mu$ be a Borel measure on $\bR$, that is $\mu\colon\cB(\bR)\to[0,\infty]$ satisfies $\mu(\emptyset)=0$ and is countably additive.
+  If $X$ is a metric space (or, more generally, a topological space), then a Borel measure $\mu$ on $X$ is said to be \emph{locally finite} if $\mu(K)<\infty$ for every compact set $K\subset X$. Now let $\mu$ be a Borel measure on $\mathbb{R}$, that is $\mu\colon\mathcal{B}(\mathbb{R})\to[0,\infty]$ satisfies $\mu(\emptyset)=0$ and is countably additive.
   \begin{itemize}
   \item[(a)]
     Prove that the following are equivalent:
@@ -855,7 +881,7 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
   \end{itemize}
   
 \section{Basic formulas for LS measures}
-  Let $F\colon\bR\to\bR$ be a distribution function, and $\mu=\mu_F$ the associated Lebesgue--Stieltjes measure. From its definition using h-intervals, it follows that $\mu((a,b])=F(b)-F(a)$ for $-\infty<a<b<\infty$. Using this property together with basic general properties of ($\sigma$-finite) measures, we proved in class that $\mu((a,b))=F(b-)-F(a)$ for $\infty<a\le b<\infty$. Using a similar strategy, prove the following:
+  Let $F\colon\mathbb{R}\to\mathbb{R}$ be a distribution function, and $\mu=\mu_F$ the associated Lebesgue--Stieltjes measure. From its definition using h-intervals, it follows that $\mu((a,b])=F(b)-F(a)$ for $-\infty<a<b<\infty$. Using this property together with basic general properties of ($\sigma$-finite) measures, we proved in class that $\mu((a,b))=F(b-)-F(a)$ for $\infty<a\le b<\infty$. Using a similar strategy, prove the following:
   \begin{itemize}
   \item[(a)]
     $\mu([a,b])=F(b)-F(a-)$ for $-\infty<a\le b<\infty$;
@@ -876,13 +902,13 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
   \end{itemize}
 
 \section{Vitali sets}
-  For $x, y\in [-1,1]$, write $x\sim y$ iff $x-y\in \bQ$. 
+  For $x, y\in [-1,1]$, write $x\sim y$ iff $x-y\in \mathbb{Q}$. 
   \begin{itemize}
   \item[(a)]
     Show that $\sim$ is an equivalence relation, i.e. show that (i) $x\sim x$, (ii) $x\sim y$ implies $y\sim x$, (iii) if $x\sim y$ and $y\sim z$, then $x\sim z$.
   \item[(b)]
     The set $[-1,1]$ is partitioned into equivalence classes. Let $V\subset[-1,1]$ be a set containing exactly one element from each equivalence class. (Here, we use the Axiom of choice.) We call $V$ a \emph{Vitali set}. 
-    Let $\{r_1, r_2,\dots\} =[-2,2]\cap \bQ$. Define $V_i= r_i+V=\{r_i+x\mid x\in V\}$.
+    Let $\{r_1, r_2,\dots\} =[-2,2]\cap \mathbb{Q}$. Define $V_i= r_i+V=\{r_i+x\mid x\in V\}$.
     Prove that the sets $V_1, V_2, \dots$ are mutually disjoint, and that 
     \[
       [-1, 1]\subset \bigcup_{i=1}^\infty V_i \subset [-3,3].
@@ -898,7 +924,7 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
   \item[(b)]
     Prove that if $E$ is a Lebesgue measurable set and satisfies $E\subset V$, then $m(E)=0$. 
   \item[(c)]
-    Using the technique in~(a), prove the following statement: if $A\subset\bR$ is any Lebesgue measurable set with $m(A)>0$, then $A$ contains a set which is not Lebesgue measurable. 
+    Using the technique in~(a), prove the following statement: if $A\subset\mathbb{R}$ is any Lebesgue measurable set with $m(A)>0$, then $A$ contains a set which is not Lebesgue measurable. 
   \end{itemize}
 
 \section{The middle-thirds Cantor set}
@@ -925,14 +951,14 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
   Show that $C$ equals the set of numbers $x\in [0,1]$ which have a base-3 expansion of the form
   $x=0.a_1a_2a_3\cdots$ where $a_i$ is either $0$ or $2$, i.e.\
   \[
-    C=\{ \sum_{i=1}^\infty \frac{a_i}{3^i} \mid \text{ $a_i\in \{0,2\}$ for all $i\in \bN$} \}.
+    C=\{ \sum_{i=1}^\infty \frac{a_i}{3^i} \mid \text{ $a_i\in \{0,2\}$ for all $i\in \mathbb{N}$} \}.
   \]
   (Note: A point may have two base-3 expansions such as $1/3=0.1000\ldots=0.0222\ldots$; this number is in $C$ since one of the expansions is of the desired form.) 
 \item[(d)]
   Show that $\frac14, \frac9{13}\in C$ but $\frac{5}{36}\notin C$.
 \end{itemize}
 
-\section{The Devil's Staircase}
+\section{The Devil's Staircase: an increasing function build on Cantor set}
 
   Let $C$ be the middle-thirds Cantor set, and define $F\colon C\to [0,1]$ by
   \begin{equation}\label{eq:Cantorfunctiondefn}
@@ -962,8 +988,8 @@ Let \((X, \mathcal{A}_0, \mu_0)\) be a \(\sigma\)-finite measure pre-measure spa
 
 \section{fun facts about distribution functions}
   \begin{itemize}
-  \item[(a)]  Let $A\subset\bR$ be a countable set. Exhibit a distribution function $F$ that is discontinuous at every point in $A$, but continuous everywhere else. Justify your answer. \textit{Hint}: play around with the Heaviside function.
-  \item[(b)]Let $F\colon\bR\to\bR$ be an increasing function. Prove that there exists a unique distribution function $G$ such that $G(x)=F(x)$ for all points $x$ where $F$ is continuous.
+  \item[(a)]  Let $A\subset\mathbb{R}$ be a countable set. Exhibit a distribution function $F$ that is discontinuous at every point in $A$, but continuous everywhere else. Justify your answer. \textit{Hint}: play around with the Heaviside function.
+  \item[(b)]Let $F\colon\mathbb{R}\to\mathbb{R}$ be an increasing function. Prove that there exists a unique distribution function $G$ such that $G(x)=F(x)$ for all points $x$ where $F$ is continuous.
     \textit{Hint}: there is a simple formula for $G$ in terms of $F$.
   \end{itemize}
 
@@ -980,27 +1006,27 @@ H(x) =
 \end{cases}
 \).\\
 \textbf{Claim 1.1 $F$ is non-decreasing}.\\
-Proof: Suppose $y > x \in \bR$, then $H(y-a_n) \geq H(x-a_n)$ for each $n \in \bN$, so we have $F(y) \geq F(x)$.\\\\
+Proof: Suppose $y > x \in \mathbb{R}$, then $H(y-a_n) \geq H(x-a_n)$ for each $n \in \mathbb{N}$, so we have $F(y) \geq F(x)$.\\\\
 \textbf{Claim 1.2 $F$ is right continuous but not left continuous (thus discontinuous) at every $a_n$.}\\
 Proof: Let $\epsilon > 0$.\\
-We take $N \in \bN$ s.t. $\sum_{k\geq N, n\in \bN} \frac{1}{2^k} < \epsilon$.\\
+We take $N \in \mathbb{N}$ s.t. $\sum_{k\geq N, n\in \mathbb{N}} \frac{1}{2^k} < \epsilon$.\\
 Then we take $\delta>0$ such that $a_1, a_2,\cdots, a_N \not \in (a_n, a_n+\delta)$.(This can be done since there are only finite points here)\\
-Thus $\forall y \in (a_n, a_n+\delta)$, we have $|F(y) - F(a_n)| < \epsilon$, since $F(y) < F(a_n) + \sum_{k\geq N, n\in \bN} \frac{1}{2^k}$.
+Thus $\forall y \in (a_n, a_n+\delta)$, we have $|F(y) - F(a_n)| < \epsilon$, since $F(y) < F(a_n) + \sum_{k\geq N, n\in \mathbb{N}} \frac{1}{2^k}$.
 Since $\epsilon$ is arbitrary, this finishes the proof that $F$ is right continuous at $a_n$.\\
 Also, $\forall y < a_n$, we have $F(y) < F(a_n) - \frac{1}{2^n}$, which means that $|F(y) -F(a_n)|>\frac{1}{2^n}$ for any $y$ on the left, so $F$ is not left continuous at $a_n$.\\\\
-\textbf{Claim 1.3: $F$ is continuous at every $x \in \bR \setminus A$.}\\
+\textbf{Claim 1.3: $F$ is continuous at every $x \in \mathbb{R} \setminus A$.}\\
 Proof: This is similar to the proof in Claim 1.2. \\
-Fix $x \in \bR \setminus A$. Let  $\epsilon > 0$.\\
-We take $N \in \bN$ s.t. $\sum_{k\geq N, n\in \bN} \frac{1}{2^k} < \epsilon$.\\
+Fix $x \in \mathbb{R} \setminus A$. Let  $\epsilon > 0$.\\
+We take $N \in \mathbb{N}$ s.t. $\sum_{k\geq N, n\in \mathbb{N}} \frac{1}{2^k} < \epsilon$.\\
 Then we take $\delta>0$ such that $a_1, a_2,\cdots, a_N \not \in (a_n-\delta, a_n+\delta)$. This can be done since there are only finite points here.\\
-Thus $\forall y \in (a_n-\delta, a_n+\delta)$, we have $|F(y) - F(a_n)| <\sum_{k\geq N, n\in \bN} \frac{1}{2^k} <  \epsilon$.\\\
+Thus $\forall y \in (a_n-\delta, a_n+\delta)$, we have $|F(y) - F(a_n)| <\sum_{k\geq N, n\in \mathbb{N}} \frac{1}{2^k} <  \epsilon$.\\\
 Since $\epsilon$ is arbitrary, this finishes the proof that $F$ is continuous at $x$.\\\\
 
 By claim 1.1, 1.2, 1.3, we have proved that $F$ is a distribution function that is discontinuous at every point of $A$ but continuous elsewhere.\\\\
 \end{solution}
 
 \begin{proof} \textbf{of (b):}\\
-Given an increasing function \( F: \mathbb{R} \to \mathbb{R} \), we define $G:\bR \rar \bR$ by:
+Given an increasing function \( F: \mathbb{R} \to \mathbb{R} \), we define $G:\mathbb{R} \to \mathbb{R}$ by:
 \[
 G(x) = \lim_{y \to x^+} F(y).
 \]
@@ -1012,19 +1038,19 @@ G(x) = \lim_{z \to x^+} F(z) \le \lim_{z \to y^+} F(z) = G(y).
 Thus, \( G \) is increasing.\\
 \textbf{Right-continuity:} Since $F$ is an increasing function, it can only have jump discontinuities, and the right limit exists for all $X$. By construction, $G$ is right-ctn.\\
 Above finishes the proof that $G$ is a distribution function.\\
-\textbf{Agree with $F$ at ctn point:} $G(x) = F(x)$ where $F$ is continuous at $x$, since $G(x) = \lim_{y\rar x^+} F(y) = F(x) $ there.\\
+\textbf{Agree with $F$ at ctn point:} $G(x) = F(x)$ where $F$ is continuous at $x$, since $G(x) = \lim_{y\to x^+} F(y) = F(x) $ there.\\
 
 It remains to show that it is unique.\\
 Suppose $R$ is another such function. It suffices to show: $R $ agrees with $G$ on discontinuous points of $F$.\\
 Since $R,G$ are right continuous, their right limit must exist at each point. Therefore, let $x$ be an arbitrary point where $F$ is discontinuous at $x$, \textbf{it suffices to show that there is a sequence $\{x_n\}$ approaching $x$, such that $\lim_n G(x_n)  = \lim_n R(x_n)$.}\\
-Since $F$ is increasing, the points where $F$ is disctn is at most countable. Therefore\textbf{ the points where $F$ is ctn, denote it as $C$, is dense in $\bR$.} Thus we can pick a sequence $\{x_n\}$ in $C$ approaching $x$, then $G(x_n) = R(x_n) = F(x_n)$ for each $n$, impling that $\lim_n G(x_n)  = \lim_n R(x_n)$. This finishes the proof of uniqueness.
+Since $F$ is increasing, the points where $F$ is disctn is at most countable. Therefore\textbf{ the points where $F$ is ctn, denote it as $C$, is dense in $\mathbb{R}$.} Thus we can pick a sequence $\{x_n\}$ in $C$ approaching $x$, then $G(x_n) = R(x_n) = F(x_n)$ for each $n$, impling that $\lim_n G(x_n)  = \lim_n R(x_n)$. This finishes the proof of uniqueness.
 
 \end{proof}
 
 
 
 \begin{comment}
-Claim 1: 任何 $F: \bR \rar \bR$ 如果是 increasing 的, 它的不连续点一定可数. 从而连续点一定稠密. 
+Claim 1: 任何 $F: \mathbb{R} \to \mathbb{R}$ 如果是 increasing 的, 它的不连续点一定可数. 从而连续点一定稠密. 
 假设 R(x) 是一个在连续点上和 F(x) 相同的 distribution function. Take arbitrary $y$ where F is not ctn on $Y$.
 \end{comment}
 
@@ -1032,7 +1058,7 @@ Claim 1: 任何 $F: \bR \rar \bR$ 如果是 increasing 的, 它的不连续点�
 
 
 \section{Finding intervals}
-  Let $E\subset\bR$ be a Lebesgue measurable subset with $m(E)>0$. Prove that for every $\alpha\in(0,1)$ there exists an (nonempty) bounded open interval $I$ such that $m(E\cap I)\ge\alpha m(I)$.
+  Let $E\subset\mathbb{R}$ be a Lebesgue measurable subset with $m(E)>0$. Prove that for every $\alpha\in(0,1)$ there exists an (nonempty) bounded open interval $I$ such that $m(E\cap I)\ge\alpha m(I)$.
   \textit{Hint}: first reduce to the case when $E$ is bounded, then use outer regularity.
 \begin{proof}
 Let $\alpha \in (0,1)$ be arbitrary and fix it.\\
@@ -1046,17 +1072,17 @@ Then we have:
 $$
 m(G) \leq  1 / \alpha \; m(E)
 $$
-Note that in $\bR$, an open set is just a countable disjoint union of open intervals. We write:
+Note that in $\mathbb{R}$, an open set is just a countable disjoint union of open intervals. We write:
 $$
-G = \bigsqcup_{i\in \bN} I_i
+G = \bigsqcup_{i\in \mathbb{N}} I_i
 $$
-Since $E \sub G$, we have:
+Since $E \subset G$, we have:
 $$
-E = \bigsqcup_{i\in \bN}  (I_i \cap E)
+E = \bigsqcup_{i\in \mathbb{N}}  (I_i \cap E)
 $$
 Thus 
 $$
-m(E) = \sum_{i\in \bN}  m(I_i \cap E) \geq \alpha \sum_{i\in \bN} m(I_i)
+m(E) = \sum_{i\in \mathbb{N}}  m(I_i \cap E) \geq \alpha \sum_{i\in \mathbb{N}} m(I_i)
 $$
 So \textbf{there must exist some $i$ such that $m(I_i \cap E) \geq \alpha \, m(I_i)$, otherwise contradicting with the ineq above.}\\
 This finishes the proof of the bounded case.\\
@@ -1073,21 +1099,21 @@ We apply the case where $E$ is bounded, confirming that there is some interval $
 
 
 \section{So many differences}
-  Let $E\subset\bR$ be a Lebesgue measurable subset with $m(E)>0$.
+  Let $E\subset\mathbb{R}$ be a Lebesgue measurable subset with $m(E)>0$.
   \begin{itemize}
   \item[(a)]
     Prove that the set
     \[
-      E-E:=\{x-y\mid x,y\in E\}\subset\bR
+      E-E:=\{x-y\mid x,y\in E\}\subset\mathbb{R}
     \]
     contains a nonempty open interval centered at the
     origin. \textit{Hint}: use the previous exercise with $\alpha$
     large enough, together with the translation invariance of Lebesgue
     measure.
   \item[(b)]
-    Prove that there exists $\epsilon>0$ such that $E\times E\subset\bR^2$ intersects every line $y=x+t$ with $|t|<\epsilon$.
+    Prove that there exists $\epsilon>0$ such that $E\times E\subset\mathbb{R}^2$ intersects every line $y=x+t$ with $|t|<\epsilon$.
   \item[(c)]
-    Let $C\subset\bR$ be the middle-third Cantor set (so $m(C)=0$). Does $C-C$ contain a nonempty open interval centered at the origin?
+    Let $C\subset\mathbb{R}$ be the middle-third Cantor set (so $m(C)=0$). Does $C-C$ contain a nonempty open interval centered at the origin?
   \end{itemize}  
 \begin{proof}
 \textbf{of (a): }\pic[0.65]{hw3.assets/image-20250131212105730.png}
@@ -1096,14 +1122,14 @@ We apply the case where $E$ is bounded, confirming that there is some interval $
 
 \begin{proof}
     \textbf{of (b):}\\
-    Consider taking $\epsilon$ as the one in (a) where the interval contained in $E-E$ is $(-\epsilon, \epsilon)$, then the box $(-\epsilon, \epsilon) \times (-\epsilon, \epsilon)$ is contained in $E\times E$. It trivially follows that $E\times E\subset\bR^2$ intersects every line $y=x+t$ with $|t|<\epsilon$, since the intercept of this line with $y$-axis is below $\epsilon$ and above $-\epsilon$.
+    Consider taking $\epsilon$ as the one in (a) where the interval contained in $E-E$ is $(-\epsilon, \epsilon)$, then the box $(-\epsilon, \epsilon) \times (-\epsilon, \epsilon)$ is contained in $E\times E$. It trivially follows that $E\times E\subset\mathbb{R}^2$ intersects every line $y=x+t$ with $|t|<\epsilon$, since the intercept of this line with $y$-axis is below $\epsilon$ and above $-\epsilon$.
     \pic[0.25]{hw3.assets/image-20250131212337897.png}
 \end{proof}
 
 \begin{solution}
         \textbf{of (c):} $C-C$ contain a nonempty open interval centered at the origin, and we will prove that one such interval is $(-1,1)$.
 \begin{proof}
-Recall the balanced ternary representation of $[-1/2, 1/2]$: $\forall x\in [-1/2, 1/2]$, there is a seq of $(a_n)_{n\in\bN} $ in $\{-1,0,1\}$ s,t,
+Recall the balanced ternary representation of $[-1/2, 1/2]$: $\forall x\in [-1/2, 1/2]$, there is a seq of $(a_n)_{n\in\mathbb{N}} $ in $\{-1,0,1\}$ s,t,
 \[
 x=\sum_{n=1}^\infty \frac{a_n}{3^n},\qquad a_n\in\{-1,0,1\},
 \]
@@ -1114,7 +1140,7 @@ Thus every $x\in [-1,1]$ can be halved, ternary expanded and then doubled to rec
 \end{align}
 
 And by the problem "The middle-thirds Cantor set", we learned that \[
-    C=\{ \sum_{i=1}^\infty \frac{a_i}{3^i} \mid \text{ $a_i\in \{0,2\}$ for all $i\in \bN$} \}.
+    C=\{ \sum_{i=1}^\infty \frac{a_i}{3^i} \mid \text{ $a_i\in \{0,2\}$ for all $i\in \mathbb{N}$} \}.
   \]
 Therefore we can write every number $x \in [-1, 1]$ into a difference of two $x,y \in C$, i.e. an element of $C-C$:
 \begin{align}
@@ -1123,7 +1149,7 @@ Therefore we can write every number $x \in [-1, 1]$ into a difference of two $x,
     &= \sum_{n=1}^\infty \frac{p_n}{3^n} - \sum_{n=1}^\infty \frac{q_n}{3^n},\qquad p_n,q_n\in\{-2,0,2\}
 \end{align}
 since each series converges independently. Here we let $p_n = 2, q_n = 0$ if $b_n = 2$; $p_n = 0, q_n = 2$ if $b_n = -2$, $p_n = 0, q_n = 0$ if $b_n = 0$.\\
-Thus $x \in C-C$, so $[-1,1] \sub C-C$.
+Thus $x \in C-C$, so $[-1,1] \subset C-C$.
 \end{proof}
 
 \end{solution}
@@ -1136,7 +1162,7 @@ Thus $x \in C-C$, so $[-1,1] \sub C-C$.
   \]
   \begin{itemize}
   \item[(a)]
-  Prove that $A_t$ is a compact (possibly empty) subset of $\bR$. Also prove that $A_t$ has empty interior, that is, $A_t$ contains no nonempty open set.
+  Prove that $A_t$ is a compact (possibly empty) subset of $\mathbb{R}$. Also prove that $A_t$ has empty interior, that is, $A_t$ contains no nonempty open set.
 \item[(b)]
   Prove that $t\mapsto m(A_t)$ is continuous.
 \item[(c)]
@@ -1148,16 +1174,16 @@ Thus $x \in C-C$, so $[-1,1] \sub C-C$.
 \end{proof}
 \begin{proof}
    \textbf{ of b:}
-Define for each $n\in \bN$
+Define for each $n\in \mathbb{N}$
 $$
 I_n(t) = (x_n - 2^{-n}t, x_n + 2^{-n}t)
 $$
-Then $$A_t = [0,1] \setminus \union_{n=1}^\infty I_n(t)$$So
+Then $$A_t = [0,1] \setminus \bigcup_{n=1}^\infty I_n(t)$$So
 $$
-m(A_t) = m([0,1]) - m(\union_{n=1}^\infty I_n(t)) = 1 - m(\union_{n=1}^\infty I_n(t))
+m(A_t) = m([0,1]) - m(\bigcup_{n=1}^\infty I_n(t)) = 1 - m(\bigcup_{n=1}^\infty I_n(t))
 $$
 
-\textbf{Thus it suffices to show $t \mapsto m(\union_{n=1}^\infty I_n(t))$ is continuous.}
+\textbf{Thus it suffices to show $t \mapsto m(\bigcup_{n=1}^\infty I_n(t))$ is continuous.}
 
 Let $\epsilon >0$.
 Let $t >0$.\\
@@ -1165,15 +1191,15 @@ We consider $p \in (t, t+\epsilon/2)$:
 
 By set inclusion relation and measure's property, we have:
 \begin{align}
-    m(\union_{n=1}^\infty I_n(p)) -    m(\union_{n=1}^\infty I_n(t)) &=  m(\union_{n=1}^\infty I_n(p) \setminus \union_{n=1}^\infty I_n(t))
+    m(\bigcup_{n=1}^\infty I_n(p)) -    m(\bigcup_{n=1}^\infty I_n(t)) &=  m(\bigcup_{n=1}^\infty I_n(p) \setminus \bigcup_{n=1}^\infty I_n(t))
 \end{align}
 Since 
 $$
-(\union_{n=1}^\infty I_n(p)) \setminus (\union_{n=1}^\infty I_n(t)) \sub \union_{n=1}^\infty (I_n(p) \setminus I_n(t))
+(\bigcup_{n=1}^\infty I_n(p)) \setminus (\bigcup_{n=1}^\infty I_n(t)) \subset \bigcup_{n=1}^\infty (I_n(p) \setminus I_n(t))
 $$
 We have:
 \begin{align}
-      m(\union_{n=1}^\infty I_n(p)) -    m(\union_{n=1}^\infty I_n(t))  &\leq m(\union_{n=1}^\infty (I_n(p) \setminus I_n(t)))\\
+      m(\bigcup_{n=1}^\infty I_n(p)) -    m(\bigcup_{n=1}^\infty I_n(t))  &\leq m(\bigcup_{n=1}^\infty (I_n(p) \setminus I_n(t)))\\
       & \leq \sum_{n=1}^\infty (m(I_n(p)) - m(I_n(t)))\\
       &= \sum_{n=1}^\infty 2 \cdot 2^{-n}(p-t) \\
       & = 2(p-t) \\
@@ -1186,9 +1212,9 @@ Similarly for $p \in (t-\epsilon/2,t)$, we get the same bound. This finishes the
  \textbf{   of c:\\}
  We use the same notation of $I_n(t)$ as in (b). We have:
  $$
- m(\union_{n=1}^\infty I_n(t) )  \leq  \sum_{n=1}^\infty m(I_n(t)) = \sum_{n=1}^\infty m(I_n(t)) =  \sum_{n=1}^\infty2\cdot 2^{-n} t = 2t.
+ m(\bigcup_{n=1}^\infty I_n(t) )  \leq  \sum_{n=1}^\infty m(I_n(t)) = \sum_{n=1}^\infty m(I_n(t)) =  \sum_{n=1}^\infty2\cdot 2^{-n} t = 2t.
  $$
- So by choosing $t:= 1/6$, we have $m(A_t) = 1 -  m(\union_{n=1}^\infty I_n(t) ) \geq 2/3$.
+ So by choosing $t:= 1/6$, we have $m(A_t) = 1 -  m(\bigcup_{n=1}^\infty I_n(t) ) \geq 2/3$.
  And by choosing $t:= 4$, $I_1(t)$ covers an interval of length $4$, so $A_t = \varnothing$, $m(A_t) = 0$.
  By intermediate value theorem, there exists some $t \in(1/6, 4)$ such that $m(A_t)=597/2025$.
 \end{proof}
@@ -1227,8 +1253,8 @@ $$
 \textbf{$F$ is right continuous:} It suffices to prove the right-continuity of $F$ on $x \in E^c \cap (\min E, \max E)$. \\
 Fix $x_0 \in E^c \cap (\min E, \max E)$.\\
 Let $\epsilon > 0$. \\
-Let $k \in \bN$ such that $\epsilon > \frac{T}{2^k+1}$.\\
-We define for each $y$, $S_y := \{b_i \mid x_0 \leq  b_i  \leq y\}$ as the set of all $b_i$ (right endpoint of $I_k$) that is witin $x_0$ and $y$. Note that $I_z \sub I_y$ for all $y > z$.\\
+Let $k \in \mathbb{N}$ such that $\epsilon > \frac{T}{2^k+1}$.\\
+We define for each $y$, $S_y := \{b_i \mid x_0 \leq  b_i  \leq y\}$ as the set of all $b_i$ (right endpoint of $I_k$) that is witin $x_0$ and $y$. Note that $I_z \subset I_y$ for all $y > z$.\\
 Consider $y_1 := \min (\{b_1, \cdots, b_k\} \setminus S_x)$.\\
 Then for all $y \in (x_0,y_1)$, we have:
 $$
@@ -1239,17 +1265,17 @@ By defining $\delta : = y_1 - x_0$, we have shown the right continuity of $F$.\\
 Above, we have shown that $F$ is a distribution function.\\\\
 Now let $\mu_F$ be the Lebesgue-Stieljes measure associated with $F$. We will prove for the three properties above:\\
 \begin{itemize}
-    \item[(i)] Let $\{x\}$ be a singleton set in $\bR$, for each $n\in \bN$, we can construct an h-intervals seq of covering of $\{x\}$ by $(x-1/n,x]$ as the first covering set and $\varnothing$ as all other covering sets.\\
+    \item[(i)] Let $\{x\}$ be a singleton set in $\mathbb{R}$, for each $n\in \mathbb{N}$, we can construct an h-intervals seq of covering of $\{x\}$ by $(x-1/n,x]$ as the first covering set and $\varnothing$ as all other covering sets.\\
 Then by the definition of $\mu_F$, we have:
 $$
-\mu_F(\{x\}) = \inf_{n\in\bN} (F(x) - F(x-1/n))
+\mu_F(\{x\}) = \inf_{n\in\mathbb{N}} (F(x) - F(x-1/n))
 $$
 By continuity, it shows that $\mu_F(\{x\}) = 0$.
-\item[(ii)] $$ \mu_F(\bR) = \lim_{x \rar \infty} F(x)  -  \lim_{x \rar -\infty}  F(x)  = T-0 = T = 0.597597597\cdots$$
+\item[(ii)] $$ \mu_F(\mathbb{R}) = \lim_{x \to \infty} F(x)  -  \lim_{x \to -\infty}  F(x)  = T-0 = T = 0.597597597\cdots$$
 
 \item[(iii)] Let $I = (a,b)$ be a nonempty open interval.\\
 Suppose $\mu(I)>0$, then $F(b) - F(a) > 0$, so by definition of $G$, some must be at least two different intervals $I_{n_1}$, $I_{n_2}$ in $A$ such that for some $x,y \in (a,b)$, $x\in I_{n_1}$ and $y \in I_{n_2}$, thus $\exists$ some $e \in E$ such that $e \in (x,y)$. Thus $I\cap E\ne\emptyset$.\\
-Suppose $I\cap E\ne\emptyset$. Let $e \in E \cap I$. Since $\forall \epsilon >0$, $(x-\epsilon,x) \cup (x,x+\epsilon)$ has nonempty intersection with both $E$ and $E^c$, $e$ has some open neighborhood $B_\epsilon(e) \sub I$, intersecting two different $I_N$, $I_M \sub A$. Take $n \in I_N$, $m \in I_m$. Then $F(m) - F(n) = G(m) - G(n) > 0$, so $\mu_F(E) \geq F(m) -F(n) > 0$ by monotinicity of measure.\\
+Suppose $I\cap E\ne\emptyset$. Let $e \in E \cap I$. Since $\forall \epsilon >0$, $(x-\epsilon,x) \cup (x,x+\epsilon)$ has nonempty intersection with both $E$ and $E^c$, $e$ has some open neighborhood $B_\epsilon(e) \subset I$, intersecting two different $I_N$, $I_M \subset A$. Take $n \in I_N$, $m \in I_m$. Then $F(m) - F(n) = G(m) - G(n) > 0$, so $\mu_F(E) \geq F(m) -F(n) > 0$ by monotinicity of measure.\\
 This finishes the proof.
 
 
@@ -1277,20 +1303,20 @@ This finishes the proof.
 
 
 
-\chapter{on measurable functions}
+\chapter{on measurable functions(36/40)}
 \begin{center}
 \textit{None of the following questions will be graded. Do them, but do not hand them in}.
 \end{center}
 
 
 \section{One with Vitali.}
-  Let $(X,\cA)$ be a measurable space, and $E\subset X$ a subset. Prove that $E\in\cA$ iff the function $\chi_E$ is measurable. Use this to construct a function  $f\colon\R\to\R$ that is not Lebesgue measurable.
+  Let $(X,\mathcal{A})$ be a measurable space, and $E\subset X$ a subset. Prove that $E\in\mathcal{A}$ iff the function $\chi_E$ is measurable. Use this to construct a function  $f\colon\mathbb{R}\to\mathbb{R}$ that is not Lebesgue measurable.
   
-\section{Truncations.}
-Let $(X,\cA,\mu)$ be a measure space and $f\colon X\to [0, \infty]$ a measurable function.
+\section{Truncations in $L^+$: 通过 $\int f_n$ 或者 $\int_{X_n} f$ 的极限 (bounded function / subset) 得到 $\int_X f$}
+Let $(X,\mathcal{A},\mu)$ be a measure space and $f\colon X\to [0, \infty]$ a measurable function.
 \begin{itemize}
 \item[(a)] (Horizontal truncation) Suppose that $X=\bigcup_{n=1}^\infty X_n$ for some $X_1\subset X_2\subset \cdots$ 
-with $X_n\in \cA$. Prove that 
+with $X_n\in \mathcal{A}$. Prove that 
 \[
   \int_X f \,d\mu = \lim_{n\to \infty} \int_{X_n} f\,d\mu
 \]
@@ -1304,27 +1330,27 @@ with $X_n\in \cA$. Prove that
 \end{itemize}
 
 \section{Disregarding null sets.}
-  Let $(X,\cA,\mu)$ be a \emph{complete} measure space.
+  Let $(X,\mathcal{A},\mu)$ be a \emph{complete} measure space.
   \begin{itemize}
   \item[(a)]
-    Let $f\colon X\to\bar\R$ and $g\colon X\to\bar\R$ be functions such that $f=g$ $\mu$-a.e.
+    Let $f\colon X\to \overline{\mathbb{R}}$ and $g\colon X\to \overline{\mathbb{R}}$ be functions such that $f=g$ $\mu$-a.e.
     \begin{itemize}
     \item[(i)]
-      Prove that $f$ is measurable (i.e.\ $\cA$-measurable) iff $g$ is measurable.
+      Prove that $f$ is measurable (i.e.\ $\mathcal{A}$-measurable) iff $g$ is measurable.
     \item[(ii)]
-      Prove the same statement when $f$ and $g$ are $\bC$-valued, rather than
-      $\bar\R$-valued.
+      Prove the same statement when $f$ and $g$ are $\mathbb{C}$-valued, rather than
+      $\overline{\mathbb{R}}$-valued.
     \item[(iii)]
       Give examples showing that the condition that $\mu$ be complete is necessary.
     \end{itemize}
   \item[(b)]
-    Let $f_n\colon X\to\bar\bR$, $n\in\bN$, and $f\colon X\to \extR$ be functions such that $\lim_{n\to\infty}f_n(x)=f(x)$ for a.e. $x\in X$. 
+    Let $f_n : X \to  \overline{\mathbb{R}}$, $n\in\mathbb{N}$, and $f\colon X\to \overline{\mathbb{R}}$ be functions such that $\lim_{n\to\infty}f_n(x)=f(x)$ for a.e. $x\in X$. 
     \begin{itemize}
     \item[(i)]
       Prove that if $f_n$ is measurable for all $n$, then so is $f$.
     \item[(ii)]
-      Prove the same statement when $f_n$ and $f$ are $\bC$-valued, rather than
-      $\bar\R$-valued.
+      Prove the same statement when $f_n$ and $f$ are $\mathbb{C}$-valued, rather than
+      $\overline{\mathbb{R}}$-valued.
     \item[(iii)]
       Give examples showing that the condition that $\mu$ be complete is necessary.
     \end{itemize}
@@ -1332,28 +1358,28 @@ with $X_n\in \cA$. Prove that
   \textit{Hint}: this is Proposition 2.11 of [Folland].
   
 \section{Measurable functions and completions.}
-  Let $(X,\cA,\mu)$ be a measure space and let $(X, \bar{\cA}, \bar{\mu})$ be its completion. 
-Suppose that $f\colon X\to\bar\R$ is $\bar{\cA}$-measurable. Prove that there is an $\cA$-measurable function $g\colon X\to\bar\R$ such that $g=f$ $\bar{\mu}$-a.e.,  and hence $\int g  \;d\mu=\int f \;d\bar{\mu}$. 
+  Let $(X,\mathcal{A},\mu)$ be a measure space and let $(X, \bar{\mathcal{A}}, \bar{\mu})$ be its completion. 
+Suppose that $f\colon X\to\overline{\mathbb{R}}$ is $\bar{\mathcal{A}}$-measurable. Prove that there is an $\mathcal{A}$-measurable function $g\colon X\to\overline{\mathbb{R}}$ such that $g=f$ $\bar{\mu}$-a.e.,  and hence $\int g  \;d\mu=\int f \;d\bar{\mu}$. 
 \textit{Hint}: this is Proposition 2.12 of [Folland].
 
 \section{Measurability on subsets.}
-  Let $(X,\cA)$ be a measurable space, and $Y\subset X$ a nonempty subset.
-  We say that a function $g\colon Y\to\bar\R$ is \emph{$\cA$-measurable on $Y$} if $g$ is $\cA|_Y$-measurable, where the $\sigma$-algebra $\cA|_Y$ on $Y$ is defined as in HW1.
+  Let $(X,\mathcal{A})$ be a measurable space, and $Y\subset X$ a nonempty subset.
+  We say that a function $g\colon Y\to\overline{\mathbb{R}}$ is \emph{$\mathcal{A}$-measurable on $Y$} if $g$ is $\mathcal{A}|_Y$-measurable, where the $\sigma$-algebra $\mathcal{A}|_Y$ on $Y$ is defined as in HW1.
   \begin{itemize}
   \item[(a)]
-    Prove that if $f\colon X\to\bar\R$ is measurable and $Y\subset X$, then $g=f|_Y$ is $\cA$-measurable on $Y$. 
+    Prove that if $f\colon X\to\overline{\mathbb{R}}$ is measurable and $Y\subset X$, then $g=f|_Y$ is $\mathcal{A}$-measurable on $Y$. 
   \item[(b)]
-    Prove that if $g$ is $\cA$-measurable on $Y$ and $Y\in \cA$, then $g$ can be extended to an $\cA$-measurable function $f$ on $X$. Is the extension unique?
+    Prove that if $g$ is $\mathcal{A}$-measurable on $Y$ and $Y\in \mathcal{A}$, then $g$ can be extended to an $\mathcal{A}$-measurable function $f$ on $X$. Is the extension unique?
   \item[(c)]
-    Let $f\colon X\to\bar\R$ be any function, and set $Y=f^{-1}(\R)$. Prove that $f$ is measurable iff $f^{-1}(\{\infty\})\in \cA$, $f^{-1}(\{-\infty\})\in \cA$, and 
-    $f|_Y\colon Y\to\R$ is $\cA$-measurable on $Y$.
+    Let $f\colon X\to\overline{\mathbb{R}}$ be any function, and set $Y=f^{-1}(\mathbb{R})$. Prove that $f$ is measurable iff $f^{-1}(\{\infty\})\in \mathcal{A}$, $f^{-1}(\{-\infty\})\in \mathcal{A}$, and 
+    $f|_Y\colon Y\to\mathbb{R}$ is $\mathcal{A}$-measurable on $Y$.
   \end{itemize}
 
 \section{Suprema of uncountable families.}
-  Construct (using the Axiom of Choice, if needed) an \emph{uncountable} family $(f_\alpha)_\alpha$ of real-valued Borel measurable functions on $\R$ such that the function $\sup_\alpha f_\alpha$ is not Lebesgue measurable, let alone Borel measurable.
+  Construct (using the Axiom of Choice, if needed) an \emph{uncountable} family $(f_\alpha)_\alpha$ of real-valued Borel measurable functions on $\mathbb{R}$ such that the function $\sup_\alpha f_\alpha$ is not Lebesgue measurable, let alone Borel measurable.
 
 \section{Increasing functions again.}
-  Let $f\colon\R\to\R$ be an increasing function. Prove that $f$ is Borel measurable. Use this to give an example of a function $f\colon\R\to\R$ that cannot be written as a difference between increasing functions.
+  Let $f\colon\mathbb{R}\to\mathbb{R}$ be an increasing function. Prove that $f$ is Borel measurable. Use this to give an example of a function $f\colon\mathbb{R}\to\mathbb{R}$ that cannot be written as a difference between increasing functions.
 
 \section{Lebesgue but not Borel.}
   Let $F\colon[0,1]\to[0,1]$ be the function from HW3, whose graph is the Devil's Staircase. Define $G(x)=F(x)+x$. 
@@ -1369,8 +1395,8 @@ Suppose that $f\colon X\to\bar\R$ is $\bar{\cA}$-measurable. Prove that there is
   \end{itemize}
 
 \section{Measurability and absolute values.}
-  Let $(X,\cA)$ be a measure space. 
-  Suppose that $f\colon X\to\bC$ is a measurable function. Prove that the function $|f|\colon X\to\R$ is also measurable. Is the converse true? 
+  Let $(X,\mathcal{A})$ be a measure space. 
+  Suppose that $f\colon X\to\mathbb{C}$ is a measurable function. Prove that the function $|f|\colon X\to\mathbb{R}$ is also measurable. Is the converse true? 
 
 
 
@@ -1652,11 +1678,27 @@ Now that each $ E_{\lambda,m,n}$ is open, we have $\bigcup_{m\in\mathbb{N}} E_{\
 is a union of $G_\delta$ sets.
 
 (I do not now how to deal with it then, it might be that we somehow reduce it to countable union of $G_\delta$ sets, getting something like $E = \bigcup_{\lambda\in\mathbb{Q}} G_\lambda $ using the density of $\mathbb{Q}$ in $\mathbb{R}$, thus confirming that it is Borel.)
+\textcolor{red}{-2. 这里的正解是: 要利用 density of $\mathbb{Q}$ in $\mathbb{R}$ 的话, 只需要考虑交换 set operation 的顺序就好了. 我们会发现其实: \[
+  E=\bigcap_{n\in\mathbb{N}} \bigcup_{\lambda\in\mathbb{Q}} \bigcup_{m\in\mathbb{N}} E_{\lambda,m,n}\,
+\]就这么简单。。
+}
+\end{proof}
+\begin{proof}
+    of extra credit: \textcolor{red}{yes. 这个解法非常麻烦. 需要再多考虑两层. 
+令 $E_{\lambda, k,l,m,n}$ 表示 the set of points $x$ s.t. \[
+|f(y) - f(z) - \lambda (y-z) | \leq \frac{1}{n} |y-z|
+\]
+whenever \[
+\frac{1}{2^{l+1}} (1 +\frac{1}{2^k}) \leq |y-x| \leq  \frac{1}{2^{l-1}} (1 -\frac{1}{2^k})  \quad \text{and} \quad |z-x| \leq \frac{1}{2^m} (1 -\frac{1}{2^k}) 
+\]
+Claim: \[
+ f  \text{ is differentiable at x} \text{ iff }     x \in E:= \bigcap_{n\in\mathbb{N}} \bigcup_{\lambda \in\mathbb{Q}} \bigcup_{l \in \mathbb{N}} \bigcap_{r \geq l} \bigcup_{m\geq 1} \bigcup_{k \in \mathbb{N}}    E_{\lambda, k,r,m,n}
+\]
+}
 \end{proof}
 
-
   
-\section{Monotone convergence?}
+\section{decreasing MCT: 成立当且仅当 integral 的 limit 是 finite 的}
   Let $(f_n)_1^\infty$ be a \emph{decreasing} sequence of non-negative measurable functions on a measure space. 
   \begin{itemize}
   \item[(a)]  Prove that if $\lim_n\int f_n<\infty$, then $\lim_n\int f_n=\int\lim_nf_n$. 
@@ -1697,6 +1739,7 @@ Then for each \(n \geq N\),
 \[
 \int g_n\,d\mu = \int \bigl(f_1 - f_n\bigr)\,d\mu = \int f_1\,d\mu - \int f_n\,d\mu
 \]
+\textcolor{red}{-2. 这里注意, 我们既然知道 $f_1$ 的 integral 未必 finite, 就不能这么定义 $g_n$. 正解是取 $N$ s.t. $\int f_N$ finite, 然后定义 $g_n := f_N - f_n$.}
 Taking the limit as \(n\to\infty\), have
 \[
 \lim_{n\to\infty} \int g_n\,d\mu = \lim_{n\to\infty} \left(\int f_1\,d\mu - \int f_n\,d\mu\right) = \int f_1\,d\mu - \lim_{n\to\infty} \int f_n\,d\mu
@@ -1806,7 +1849,8 @@ This finishes the proof of required properties of $f$.
 \subsection{harder Vitali meet Cantor (extra credit)}
 We change the requirement of (a) to be: "the restriction of $f$ to any open interval $I\subset[0,1]$ fails to be Lebesgue measurable". Then how can we make the construction?
 \begin{solution}
-    I don't know.
+    I don't know.\\
+    \textcolor{red}{官方答案: 我在前一问给出的  \[ f(x) = \chi_V \cdot d(x,C)^2\] 这个函数, 同样也是满足这一问的答案. (对于 $C$, 不仅可以选择 fat Cantor set, 实际上任何 choice of compact nowhere dense set 都可以.) }
 \end{solution}
 
 
@@ -1814,14 +1858,12 @@ We change the requirement of (a) to be: "the restriction of $f$ to any open inte
 
 
 
-\chapter{on integration}
+\chapter{on integration(50/50)}
 \begin{center}
 \textit{None of the following questions will be graded. Do them, but do not hand them in}.
 \end{center}
 
-\section{A simple measure}
-
-(A simple measure.) 
+\section{Dirac measure: $\int f \; d\delta_{x_0}= f(x_0) $}
   Let $(X,\mathcal{A})$ be a measurable space, and $x_0\in X$ a point. 
   Let $\delta_{x_0}$ be the Dirac measure at $x_0$, i.e. for $E\in \mathcal{A}$, $\delta_{x_0}(E)=1$ if $x_0\in E$ and $\delta_{x_0}(E)=0$ if $x_0\notin E$. 
 Show that every measurable function $f\colon X\to \mathbb{R}$ is integrable and 
@@ -1830,23 +1872,20 @@ Show that every measurable function $f\colon X\to \mathbb{R}$ is integrable and
 \]
 \textit{Remark}: what is often called a Dirac delta function is actually this Dirac measure. 
 
-\section{Extensions}  
+\section{measure space 的 extension 保留 measurable function 的可测性和积分}  
   Let $(X,\mathcal{A},\mu)$ and $(X,\mathcal{B},\nu)$ be measure spaces on the same set $X$. Suppose that $(X,\mathcal{B},\nu)$ is an extension of $(X,\mathcal{A},\mu)$. 
   \begin{itemize}
   \item[(a)] Show that if a function $f$ on $X$ is $\mathcal{A}$-measurable, then it is $\mathcal{B}$-measurable.
   \item[(b)] Show that if a function $f$ on $X$ is $\mathcal{A}$-measurable and $f\in L^1(\mathcal{A}, \mu)$, then $f\in L^1(\mathcal{B},\nu)$ and $\int f \; d\mu= \int f\; d \nu$. 
   \end{itemize}
-\begin{remark}
-    measure space 的 extension 保留 measurable function 的可测性和积分.
-\end{remark}
+
 
 \section{almost everywhere defined measurable function}
-(Almost there.)
   Carefully think through the notion of an ``almost everywhere defined'' measurable (or integrable) function.
   How can we deduce the ``almost everywhere'' versions of the main convergence theorems (MCT, FL, DCT) from their ``everywhere'' counterparts?
   Propositions 2.11 and 2.12 in~[Folland] are useful here (these appeared on HW4).
   
-\section{new measure from old}
+\section{new measure from old: $\nu(A):=\int_A f\; d\mu \implies\int g \; d \nu= \int gf \; d\mu$}
   Let $(X, \mathcal{A},\mu)$ be a measure space. Let $f\colon X\to[0,\infty]$ be an $ \mathcal{A}$-measurable function.
 Define $\nu\colon  \mathcal{A}\to[0,\infty]$ by  $\nu(A)=\int_A f\; d\mu= \int f\chi_A\; d\mu$ for $A\in \mathcal{A}$.  
 \begin{itemize}
@@ -1862,7 +1901,9 @@ Each nonnegative function $f\colon \mathbb{R} \to[0,\infty]$ induces a Borel mea
 \end{itemize}
 \end{itemize}
 
-\section{Truncations}
+
+
+\section{Truncations in $L^1$: 通过 $\int f_n$ 或者 $\int_{X_n} f$ 的极限 (bounded function / subset) 得到 $\int_X f$}
 Let $(X,\mathcal{A},\mu)$ be a measure space and $f\colon X\to\mathbb{C}$ an integrable function.
 \begin{itemize}
 \item[(a)] (Horizontal truncation) Suppose that $X=\bigcup_{n=1}^\infty X_n$ for some $X_1\subset X_2\subset \cdots$ 
@@ -1927,14 +1968,14 @@ $f_n\to f$ in $L^1$, i.e.\
   \]
 \textit{Hint}: Follow the proof of the DCT, based on FL.
 
+
+
 \section{Criterion for $L^1$-convergence}
   Let $(X, \mathcal{A}, \mu)$ be a measure space. 
   Let $f_n, f$ be integrable functions on $X$, $n\in \mathbb{N}$. 
-  Suppose that $\lim_{n\to\infty} f_n(x)=f(x)$ a.e. Prove that 
-  \[
+  Suppose that $\lim_{n\to\infty} f_n(x)=f(x)$ a.e. Prove that \[
     \lim_{n\to\infty} \int |f_n-f| \; d\mu =0\quad\text{iff}
     \quad \lim_{n\to \infty} \int |f_n| \; d\mu = \int |f|\; d\mu\]
-
   \textit{Hint}: use the generalized DCT.
 
 
@@ -2507,7 +2548,7 @@ f^p(x) = (\sum_n 2^{-n}g_{\alpha_n}(x - x_n))^p \geq 2^{-N}g^p_{\alpha_N}(x - x_
 
 
 
-\chapter{on product measure and mode of convergence}
+\chapter{on product measure and mode of convergence (49/50)}
 \begin{center}
 \textit{Some of the following questions will be graded. Do them, and do hand them in}.
 \end{center}
@@ -2554,12 +2595,15 @@ This finishes the proof that \[
 
 
 
-\section{Area under the curve}
+\section{integration of a function $=$ Area under the curve}
   Let $(X,\mathcal{A},\mu)$ be a $\sigma$-finite measure space, and let $f\in L^+(X)$. Consider the subset  $G_f\subset X\times[0,\infty)$ consisting of all points $(x,y)$ with $y<f(x)$.
   \begin{itemize}
   \item[(a)]Prove that $G_f$ is $\mathcal{A}\otimes\mathcal{B}_\mathbb{R}$-measurable.
   \item[(b)]Prove that $(\mu\otimes m)(G_f)=\int f\; d\mu$.
   \end{itemize}  
+\begin{remark}
+    这个 $G_f$ 即为 $f:X \to \mathbb{R}$ 的 graph 下的 area, 
+\end{remark}
 \begin{proof}
     \textbf{of 2(a):}\\
 \[y < f(x)\quad\Longleftrightarrow\quad
@@ -2650,7 +2694,7 @@ Thus combining Claim 1, the whole statement is proved.
 
 
 
-\section{Indicator limit}
+\section{Indicator functions 是 $L^+$ 的一个 closed subset}
   Let $(X,\mathcal{A},\mu)$ be any measure space. Let $M\subset L^+$ be the set of indicator functions $\chi_E$, where $E\in\mathcal{A}$ and $\mu(E)<\infty$. Prove that $M$ is a closed subset of $L^1$. In other words, prove that $M\subset L^1$, and that if $f_n\in M$, $f\in L^1$, and $\int|f_n-f|\to0$, then $f\in M$.
 
 \begin{proof}
@@ -2680,9 +2724,8 @@ Thus $\mu(A) = 0$, which means that $f(x)\in\{0,1\}$ a.e., showing that $f$ is a
 
 
 
-\section{a metric space of measurable functions}
-  Suppose that $(X,\mathcal{A},\mu)$ is a measure space such that $\mu(X)<\infty$. Set $\chi(t)=\frac{t}{1+t}$ for $t\ge 0$.
-%  Consider a function $\chi\colon[0,\infty)\to[0,\infty)$
+\section{a complete metric space of measurable functions (other then $L^1(\mu)$) }
+  Suppose that $(X,\mathcal{A},\mu)$ is a measure space such that $\mu(X)<\infty$. Set $\chi(t)=\frac{t}{1+t}$ for $t\ge 0$.\\
   Given measurable functions $f,g\colon X\to\mathbb{C}$, set\[
     \rho(f,g):=\int\chi(|f-g|)\; d\mu
   \]
@@ -2694,7 +2737,9 @@ Thus $\mu(A) = 0$, which means that $f(x)\in\{0,1\}$ a.e., showing that $f$ is a
   \item[(b)]Prove that if $f_n,f\in L$, then $\rho(f_n,f)\to0$ iff $f_n\to f$ in measure.
   \item[(c)] Prove that $(L,\rho)$ is a complete metric space.
   \end{itemize}    
-
+\begin{remark}
+\textbf{对于任何 measure $\mu$, $L^1(\mu)$ 都是一个 complete metric space (因为它是 Banach space)}; 这里, 我们略微修改了 $L^1(\mu)$ 的 metric, 嵌套了一个函数, 但是它\textbf{仍然是一个 complete metric space.}
+\end{remark}
 \begin{proof}
    \textbf{ of 5(a):}
 $\chi(t)=\frac{t}{1+t} = 1- \frac{1}{1+t}$ is an increasing function on $t \geq 0$.\\
@@ -2841,7 +2886,7 @@ This proves that $(f_n)$ is Cachy in measure, thus $f_n\to f$ in measure, and th
 
 
 
-\section{Nur f\"ur Verr\"uckte}
+\section*{Nur f\"ur Verr\"uckte}
 (It's \textbf{really} not necessary to attempt these problems. Do not, under any circumstances, hand them in!)
 \begin{enumerate}
 \item Prove that the category of measurable spaces (see HW1) admits finite products, and that the product of $(X,\mathcal{A})$ and $(Y,\mathcal{B})$ equals $(X\times Y,\mathcal{A}\otimes\mathcal{B})$. 
@@ -2865,7 +2910,96 @@ This proves that $(f_n)$ is Cachy in measure, thus $f_n\to f$ in measure, and th
 
 
 
+\chapter{on differentiaion}
 
+\begin{center}
+\textit{None of the following questions will be graded. Do them, but do not hand them in}.
+\end{center}
+
+\section{Completion of completions}
+
+Let $(X, \mathcal{A}, \mu)$ and $(Y, \mathcal{B}, \nu)$ be measure spaces. Let $(X, \bar{\mathcal{A}}, \bar{\mu})$ and $(Y, \bar{\mathcal{B}}, \bar{\nu})$ be their completions, respectively. 
+Then, the completion of $(X\times Y, \mathcal{A}\otimes \mathcal{B}, \mu\times \nu)$ is same as the completion of $(X\times Y, \bar{\mathcal{A}}\otimes \bar{\mathcal{B}}, \bar{\mu}\times \bar{\nu})$.
+
+\section{Modified HL maximal inequality}
+Prove that there is a constant $C_n>0$ that only depends on $n$ such that for every $f\in L^1(\mathbb{R}^n)$ and $\alpha>0$,
+\[
+m(\{x\in \mathbb{R}^n\mid Hf(x)\ge \alpha\}) \le \frac{C_n}{\alpha} \int_{\mathbb{R}^n} |f(x)|\;d x
+\]
+(Remark: We had $Hf(x)> \alpha$ for the HL maximal inequality. Here we have $Hf(x)\ge \alpha$.) 
+
+
+\section{Density at a point}
+  For a Lebesgue measurable subset $E$ of $\mathbb{R}^n$, the \emph{density of $E$ at $x$} is defined as 
+  \[
+    D_E(x)= \lim_{r\to 0} \frac{m(E\cap B(x,r))}{m(B(x,r)}
+  \]
+  provided that the limit exists.
+  Prove that $D_E(x)=1$ for a.e. $x\in E$ and $D_E(x)=0$ for a.e. $x\in E^c$. 
+  \textit{Hint}: ask Lebesgue.
+
+
+\newpage
+\vspace*{5mm}
+\begin{center}
+\textit{Some of the following questions will be graded. Do them, and do hand them in}.
+\end{center}
+
+\section{An identity}
+  Prove that $\int_0^\infty e^{-2sx}\frac{\sin^2x}{x}\;d x=\frac14\log(1+s^{-2})$ for $s>0$ by integrating the function $e^{-2sx}\sin(2xy)$ with respect to $x$ and $y$ over suitable regions.
+
+
+\section{Diagonals}
+  \begin{itemize}
+  \item[(a)]
+    Prove that if $E\in\mathcal{A}\otimes\mathcal{A}$, then 
+    \[
+      \{ x\in X: (x,x)\in E\} \in \mathcal{A}
+    \]
+  \item[(b)]
+    Using this fact, find an example of a subset $E\subset \mathbb{R}\times \mathbb{R}$ such that $E_x\in \mathcal{L}(\mathbb{R})$ for all $x\in \mathbb{R}$ and $E^y\in \mathcal{L}(\mathbb{R})$ for all $y\in \mathbb{R}$, but $E\notin \mathcal{L}(\mathbb{R})\otimes  \mathcal{L}(\mathbb{R})$.
+    \textit{Hint}: ask Vitali.
+  \end{itemize}
+
+\section{Too dense}
+  Prove that if $E\subset \mathcal{L}(\mathbb{R})$ is a Lebesgue measurable subset such that 
+  \[
+    m(E\cap I)\le 0.123m(I) 
+  \]
+  for all open intervals $I\subset  \mathcal{L}(\mathbb{R})$, then $m(E)=0$. 
+
+\section{Prescribing a Lebesgue density}
+  Let $0<\alpha <1$.
+    Find an example of a Lebesgue measurable subset $E$ of $[0,\infty)\subset  \mathcal{L}(\mathbb{R})$ whose density at $0$ is $\alpha/2$. 
+    \textit{Hint}: Consider $E=\bigcup_{n=1}^\infty I_n$. where $I_n=(x_n,x_n+\delta_n)$ are disjoint small intervals accumulating at $0$.
+
+\section{Sequences of complex numbers}
+  \begin{itemize}
+  \item[(a)]
+    Prove that $\ell^1\subsetneq\bigcap_{1<p<\infty}\ell^p$.
+  \item[(b)]
+    Prove that $\bigcup_{1<p<\infty}\ell^p\subsetneq\ell^\infty$.
+  \end{itemize}
+    
+
+
+
+
+
+
+
+
+\vspace*{10mm}
+
+\begin{center}
+  \textit{Nur f\"ur Verr\"uckte}
+\end{center}
+(It's \textbf{really} not necessary to attempt these problems. Do not, under any circumstances, hand them in!) 
+
+\section{Prescribing a Lebesgue density, Season 2}
+  Let $0<\alpha <1$ and $n\ge 1$. 
+    Find an example of a Lebesgue measurable subset $E$ of $\mathcal{L}(\mathbb{R})^n$ whose density at $0$ is $\alpha$.
+    \textit{Hint}: think spherically.
 
 
 
