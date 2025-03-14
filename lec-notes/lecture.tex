@@ -3448,8 +3448,10 @@ cB := B(x,cr)
     \])
 \end{lemma}
 \begin{proof}
-    Greedy Algrithm: 直接按照半径大小排序, 取出最大的 disjoint subcollection. 
+    Greedy Algrithm: 直接按照半径大小排序, 取出最大的 disjoint subcollection.\\
     Prove without words: 
+    \pic[0.4]{ch3-pics.assets/image-20250313171222780.png}
+    (每次都选择下一个和前面所有更大的球不 intersect 的最大球; 在这个过程中, 所有和前面更大的球有 intersection 的球都被被包括在该球的三倍球里.)
 \end{proof}
 
 
@@ -3457,35 +3459,79 @@ cB := B(x,cr)
 
 \begin{theorem}{HL maximal theorem}
 For $L^1(m^n)$, take constant $C := 3^n$, 则对于任意 $f \in L^1(m^n)$, 都有: \[
-m(\{x: Hf (x) > \alpha\}) \leq \frac{C}{\alpha} \int |f(x)| 
+m(\{x: Hf (x) > \alpha\}) \leq \frac{C}{\alpha} \int |f| 
 \]
 \end{theorem}
+\begin{proof}
+    Set \[
+    E_\alpha : = \{x: Hf (x)> \alpha   \} \subset \mathbb{R}^n
+    \]
+    因而 by def of $Hf$, 对于任意的 $x \in E_\alpha$ 都存在 $r_x$ 使得 \[
+    m(B(x,r_x))  < \frac{1}{\alpha} \int_{B(x,r_x)} |f|
+    \]
+对于 compact $K\in E_\alpha $, 一定存在 finite subcovering $\{B(x_i,r_i)\}$ covers $K$.\\
+于是 Apply Vitali-type covering Lemma:\[
+m(K) \leq \sum_i m(3B(x_i,r_i)) = 3^n \sum_i m(B(x_i,r_i)) \leq \frac{3^n}{\alpha} \int |f|
+\]
+于是 by inner regularity, taking sup over all compact subsets 得证.
+\end{proof}
+\begin{remark}
+    这是 HL max Thm 的一部分, 另一部分是 $L^p$ space 下的.  这一部分表示了 HL maximal operator 的 \textbf{weakly boundedness}.\\
+    Notice: $H$ 是一个从 $L^p$ space (此处为 $L^1$)到它自身的 (nonlinear) operator.\\
+    recall, 一个 operator 的 \textbf{(strongly) boundedness} 表示: \[|| T f \|\leq C \| f \|, \quad \text{for all } f  \text{ (in the function space)}
+\]
+而 weakly boundedness 表示一定的可控制性: 越大的函数值, 能取到这个函数值的点的占比 (with respect to measure) 越小. \\
+(will prove: \textbf{对于 $p>1$, $H$ 具有 strongly boundedness}.)
+\end{remark}
+
+\begin{remark}
+    我们可以 compare the HL ineq 和 Markov ineq. Markov ineq 表示, 对于任意 $f \in L^1(\mu)$ 都有 \[
+    m(\{f> \alpha\}) \leq \frac{1}{\alpha} \int |f|
+    \]
+\end{remark}
 
 
 
 
 \chapter{Lebesgue differentiation Theorem}
 
-Hardy-Littlewood max function: \[
-Hf(x) = \sup_{r > 0} \int_{B_r(x)} |f| 
+\begin{definition}{Lebesgue set}
+    我们定义一个函数 $f\in L^1_{loc}(\mathbb{R}^n)$ 的 Lebesgue set 为: \[
+L_f := \{ x \in \mathbb{R}^n \mid \lim_{r \to 0^+} \avint_{B(x,r)} |f(y) - f(x) | \; dy = 0   \}
 \]
-
-HL max thm: \[
-f \in L^1 \implies m(Hf > \alpha) \leq \frac{3^n}{\alpha} \int |f| 
+其中每个 point 被称为一个\textbf{Lebesgue point}.
+\end{definition}
+\begin{remark}
+    一个 Lebesgue point $x$ 即满足: \[
+\lim_{r\to 0^+} A_r |f- f(x)| (x)  = 0
 \]
-Lebesuge set: \[
-L_f := \{ x \in \mathbb{R}^n \mid \lim_{r \to 0^+} \int |f(y) - f(x) | \; dy = 0   \}
-\]
+\end{remark}
 
-
-\begin{theorem}
-$L_f$ is Leb mble and $m({L_f}^c) = 0$ 
+\begin{theorem}{Lebesgue differentition theorem}
+对于任意的 $f\in L^1_{loc}(\mathbb{R}^n)$, $L_f$ is Leb mble and $m(L_f^c) = 0$.
 \end{theorem}
-Not proved yet.
+
+
+
+
+
+
+
+
+
 
 \begin{corollary}
-    $x \in L^f \implies \lim_{r\to \infty} \prime\int_{B_r(x)} f= f(x)$
+    $$x \in L^1_{loc}(\mathbb{R}^n)) \implies \lim_{r\to 0^+} A_rf(x)= f(x) \;\; a.e.$$
 \end{corollary}
+\begin{proof}
+    If $x \in L_f$ then \[
+  \big |\avint_{B(x,r)}  \big(f(y)- f(x) \big)\; dy \big| \leq  \avint_{B(x,r)} |(f(y) - f(x)| \; dy \overset{r\to 0}{\longrightarrow} 0
+    \]
+\end{proof}
+\begin{remark}
+    Locally integrable 函数, 几乎每一点附近的函数均值都等于这一点上的值. 
+\end{remark}
+
 
 
 

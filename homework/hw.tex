@@ -2929,6 +2929,9 @@ m(\{x\in \mathbb{R}^n\mid Hf(x)\ge \alpha\}) \le \frac{C_n}{\alpha} \int_{\mathb
 (Remark: We had $Hf(x)> \alpha$ for the HL maximal inequality. Here we have $Hf(x)\ge \alpha$.) 
 
 
+
+
+
 \section{Density at a point}
   For a Lebesgue measurable subset $E$ of $\mathbb{R}^n$, the \emph{density of $E$ at $x$} is defined as 
   \[
@@ -2947,31 +2950,167 @@ m(\{x\in \mathbb{R}^n\mid Hf(x)\ge \alpha\}) \le \frac{C_n}{\alpha} \int_{\mathb
 
 \section{An identity}
   Prove that $\int_0^\infty e^{-2sx}\frac{\sin^2x}{x}\;d x=\frac14\log(1+s^{-2})$ for $s>0$ by integrating the function $e^{-2sx}\sin(2xy)$ with respect to $x$ and $y$ over suitable regions.
+\begin{proof}
+For fixed $x> 0$, by FTC we have:   \[\sin^2 (x)  = \int_0^x \sin(2t)\,dt\]
+We do change of variable \(t = xy\). This is a valid diffeomorphism mapping $y\in (0,1)$ to $t \in (0,x)$.\\
+Then by change of variable theorem we have: \[\int_{(0,x)} \sin(2t)\,dt = \int_{(0,1)}  x\sin(2xy)\,dy\]Thus \[
+\frac{\sin^2 x}{x} = 
+\int_0^1 \sin(2xy)\,dy
+\]
+Then we get: \[
+\int_0^\infty e^{-2sx}\frac{\sin^2x}{x}\;d x = \int_0^\infty e^{-2sx}\bigg[\int_0^1 \sin(2xy)\,dy\bigg]\;d x
+\]
+Consider the function \[
+f(x,y) := e^{-2sx}\sin(2xy),\quad (x,y) \in (0,\infty) \times (0,1)
+\]
+$f$ is a composition of continuous functions, thus continuous. Note that it is also in $L^1( (0,\infty) \times (0,1))$ since $|f(x,y)|$ is bounded by $g (x,y):= e^{-2sx}$, which is $L^1$ on the same domain (its integral is $\frac{1}{2s}$), then by DCT, $f \in L^1( (0,\infty) \times (0,1))$.\\
+Thus we can apply Fubini's theorem to switch the order of integration: \begin{align}
+    \int_0^\infty e^{-2sx}\bigg[\int_0^1 \sin(2xy)\,dy\bigg]\;d x &= \int_{(0,\infty) \times (0,1)} e^{-2sx}\,\sin(2xy)\,d (x\times y) \\
+    &= \int_0^1 
+\Bigl(\int_0^\infty e^{-2 s x} \sin(2xy)\,dx\Bigr)dy
+\end{align}
+Recall back in Calculus we use integration by part to get: \[
+\int_0^\infty e^{-a x}\,\sin(b x)\,dx= 
+\frac{b}{a^2 + b^2}
+\]
+for \(a>0\).  In our case, \(a = 2s\) and \(b = 2y\).
+Thus \[
+\int_0^\infty e^{-2 s x}\,\sin(2xy)\,dx =
+\frac{2y}{(2s)^2 + (2y)^2} = 
+\frac{y}{2\,(s^2 + y^2)}
+\]
+Therefore we here get \begin{align}
+    \int_0^\infty e^{-2sx}\frac{\sin^2x}{x}\;d x  & =\int_0^1 
+\Bigl(\int_0^\infty e^{-2 s x} \sin(2xy)\,dx\Bigr)dy\\
+    &= \int_0^1 \frac{y}{2\,(s^2 + y^2)} \, dy \\
+    & = \frac{1}{2 } \int_0^1 \frac{y}{s^2 + y^2} \, dy 
+\end{align}
+By Calculus we have (by chain rule): \[
+\int_0^1 \frac{y}{s^2 + y^2}\,dy  =     \bigg[   \frac{1}{2}\log \bigl(s^2 + y^2\bigr)\bigg]_0^1  = \frac{1}{2}
+\log\Bigl(\frac{s^2 + 1}{s^2}\Bigr) = 
+\frac{1}{2}\log \bigl(1 + \tfrac1{s^2}\bigr)
+\]
+Thus we conclude: 
+\begin{align}
+    \int_0^\infty e^{-2sx}\frac{\sin^2x}{x}\;d x  &= \frac{1}{2 } \int_0^1 \frac{y}{s^2 + y^2} \, dy\\ &= \frac{1}{2} \cdot \frac{1}{2}\log \bigl(1 + \tfrac1{s^2}\bigr) \\
+    &= \frac{1}{4}\log \bigl(1 + \tfrac1{s^2}\bigr)
+\end{align}
+as desired. 
+\end{proof}
+
 
 
 \section{Diagonals}
   \begin{itemize}
-  \item[(a)]
-    Prove that if $E\in\mathcal{A}\otimes\mathcal{A}$, then 
-    \[
+  \item[(a)]Prove that if $E\in\mathcal{A}\otimes\mathcal{A}$, then  \[
       \{ x\in X: (x,x)\in E\} \in \mathcal{A}
     \]
-  \item[(b)]
-    Using this fact, find an example of a subset $E\subset \mathbb{R}\times \mathbb{R}$ such that $E_x\in \mathcal{L}(\mathbb{R})$ for all $x\in \mathbb{R}$ and $E^y\in \mathcal{L}(\mathbb{R})$ for all $y\in \mathbb{R}$, but $E\notin \mathcal{L}(\mathbb{R})\otimes  \mathcal{L}(\mathbb{R})$.
+  \item[(b)]Using this fact, find an example of a subset $E\subset \mathbb{R}\times \mathbb{R}$ such that $E_x\in \mathcal{L}(\mathbb{R})$ for all $x\in \mathbb{R}$ and $E^y\in \mathcal{L}(\mathbb{R})$ for all $y\in \mathbb{R}$, but $E\notin \mathcal{L}(\mathbb{R})\otimes  \mathcal{L}(\mathbb{R})$.
     \textit{Hint}: ask Vitali.
   \end{itemize}
 
+\begin{proof}
+    \textbf{of (a):}\\
+We consider the map: \begin{align}
+    \phi: X &\to X \times X  \\
+     x & \mapsto (x,x)
+\end{align}
+Then it suffices to show that $\phi$ is $(\mathcal{A},\mathcal{A}\otimes \mathcal{A})$-measurable. Since if so, then for each $E\in\mathcal{A}\otimes\mathcal{A}$, $\phi^{-1}(E)  =  \{x\in X : (x,x)\in E\}\in \mathcal{A}$, which is exactly what we want.\\
+Let $A \times B \in  \mathcal{A}\otimes \mathcal{A} $ be a measurable rectangle, we discover that:
+$$\phi^{-1}(A \times B)  =  \{x\in X : x \in A , x \in B\} = A \cap B \in \mathcal{A}$$
+\pic[0.35]{hw7.assets/image-20250314181717946.png}
+We first prove a lemma:
+\begin{lemma}
+    Suppose $f: X\to Y\times Z$ is a function from a measurable space $(X,\mathcal{A})$ to a product measure space $(Y\times Z, \mathcal{B}_1 \otimes \mathcal{B}_2)$.\\
+  Claim: If $f^{-1}(B\times C)\in\mathcal{A}$ for each measurable rectangle $B_1 \times B_2 \in \mathcal{B}_1 \otimes \mathcal{B}_2$, then $f$ is an $(\mathcal{A}, \mathcal{B}_1 \otimes \mathcal{B}_2)$-measurable function.
+\end{lemma}
+\begin{proof}
+    \textbf{of Lemma:}\\
+     Since $f^{-1}(B\times C) \in \mathcal{A}$ for each measurable rectangle $B_1 \times B_2 \in \mathcal{B}_1 \otimes \mathcal{B}_2$, the preimage of any countable disjoint unions of measurable rectangles, is also in $\mathcal{A}$, since $\mathcal{A}$ is an $\sigma$-algebra.\\
+     We want to show: $f^{-1}(E) \in\mathcal{A}$ for any $E \in  \mathcal{B}_1 \otimes \mathcal{B}_2$. It is equivalent to show that \[
+\mathcal{B}_1 \otimes \mathcal{B}_2 \subset   \mathcal{C} : = \{ E \in Y\times Z  : \phi^{-1} (E) \in \mathcal{A}        \}
+\]
+Note that, it suffices to show that: $\mathcal{C}$ is an $\sigma$-algebra. This is because we have shown $$\{\text{all disjoint unions of measurable rectangles in }   Y\times Z\} \subset \mathcal{C}$$, and this is an algebra generating $\mathcal{B}_1 \otimes \mathcal{B}_2$. Thus, if $\mathcal{C}$ is an $\sigma$-algebra, we must have \(
+   \mathcal{B}_1 \otimes \mathcal{B}_2 \subset \mathcal{C}
+   \). \\
+   And since $\{\text{all disjoint unions of measurable rectangles in }   Y\times Z\}$ is an algebra, it suffices to show that $\mathcal{C}$ is a monotone class, by the monotone class lemma.\\
+   
+Suppose \(E_1 \subseteq E_2 \subseteq \cdots\) with each \(E_n \in \mathcal{C}\), i.e. $\phi^{-1}(E_n) \in \mathcal{A}$.
+Since \(\{E_n\}\) is increasing, we hve
+\[
+  \phi^{-1}(E_1) \;\subseteq\; \phi^{-1}(E_2) \;\subseteq\; \cdots \;\subseteq\; \phi^{-1}(E_n) \;\subseteq\; \cdots
+\]
+Since \(\mathcal{A}\) is an \(\sigma\)-algebra, we have \[
+  \phi^{-1}\Bigl(\bigcup_{n=1}^\infty E_n\Bigr) = 
+  \bigcup_{n=1}^\infty \phi^{-1}(E_n) \in\mathcal{A}
+\]Thus \[
+   \bigcup_{n=1}^\infty E_n \;\in\; \mathcal{C}
+\]
+This is dually true for decreasing intersection, \textbf{finishing the proof that $\mathcal{C}$ is a monotone class thus $\sigma$-algebra,} \textbf{thus proving the lemma.}\\
+\end{proof}
+After we proved the Lemma, we return to the original statement, concluding that $\phi$ is $(\mathcal{A},\mathcal{A}\otimes \mathcal{A})$-measurable, thus finishing the proof: if $E\in\mathcal{A}\otimes\mathcal{A}$, then  \[
+      \{ x\in X: (x,x)\in E\} \in \mathcal{A}
+    \]
+\end{proof}
+
+
+
+\begin{solution}
+    \textbf{of (b):}\\
+\end{solution}
+
+
+
 \section{Too dense}
-  Prove that if $E\subset \mathcal{L}(\mathbb{R})$ is a Lebesgue measurable subset such that 
-  \[
+  Prove that if $E\subset \mathcal{L}(\mathbb{R})$ is a Lebesgue measurable subset such that  \[
     m(E\cap I)\le 0.123m(I) 
   \]
   for all open intervals $I\subset  \mathcal{L}(\mathbb{R})$, then $m(E)=0$. 
+\begin{proof}
+    Since $E$ is Lebesgue measurable, $m(E) = m^*(E)$.\\
+    Let $\epsilon > 0$.\\
+    Then by definition of outer mesure, we can pick open intervals seq $\{I_k\}_{k=1}^\infty$ covering $E$ s.t. \[
+   m(E) >  \sum_{k=1}^\infty m(I_k )    -\epsilon
+    \] Since $E \subset \bigcup_k I_k$, we have  \begin{align}
+        E & = (\bigcup_k I_k)  \cap E \\
+        & = \bigcup_k (I_k \cap E)\\
+    \end{align}
+    Thus \begin{align}
+        m(E) = m(\bigcup_k (I_k \cap E)) &\leq \sum_k m(I_k \cap E)\quad\text{by ctbl subadditivity }\\
+        &\leq 0.123 \sum_k \,m(I_k)  \quad \text{by our requirement}
+    \end{align}
+    Thus we have: 
+    \begin{align}
+            \sum_k  m(I_k )    -\epsilon &<  0.123 \sum_k m(I_k)\\
+            0.877 \sum_k m(I_k) &< \epsilon\\
+            \sum_k m(I_k) &< \frac{\epsilon}{0.877}
+    \end{align}
+  Thus   \[
+  m(E) \leq   \sum_k  m(I_k )   <  \frac{\epsilon}{0.877}
+    \]
+    Since $\epsilon > 0$ is arbitrary, this proves that \[
+    m(E)  = 0
+    \]
+\end{proof}
+
+
+
 
 \section{Prescribing a Lebesgue density}
   Let $0<\alpha <1$.
     Find an example of a Lebesgue measurable subset $E$ of $[0,\infty)\subset  \mathcal{L}(\mathbb{R})$ whose density at $0$ is $\alpha/2$. 
     \textit{Hint}: Consider $E=\bigcup_{n=1}^\infty I_n$. where $I_n=(x_n,x_n+\delta_n)$ are disjoint small intervals accumulating at $0$.
+\begin{proof}
+    Consider \[
+E := \bigcup_{n=1}^{\infty}
+\bigr( \frac{1}{2^{n+1}},
+ \frac{1+\alpha}{2^{n+1}}\bigr)
+\]
+
+\end{proof}
+
+
+
 
 \section{Sequences of complex numbers}
   \begin{itemize}
@@ -2981,10 +3120,82 @@ m(\{x\in \mathbb{R}^n\mid Hf(x)\ge \alpha\}) \le \frac{C_n}{\alpha} \int_{\mathb
     Prove that $\bigcup_{1<p<\infty}\ell^p\subsetneq\ell^\infty$.
   \end{itemize}
     
+\begin{proof}
+    \textbf{of (a):}\\
+We first want to show: for any \(1 < p < \infty\), we have: \[
+\ell^1 \subseteq \ell^p
+\]
+Fix $p>1$.\\
+Let \((x_n) \in \ell^1\). By definition, 
+\[
+  \sum_{n=1}^{\infty} |x_n| < \infty
+\]
+We need to show that \(\sum_{n=1}^\infty |x_n|^p < \infty\).\\
+\textbf{Claim: There are at most finitely many $n\in \mathbb{N}$ s.t. $|x_n| \geq 1$}.\\
+Proof of Claim: Suppose for contradiction that there are inifinitely many $n\in \mathbb{N}$ s.t. $|x_n| \geq 1$, say, all terms in the subseqence $\{x_{n_j}\}_{j=1}^\infty$ has $|x_{n_j}|\geq 1$. Then \[
+\sum_{n=1}^{\infty} |x_n| \geq \sum_{j=1}^{\infty} |x_{n_j}|\geq \sum_{j=1}^{\infty} 1 = \infty
+\]which contradicts with \((x_n) \in \ell^1\).\\
+Thus, suppose only on the finite terms $\{x_{n_j}\}_{j=1}^N$ we have $|x_{n_j}|\geq 1$ (WLOG $N\geq 1$). Then
+\[
+\sum_{n=1}^{\infty} |x_n| =\sum_{j=1}^{N} |x_{n_j}| + \sum_{n \not = n_j \text{ for any }j} |x_n|
+\]
+Since for $n$ s.t. n $\not = n_j \text{ for any subseq index }j$, we have $|x_n| <1$, for these indexes we have: \[
+|x_n|^p < |x_n| \quad \text{for any } p >1
+\] Thus we have \[
+\sum_{n \not = n_j \text{ for any }j} |x_n|^p  < \sum_{n \not = n_j \text{ for any }j} |x_n| < \infty
+\]
+And also, \[
+\sum_{j=1}^{N} |x_{n_j}|^p < \infty \quad \text{ since only have finite terms}
+\]
+Thus \[
+\sum_{n=1}^{\infty} |x_n|^p =\sum_{j=1}^{N} |x_{n_j}|^p + \sum_{n \not = n_j \text{ for any }j} |x_n|^p < \infty
+\]
+Thus \[
+\ell^1 \subseteq \ell^p
+\]
+Since $p>1$ is arbitrary, this proves that
+\[
+   \ell^1 \subseteq \bigcap_{1<p<\infty}\ell^p
+\]
+To show the strictness of the inclusion, we consider the \textbf{harmonic series} \(\sum_{n=1}^\infty \frac{1}{n}\). We know that it diverges and for any \(p>1\), the \textbf{\(p\)-series} \(\sum_{n=1}^\infty \frac{1}{n^p}\) (absolutely for sure) converges, thus  \(\bigl(\tfrac{1}{n}\bigr) \notin \ell^1\) but \(\bigl(\tfrac{1}{n}\bigr) \in \ell^p\) for every \(p>1\), showing that \[
+   \ell^1 \not= \bigcap_{1<p<\infty}\ell^p
+\]This finishes the proof that 
+\[
+   \ell^1 \subsetneq \bigcap_{1<p<\infty}\ell^p
+\]
+\end{proof}
 
 
-
-
+    
+\begin{proof}
+    \textbf{of (b):}\\
+Fix $p>1$.\\
+Suppose sequence \(( x_n) \) belongs \(\ell^p\), then \[
+\sum_{n=1}^{\infty} |x_n|^p < \infty
+\]
+This implies that \( x_n \to 0 \) as \( n \to \infty \), because if it did not, there would be infinitely many terms where \( |x_n| \) is bounded away from zero, leading to divergence of the sum.\\
+Suppose for contradiction that \[
+\sup_{n} |x_n| = \infty
+\]Then there are infinitely many terms $n$ s.t. $|x_n| > 1$, since otherwise, exists some $N$ s.t. all $|x_n| \leq 1$ for $n\geq N$, then $\sup |x_n|\leq \max(1, \max_{1\leq n \leq N-1} |x_n| )< \infty$.\\
+Suppose for the subseq $\{x_{n_j}\}_{j=1}^\infty$ we have $|x_{n_j}| > 1$. Thus \[
+\sum_{n=1}^{\infty} |x_n|^p  \geq \sum_{j=1}^{\infty} |x_{n_j}|^p > \sum_{j=1}^{\infty} 1^p = \infty
+\]which contradicts with \(\sum_{n=1}^{\infty} |x_n|^p < \infty\). Therefore we have: \[
+\sup_{n} |x_n| < \infty
+\]
+This shows that \[
+\ell^p \subseteq \ell^\infty
+\] Since $p>1$ is arbitrary, this proves that \[
+\bigcup_{1<p<\infty} \ell^p \subseteq \ell^\infty
+\]Now we show the inclusion is strict. Consider the sequence \( x_n = 1 \) for all \( n \). Clearly, \(( x_n)\in \ell^\infty \) because it is bounded. However, \( x_n \notin \ell^p \) for any \( p > 1 \):
+\[
+\sum_{n=1}^{\infty} |1|^p = \sum_{n=1}^{\infty} 1 = \infty
+\]
+This shows \[
+\bigcup_{1<p<\infty} \ell^p \not =  \ell^\infty
+\]Thus we have \[
+\bigcup_{1<p<\infty} \ell^p \subsetneq \ell^\infty
+\]
+\end{proof}
 
 
 
