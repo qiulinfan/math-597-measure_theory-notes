@@ -3063,6 +3063,27 @@ Take a Vitali set $V \subset \mathbb{R}$, and consider:
          \;\cup\;
          \{(x,x) : x \in V\}.
 \]
+\pic[0.3]{hw7.assets/image-20250314185531013.png}
+Then for any fixed $x \in \mathbb{R}$, we have: \[
+  E_x  = \bigl\{y : (x,y)\in E\bigr\} = 
+    \begin{cases}
+      \mathbb{R}, & x \in V \\
+      \mathbb{R}\setminus\{x\}, & x \notin V
+    \end{cases}
+\]
+And for any fixed $y \in \mathbb{R}$, we have: \[
+  E^y =  \bigl\{x : (x,y)\in E\bigr\} = 
+    \begin{cases}
+      \mathbb{R}, & y \in V \\
+      \mathbb{R}\setminus\{y\}, & y \notin V
+    \end{cases}
+\]Thus $E_x\in \mathcal{L}(\mathbb{R})$ for all $x\in \mathbb{R}$ and $E^y\in \mathcal{L}(\mathbb{R})$ for all $y\in \mathbb{R}$.\\
+However, we have $E\notin \mathcal{L}(\mathbb{R})\otimes  \mathcal{L}(\mathbb{R})$, since by (a) we have proved that if $E\in \mathcal{L}(\mathbb{R})\otimes  \mathcal{L}(\mathbb{R})$, then \[
+  V =     \{ x\in \mathbb{R}: (x,x)\in E\} \in \mathcal{L}(\mathbb{R})
+    \]
+But it contradicts with the fact that $V$ is not Lebesgue measurable.\\
+Thus $E$ satisfies our requirements.\\
+(This happends since, as shown in class, the product measure space of two complete measure space is not necesarily complete. Here, the diagonal is a null set in $\mathbb{R}^2$ and thus our Vitali portion is a subnull set, but $\mathcal{L}(\mathbb{R})\otimes \mathcal{L}(\mathbb{R})$ is not complete (its completion is $\mathcal{L}(\mathbb{R}^2)$.)
 \end{solution}
 
 
@@ -3107,12 +3128,64 @@ Take a Vitali set $V \subset \mathbb{R}$, and consider:
     Find an example of a Lebesgue measurable subset $E$ of $[0,\infty)\subset  \mathcal{L}(\mathbb{R})$ whose density at $0$ is $\alpha/2$. 
     \textit{Hint}: Consider $E=\bigcup_{n=1}^\infty I_n$. where $I_n=(x_n,x_n+\delta_n)$ are disjoint small intervals accumulating at $0$.
 \begin{proof}
-    Consider \[
+Consider take \[
 E := \bigcup_{n=1}^{\infty}
-\bigr( \frac{1}{2^{n+1}},
- \frac{1+\alpha}{2^{n+1}}\bigr)
+\bigr( \frac{1}{n},
+ \frac{1}{n}+ \frac{\alpha}{n(n-1)}\bigr)
+\] as the union of a countable sequence of intervals drawing near $0$. \\
+Notice: There intervals are \textbf{mutually disjoint}, since \[
+\frac{1}{n-1} - \frac{1}{n}  =\frac{1}{n(n-1)}  > \frac{\alpha}{n(n-1)} 
+\]
+we thus have for $n \geq 2$, \[
+\frac{1}{n} +
+ \frac{\alpha}{n(n-1)} < \frac{1}{n-1}
+\]
+We use $I_n := \bigl(x_{n},\,x_{n} + \delta_{n}\bigr)$ to denote each component interval, and $\delta_n := \frac{\alpha}{n(n-1)}$ to denote the length of each interval. \\
+Let $r>0$ (WLOG $r<1$), then we have  \[
+     \frac{1}{n+1} < r \;\le\; \frac{1}{n} \quad \text{ for some } n \in \mathbb{N}
+   \]
+Then for every \(k \ge n+2\), we have \(\frac{1}{k} < \frac{1}{n+1} < r\). Hence $I_k$ is \textbf{entirely contained} in \((0,r)\). \\
+   Conversely, for \(k \le n+1\), we have \(\frac{1}{k} \ge \frac{1}{n+1}\), so \(I_k\) does not lie entirely to the left of \(r\). Therefore: \[
+     E \cap (0,r)  = \bigcup_{k=n+2}^\infty I_k   \subseteq (0,r) \]  The measure of the portion of \(E\) in \((0,r)\) is then \[
+     \lambda\bigl(E \cap (0,r)\bigr) = 
+     \sum_{k = n+2}^\infty \delta_k = 
+     \sum_{k = n+2}^\infty \frac{\alpha}{k(k-1)}
+   \]
+   We know that by telescoping,    \[
+     \sum_{k = n+2}^\infty \frac{1}{k(k-1)} =
+     \left(\frac{1}{n+1} - \frac{1}{n+2}\right)
+     + \left(\frac{1}{n+2} - \frac{1}{n+3}\right)
+     + \cdots = 
+     \frac{1}{n+1}
+   \]
+   Multiplying this by \(\tfrac{\alpha}{2}\) gives: \[
+     \sum_{k = n+2}^\infty \frac{\alpha}{k(k-1)} = 
+     \frac{\alpha}{(n+1)}
+   \]
+Therefore \[
+  m\bigl(E \cap (-r,r)\bigr) \geq   \frac{\alpha}{(n+1)}
 \]
 
+
+
+
+
+
+
+
+Therefore  \[
+    m\bigl(E \cap (-r,r)\bigr) = 
+     \frac{\alpha}{(n+1)}
+     \quad\text{whenever}\quad
+     \frac{1}{n+1} < r \le \frac{1}{n}
+   \]
+Since \(n\) can be taken arbitrarily large as \(r \to 0^+\), we conclude \[
+     \lim_{r\to 0^+}  \frac{m\bigl(E \cap (-r,r)\bigr)}{m((-r,r))} =    
+     \lim_{r\to 0^+} 
+     \frac{m\bigl(E \cap (-r,r)\bigr)}{2r} = 
+     \frac{\alpha}{2}
+   \]
+Hence, \(E\) indeed has Lebesgue density \(\alpha/2\) at \(0\).
 \end{proof}
 
 
