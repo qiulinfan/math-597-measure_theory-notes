@@ -3148,51 +3148,43 @@ Now we show that this set has Lebesgue density $\frac{\alpha}{2}$ at $0$ below.\
 Let $r>0$ (WLOG $r<1$), then we have  \[
      \frac{1}{n+1} < r \;\le\; \frac{1}{n} \quad \text{ for some } n \in \mathbb{N}
    \]
-Then for each \(k \ge n+2\), we have \(\frac{1}{k} < \frac{1}{n+1} < r\). Hence $I_k$ is \textbf{entirely contained} in \((0,r)\). \\
-And for each $k \leq n$, $I_k$ is entirely not contained in $(0,r)$ except possibly one point $\frac{1}{n}$, which can be neglected, and it is on the right of $r$.\\
-Thus we only need to consider about the 
-
- Conversely, for \(k \le n+1\), we have \(\frac{1}{k} \ge \frac{1}{n+1}\), so \(I_k\) does not lie entirely to the left of \(r\). Therefore: \[
-     E \cap (0,r)  = \bigcup_{k=n+2}^\infty I_k   \subseteq (0,r) \]  The measure of the portion of \(E\) in \((0,r)\) is then \[
-    m\bigl(E \cap (0,r)\bigr) = 
-     \sum_{k = n+2}^\infty \delta_k = 
-     \sum_{k = n+2}^\infty \frac{\alpha}{k(k-1)}
-   \]
-   We know that by telescoping,    \[
+Then for each \(k \ge n+2\), we have \(\frac{1}{k} < \frac{1}{n+1} < r\). Hence $I_k$ is \textbf{entirely contained} in \((0,r)\):
+\[ \bigcup_{k=n+2}^\infty I_k   \subseteq E \cap (-r,r) \]
+We know that by telescoping,    \[
      \sum_{k = n+2}^\infty \frac{1}{k(k-1)} =
      \left(\frac{1}{n+1} - \frac{1}{n+2}\right)
      + \left(\frac{1}{n+2} - \frac{1}{n+3}\right)
      + \cdots = 
      \frac{1}{n+1}
    \]
-   Multiplying this by \(\tfrac{\alpha}{2}\) gives: \[
+Multiplying this by \(\tfrac{\alpha}{2}\) gives: \[
      \sum_{k = n+2}^\infty \frac{\alpha}{k(k-1)} = 
-     \frac{\alpha}{(n+1)}
+     \frac{\alpha}{n+1}
    \]
-Therefore \[
-  m\bigl(E \cap (-r,r)\bigr) \geq   \frac{\alpha}{(n+1)}
+Thus by monotonicity of measure: \[
+  m\bigl(E \cap (-r,r)\bigr) \geq   \frac{\alpha}{n+1}
 \]
-
-
-
-
-
-
-
-
-Therefore  \[
-    m\bigl(E \cap (-r,r)\bigr) = 
-     \frac{\alpha}{(n+1)}
-     \quad\text{whenever}\quad
-     \frac{1}{n+1} < r \le \frac{1}{n}
-   \]
-Since \(n\) can be taken arbitrarily large as \(r \to 0^+\), we conclude \[
-     \lim_{r\to 0^+}  \frac{m\bigl(E \cap (-r,r)\bigr)}{m((-r,r))} =    
-     \lim_{r\to 0^+} 
-     \frac{m\bigl(E \cap (-r,r)\bigr)}{2r} = 
+And for each $k \leq n$, $I_k$ exceeds $(0,r)$ on the right, thus we get dually: \[
+  m\bigl(E \cap (-r,r)\bigr) \leq   \frac{\alpha}{n-1}
+\] And we have: \[
+\frac{2}{n+1} \leq m(-r,r) \leq \frac{2}{n}
+\]since $\frac{1}{n+1}\leq r \leq \frac{1}{n}$.\\
+Therefore we get: \[
+   \frac{\frac{\alpha}{n+1}}{\frac{2}{n}}\leq   \frac{m\bigl(E \cap (-r,r)\bigr)}{m((-r,r))} \leq  \frac{\frac{\alpha}{n-1}}{\frac{2}{n+1}}
+\]
+Further simplify: \[
+  \frac{n}{n+1}\cdot  \frac{\alpha}{2} \leq   \frac{m\bigl(E \cap (-r,r)\bigr)}{m((-r,r))} \leq    \frac{n+1}{n-1}\cdot  \frac{\alpha}{2}
+\]
+As $r\to 0^+$, we must have $n\to \infty$, and we know \[
+\lim_{n\to \infty} \frac{n}{n+1} \cdot  \frac{\alpha}{2} = \lim_{n\to \infty} \frac{n+1}{n-1} \cdot  \frac{\alpha}{2}= \frac{\alpha}{2}
+\]
+Thus by \textbf{Squeeze Theorem}, we have: \[
+     \lim_{r\to 0^+}  \frac{m\bigl(E \cap (-r,r)\bigr)}{m((-r,r))}= 
      \frac{\alpha}{2}
    \]
-Hence, \(E\) indeed has Lebesgue density \(\alpha/2\) at \(0\).
+Hence by def, \(E\) indeed has Lebesgue density \(\alpha/2\) at \(0\).\\
+(My note: The key point here is that, the harmonic seq shrinks very slowly in proportion as $n$ grows, $J_n$ almost have same length as $J_{n+1}$ for large $n$, thus $m(J_n) / m(\cup_{k> N}J_k) = 0$ as we knows, so that whether $r$ lies in $I_n$ or $J_n \setminus I_n$ does not quite matter. \\
+On the other hand, the counterexample in class, using the geometric sequence as build block of $J_n$, fails since the length of $J_n$ is too much compared to $\cup_{k\geq n} J_k$, actually $m(J_n) = m(\cup_{k> n} J_k)$, thus whether $r$ lies in $I_n $ or $J_n \setminus I_n$ makes a lot difference, making the density at $0$ undefined.)
 \end{proof}
 
 
