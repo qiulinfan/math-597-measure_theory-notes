@@ -3140,14 +3140,21 @@ we thus have for $n \geq 2$, \[
 \frac{1}{n} +
  \frac{\alpha}{n(n-1)} < \frac{1}{n-1}
 \]
-We use $I_n := \bigl(x_{n},\,x_{n} + \delta_{n}\bigr)$ to denote each component interval, and $\delta_n := \frac{\alpha}{n(n-1)}$ to denote the length of each interval. \\
+We use $x_n: = \frac{1}{n}$; $I_n := \bigl(x_{n},\,x_{n} + \delta_{n}\bigr)$ to denote each component interval; $J_n: = (x_n, x_{n-1})$ to denote the open interval where $I_n $ is located at; and $\delta_n := \frac{\alpha}{n(n-1)}$ to denote the length of each interval. Note that for each $n$, \[
+\delta_n = \alpha (\frac{1}{n-1} - \frac{1}{n})  = \alpha(x_{n-1} - x_n)  = \alpha J_n
+\]
+\pic[0.4]{hw7.assets/image-20250314233130795.png}
+Now we show that this set has Lebesgue density $\frac{\alpha}{2}$ at $0$ below.\\
 Let $r>0$ (WLOG $r<1$), then we have  \[
      \frac{1}{n+1} < r \;\le\; \frac{1}{n} \quad \text{ for some } n \in \mathbb{N}
    \]
-Then for every \(k \ge n+2\), we have \(\frac{1}{k} < \frac{1}{n+1} < r\). Hence $I_k$ is \textbf{entirely contained} in \((0,r)\). \\
-   Conversely, for \(k \le n+1\), we have \(\frac{1}{k} \ge \frac{1}{n+1}\), so \(I_k\) does not lie entirely to the left of \(r\). Therefore: \[
+Then for each \(k \ge n+2\), we have \(\frac{1}{k} < \frac{1}{n+1} < r\). Hence $I_k$ is \textbf{entirely contained} in \((0,r)\). \\
+And for each $k \leq n$, $I_k$ is entirely not contained in $(0,r)$ except possibly one point $\frac{1}{n}$, which can be neglected, and it is on the right of $r$.\\
+Thus we only need to consider about the 
+
+ Conversely, for \(k \le n+1\), we have \(\frac{1}{k} \ge \frac{1}{n+1}\), so \(I_k\) does not lie entirely to the left of \(r\). Therefore: \[
      E \cap (0,r)  = \bigcup_{k=n+2}^\infty I_k   \subseteq (0,r) \]  The measure of the portion of \(E\) in \((0,r)\) is then \[
-     \lambda\bigl(E \cap (0,r)\bigr) = 
+    m\bigl(E \cap (0,r)\bigr) = 
      \sum_{k = n+2}^\infty \delta_k = 
      \sum_{k = n+2}^\infty \frac{\alpha}{k(k-1)}
    \]
