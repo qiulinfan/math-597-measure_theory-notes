@@ -2320,6 +2320,8 @@ To prove this: 见 395.
 \]
 但是我们不清楚 $L^1$-convergence 和它们之间的关系.\\
 我们看以下的 examples: 
+
+\subsection{examples showing a.e. ptwise conv 和 $L^1$ conv 不能互推 }
 \begin{example}
     on $(\mathbb{R}, \mathfrak{L}, m)$, 以下 $(f_n)$:
     \begin{itemize}
@@ -2332,22 +2334,20 @@ To prove this: 见 395.
         \item \textbf{escape to height}: $$f_n = n \chi_{[0,\frac{1}{n})}$$
         $f_n \rightarrow 0$ \textbf{a.e., 但是并不 ptwisely,} 当然也并不 uniformly, 并且$\not\rightarrow 0$ in $L^1$
         
-        \item \textbf{typewriter}: 我们把区间$[0,1]$划分成$n$个等长子区间, 每个子区间的长度为$\frac{1}{n}$, 令$f_n(x)$在这些子区间上交替取$1$或$0$：    
+        \item \textbf{typewriter}: 我们把区间$[0,1]$划分成$2^k$个等长子区间, 对于 $1\leq n \leq 2^k$ 令 $f_{k,n}(x)$  交替取 1, 其他取 0. 
 \[
-   f_n(x) = 
-   \begin{cases}
-   1, & x \in \left[ \frac{k}{n}, \frac{k+1}{n} \right) \text{ for some even } k, \\
-   0, & \text{otherwise}.
-   \end{cases}
-   \]
-再取: \[
-   g_n(x) = f_n(x) / n
-   \]
-有  \[
-   \| g_n \|_1 = \int_0^1 g_n(x) dx = \frac{1}{2n} \to 0
-   \] 因而 $g_n \rightarrow 0$ in $L^1$, 但是 $\forall x\in[0,1]$, $g_n(x)\not\rightarrow 0$ ptwisely. (也不 a.e.)
+f_{n,k}(x) = \begin{cases}
+1, & x \in \left[\frac{n-1}{2^k}, \frac{n}{2^k}\right] \\
+0, & \text{otherwise}
+\end{cases}
+\]
+即, for given $k$, \( f_n \) is the indicator function of the \( n \)-th dyadic interval. \[
+   \| f_{n,k} \|_1  = \frac{1}{2^k} \to 0
+   \] 因而 $ f_{n,k} \rightarrow 0$ in $L^1$, 但是 $\forall x\in[0,1]$, $ f_{n,k}(x)\not\rightarrow 0$ ptwisely. (也不 a.e.)
+(这个例子, 在推广至 $L^p$ 空间的时候, 也有 $ \| f_{n,k} \|_p \rightarrow 0$, 也可以说明 \textbf{$L^p$ convergence 并不能推导 a.e. convergence, 除了 $L^\infty$ 的例外}.)
     \end{itemize}
 \end{example}
+
 在这些例子中, 我们发现, $L^1$-convergence 和 uniform, ptwise, a.e. 这三个 modes of covergence 都互不推导. 对于 uniform convergence 和 ptwise convergence, 这是很合理的, 因为可以函数越来越宽和扁使得积分不变但是却 uni conv; 也可以函数积分收敛但是在一个零测集上反复跳跃.\\
 
 并且我们进一步发现, 就算是 a.e. 收敛, 也和 $L^1$ 收敛没有互推关系. 比如 ex (3), 这个函数只在 $0$ 处不收敛至 0, 但是整体的积分却是 const 1. \\
@@ -2356,7 +2356,7 @@ To prove this: 见 395.
 关于 $L^1$-convergence 和 uniform, ptwise, a.e. convergence 的关系我们已经讨论完了. \\
 接下来我们将关于 $L^1$-convergence 这一条线, 引入一些新的 convergence modes, 在更大的 convergence family 中讨论这些 convergence 的关系. 
 
-\section{3 new modes of convergence w.r.t. measure}
+\section{3 new modes of convergence: fast $L^1$-conv, conv measure and subseq a.e. conv}
 \begin{definition}{fast $L^1$-convergence, convergence in measure, subseq a.e. convergence}
 
 对于  $f_n,f:X \rightarrow \mathbb{C}$, 我们定义以下三种 convergence:
@@ -2452,12 +2452,14 @@ g \in L^1 \implies \mu(\{ |g| \geq c\}) \leq \frac{1}{c} \int |g|
 
 
 
-\section{a.e. and a.u. convergence, and Egoroff's Theorem}
+\section{a.u. conv.(并非 uni. conv. a.e.) 和 Egoroff's Theorem}
 \begin{definition}
     我们称 $f_n\rightarrow f$ almost uniformly (a.u.), 如果 $\forall \varepsilon > 0$, 都存在 $E \subseteq A$ s.t. $\mu(E) < \varepsilon$ 并且 $f_n \rightarrow f$ uniformly on $E^C$
 \end{definition}
 \begin{remark}
-    和 a.e. convergence 的定义不同, \textbf{a.u. convergence 并不能保证在一个零测集外都 uniform convergence, 但是它仍然 imply a.e. convergence.}
+    和 a.e. convergence 的定义不同, \textbf{a.u. convergence 并不能保证在一个零测集外都 uniform convergence, 但是它仍然 imply a.e. convergence.}\\
+    也有更强的一种 convergence: \textbf{uniform convergence a.e.}, 表示在一个零测集外都 uniform convergence, 其强度在 uni. conv. 和 a.u. conv. 中间. 但在这里, 对于我们即将介绍的 Egoroff's Theorem 而言不需要这么强的 convergence. \\
+    我们将在 $L^p$ space 的部分讨论 uniform convergence a.e. 这个 convergence mode, 并表示它等价于 $L^\infty$ convergence.
 \end{remark}
 
 
@@ -2534,6 +2536,18 @@ By inner regu: 存在 $K \subseteq [a,b] $ cpt s.t. $K \subseteq F^c$ 并且 $m(
 一条线是函数值方面的收敛, 一条线是测度和积分方面的收敛,  第一次交汇是 fast $L^1$ conv, 汇聚在 subseq a.e. conv. \\
 \textbf{subseq a.e. conv. 是最弱的 convergence, 这里所有的 convergence 都可以推到它.}\\
 这里可能还有其他的 convergence 关系. 但是我们不关心. 因为不太会用到它们的关系.
+\begin{remark}
+    那我们不禁想要问: 如果没有 fast $L^1$ convergence, 但是还是想 show $L^1$ convergence, 怎么办呢? 这个常用的 convergence 难道只能从定义来证明吗?\\
+有以下两个方法:
+\begin{itemize}
+    \item DCT. DCT 就是专门为了证明 $L^1$ convergence 定制的.\\
+    DCT 表明: \[
+  f_n\to f  \; \text{a.e.} + \text{ dominating function } \implies f_n \to f \; \text{in } L^1
+    \]
+    \item 如果作为底的 measure space 是 finite measure 的, 那么 uniform conv. a.e. (which is equiv to $L^\infty$ conv.) 可以推出 $L^1$ convergence. (以及任意的 $L^p$ convergence).
+
+\end{itemize}
+\end{remark}
 
 
 
@@ -2601,7 +2615,7 @@ $$A_1 \otimes \cdots \otimes A_n = <\{  E_1\times \cdots \times E_n \in \mathcal
     略.
 \end{proof}
 
-\section{product measure}
+\section{construction of product measure}
 下面我们构建 product measure: 
 Let $(X_i \,,\mathcal{A}_i\, , \mu_i)$, $1 \leq i \leq n$ be mble spaces.\\
     And let $X := X_1 \times ... \times X_n$, $\mathcal{A}:= \mathcal{A}_i \otimes \cdots \otimes \mathcal{A}_n$
@@ -2664,6 +2678,49 @@ Now use HK:
 \begin{proof}
     DIY. 前者 play with def, 后者直接由 $\sigma$-finite 的 premeasure 的 HK extension unique 得到. 
 \end{proof}
+
+
+\section{如何证明一个函数 product measurable}
+
+要证明一个函数是 product measurable 的, 只需要证明它对于每个  measurable rectangle 的 preimage 都是 measurable 的即可.
+\begin{lemma}
+    Suppose $f: X\to Y\times Z$ is a function from a measurable space $(X,\mathcal{A})$ to a product measure space $(Y\times Z, \mathcal{B}_1 \otimes \mathcal{B}_2)$.\\
+  Claim: If $f^{-1}(B_1 \times B_2)\in\mathcal{A}$ for each measurable rectangle $B_1 \times B_2 \in \mathcal{B}_1 \otimes \mathcal{B}_2$, then $f$ is an $(\mathcal{A}, \mathcal{B}_1 \otimes \mathcal{B}_2)$-measurable function.
+\end{lemma}
+\begin{proof}
+    因为 product $\sigma$-algebra 由所有的 measurable rectangles 生成. \\
+    Hw7 中有另一版的证明作为 lemma.
+\end{proof}
+在 Hw7 中我们可以通过这个 lemma 得到一个结论: 如果 $E \in \mathcal{A\otimes A}$, 那么 $E$ 的 diagonal 一定 $\in \mathcal{A}$.
+
+
+对于特殊的函数, 比如两个 measurable function 的乘积, 其一定是 product measurable 的.
+\begin{lemma}{easier Fubini}
+条件: $(X,\mathcal{A},\mu)$, $(Y,\mathcal{B}, \nu)$ 为 arbitrary measure space (不需要 $\sigma$-finite.), $f:X\to \mathbb{C}$, $g:Y \to \mathbb{C}$ 为 measurable functions.\\
+结论: \[
+h:= fg  \quad \text{is } (\mathcal{A} \otimes \mathcal{B}) \text{-measurable}
+\]
+并且如果 $f,g$ 是 $L^1$ 的, 那么 $h \in L^1(\mu \times \nu)$ 并且 \[
+\int h \; d(\mu\times \nu) = \Big( \int f \; d\mu \Big)\Big( \int g \; d\nu \Big)
+\]
+\end{lemma}
+\begin{proof}
+     in hw 8. 这个 statement 表示一个 $\mathcal{A} \text{-measurable}$ 的函数和一个 $\mathcal{B} \text{-measurable}$ 的函数的乘积是 $(\mathcal{A} \otimes \mathcal{B}) \text{-measurable}$ 的.\end{proof}
+
+
+
+
+\begin{lemma}{(Folland 2.5 exercise 51)}
+If $f$ is $\mathcal{M}$-measurable, $g$ is $\mathcal{N}$-measurable, then $fg$ is $(\mathcal{M}\otimes \mathcal{N})$-measurable.\\
+Particularly, if $f \in L^1(\mu)$, $g \in L^1 (\nu)$, then $fg \in L^1(\mu \times \nu)$ and \[
+\int fg \; d(\mu\times \nu) = \bigg(f \; d\mu \bigg) \bigg( g \; d\nu \bigg)
+\]
+\end{lemma}
+
+
+
+
+
 
 
 
@@ -2931,7 +2988,7 @@ Suppose $f: X \times Y \to \mathbb{C}$ is $\mathcal{L}$-measurable 并且 $f \in
     这是因为 因为完备化测度只是增加了一些\textbf{原本测度为零的集合的子集}, 这些集合不会影响积分计算. 这一定理的直接应用是 Lebesgue integral on $\mathbb{R}^n$.
 \end{remark}
 
-\subsection{other remarks: integral of 非负函数等于 area under graph, 以及反向 Fubini}
+\subsection{remark: integral of 非负函数等于 area under graph}
 \begin{theorem}
     令 $(X,\mathcal{A}, \mu)$ 为一个 arbitrary measure space, $f \in L^+(\mu)$ 为 arbitrary 可测非负函数, 我们定义: \[
     G_f := \{(x,y) \in X \times [0,\infty] : 0 \leq y \leq f(x)\}
@@ -2947,16 +3004,6 @@ Suppose $f: X \times Y \to \mathbb{C}$ is $\mathcal{L}$-measurable 并且 $f \in
 $G_f$ 即 area under the graph of $f$. 这一 statment 是一个\textbf{正式的表达 of ``integral of 非负函数等于 area under graph"}. 我们也可以推广它到 $L^1$ 上 (正负 part 的差), which is trivial.
 \end{remark}
 
-\begin{theorem}{反向(easier) Fubini}
-条件: $(X,\mathcal{A},\mu)$, $(Y,\mathcal{B}, \nu)$ 为 arbitrary measure space (不需要 $\sigma$-finite.), $f:X\to \mathbb{C}$, $g:Y \to \mathbb{C}$ 为 measurable functions.\\
-结论: \[
-h:= fg  \quad \text{is } (\mathcal{A} \otimes \mathcal{B}) \text{-measurable}
-\]
-并且如果 $f,g$ 是 $L^1$ 的, 那么 $h \in L^1(\mu \times \nu)$ 并且 \[
-\int h \; d(\mu\times \nu) = \Big( \int f \; d\mu \Big)\Big( \int g \; d\nu \Big)
-\]
-\end{theorem}
- 
 
 \section{Lebesgue measure in $\mathbb{R}^n$}
 这是 product measure 最常见的应用和例子. 
@@ -3345,7 +3392,9 @@ I_2  = I_1^2, \quad \text{thus } I_1  = (\frac{\pi}{a})^{\frac{1}{2}}
 
 
 \chapter{Hardy-Littlewood max function and max theorem}
+目前我们 finish 了 Folland 的 Ch1, Ch2.\\
 我们将先跳过 Radon-Nikodym differentiation theory, 在讲完 $L^p$ space theory 后再回到 Radon-Nikodym differentiation theory. 但是我们将会先将 differentiation theory 中的一个特殊部分: HL max theorem 和 Lebesgue differentiation theorem, 因为它们在 $L^p$ space theory 中需要被用到.\\
+此 lec 对应: Folland 3.4( 1)\\
 
 Differentiation theorey 的 overview: \\
 Radon-Nikodym derivative 并不是 classical calculus 的扩展 (classical calculus 表示变量之间的相对变化), 而是专门针对: 同一个 measure space 上, 一个测度对于另一个测度 (要求它们之间绝对连续) 的变化率. \[
@@ -3364,7 +3413,7 @@ f(x)  = \lim_{r \to 0 } \frac{\nu(B(r,x))}{\mu(B(r,x))} \;\; \text{ for a.e. } x
 Radon Nikodym derivative 的应用: 比如在概率论中, \textbf{pdf/pmf 都是 cdf 对于 Lebesgue measure 的 Radon Nikodym derivative}; 在贝叶斯推理中，给定先验 prior 和观测数据的分布, 后验分布 posterior 的密度可以通过 Radon-Nikodym 导数计算.
 下面介绍概念:\\\\
 
-\subsection{$L^1_{loc}$ and local average}
+\section{$L^1_{loc}$ and local average}
 \begin{definition}{locally integrable}
 如果 measurable  $f:\mathbb{R}^n \to \mathbb{C}$ 在任意 bounded subset of $\mathbb{R}^n$ 上的 integral 都 $< \infty$, 则称 function $f:\mathbb{R}^n \to \mathbb{C}$ 是 locally integrable 的, 写作 $f\in L^1_{loc}(m)$.
 \end{definition}
@@ -3410,7 +3459,7 @@ A_r f(x) := \avint_{B(r,x)} f
 \]
 \end{proof}
 
-\subsection{Hardy-Littlewood maximal function}
+\section{Hardy-Littlewood maximal function}
 \begin{definition}{Hardy-Littlewood maximal function}
 对于 $f \in L^1_{loc}$, 我们定义它的 HL maximal function 为: \[
     Hf(x) : = \sup_{r>0} A_r |f| (x)
@@ -3494,7 +3543,7 @@ m(K) \leq \sum_i m(3B(x_i,r_i)) = 3^n \sum_i m(B(x_i,r_i)) \leq \frac{3^n}{\alph
 
 
 \chapter{Lebesgue differentiation Theorem}
-
+对应: Folland 3.4(2)
 \begin{definition}{Lebesgue set}
     我们定义一个函数 $f\in L^1_{loc}(\mathbb{R}^n)$ 的 Lebesgue set 为: \[
 L_f := \{ x \in \mathbb{R}^n \mid \lim_{r \to 0^+} \avint_{B(x,r)} |f(y) - f(x) | \; dy = 0   \}
@@ -3576,6 +3625,12 @@ m(\{Q > \alpha \}) \leq  \frac{2 \cdot 3^n}{\alpha} \int |f-g| + \frac{2}{\alpha
    实则, locally $L^1$ 是一个很宽松的条件. 基本上, 只要是 measurable function 且不要有过多的 unbounded points, 这个函数就是 locally $L^1$ 的. 所以 \textbf{LDT 表示的是大多数可测函数几乎每一点附近的函数均值都等于这一点上的值.}\\
  \end{remark}
 
+\begin{remark}
+    在 Hw 8 中将 prove LDT 的 $L^p$ 版本: 对于任意  $1\le p<\infty$, 如果 $f\in L^p(\mathbb{R})$, 都有 \[
+       \lim_{r\to 0} \frac1{2r} \int_{x-r}^{x+r} |f(y)-f(x)|^p \;d y=0 \quad \text{ for } a.e. x
+    \]
+\end{remark}
+
 
 
 \subsection{density of a set at a point}
@@ -3608,7 +3663,7 @@ m(\{Q > \alpha \}) \leq  \frac{2 \cdot 3^n}{\alpha} \int |f-g| + \frac{2}{\alpha
     E : = \{0\} \cup \bigcup_{j=0}^\infty [\frac{2}{3} \cdot \frac{1}{2^j}, \frac{1}{2^j}]
     \]
     这是一个 closed set.\\
-    \pic[0.35]{ch3-pics.assets/image-20250316223122736.png}
+    \pic[0.4]{ch3-pics.assets/image-20250316223122736.png}
     对于 $x\in E^\circ$, $D_E(x)=1$.\\
     对于 $x \not\in E$, $D_E(x)=0$.\\
     对于 $x \in \partial E$, $D_E(x)=\frac{1}{2}$. (区间的一边在 $E$ 里,  一边不在 $E$ 里)\\
@@ -3620,7 +3675,7 @@ E := \bigcup_{n=1}^{\infty}
 \] 则有: \[
 D_E(0) = \frac{\alpha}{2}
 \]
-\pic[0.35]{ch3-pics.assets/image-20250314233130795.png}
+\pic[0.4]{ch3-pics.assets/image-20250314233130795.png}
 这里的关键在于，harmonic seq 随着 $n$ 的增长而缩小的速度非常慢. 在 $n$ 较大的情况下, 背景区间 $J_n$ 几乎与 $J_{n+1}$ 具有相同的长度, 因此正如我们所知，$m(J_n) / m(\cup_{k> N}J_k) = 0$. 所以, 无论 $r$ 位于实心部分 $I_n$ 还是空心部分 $J_n \setminus I_n$ 都不太重要.\\
 另一方面, 我们刚才的例子使用 geometric seq 作为背景区间 $J_n$ 的构建块, 则 fail, 因为 $J_n$ 的长度与 $\cup_{k\geq n} J_k$ 相比太大了, 有 $m(J_n) = m(\cup_{k> n} J_k)$, 因此无论 $r$ 位于实心区间还是空心区间 这使得 $0$ 处的密度无法定义.
 \end{example}
@@ -3665,74 +3720,128 @@ genralized LDT 表示\textbf{对形状不规则 (未必是 ball) 的收敛行为
 
 
 \chapter{banach Space and $L_p$ space}
-Folland 5.1, 6.1
-
+对应  Folland 5.1(1), 6.1(1).
+\section{norm and completeness}
 Recall:
-\begin{definition}{semi norm, norm}
-    semi norm 是一个从一个 vector space 上, 到 $[0,\infty)$ 的函数 $||\cdot||$, 其满足 tri eq 和 homogeneity.\\
-    norm 是满足 $||v|| = 0$ iff $v = 0$ 的 norm.
+\begin{definition}{semi-norm, norm}
+  一个\textbf{semi norm} 是一个函数 $||\cdot||: V \to [0,\infty)$ starting from a vector space $V$. 其满足 (1): tri eq 和 (2): homogeneity.\\
+   如果一个 semi-norm 满足 (3): $||v|| = 0$ iff $v = 0$, 则称它为一个 \textbf{norm}.
 \end{definition}
 
 \begin{definition}{Banach space}
-    A Banach space is a complete normed vector space $(V, ||\cdot||)$, i.e. every Cauchy sequence converges.
+一个 normed vector space $(V, ||\cdot||)$ 的 induced metric space 如果是 complete 的, 它就被称为一个 \textbf{Banach space}.\\
 \end{definition}
+\begin{remark}
+    Cauchy 指的是对于任意 $\epsilon$, 都存在 $N$ 使得对于任意 $n,m \geq N$ 都有 \[
+    \| v_n - v_m\| < \epsilon
+    \]
+而 convergent 指的是存在一个极限 $v$, 使得对于任意 $\epsilon$, 都存在 $N$ 使得对于任意 $n\geq N$ 都有 \[
+\|v_n - v\| \leq \epsilon
+\]
+By tri ineq 容易证明: 在 genral normed VS 中, convergent imply Cauchy, 反之未必. convergent 是更强的条件. (interestingly, convergence in measure 却不 imply Cauchy in measure)
+\end{remark}
 
 \begin{example}
     $\mathbb{R}^n, \mathbb{C}^n$ with Euclidean norm is a Banach space.\\
     $C^0([0,1])$: space of ctn functions on $[0,1]$ equipped with $\sup$ norm\textbf{ is Banach}. \[
     ||f- g|| := \sup_{x\in[0,1]} |f(x) - g(x)|
     \]
-    $C^0_c(\mathbb{R})$: space of ctn functions with cpt supp on $[0,1]$ equipped with $\sup$ norm\textbf{ is not Banach}! 
+    $C^0_c(\mathbb{R})$: space of ctn functions with cpt supp on $\mathbb{R}$ equipped with $\sup$ norm\textbf{ is not Banach}! 这是因为, 一个有 cpt supp 的 function seq 的极限未必有 cpt supp. 比如 $(\chi_{[-n,n]})_{n\in \mathbb{N}}$.
 \end{example}
 
-\begin{remark}
-    
-\end{remark}
 \begin{lemma}
-    A metric space $(X,\rho)$ is complete iff every Cauchy seq has a subseq that converges.
+    A metric space $(X,\rho)$ is \textbf{complete} iff \textbf{every Cauchy seq has a subseq that converges.}
 \end{lemma}
 \begin{proof}
 Trivial. \\
 \(\implies\): Clear. \\
 \(\impliedby\): subseq conv dist bound + Cauchy dist bound can bound the whole tail with arbitrary $\epsilon$.
-\end{proof}
+\end{proof}这个 statement, 直接把 complete 的定义从每个 Cauchy seq 都收敛, 优化为每个 Cauchy seq 都有一个收敛 subseq. 
 
-\begin{definition}
+\subsection{every Cachy seq conv (complete) $\iff$ every abs conv series convs}
+\begin{definition}{series: convergence 和 absolute convergence}
 对于一个 normed VS $(V,||\cdot||)$ 中的 seq $(v_n)$, 我们称 \(\sum_{n=1}^\infty v_n\) \textbf{converges}, 如果存在 $v\in V$ s.t. \[
 \lim_{N\to\infty} \sum_{n=1}^N v_n  = v
 \]
+即 \[
+\lim_{N\to\infty} \|  v - \sum_{n=1}^N v_n\| = 0
+\]
 我们称 \(\sum_{n=1}^\infty v_n\) \textbf{absolutely converges}, 如果 \[ \sum_{n=1}^\infty ||v_n|| < \infty\]
+即这个 series 对应的 norm series converges to some real number.
 \end{definition}
-\begin{remark}
-    Note, 这里 normed VS 上的定义, absolutely converge 并不 imply converge. 
-\end{remark}
 
 
-
-\begin{theorem}
+\begin{theorem}{another criterion for Banach space}
+\label{Equiv Condition for space being Banach}
     A normed VS $(V,||\cdot||)$ is a Banach space iff every absolutely convergent series converges.
 \end{theorem}
 \begin{proof}
-    ``$\implies$": Suppose $\sum_{n=1}^\infty ||v_n|| < \infty$, set \[
+    ``$\implies$": 如果 $(V,||\cdot||)$ is a Banach space,   Suppose $\sum_{n=1}^\infty ||v_n|| < \infty$, 取部分和序列 \[
     S_N := \sum_{n=1}^N v_n 
-    \] Show that $(S_N)$ is Cauchy.\\
-    WLOG $N>M$, \[
-    ||S_N - S_M||  = ||\sum_{M+1}^N v_n|| \leq \sum_{M+1}^N ||v_n|| \to 0 \text{ as } N,M \to \infty 
-    \]
-    ``$\impliedby$": Let $(v_n)$ be Cauchy. Then for all $j$, exists $n_j$ s.t. $n \geq n_j \implies ||v_n  - v_{n_j} || < \frac{1}{3^j}$. 
-    Thus have subseq, say labeled $n_1 < n_2 < \cdots $, s.t. $||v_{n_{j+1}} - v_{n_j}|| < \frac{1}{3^j} $
+    \]有 \[
+   \|S_m - S_n\| = \Bigl\|\sum_{k=n+1}^m v_k\Bigr\|
+   \le \sum_{k=n+1}^m \|v_k\|\]
+ For  large enough $m,n$ 这个 bound 可以无限小, 因而 $(S_N)$ is Cauchy. 
+    ``$\impliedby$": 如果 $(V,||\cdot||)$ 中 every absolutely convergent series converges.\\
+    Suppose $(v_n)$ is Cauchy. WTS it converges.\\
+By Cauchy, 存在 subseq, say labeled $n_1 < n_2 < \cdots $, s.t. $||v_{m} - v_{n}|| < \frac{1}{3^j} $for all $m,n\geq n_j$
     Then \[
     \sum_{j=1}^\infty ||v_{n_{j+1}} - v_{n_j}|| < \infty
     \]
     Let $(y_j)$ be s.t. $y_1 = v_{n_1}$, $y_j = v_{n_{j+1}} - v_{n_j}$, then \[
+\sum_{j=1}^\infty \| y_j\| \leq \| y_1 \| + \sum_j {\frac{1}{2^j}}  = \|y_1\| + 1 < \infty
+  \]
+并且有: \[
     v_{n_j} = \sum_{k=1}^j y_k
-    \]
-    So \[
-    \lim_{j\to \infty} v_{n_j}  = \sum_{k=1}^\infty y_k \;\exists
-    \]
-    Thus by Lemma, $(v_n)$ converges
+    \]由于 $\sum_{j=1}^\infty \| y_j\| < \infty$, by our assumption 得到, 这个极限 $    \lim_{j\to \infty} v_{n_j}  = \sum_{k=1}^\infty y_k $ 是存在的.
 \end{proof}
+\begin{remark}
+    这个证明中也有一个简略但是有用的结论: 任意 normed VS 中, \textbf{一个 series absolutely convergent 可以推出它的部分和 seq 是 Cauchy 的. (反向则未必成立).}\\
+    整个 imply 关系的示意图:
+\begin{align*}
+    \sum_{k=1}^{\infty} \|x_k\| <\infty   \implies S_N  \text{ Cauchy}& \overset{\text{if Banach}}{\implies}  S_N \text{ converges}  \Longleftrightarrow  \sum_{k=1}^{\infty} x_k\text{ converges} \implies (x_k) \to 0
+        \\    &\overset{\text{always}}{\impliedby}
+    \end{align*}
+(这个图直观说明了为什么 Banach 和 "every abs conv seq conv" 是等价的. 因为这只是\textbf{在 Cauchy imply conv 的前后套了两个必然发生的 implication 关系}而已. 但有时候, 这个关系反而更加好证明.)\\
+\textbf{(注意, partial sum seq Cauchy 并不 imply 原 series absolutely converge!})
+\end{remark}
 
+
+\subsection{任何 finite dim normed VS 一定 Banach, infinite dim 则不一定 Banach }
+
+\begin{remark}
+    Note, 我们知道在 $\mathbb{R}^n$, $\mathbb{C}^n$ 上, abs conv 一定 imply con; 但是在 general (infinite dimension) 的 normed VS 上, \textbf{absolutely converge 并不 imply converge.}\\
+
+1. As is known to all, \(\mathbb{R}^n,\mathbb{C}^n\) 上 Euclidean norm 的 induced metric 就是 Euclidean metric, making it complete metric space, 从而是 Banach space.\\
+2. recall in elementary functional analysis: 
+\begin{definition}
+    我们称两个 norms $\| \cdot\|_a, \| \cdot\|_b$ on a vector space 是 equivalent, 如果存在常数 \(C_1, C_2 > 0\) 使得对于任意 $x$ 都有 \[C_1\|x\|_a \leq \|x\|_b \leq C_2\|x\|_a \]
+这一定义即 topologically equivalent. 因为 equivalent norms define \textbf{equivalent metric, 从而 same topology. }
+\end{definition}
+以及这个经典的定理:
+\begin{theorem}
+finite dimensional vector space $X$ 上, 所有 norms 都 equivalent.
+\end{theorem}
+这里先不证明. \\
+利用这个定理, 我们发现 \textbf{ \(\mathbb{R}^n,\mathbb{C}^n\) 上采用任何 norm 都是 Banach space.}\\
+3. 我们 recall: 任何 finite dim $\mathbb{R}$-vector space 或者 $\mathbb{C}$-vector space 都 isomorphic to some $\mathbb{R}^n$, $\mathbb{C}^n$. 因而
+利用这 theorem, 我们得到: \textbf{任何 finite dim normed VS 都是 complete metric space (Banach space), regardless of choice of norm.}\\
+然而\textbf{ infinite dim normed VS  则未必一定 Banach.}\\
+一个常见的反例: \[
+    V = \mathbb{R}[x]
+  \]
+所有的 polynomials with real coeffs. 考虑这一 norm:  \[
+    \|p\|_{\infty} = \sup_{x \in [0,1]} |p(x)|
+  \]
+\(\mathbb{R}[x]\) 是无限维的, 因为多项式的次数可以任意提高.\\
+$(\mathbb{R}[x], \| p\|_{\sup})$ 不是 complete 的, 其 completion 是 Banach 空间 \(C[0,1]\), 所有在 \([0,1]\) 上的连续函数, with the same \(\sup\) norm.\\
+\end{remark}
+下面我们将介绍一类 infinite dimension 但是 Banach 的 normed VS: $L^p$ spaces.
+
+
+
+
+\section{$L^p$ spaces}
 \begin{definition}{$L_p$ spaces}
     Consider $p\in(0,\infty)$.\\
     Let $(X,\mathcal{A},\mu)$ 为一个 measure space.\\
@@ -3743,8 +3852,15 @@ Trivial. \\
     L^p(\mu) : = \{ f :  ||f||_p  < \infty \} / \sim
     \] where $f \sim g$ if $f=g$ a.e.
 \end{definition}
-
-
+固定一个 measure space $(X,\mathcal{A},\mu)$, 我们将用 $L_p$ 来简易指代 $ L^p(\mu)$.\\
+\begin{remark}
+    注意, 我们容易发现:if $ 0<p< \infty$ and $f$ measurable, TFAE：
+\begin{itemize}
+    \item $f \in L^p$
+    \item $|f| \in L^p$
+    \item $|f|^p \in L^1$
+\end{itemize}
+\end{remark}
 
 \begin{example}
     $(X,\mathcal{A},\mu) := (\mathbb{R},\mathcal{L}, m)$, \[
@@ -3757,55 +3873,688 @@ Trivial. \\
     \]
 \end{example}
 
-Question: Is $L^p$ space Banach?\\
-Answer: yes for $p\in [1,\infty)$, but not for $p \in (0,1)$
-
-
 \begin{lemma}{$L_p$ space is a vector space}
     $L_p$ space is a $\mathbb{C}$-vector space.
 \end{lemma}
 \begin{proof}
-    $f, g\in L^p \implies f+g \in L^p$.\\
-    \begin{align}
-        |f+ g|^p   \leq (|f| + |g| )^p \leq (2 \max\{|f|, |g|\})^p 
+ Suppose $f, g\in L^p $.\\
+由于 \begin{align}
+        |f+ g|^p   \leq (|f| + |g| )^p \leq (2 \max\{|f|, |g|\})^p  \leq 2^p (|f|^p + |g|^p)
     \end{align}
-    Then \[
-    ||f + g||_p \leq 2\Big(\int (|f| + |g|)^p \; d\mu  \Big)^{\frac{1}{p}}
-    \]
+于是 by linearity of integral, 得到:
+$$f, g\in L^p \implies f+g \in L^p$$
+(Note: $p>1$ 时也可以 by $|x|^p$ 这一函数的 convexity 得到这个 bound, 但是这个方法只有效于 $p>1$)
 \end{proof}
 
-Question: Is $L_p$ a normed VS?
-A: True for $p\in [1,\infty)$, false for $p\in (0,1)$. 
-Since \[
+但是 \textbf{Question 1: }\textbf{Is $L_p$ a normed VS? 即, $\| \cdot\|_p$ 总是一个 valid norm 吗?}
+A: \textbf{True for $p\in [1,\infty)$, false for $p\in (0,1)$.} 
+Homogeneity 和 $\|f\|_p = 0$ iff $f = 0$ (a.e.) 是显然的, 但是我们发现, tri ineq 没有显然的证明.\\
+Next lecture, we will show the Minkowski's ineq, 即 $L^p$ space 上的三角不等式:
+\[
 ||f + g||_p \leq ||f||_p + ||g||_p
-\] fails for $p \in (0,1)$
-因而我们将 focus on $p \in [1,\infty)$ 的情况.
+\]
+但是这个不等式只 hold for $p\in [1,\infty)$, 并且 fail otherwise.\\
+(因而对于 $L^p$ space 的研究, 我们将 \textbf{focus on $p \in [1,\infty)$ 的情况.}\\
 
-\begin{theorem}{Hölder's ineq}
-    Consider conjugate pair: $p,q \in [1,\infty)$ s.t.  \[
-    \frac{1}{p} + \frac{1}{q} = 1
-    \]
-    
-\end{theorem}
-
-\begin{remark}
-    Cauchy-Swartz for $(p,q) = (2,2)$
-\end{remark}
-
-\begin{theorem}{Minkovski's ineq}
-    
-\end{theorem}
-
-
-
-
-
-
+\textbf{Question 2: Is $L^p$ space, $p\in [1,\infty)$, Banach?\\
+Answer: Yes.}\\
+我们也将在 next lecture 证明它.
 
 
 
 
 \chapter{inequilities on $L^p$ spaces}
+对应 Folland 6.1(2).\\
+我们将证明 Hölder's ineq 以及它的 corollary Minkowski's ineq, 从而证明: $L^p$ 是一个 normed VS, 并且是一个 Banach space (这里 $1\leq p <\infty$, 但是 later we will also prove $L^\infty$ 也是 Banach space).\\
+这两个不等式非常重要.
+
+\section{Hölder's ineq}
+
+\begin{theorem}{Hölder's ineq}
+    Consider conjugate pair: $p,q \in [1,\infty)$ s.t.  \[
+    \frac{1}{p} + \frac{1}{q} = 1
+    \]
+则对于任意两个 measurable function $f,g:X \to \mathbb{C}$,  一定有: \[
+ \| fg\|_1 \leq \| f\|_p \cdot \|g\|_q 
+ \]特别地, 如果 $f \in L^p(\mu)$, $g\in L^q(\mu)$, 则 $fg \in L^1(\mu)$, 并且 equality holds iff \[
+   \|g\|_q^q |f|^p = \|f\|_p^p |g|^q \quad \mu\text{-a.e.}
+ \]
+\end{theorem}
+\begin{remark}
+For $(p,q) = (2,2)$, this is \textbf{Cauchy-Swartz ineq}: \[
+ \| fg\|_1 \leq \| f\|_2 \cdot \|g\|_2
+\]
+即: \[
+ \bigg(\int  f\,\overline{g}   \bigg) \leq \int |fg| \leq  \sqrt{\bigg(\int |f|^2 \bigg)\bigg(\int |g|^2 \bigg)}
+\]
+\end{remark}
+\begin{proof}
+Trivial Case 1: 如果 $\|f\|_p = 0$ (或者$\|g\|_q = 0$  ), then $f$ is zero $\mu$-almost everywhere, and the product $fg$ is zero $\mu$-almost everywhere, 于是两边都是 $0$, ineq trivially true.\\
+Trivial Case 2: 如果 $\|f\|_p = \infty$ or $\|g\|_q = \infty$, 则右边 infinite, ineq trivially true.
+因而我们只需要考虑 $\|f\|_p$ and $\|g\|_q$ are in $(0, \infty)$ 的情况就好了.\\
+
+Main case: 我们需要一个 Lemma: 
+\begin{lemma}{Young's inequality for products}
+Whenever $p, q \in (1, \infty)$ with $\frac{1}{p} + \frac{1}{q} = 1$, 都有
+\begin{equation}
+    ab \leq \frac{a^p}{p} + \frac{b^q}{q} ,\quad \forall a,b\geq 0
+\end{equation}
+where equality is achieved if and only if $a^p = b^q$.\\
+另一个等价形式是: \[
+a^{\lambda} b^{1-\lambda} \leq \lambda a + (1-\lambda)b,\quad \forall a,b\geq 0
+\]
+\end{lemma}
+\begin{proof}
+    \textbf{of Lemma:}\\
+    $b=0$ 则 trivial case. 因而 setting $t : =\frac{a}{b}$, reduced to show: \[
+    t^\lambda \leq \lambda t  + (1-\lambda)
+    \]
+  with eq iff $t=1$. 这是显然的, 因为 by Calculus, $t^\lambda -\lambda t$ 是 strictly increasing for $t<1$, strictly decreasing for $t>1$ 的, max 在  $t=1$, 正好是 $1-\lambda$.\end{proof}
+使用 Young's inequality for products 得到:
+\begin{equation}
+    \frac{|f(x)|}{\|f\|_p} \frac{|g(x)|}{\|g\|_q} \leq \frac{|f(x)|^p}{p \|f\|_p^p} + \frac{|g(x)|^q}{q \|g\|_q^q}, \quad x \in X
+\end{equation}
+
+Integrating both sides gives
+\begin{equation}
+    \frac{\|fg\|_1}{\|f\|_p \|g\|_q} \leq \frac{\|f\|_p^p}{p \|f\|_p^p} + \frac{\|g\|_q^q}{q \|g\|_q^q} = \frac{1}{p} + \frac{1}{q} = 1,
+\end{equation}
+which proves the claim.\\
+Integration 的 equality holds iff point equality holds a.e., 并且, by Young's inequality for products, 上面的 equality holds iff \[   \|g\|_q^q |f|^p = \|f\|_p^p |g|^q \quad \mu\text{-a.e.}\]
+\end{proof}
+\begin{remark}
+1. 显然, 根据我们的证明过程可知: \textbf{Hölder's ineq also holds on any measurable subset $S \subset X$}: \[
+\int_S |fg| \leq  \bigg(\int_S |f|^p \bigg)^{\frac{1}{p}}\bigg(\int_S |g|^q \bigg)^{\frac{1}{q}}
+\]
+2. 这里的满足 $\frac{1}{p} + \frac{1}{q} = 1$ 的 $p,q$ 我们称之为: \textbf{Hölder conjugate}, 并称它们互为对方的 \textbf{conjugate exponent}.\\
+3. 左边实际上是两个正值函数的 inner product, 相当于把一个投影到另一个上;  \\
+几何直观: Hölder's ineq 在退化为 Cauchy-Swartz 时表示, 两个函数/向量的内积一定小于等于长度积; 而 Hölder's ineq 更广义: 表示它们的内积一定小于它们取任意相互 conjugate 的 norm 长度的积.
+并且 sooner 我们会学到: 对作为 Hölder conjugates 的 $p,q$, $L^p$ 和 $L^q$ 互为 dual space, 从而 Hölder ineq 表示的是就是 norm 与其 dual norm 之间的 maximal inner product 控制关系.
+\end{remark}
+
+
+\begin{remark}
+    Hölder's ineq 有一个 generalization:
+    对于任意 $0<s<\infty$ and $0<p_1,\dots, p_n< \infty$ such that 
+\[
+  \frac1{p_1}+\frac1{p_2}+\dots+\frac1{p_n}=\frac1{s};
+\]
+都有
+\[
+  \| f_1f_2\cdots f_n\|_s\le \|f_1\|_{p_1}\|f_2\|_{p_2}\cdots \|f_n\|_{p_n}.
+\]
+
+    This generalization will be proved in hw8.
+\end{remark}
+
+
+
+\subsection{Minkowski's ineq: tri ineq on $L^p$, 确认 $\|\cdot\|_p$-norm 是 $L^p$ 上的 valid norm }
+Minkowski's ineq 即 $L^p$ space 上的 tri ineq.
+\begin{corollary}{Mincowski's ineq}
+对于任意 $1\leq p < \infty$, 都有: \[
+\|f +g \| \leq \|f\|_p  + \| g\|_p
+\]
+\end{corollary}
+\begin{proof}
+显然, 对于任意 $x$ 都有: \[
+    |f + g|^p \leq \bigg( |f| + |g|\bigg) |f+g|^{p-1} 
+    \]
+    因而: \begin{align*}
+           \int |f + g|^p &\leq \int |f| \cdot |f+g|^{p-1} \; + \; \int |g| \cdot |f+g|^{p-1}
+    \end{align*}
+    我们定义 $$h(x):= |f(x)+g(x)|^{p-1}$$于是 \begin{align*}
+          \int  |f + g|^p &\leq \int |fh| + \int |gh| \\
+            &\leq \|f\|_p \| h\|_q + \|g\|_p \| h\|_q \\
+            &= \bigg(\|f\|_p + \|g\|_p \bigg)  \bigg(\int |f+g|^{(p-1)q}\bigg )^{1/q}
+    \end{align*}
+其中 $q$ 是 $p$ 的 Hölder conjugate.  这里的 punchline is actually: 由于 \[
+q : = \frac{p}{p-1}
+\] actually, \[
+(p-1)q = p
+\]
+因而: 
+\begin{align*}
+        \int  |f + g|^p  &\leq \bigg(\|f\|_p + \|g\|_p \bigg)  \bigg(\int |f+g|^{(p-1)q}\bigg )^{1/q}\\ &= \bigg(\|f\|_p + \|g\|_p \bigg)  \bigg(\int |f+g|^{p}\bigg )^{1/q}\\
+        & = \bigg(\|f\|_p + \|g\|_p \bigg)  \bigg(\int |f+g|^{p}\bigg )^{1-1/p}
+\end{align*}
+两边同时除以 $\big(\int |f+g|^{p}\big )^{1-1/p}$  得到: \[
+\bigg(  \int  |f + g|^p \bigg)^{1/p} =: \| f+g\|_p \leq \|f\|_p + \|g\|_p
+\]
+从而得证.
+\end{proof}
+\begin{remark}
+    这里的技巧是: 把一个 $p$ 次方的函数拆成一个 $1$ 次方的函数和一个 $p-1$ 次方的函数, 并且使用Hölder, 这样就得到了一个 1 次的函数的 $p$-norm 和另一个 $p-1$ 次的函数的 $q$ norm, 但是注意 $q(p-1) = p$, 因而这个函数就变成了 \[
+    \bigg( \int |\phi|^p \bigg)^{1/q}
+    \]的形式. 并且注意到: \[
+    \frac{ \displaystyle \int |\phi|^p }{    \bigg( \displaystyle\int |\phi|^p  \bigg)^{1/q}} = \bigg( \displaystyle\int |\phi|^p  \bigg)^{1/p} = \|\phi\|_p
+    \]
+\end{remark}
+\begin{remark}
+    Minkowski 不等式证明的是 \(1\leq p < \infty\) 时的 $p$-norm 的三角不等式. 但是对于 $0<p<1$, 它并不成立. 因为这个时候 $p-1< 0$, 我们刚才的证明不作效.\\
+    直观的证明: 在 $p\geq 1$ 的时候, $|x|^p$ 是一个 strictly convex 的函数; 而在 $0< p<1$ 的时候, $|x|^p$ 则是一个 strictly concave 的函数.\\
+因而我们运用 strictly concave 的性质: \[
+|a+b|^p > |a|^p + |b|^p
+\]
+再由积分可得到反例. (比如取 indicator function 进行积分)
+\end{remark}
+
+\section{properties of $L^p$ spaces ($1\leq p < \infty$)}
+\subsection{$L^p$ ($1\leq p < \infty$) is Banach}
+\begin{theorem}{$L^p$ space ($1\leq p < \infty$) is Banach}
+    $L^p$ ($1\leq p < \infty$) is Banach.
+\end{theorem}
+\begin{proof}
+    By last lec 的定理: 一个 NVS 是 Banach 的等价条件是任意 abs conv series 都 conv. 因而我们证明这一点即可.\\
+Suppose $f_n \in L^p$ for each $n$, 并且这个 series abs conv, 即: \[
+B := \sum_{k=1}^\infty \| f_k \|_p < \infty
+\]
+我们 define: \[
+g(x) : = \sum_{k=1}^\infty f_k(x),\quad g_n(x) : = \sum_{k=1}^n f_k(x)
+\]
+我们 WTS: \[
+\lim_{n\to\infty} g_n = g
+\]
+in $p$-norm induced metric sense, 即, for some $f \in L^p$, 有 \[
+\lim_{n\to\infty} \big\|  g - g_n \big \|_p = 0
+\]
+我们 Set: \[
+G_n := \sum_{k=1}^n |f_k|,\quad G:= \sum_{k=1}^\infty |f_k|
+\]
+这个函数以及函数列的定义是为了使用 DCT, 作 donimating function 用. \\
+By measurable function 的 limit behavior, 有 \[
+G_n,G\in L^+
+\]
+并且 \[
+\|G_n\|_p \leq \sum_{k=1}^n \|f_k\|_p \leq B
+\]
+由于 $G_n \nearrow G$, by MCT 有 \[
+\int G^p = \lim_{n\to \infty} \int G_n^p \leq B^p < \infty
+\] 由于 $G\in L^p$, 有 $$G(x) < \infty \quad a.e.$$ 于是: \[
+g(x) : = \sum_{k=1}^\infty f_k(x) <\infty \quad a.e.
+\]
+又 $|g_n|,|g|\leq G, g_n \to g$, 可得到: \[
+|g_n - g|^p \leq 2^p G^p \in L^1
+\] 因而 by DCT 可以得到: \[
+\lim _n\int |g_n - g|^p    = 0
+\]
+从而\[
+  \lim_{n\to\infty} \big\|  g - g_n \big \|_p = \bigg( \lim _n\int |g_n - g|^p   \bigg)^{1/p} = 0
+\]
+\end{proof}
+\begin{remark}
+1. 我们说一个 function seq converge to 一个 function 指的是 in the sense of distance, 而这里就是 metric induced by norm, 即\textbf{它们的差的 $L_p$ norm converge to $0$.}\\
+2. 注意, 我们 recall: $f_k \to f$ a.e. 并不说明 $f_k\to f$ in $L^1$, 因为每个点 converge 的速度不一样. 当然, 对 $L^p$ 也同理.\\
+3. \textbf{虽然 a.e. convergence 不能推出 $L^p$ convergence, 但是配合 DCT, 则可以推出.} \textbf{DCT 是我们证明 $L^p$ convergence 的关键.}\\
+4. 要证明 \[
+  \lim_{n\to\infty} \big\|  g - g_n \big \|_p = 0
+\]完全可以忽略积分外的 $1/p$ 次方. 其实只需要证明 \[
+\lim _n\int |g_n - g|^p    = 0 
+\] 就可以了. 证明 $L^p$ convergence, 比起 $L^1$ convergence 略困难的地方就是被积函数变得更大了.
+\end{remark}
+
+
+\subsection{Criterion for $L^p$ convergence: 逐点 a.e. conv $+$ $L^p$ 积分值 conv}
+我们刚才 mention: DCT 对于 function seq $L^p$ convergence 的证明有很大作用. 这里我们就提供一个 DCT 推出的 $L^p$ convergence 的判断准则: 
+\begin{theorem}{Criterion for $L^p$ convergence}
+    if $f_n\to f$ a.e. and $\|f_n\|_p\to\|f\|_p$, then $\|f_n-f\|_p\to0$. 
+\end{theorem}
+即 \[
+\text{a.e. conv } + L^p\text{  norm conv} \implies L^p conv 
+\]
+但是 converse 并不成立. 反例是 typewriter function.
+\begin{proof}
+    In Hw 8.
+\end{proof}
+
+
+
+\subsection{dense subsets of $L^p$, and specially $L^p(\mathbb{R},m)$ }
+\begin{proposition}
+    对于任意 $1\leq p < \infty$, the set of $\{$simple functions$\}$, is dense in $L^p$.\\
+    即: \[
+    \{f:X \to \mathbb{C}\mid f=\sum_1^n  a_j \chi_{E_j},\mu(E_j)<\infty \}
+    \]是 $L^p$ 的 dense subset.
+\end{proposition}
+\begin{remark}
+    我们已经 proved this for $L^1$, 而其实这个 density 推广至 $L^p$ 也成立.
+\end{remark}
+\begin{proof}
+对 $f$ 使用 simple function seq 逼近, 使用 $2^p |f|^p$ 作为 dominating function of $|f_k-f|^p$; 而后使用 DCT 得证.
+\end{proof}
+
+\begin{theorem}{$C_c^0(\mathbb{R}^n)$ is dense in $L^p(\mathbb{R},m)$ for $1\leq p < \infty$}
+$C_c^0(\mathbb{R}^n)$ is dense in $L^p(\mathbb{R},m)$ for $1\leq p < \infty$
+\end{theorem}
+\begin{proof}
+    exercise. Similar to the proof for $L^1$, 只需要使用加入 $p$ power 的 function 作为 dominating function 即可.
+\end{proof}
+
+
+
+
+
+
+\chapter{$L^\infty$ space, and relationship between $L^p$ spaces ($0\leq p \leq \infty$)}
+对应 Folland 6.1(3), finishing 6.1.\\
+我们已经完成了对 $1\leq p < \infty$ 的 $L^p$ space 的构建. 现在, 我们来构建最后一块拼图: $L^\infty$ space.
+\section{$L^\infty$ space}
+我们考虑这个启发式的例子: \[
+X := \{ 1,2,\cdots, n\},\quad\mathcal{A} := \mathcal{P}(X),\quad \mu = \mu_{counting}
+\]
+于是: \[
+L^p (\mu)   = \{(a_1,\cdots, a_n) : \| (a_1,\cdots, a_n) \|_p = \big( \sum |a_i|^p \big)^{1/p} < \infty\}= \mathbb{C}^n
+\]
+我们发现: \[
+\| (a_1,\cdots, a_n) \|_p \to \max_j |a_j| \quad \text{as}\quad p\to \infty
+\]
+因为 $p$ 取得越大, 最大的 entry 的 contribution 占比就越突出.\\
+对于这样的 $L^p$ space, 我们可以定义 $\sup$ norm, 定义为最大的 entry.\\
+即便 $X$ 是 countable 的, 这个定义也可以定义为 $\sup_j |a_j|$, make sense.\\
+那么如果我们想要给任意的 measure space 定义 sup norm 呢? 我们可以考虑 \[
+\| f\|_\infty : = \sup_{x\in X} |f(x)| \; ?
+\]
+实际上我们有更好的定义方式: 
+
+\begin{definition}{essential supremum}  \[
+    \| f\|_\infty : = \inf \{ a\geq 0 : \mu\{x:|f(x)|>a\}  = 0 \}
+    \]
+    也可以写作: \[
+    \text{ess} \sup_{x\in X} |f(x)|
+    \]
+\end{definition}
+\begin{remark}
+essential sup 是一个比较容易搞错的定义. \\
+一个 function 的 essential supremum 即: 这个 function 几乎处处的 sup.\\
+它 $\leq \sup f$ , 因为它允许在零测集上存在一些点的函数值大于它.\\
+这是合理的, 因为积分可以不考虑零测集.\\
+\end{remark}
+\begin{remark}
+  对于零测集只有空集的 measure space 上的函数, 比如  对于 $\ell^\infty(\mathbb{N})$ 上的函数, 其 essentail supermum 即 supermum.\\
+  对于\[
+   \sup_{x\in X} |f(x)| 
+  \]我们也有一个称呼, 称其为 \textbf{uniform norm}. 即: \[
+\|f\|_u :=   \sup_{x\in X} |f(x)| 
+  \]
+\end{remark}
+
+\begin{definition}{$L^\infty$ space} \[
+    L^\infty(\mu) : = \{ f:X \to \mathbb{C} \text{ measurable} : \| f\|_\infty < \infty \} / \sim
+    \]
+    where $\sim$ 表示 a.e. 相等的函数的 equiv class.
+\end{definition}
+\begin{remark}
+    注意: \textbf{$f\in L^\infty(\mu)$, 并不等价于 $f$ a.e. bounded!}\\
+实则 recall: $f$ a.e. \textbf{bounded  是 $f \in L^p (\mu)$ for any $1\leq p \leq \infty$ 的必要条件}, 否则, 函数积分不可能 $<\infty$, 函数 $p$ 次方的积分更加不可能 $<\infty$.\\
+$f\in L^\infty(\mu)$ 是一个很严格的条件, 当然严格强于 $f$ a.e. bounded. \\
+比方说: \textbf{$f = \frac{1}{x}$, 只有在 $0$ 这一个点上 $f$ 是 unbounded 的, 但是它的 essential supermum 仍然是 $\infty$}, 因为不可能通过去掉一个 measure $0$ set 来使它 bounded. \\
+无法找到一个 $M$, 使得 $f$ 在几乎处处都小于 $M$. 你只能控制, $f$ 在 $(0,1/M)$ 上小于 $M$, 这个集合的测度随 $M$ 增大越来越小, 但是永远都是正测度.
+(同样这个函数也不属于任何 $L^p(m)$.)\\
+一个函数 essential supermum $<\infty$, 即 $\in L^\infty$, 则必须要它 unbounded 的这个行为是可以忽略不计的, 不能是明显的. 比如它在 $\mathbb{Q}$ 上 unbounded. 如果是在一个点上连续 blow up, 那么它就不可能 $\in L^\infty$. 类似于这里的  $f = \frac{1}{x}$.\\
+\end{remark}
+\begin{remark}
+    我们在本节课还会证明, 如果 measure space $X$ has finite measure, 那么有 \[
+    L^\infty(X) \subset \cdots \subset L^p(X)\subset \cdots  \subset L^{q} (X)\subset \cdots \subset L^1(X)
+    \]
+for 任意的 $p \geq q$.\\ 这表明的是, 在一定要求下, $L^\infty$ 是要求最严格的 space.
+\end{remark}
+
+
+下面是一个比较典型的例子:
+\subsection{$\ell^\infty$ space}
+\begin{definition}{$\ell^\infty$} \[
+    \ell^\infty : = \{  (a_j)_1^\infty : \| (a_j)\|_\infty : = \sup_j |a_j|  <\infty \}
+    \]\end{definition}
+\begin{example}
+    \[
+    f = x\chi_{\mathbb{Q}} \in L^\infty (m)
+    \]with \[
+    \| f\|_\infty = 0
+    \]
+    因为整个 $\mathbb{Q}$ 都是零测的.
+\end{example}
+
+\begin{remark}
+$\ell^\infty$ 其实就是: \[
+X: = \mathbb{N},\quad \mathcal{A}: = \mathcal{P}(X),\quad \mu = \mu_{counting}
+\]的 measure space. \[
+\ell^\infty = (\mathbb{N}, \mathcal{P}(\mathbb{N}), \mu_{counting} )
+\]
+一个 seq 就是一个从 $\mathbb{N}$ to $\mathbb{C}$ 的函数, 把每个 entry map to 一个 complex number.\\
+\textbf{而对于 counting measure 作为 measure 的 measure space 上, 唯一的零测集就是空集}, 因为哪怕只取一个元素, 这个子集的测度也是 1.\\
+比如, 我们只取三个 entry $1,2,8$, 看 $\{|a_n|\}_1^\infty \setminus \{|a_1|,|a_2|, |a_3|)\}$ 中的 $\sup$ value, 也不符合 essential supremum 的定义.\\
+因而我们发现, \textbf{对于 唯一的零测集就是空集 的 measure space, for example, 任何以 counting measure 作为 measure 的 measure space, 其 essential sup norm 就是普通的 sup value norm.}\\
+比如 \[
+\mathbb{C}^1,\mathbb{C}^2,\mathbb{C}^3,\cdots,\ell^\infty
+\]
+\end{remark}
+
+\subsection{$L^\infty$ 的基本性质: as a NVS; Hölder's ineq on it; dense subsets }
+
+\begin{lemma}
+如果 $f \in L^\infty(\mu) $ 则: 
+\begin{itemize}
+    \item 一定有 $|f(x)| \leq \|f\|_\infty$ for a.e. $x$.
+    \item 存在一个 bounded 函数 $g$, 使得 $f=g$ a.e.
+\end{itemize}
+\end{lemma}
+\begin{proof}
+    显然.
+\end{proof}
+\begin{remark}
+    是否有在某个零测集上 unbounded 但是却 $L^\infty$ 的函数? 答案是肯定的:\[
+f(x) =
+\begin{cases}
+\frac{1}{x}, & x \in \mathbb{Q} \cap (0,1] \\
+0, & \text{otherwise}
+\end{cases}
+\]
+有 $\|f\|_\infty = 0$.
+\end{remark}
+
+\begin{theorem}
+    \begin{itemize}
+        \item \[ \|fg\|_\infty \leq \|f\|_1 \|g\|_\infty\]
+可以把它看作 \textbf{Hölder 的一部分特殊情况}, 因为可以看作 \[ \frac{1}{1} + \frac{1}{\infty} = 1\] 从而补充完整了 Hölder ineq for $1 \leq p,q\leq \infty$
+        \item $L^\infty$ 是一个 \textbf{normed vector space}, equipped with $\| \cdot \|_\infty$
+        \item simple functions are dense in $L^\infty$
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    容易证明. 
+\end{proof}
+\begin{remark}
+    注意, $L^\infty$ 和 $L^p$ 有一个出入点是: \textbf{$C_c^0(\mathbb{R}^n)$ 并不是 $L^\infty (\mathbb{R}^n, m)$ 上的 dense subspace!}\\
+\end{remark}
+
+
+\subsection{$L^\infty$-convergence 作为 (finite measure space 下) 最强的 $L^p$ convergence: 等价于 uni. conv a.e.}
+\begin{theorem}{convergence in $L^\infty$ $\iff$uniform convergence a.e.}
+\[  f_n \to f \; \text{ in } L^\infty \iff \text{exists null set } E\subset X\; s.t. f_n\to f \text{ uniformly on } E^c \]
+(注意, 这\textbf{不是 conv almost uniformly}, 而是一个比 almost uniformly\textbf{ 更强}的条件:\textbf{ conv uniformly almost everywhere}, 因为 almost uniformly 只要求对于任意的 $\epsilon$, 都存在一个 measure 小于 $\epsilon$ 的 $E$, 使得在 $E^c$ 上 uni conv 即可.)
+\end{theorem}
+\begin{remark}
+    这一条 convergence 十分惊人. 因为\textbf{对于普通的 $L^p$ space, converge in $L^p$ 和 a.e. convergence 并没有任何的互推关系}; 但是对于 $L^\infty$ convergence, 我们却可以把它\textbf{等价于 uniform convergence almost everywhere}, which is 一个\textbf{比 a.u convergence 更强, 比 a.e. convergence 更强的逐点 convergence}. 可以看出 $L^\infty$ convergence 是比任何 $L^p$ convergence 都要强一个层次的收敛性质.\\
+    这一点
+\end{remark}
+\begin{proof}
+⇐: Suppose $f_n \to f$ uni. a.e; WTS: $f_n \to f$ in $L^\infty$
+ $f_n \to f$ uni. a.e 即: 存在零测集 \(E\subset X\), \(f_n \to f\) on $E^c$.\\
+Let $\epsilon > 0$.\\
+$f_n \to f$ uni. a.e 表明, 存在 \(N\) 使得 for all \(n \ge N\) 有 \[
+\forall x \in E^c,\quad |f_n(x) - f(x)| < \epsilon
+\]
+by def, exactly is: \[
+\|f_n - f\|_{L^\infty} = \operatorname{ess\,sup}_{x \in X} |f_n(x) - f(x)| \le \epsilon
+\]
+This shows that \(\|f_n - f\|_{L^\infty} \to 0\), 即 \(f_n \to f\) in \(L^\infty\).\\
+
+⇐: Suppose $f_n \to f$ in $L^\infty$; WTS: $f_n \to f$ uni. a.e.Denote: \[
+\epsilon_n := \|f_n - f\|_{L^\infty}
+\]
+By assumption, $\epsilon_n \to 0$. Define for each $n$:
+\[
+A_n := \{x \in X : |f_n(x) - f(x)| > \epsilon_n\}
+\]
+By def \(\|f_n - f\|_{L^\infty} = \text{ess sup}_{x} |f_n(x) - f(x)| \le \epsilon_n\), 于是 \( \mu(A_n) = 0\)
+那么令:  \[
+E := \bigcup_{n=1}^\infty A_n
+\]by subadditivity of measure 有 \(\mu(E) = 0\).
+于是对于任意 $\epsilon_n$, 都有
+\[
+ |f_n(x) - f(x)| \le \epsilon_n \to 0,\quad \text{for all } x \in E^c
+\]
+由于 $\epsilon_n \to 0$, showing that outside $E$, 有  \(\|f_n - f\|_{L^\infty} \to 0\).
+\end{proof}
+\begin{remark}
+这两个 convergence 直觉上是自然相等的.\\
+但是这并不能够说明 $   L^\infty(\mu)\text{-convergence}$ 就是强于任何 $L^p(\mu)\text{-convergence} $ 的. 因为即便是 uniform 的 ptwise conv 也无法推出 $L^p$ conv. \\
+特殊情况是, 如果整个 base space $X$ 是 finite measure 的, 则可以推出\[
+     L^\infty(\mu)\text{-convergence} \implies  L^p(\mu)\text{-convergence} \implies  L^q(\mu)\text{-convergence} \implies\cdots
+    \]
+    whenever $p > q$. (可证明)\\
+    但是对于无限测度空间, 这种推论未必成立.
+\end{remark}
+
+
+
+\subsection{$L^\infty$ as Banach space}
+\begin{theorem}{$L^p$ ($1\leq p \leq \infty$) is Banach}
+For any measure space $(X,\mathcal{A},\mu)$, $L^p(\mu)$ is Banach for all $1\leq p \leq \infty$
+\end{theorem}
+\begin{proof}
+我们已经 proved 了 $1\leq p < \infty$ 的 case, 现在 prove $p = \infty$ 的 case.\\
+By \ref{Equiv Condition for space being Banach}, 我们知道 STS: every abs conv series conv in $L^\infty$.\\
+我们 suppose $f_k \in L^\infty$ 有 \[
+\sum_{k=1}^\infty \| f_k \|_\infty < \infty
+\]
+WTS: \(\sum_{k=1}^\infty f_k \) converges.\\
+Set: \[
+E_k := \{x: |f_k(x)| > \|f_k||_\infty\}
+\]
+于是有 \[
+\mu(E_k) = 0 \quad \text{for each }k
+\]
+因而 setting \[
+E : = \bigcup_{k=1}^\infty E_k
+\]有 \[
+\mu(E) = 0
+\]
+note: \[
+x \in E^c \implies \sum_{k=1}^\infty |f_k(x)| \leq \sum_{k=1}^\infty \| f_k \|_\infty < \infty
+\]
+从而, \[
+g: = \sum_{k=1}^\infty  f_k
+\]在 $E^c$ 上是 well-defined 的, 且 bounded by $\sum_{k=1}^\infty \| f_k \|_\infty $.\\
+对于 $x\in E$, 我们可以随便设置值, 比如 $\pi$, 然后 define $g(x)= \pi$ on $x\in E$. 然后对于 each $n$, 我们 set: \[
+g_n(x) : = \begin{cases}
+    \sum_{k=1}^n f_k(x),\quad x \in E^c \\
+    \frac{1}{\pi},\quad x\in E
+\end{cases}
+\] 从而
+\begin{align*}
+    \|g_n - g \|_\infty \leq \sup_{x\in E^c} |g_n (x) -g (x)|  
+   &\leq \sup_{x\in E^c} |\sum_{n+1}^\infty f_k(x)| \\
+   &\leq \sup_{x\in E^c} \sum_{n+1}^\infty |f_k(x)| \\
+    &\leq \sum_{n+1}^\infty  \|f_k\|_\infty \to 0\\
+\end{align*}
+\end{proof}
+\begin{remark}
+My reflection: 不 Banach 的 normed vector space 是什么样子的呢? 即, 这个 space 中存在某些 series, 其对应的 norm series absolutely conv 但是它却不 converge to 一个元素呢? \\
+我们考虑空间 \( c_{00} \)，它是所有 finite supp 的 seq 组成的空间:
+\[ c_{00} := \{ x = (x_1, x_2, \dots) \in \mathbb{R}^\mathbb{N} \mid \text{only finite } x_i \neq 0 \}
+\]
+with \( \ell^1 \) norm: \[
+\|x\| = \sum_{i=1}^\infty |x_i|
+\]
+ \( c_{00} \) 是一个 normed vector space, 但不是 Banach space, 它的完备化是 \( \ell^1 \).
+我们考虑 series, with: \[
+x_n = e_n / 2^n
+\]
+其中 \( e_n = (0, \dots, 0, 1, 0, \dots) \), 第 \( n \) 个位置是 1, 其余是 $0$, 是这个 NVS 的 standard basis.\\
+显然每个 \( x_n \in c_{00} \)，并且： \[
+\|x_n\| = \frac{1}{2^n} \quad \Rightarrow \quad \sum_{n=1}^\infty \|x_n\| = \sum_{n=1}^\infty \frac{1}{2^n} = 1
+\]这是一个 absolutely convergent series,  但其和
+\[
+\sum_{n=1}^\infty x_n = \left(\frac{1}{2}, \frac{1}{4}, \frac{1}{8}, \dots\right) \notin c_{00}
+\]
+$L^p$ space 的 Banach 性表示了其\textbf{极限存在的稳定性}. recall, Banach 即 complete NVS, 而 \textbf{complete 是比 closed 更强的条件}. \\
+因而\textbf{任何一个 $L^p$ 函数列, 如果 Cauchy / converge in $L^p$ norm, 那么它的极限一定在 $L^p$ 里.}
+\end{remark}
+
+
+
+\section{relationship between $L^p$ spaces}
+
+\subsection{$L^{m}(\mu) \subset L^{n}(\mu), 0 < n\leq m\leq \infty$, for measure finite space)}
+刚才我们已经 state 了, 但还没有证明: 
+\begin{theorem}{ inclusion relation between $L^p$ spaces (when base space is finite measure)}
+    如果 measure space $X$ has finite measure, 那么有 \[
+    L^\infty(X) \subset \cdots \subset L^m(X)\subset \cdots  \subset L^{n} (X)\subset \cdots 
+    \]
+for 任意的 $m \geq n$.
+\end{theorem}
+这是我们首次把 $p<1$ 也 include 进我们的讨论.
+
+这个 statement 即: 对于 from finite measure space to $\mathbb{C}$ 的 function $f$, 它的 $\|f\|_m< \infty$ 是比 $\|f\|_n<\infty$ 更强的条件. \\
+尤其, 除去 $L^\infty$ 的情况, 它更直接的意思是: 对于 $0 <  n \leq m <\infty$ 而言, $f$ 的绝对值的 $m$ 次方的积分 $<\infty $ 是比 $f$ 的绝对值的 $n$ 次方的积分 $<\infty$ 要更强的条件. 
+
+这其实是一件比较直观的事情. 因为对于 $|f| \geq 1$ 的部分, 
+\[
+\int_{|f| \geq 1} |f|^{large} \geq \int_{|f| \geq 1}  |f|^{small}
+\]
+而对于 $|f| <1$ 的部分,\[
+\int_{|f| < 1} |f|^{large} \leq \int_{|f|< 1}  |f|^{small}
+\]
+然而\textbf{由于整个 space 的 measure 是 finite 的, $|f| <1$ 的部分并不影响}. 因为 \[
+\int_{|f| < 1} |f|^{large} \leq \int_{|f|< 1}  |f|^{small} \leq \int_{|f|< 1}  1 \leq \mu(X)
+\]
+因而, 对于 $\mu(X)<\infty$ 的情况, 显然有 $\|f\|_{large}< \infty$ 是比 $\|f\|_{small}<\infty$ 更强的条件.\\
+
+\textbf{(实际上, 如果只有 measure finite 的 $x$ 上 $|f(x)| < 1$, 那么即便 $\mu(X)=\infty$, $\|f\|_{large}< \infty$ 也是比 $\|f\|_{small}<\infty$ 更强的条件; 而如果有 measure infinite 的 $x$ 上 $|f(x)| <1$, 那么有可能 $\|f\|_{large}< \infty$ 是比 $\|f\|_{small}<\infty$ 更弱的条件)}\\
+My point: 虽然说 $|f(x)|^{large}$ 比起 $|f(x)|^{small}$ 是更大还是更小取决于 $|f(x)|$ 是否 $\geq 1$ or $<1$, 但是 $\geq 1$ 的值是可以 unbounded 的, 而 $<1$ 的值再怎么通过小次方变得更大, 也超不过 $1$. 因而 $|f(x)| \geq 1$ 的部分通常更能函数积分值的有限性, 除非在一个 measure infinite 的集合上 $|f(x)| <1$.
+
+这里有一个更加严格的证明:
+\begin{proof}
+首先, 对于 $m = \infty$ 的 case, 如果 $f\in L^{m} = L^{\infty}$, 那么取任意 $1\leq n < \infty$ 都有: \[
+\int |f|^n \leq \int \|f\|_\infty^n = \|f\|_\infty ^ n  \mu(X) < \infty
+\]
+ 其次, 对于正常的  $m < \infty$ 的 case, 我们使用 Hölder: 
+如果 $f\in L^m$, 那么对于任意 $n<m$, 我们可以构造出 Hölder conjugate $\frac{m}{n}$ 和 $\frac{m}{m-n}$,从而:
+\begin{align*}
+      \int |f|^n &= \int |f|^n \cdot 1 \\
+      &\leq \bigg(  \int (|f|^n)^{\frac{m}{n}}  \bigg)^{\frac{n}{m}}\bigg(  \int 1^{\frac{m}{m-n}}  \bigg)^{\frac{m-n}{m}}\\
+      & = \|f\|_m^n \mu(X)^{\frac{m-n}{m}} < \infty 
+ \end{align*}
+ 从而 $$\| f\|_m <\infty \implies \|f \|_n < \infty$$
+ 这一 proof 利用 Hölder conjuate, 通过构造包含 $\frac{m}{n}$ 的 Hölder conjugate, 把 $ \int |f|^n$ 改成了 $ \|f\|_m$ 的 expression.
+\end{proof}
+以下是一个经典的例子:
+\begin{example}
+考虑\textbf{ measure finite 的 measure space $(0,1)$}: 通过经典的 Calculus 我们知道:
+\[ f(x) = \frac{1}{x^m} \in L^p(0,1) \quad \text{ for all } p < \frac{1}{m}\]
+但是对于任意的 $m$, 都有: \[
+ f(x) = \frac{1}{x^m} \not\in L^p(0,1)
+\]
+而我们再看一个 \textbf{measure infinite 的 measure space $(1,\infty)$ 上的反例}, 采用同一个函数:
+$$f(x) = \frac{1}{x^m},\quad x\in (1,\infty)$$
+这个时候, $p$ 越大, $\int |f|^p =  \|f \|_p^p$ 反而越小, 通过经典的 Calculus 我们知道:我们知道
+而对于 \[
+f(x) = \frac{1}{x^m} \in L^p(1,\infty)\quad \text{for all } p > \frac{1}{m}
+\]并且 $f \in L^\infty (1,\infty)$, 因为 $\|f\|_\infty  = 1$.\\
+这个空间上的这个函数正对应了我们刚才讨论的, 如果有 infinite measure 数量的 $x$ 上 $|f(x)| <1$, 那么很可能 $\|f\|_{large}< \infty$ 是比 $\|f\|_{small}<\infty$ 更弱的条件
+\end{example}
+
+
+\subsection{control arbitrary $\|f \|_m $ 和 $\|f \|_n$ 的大小比例, in measure finite space}
+\begin{remark}
+刚才我们的推导中, \begin{align*}
+      \int |f|^n \leq  \|f\|_m^n \mu(X)^{\frac{m-n}{m}} < \infty 
+ \end{align*}
+ 两边开 $p$ 方, 可以得到一个不等式:  
+ \begin{theorem}
+     对于 measure finite space $X$, 对于任意的 $0< n\leq m \leq \infty$, 有: \[
+     \|f\|_n \leq  \|  f \|_m \,\mu(X)^{\frac{1}{n} - \frac{1}{m}}
+     \]\end{theorem}
+ 这也是一个有用的不等式. 它在 measure finite space 上, 对于任意的可测函数, 控制了两个任意的 function $p$-norm (虽然 for $p<1$ 不能严格地称为 norm) 之间的大小关系。
+\end{remark}
+
+
+\subsection{$(L^n\cap L^r) \subset L^m \subset (L^n + L^r)$, 对任意 $0< n < m < r \leq \infty$} 
+
+\begin{proposition}
+对于 measurable $f: X \to \mathbb{C}$, \[
+t \mapsto \| f\|_{\frac{1}{t}} 
+\]is \textbf{log-convex}.\\
+equivalently 即: 对于任意的 $0< n < m < r \leq \infty$, 都有 \[
+\|f \|_m \leq \|f \|_n ^\lambda  \cdot \| f\|_r ^{1-\lambda}
+\]
+where \[
+\lambda := \frac{\frac{1}{m} - \frac{1}{r}}{\frac{1}{n} - \frac{1}{r}} \in (0,1),\quad i.e. \bigg(\frac{1}{m}\bigg) = \lambda\bigg( \frac{1}{n}\bigg) + (1-\lambda) \bigg(\frac{1}{r}\bigg)
+\]
+\end{proposition}
+\begin{remark}
+    log convex 即: 这个函数的 $\log$ 函数是 convex 的. 即对于任意 $x,y$, 以及 $[x,y]$ 上的任意一点, 即 $\lambda x + (1-\lambda) y $ for some $\lambda \in [0,1]$, 都有: \[
+    \log f (\lambda x + (1-\lambda) y) \leq \lambda  \log f(x) + (1-\lambda) \log f(y)
+    \] 即: \[
+    f (\lambda x + (1-\lambda) y)  \leq f(x)^\lambda f(y)^{1-\lambda}
+    \]
+例如: $e^x, e^{x^2}, x^x$ 都是 log-convex 的. convex 函数的几何意义是 \textbf{"函数值小于等于线性插值"}, 中点值 $\leq $两端值的\textbf{算术平均}, 而 log-convex 函数的几何意义是: , 中点值 $\leq $两端值的\textbf{几何平均}.\\
+这里, 两端点是 $\frac{1}{r} <\frac{1}{n}$, 而中间的取点则是 $\frac{1}{m}$. log convexity 性质表明: \[
+\|f \|_m \leq \|f \|_n ^\lambda  \cdot \| f\|_r ^{1-\lambda}
+\]
+\end{remark}
+\begin{proof}
+    For $r = \infty$, then $\lambda = \frac{n}{m}$.\\
+    Since \[
+    |f |^m  =  |f |^n \cdot | f|^{m-n} \leq |f |^n \cdot \| f\|_\infty ^{m-n} \quad a.e.
+    \]
+    可以得到 \[
+    \int |f |^m \leq \bigg(\int |f|^n \bigg) \cdot \|f \|_\infty ^{m-n}  =  \|f ||_n ^n \cdot  \|f \|_\infty ^{m-n}
+    \]
+    从而 Taking $q$th root 得到结果:\[
+    \| f \|_m \leq \|f \|_n ^{n/m} \|f \|_\infty ^{1-n/m}
+    \]
+    For $r < \infty$: 我们采用 conjugate exponents: \[
+    \frac{n}{\lambda m}, \frac{r}{(1-\lambda)m}
+    \]
+    这是因为:  \[
+     \bigg(\frac{1}{m}\bigg) = \lambda\bigg( \frac{1}{n}\bigg) + (1-\lambda) \bigg(\frac{1}{r}\bigg) \implies 1 = \lambda\bigg( \frac{m}{n}\bigg) + (1-\lambda) \bigg(\frac{m}{r}\bigg)
+    \]
+    从而 Applying Hölder: \begin{align*}
+         \int |f|^m &= \int |f|^{\lambda m  } |f|^{(1-\lambda)m}\\
+         &\leq \bigg( \int {|f|^n}\bigg)^ {\frac{\lambda m}{n}} \bigg(\int |f|^r \bigg)^{\frac{(1-\lambda)m}{r}} \\
+         & = \| f\|_n ^{\lambda m} \cdot \|f \|_r ^{(1-r) m}
+    \end{align*}
+    Taking $q$ th root 得到结果.
+\end{proof}
+\begin{remark}
+    Hölder's ineq 仍然是这里重要的一步. 我们这里需要利用 convexity 表述中的 "point on a line segment" 条件来构造一个 conjugate.
+\end{remark}
+\begin{remark}
+    此处我们可以由这个 proposition 直接得到一个推论: \
+
+\begin{corollary}
+    对于任意的 $0< n < m < r \leq \infty$, 都有  \[
+   (L^n \cap L^r) \subset L^m
+    \]
+\end{corollary}
+\end{remark}
+
+\begin{example}
+    令 $A$ 为任意集合, $0\leq p < q \leq \infty$, 有: \[
+ \|f \|_q \leq \|f \|_p \quad \text{and thus} \quad \ell^p(A) \subset \ell^q(A)
+    \]
+    这是因为 \[
+    \|f \|_\infty ^p  = \sup_\alpha |f(\alpha)|^p \leq \sum_\alpha |f(\alpha)|^p = \|f \|_p^p
+    \]
+    于是 for $q\not = \infty$ case  \[
+    \|f \|_q \leq \|f \|_p^\lambda \|f\|_\infty^{1-\lambda }  \leq \|f\|_p
+    \]
+(另一 case, trivial.)\\
+我们发现 $\ell^p$ 空间, $p$ 越小要求反而越严格. \\
+这是因为 $\ell^p$ 空间中一个函数就是一个 seq, 其 $p$-norm 就是各项的 $p$ 次方和, 再开 $p$ 次方根.\\
+对于一个 seq, 如果它的累和 series 收敛, 它的各项肯定是 \textbf{eventually 收敛的}, 那么这些除了有限项外的这些项的绝对值都是 $<1$ 的, 那么\textbf{ $p$ 越大,  它们 $p$ 次方和只会越小}. 这正对应了我们之前说的 \textbf{"$|f(x)| < 1$ 的点主导函数" 的情况.}\\\\
+\end{example}
+
+相对于这个inclusion 关系, 我们还有另外一个 inclusion 关系: 
+\begin{proposition}{每个 $L^m$ 函数都是一个 $L^n$ 函数和一个 $L^r$ 函数的和 ($0< n < m < r \leq \infty$)}
+ 对于任意的 $0< n < m < r \leq \infty$, 都有  \[
+   L^m\subset  (L^n + L^r)
+    \]
+\end{proposition}
+这个 inclusion 关系有一种调和的感觉在里面. 它 roughly mean 给定一个函数, 它可以拆成一个更加容易积的函数和一个更加不容易积的函数, 并且我们很大程度上可以控制这两个函数的可积性.\\
+但其实很简单, 就是用我们之前的 $|f(x)|<1$ 和 $\geq 1$ 的点作为区分, 把函数的定义域分成两部分. 如果 $|f|$ 的 m 次方是可积的, 那么更小的 $n$ 次方, 对于 $|f(x)| \geq 1$ 的部分肯定也是可积的; 更大的 $r$ 次方, 对于 $|f(x)|< 1$ 的部分肯定也是可积的;
+
+\begin{proof}
+Suppose $f \in L^m$. Let \[
+E:= \{ x:|f(x)|>1\} 
+\]
+let \[
+g: = f\chi_E,\quad h := f \chi_{E^c}
+\]
+于是 $g \in L^n$ for all $0< n \leq m$, $h \in L^r$ for all $r \geq m$ and $r= \infty$.
+\end{proof}
 
 
 
@@ -3813,7 +4562,171 @@ Since \[
 
 
 
-'
+\chapter{signed measure}
+\subsection{remainder: 当前 Folland 进度}
+我们目前 finish 了 Folland 的\textbf{ Ch1, Ch2, 6.1 的全部, 3.4 的大部分, }\\
+其实在这个 lec 前还有一个 lec 讲了 Folland 5.1, 5.2, 6.2 的各一部分, 在这里我去掉了这个 lec, 把它放在了 Ch3 讲完之后.  这是因为由于目前没有证明 Radon-Nikodym Thm, 没有足够的工具去完成 \[
+(L^p)^* = L^q
+\]
+的证明 (差了一个 proof surjectivity of the isometry $g \to \ell_g$). 不清楚老师为什么要把它放在这里讲.\\
+现在我们将回到 Ch3 的 signed measure and differentiation between measures 的 theory, 在\textbf{接下来的 a few lectures 中 finish 掉 Ch3.}\\
+在 finish 掉 Ch3 后, 我们将掌握足够的知识继续推进 $L^p$ space 的理论, 从而 finish 完 6.2, 然后完成 6.3, 6.4 的一部分, 以及 a bit Hilbert space theory 和 Fourier Analysis.\\
+\textbf{What will not be covered}: Ch4 on point set topology (assume we have learned part of it, and the rest is not needed to be learned systematically) 以及剩余的泛函分析内容 (should be covered in functional analysis course next semester).
+
+
+\section{signed measure}
+Motivation: 我们都知道, 对于 nonnegative measurable $f$ 即 $f \in L^+$, \[
+\nu(E) : = \int_E f \; d \mu
+\]
+通过 integration of the function with respect to some measure $\mu$ 定义出了另一个 measure $\nu$.\\
+But what about $f \in L^1$?
+\begin{definition}{signed measure}
+    一个 signed measure on a measurable space $(X,\mathcal{A})$ 是一个 function $\nu : \mathcal{A}\to [-\infty, \infty)$ 或者 $\nu: \mathcal{A}\to (-\infty, \infty]$, \textbf{和普通 meausre 一样满足 $\nu (\varnothing) = 0$ 以及 ctbl disjoint additivity}.\\
+    Note: signed measure 只 admit $+\infty$ 和 $-\infty$ 中的一个值 (\textbf{不可以同时存在两个集合 $\nu(A) = \infty$, $\nu(B) = -\infty$})
+\end{definition}
+\begin{remark}
+    所有的 measure 都是 signed measure. 为了强调普通的 measures 和 signed measures 的区别, 我们也称\textbf{普通的 measure 为 positive measure}.\\
+    signed measure 实则是偏向一边的, 要么偏向 positive 要么偏向 negatve, 在取值上并不对称. 因为一旦有 $\nu(A) = \infty$ 就不能有 signed measure 为 $-\infty$ 的集合, 反之亦然. 另一边只是一个调节, 作为一个有限的补偿项.
+\end{remark}
+
+\begin{example}
+    容易验证: 
+    \begin{proposition}
+        对于 positive measure $\mu_1, \mu_2$, 如果其中有至少一个是 finite 的, 那么 \[
+    \nu :  = \mu_1 - \mu_2
+    \] 是一个 signed measure.
+    \end{proposition}
+     This follows from ctbl disjoint additivity. (两个 ctbl sum 加起来)
+\end{example}
+
+\begin{example}
+\begin{proposition}
+    对于 measurable function $f$, 如果 $f^+$ 和 $f^-$ 中至少有一个是 $L^1$ 的 (这个条件弱于 $f\in L^1$, 被称为 $f$ is extended $\mu$-integrable), 那么 \[
+    \nu (E) = \int_E f \; d\mu
+    \]就是一个 well-defined 的 signed measure.
+\end{proposition}
+This follows from that (1) 对于 $f\in L^+$, $\nu(E) : = \int_E f \; d \mu$ 定义了一个 measure; (2) 上一个 proposition.
+\end{example}
+
+
+\subsection{signed measure 的 CFB, CFA }
+\begin{proposition}{CFB and CFA}
+给定 signed measure $\nu$,   对于 increasing seq $E_j$, 有 \[
+\nu(\bigcup_{j=1}^\infty E_j)  = \lim_{j\to \infty} \nu(E_j) 
+\]
+对于 decreasing seq $F_j$, 有: \[
+\nu(\bigcap_{j=1}^\infty F_j)  = \lim_{j\to \infty} \nu(F_j) 
+\]
+\end{proposition}
+\begin{proof}
+    和 positive measure 的 CFB, CFA 一致.
+\end{proof}
+
+\subsection{positive / negative / null set}
+
+Elementary fact: 对于 signed measure 而言, \[
+A \subset B \not \Longrightarrow \nu(A) \leq \nu (B)
+\]
+但是
+\begin{lemma}
+对于 signed measure $\nu$, 和 measurable $A \subset B$, 
+\[
+\nu(A) = \infty \implies \nu(B) = \infty
+\]以及同理 \[
+\nu(A) = -\infty \implies \nu(B) = - \infty
+\]
+\end{lemma}
+\begin{proof}
+    这是因为 \[
+B = A \sqcup (B \setminus A)
+\]
+由于我们对于 signed measure, 只允许 $\infty$,$-\infty$ 中的一种情况, 因而不论 $\nu(B \setminus A)$ 的 measure 也同向无穷或者有穷, 都能够推出 $B$ 的 measure 也同向无穷.
+\end{proof}
+\begin{remark}
+    这个性质表示了 signed measure 的稳定性: 一旦一个集合开始出现无穷的 measure, 它外面的任何 superset 一定也有同向的无穷 measure, 不会有 measure 正负变化极端的情况.
+\end{remark}
+ 
+
+\begin{definition}{positive set, negative set, null set}
+    给定 signed measure $\nu$, 对于 $E \in \mathcal{A}$, 我们称 $E$ 是一个 \textbf{postive se}t, 如果对于对于任意的 $F \subset E$, 都有 \[
+    \nu(F) \geq 0
+    \] \textbf{negative set} 和 \textbf{null set} 同理.\\
+Note: For signed measure,\textbf{ 一个集合的 signed measure 为 $0$ 并不代表它的任何子集的 measure 也是 $0$}, 它可以是两个正负 measure 相抵的集合的 union. 因而我们要这样额外定义 null set.
+\end{definition}
+
+
+\begin{lemma}{measurable subset preserves sign}
+measurable subset of a measurable set $F\subset E$ preserves the sign of $E$.\\
+即: $E$ 是一个 positive / null / negative $\implies$任意 $F \subset E$ 是一个 positive / null / negative.
+\end{lemma}
+\begin{proof}
+By def, 可以 by contradiction 得到.
+\end{proof}
+
+
+\begin{lemma}{positive, negative, null set 内的局部性质和普通的 measure space 一样}
+如果 $E$ 是一个\textbf{ positive set} for signed measure $\nu$, 那么 \[
+F \subset E \implies \nu (F) \leq \nu (E)
+\]
+通过上一个 lemma, $E$ 的任何子集也有这个性质. 因而 \textbf{$E$ 局部是一个普通的 measure space}. \\
+同理, 如果 $E$  是一个\textbf{ negative set}, 那么 \[
+F \subset E \implies \nu (F) \geq \nu (E)
+\]
+因而 $E$ 局部也等价于是一个普通的 measure space, 只不过所有集合的 measure 加上了一个负号.
+\end{lemma}
+\begin{remark}
+    positive, negative, null set 就是这个 signed measure space 中的 "纯净部分", 在这个部分里, 这个 
+\end{remark}
+
+
+
+
+Question:
+给定 signed measure $\nu$, 它是否一定能被 decompose into 两个 positive measure 的 difference? \[
+\nu  = \nu ^+ - \nu^- ?
+\]
+Turns out that: there exists a canonical way to do this. \textbf{这个分解存在且是唯一的}, 并且\textbf{正的部分和负的部分是不相交的 (不存在一个集合既有非 $0$ 的 positive measure 又有非 $0$ 的 negative measure)}. 我们称这个 signed measure decomposition 为\textbf{ Jordan decomposition}.\\
+
+我们下节课会证明 Jordan decomposition. 这节课我们先证明一个得到 Jordan decomposition 的关键步骤: \textbf{Hahn Decomposition}. Hahn Decomposition Theorem 表示: \textbf{对于任意一个 signed measure, 它可以把整个空间 $X$ 划分为两个 a.e. 不相交的 positive set $P$ 和 negative set $N$.}
+
+
+
+\section{Hahn Decomposition}
+\begin{theorem}{Hahn Decomposition Theorem}
+对于任意 measurable space $(X,\mathcal{A})$ 上的任意 signed measure $\nu$, 都存在一个 positive (measurable) set $P$ 和一个 negative (measurable) set $N$ s.t. \[
+P \cap N = \varnothing
+\]
+并且 \[
+P \sqcup N = X
+\]
+即, $X$ 被 $\nu$ 划分为 positive measure 和 negative measure 的两个部分. \\
+并且, 这个 decomposition 是唯一的 in $\nu$-a.e. sense: 即, 如果 $P',N'$ 是 another pair of such decomposition, 必然有: \[
+\nu (P \Delta P')  = 0
+\] (notice: $P\Delta P'= N \Delta N'$.)
+\end{theorem}
+
+
+
+
+
+\chapter{Jordan decomposition}
+
+
+
+
+
+
+
+
+\chapter{Radon-Nikodym Theorem}
+
+
+
+
+
+
+
+next time: upgrade it to the Lebesgue Radon Nikodym Thm.
 
 
 
@@ -3827,13 +4740,193 @@ Since \[
 
 
 
+\chapter{the dual of $L^p$}
+对应: Folland 5.1, 5.2, 6.2.\\
+原本这是在 lec 25 的位置讲的, 但是当时由于没有 Radon-Nikodym Thm, 没有足够的工具去完成 \[
+(L^p)^* = L^q
+\]
+的证明 (差了一个 proof surjectivity of the isometry $g \to \ell_g$). 不清楚老师为什么要把它放在这里讲. 因而我把它放在 Ch3 讲完后的位置了.\\
+我们首先练习一个 example of Hölder's ineq 来回忆一下:\\
+recall Hölder's ineq: for $1\leq p,q\leq\infty,\; \frac{1}{p}+\frac{1}{q} = 1\implies$ \[
+||fg||_1 \leq ||f||_p ||g||_q
+\]
+\begin{example}
+Prove:\[
+    f \in L^3 ([-1,1],m)\implies \int_{-1}^1 \frac{|f(x)|}{\sqrt{|x|}} \,dx < \infty
+    \]
+\begin{proof}
+    Apply Hölder's: 既然 $f\in L^3$, 那么我们就拉满, take $p=3$, correspondingly $ q=3/2$:\begin{align}
+        \int_{-1}^1 \frac{|f(x)|}{\sqrt{|x|}} \,dx   &\leq \bigg(\int_{-1}^1 |f(x)|^3\, dx\bigg)^\frac{1}{3} \bigg(\int_{-1}^1  \frac{1}{|x|^{\frac{3}{4}}} \,dx    \bigg)^\frac{2}{3}
+    \end{align} both integrals evaluate $<\infty$
+\end{proof}
+\end{example}
+
+\section{intro to dual space}
+这里只讨论 $\mathbb{K} := \mathbb{R}$ or $\mathbb{C}$.\\
+recall, 对于一个 $\mathbb{K}$-vector space $V$, 一个 linear functional of $V$ 就是一个 linear function \[
+f:V \to \mathbb{K}
+\]
+对于作为 NVS 的 $V$, 我们还可以定义一个 linear functional 的 boundedness. 
+\begin{definition}{bounded linear functional }
+ Let $V$ be a $\mathbb{K}$-NVS, $f:V \to \mathbb{K}$ be a linear functional.\\
+ 我们称 $f$ bounded, if exist $C>0$ s.t. \[
+|f(v)| \leq C||v||,\quad \forall \,v \in V
+\]
+\end{definition}
+\begin{remark}
+注意, \textbf{linear functional 的 boundedness 和它作为函数的 boundedness 是不一样的概念.}\\
+作为函数的 boundedness 表示函数值的有界性, 而\textbf{作为  linear map 的 boundedness (此处) 表示它的作用效果的 boundedness, 不会把一个 vector 放大太多倍.}
+\end{remark}
+
+\begin{proposition}{linear functional bounded $\iff$ ctn at $0$}
+    if $f:V\to \mathbb{K}$ is a linear functional, TFAE:
+    \begin{itemize}
+        \item $f$ bounded
+        \item $f$ continuous
+        \item $f$ continuous at $0\in V$
+    \end{itemize}
+\end{proposition}
+\begin{proof}
+    (ii) to (iii): trivial.\\
+    (i) to (ii): 假设 $f$ bounded, 那么可以 pick $C$ s.t. $|f(v)| \leq C||v||$.\\
+    Pick $v_0\in V, \epsilon > 0$. Set $\delta := \frac{\epsilon}{C}$. Then
+\[
+    ||v-v_0|| <\delta \implies |f(v)-f(v_0)| = |f(v-v_0)| \leq C||v-v_0|| < \epsilon
+    \]
+   从而 ctn.\\
+    (iii) to (i): $\exists \delta > 0$ s.t. $||v|| \leq \delta\implies |f(v)|\leq 1$.\\
+    于是 $\forall v \in V\setminus \{0\}$, 都有 \[
+    |f(v)| =   \frac{\big|f(v \cdot \frac{\delta}{||v||} ) \big| }{\frac{\delta}{||v||}}   \leq \frac{\delta}{||v||}
+    \] taking $C =\frac{1}{\delta}$, 得到 boundedness.
+\end{proof}
+\begin{remark}
+    这个 proposition 看起来很神奇, 把一个整体性质和局部性质等价了, 但是我们知道 linear map 就是局部决定整体的, by its def.\\
+ recall in 395: 实际上这个性质应该对所有的 linear map 都成立, 不只是 linear functionals. \\
+ 通常我们认为 linear map 总是 ctn 的, 但是其实它 ctn iff bounded, unbounded 的时候就不 ctn.\\
+ 以及: \textbf{linear map between finite dim spaces 总是 bounded 的, 从而总是 ctn 的}. 不过这里我们要讨论的就是 infinite dim spaces. 比如 $L^p$.
+\end{remark}
+
+
+\begin{definition}{dual space}
+If $V$ is a NVS, 我们定义它的 \textbf{dual space} as: \[
+    V^* := \{\text{bounded linear functionals }\; f: V \to \mathbb{K}  \}
+    \]
+\end{definition}
 
 
 
+\begin{definition}{norm of dual space: 即 \textbf{dual norm}}
+    Given $f \in V^*$, set \[
+    ||f||_* : = \sup_{v\in V\setminus \{0\}} \frac{|f(v)|}{||v||} = \sup_{||v||=1} |f(v)|
+    \]
+  where $\| v\|$ 表示的是 $V$ 上使用的 norm. 这个 norm 被称为 dual norm.
+    \end{definition}
+        这个形式是我们在各种地方见过非常多次的\textbf{ }operator norm, 只不过这里, 指定一个 NVS, 对于其 dual space 上的 linear functional, 它是固定的, 不需要指定 $v$ 和 $f(v)$使用哪个 norm, 因为 $f(v)$ 就是标量, 而 $v$ from 原  NVS, 已经指定好 norm. 
+\begin{remark}
+    从定义中我们可知, 对于任意的 $v\in V$, $f\in V^*$, 都有: \[
+    |f(v)| \leq \|f \|_*|v|
+    \]
+\end{remark}
+        
+\subsection{$V^*$ being a Banach space}
+\begin{theorem}{dual space is always Banach}
+对于\textbf{任意的 NVS }$V$: $V^*$ 都是一个 Banach space. (not assuming $V$ Banach).
+\end{theorem}
+\begin{proof}
+First we can confirm $V^*$ is a VS, 因为它由 linear functions of the same size 组成. \\
+\textbf{Claim 1: $V^*$ 是一个 NVS.}\\
+因为任取 $v\in V,\lambda\in\mathbb{K}$ 都有 $|f(\lambda v)| = |\lambda|\cdot |f(v)|$, 从而
+\[
+f \in V^* ,\lambda \in \mathbb{K}        \implies ||\lambda f||_* = |\lambda| \cdot ||f||_*
+\]以及 \[
+f,g\in V^*, v\in V \implies |(f+g) (v)| = |f(v) + g(v)|  \leq |f(v)| + |g(v)|
+\]因而
+\[
+f,g\in V^* \implies \|f+g\|_* \leq \|f\|_* + \|g\|_*
+\]
+下面我们 verify $V^*$ Banach.\\
+\textbf{Claim 2: 一个 Cauchy seq in $V^*$ 一定 pointwise converge to some $f 
+$}\\
+    Pick $(f_n)_1^\infty$, 一个 Cauchy seq in $V^*$. Let $\epsilon < 0$, 存在 $N$ 使得对于任意 $m,n \geq N$ 都有 \( \| f_n - f_m \|_* < \epsilon\), 我们简写为: \[ \|f_n - f_m\|_*  \to 0   \]
+因而对于任意 $v\in V$,  we have \[
+    |f_n(v) - f_m(v) | \leq \|f_n - f_m\|_*  ||v|| \to 0
+    \]
+并且我们知道\textbf{ $\mathbb{K}$ 是 complete 的}, 因而 $f_n(v)$ converges in $\mathbb{K}$ to some element, declared to be $f(v)$.\\
+即 \textbf{\(f_n \to f \) pointwisely}:\[
+    \lim _{n\to \infty} f_n (v )  = f(v)
+    \]
+(这是自然的, 因为如果 linear function $f-g$ 的 operator norm 是 $0$, 那么说明它们毫无差别, 否则一定有某个地方 $f,g$ 的 image 不一样, 使得这个 norm 不是 $0$.)\\
+\textbf{Claim 3: $f$ 是 linear 的, 并且 bounded (从而 ctn), 即 $f\in V^*$. }\\
+linearity: 由于每个 \(f_n\) 都是 linear 的, \[
+      f_n(x + \alpha y) = f_n(x) + \alpha f_n(y)
+      \]
+因而 \[
+      f(x + \alpha y) 
+      = \lim_{n\to\infty} f_n(x+\alpha y) 
+      = \lim_{n\to\infty}\bigl(f_n(x) + \alpha f_n(y)\bigr)
+      = \lim_{n\to\infty}f_n(x) + \alpha \lim_{n\to\infty}f_n(y)
+      = f(x) + \alpha f(y)\]
+    因此 \(f\) 是线性的.\\
+\textbf{ (Note: 这里证明了 linear map 的 pointwise 极限一定也是 linear map.)}\\
+Boundedness: 
+Note a standard fact from metric spaces: \textbf{every Cauchy sequence is bounded.}\\
+因而 $f_n$ 是一个 bounded seq, 即存在 \(M>0\) such that \(\|f_n\| \le M\) for all \(n\). Then   \[
+   |f(x)| = \big|\lim_{n\to\infty} f_n(x)\big|
+            \le \lim_{n\to\infty} |f_n(x)|
+            \le \lim_{n\to\infty} \|f_n\|_* \|x\|
+            \le  M\,\|x\|
+   \]
+   Hence \(f\) is bounded (continuous), and \(\|f\|_* \le M\).
+\textbf{Claim 4: $   \|f_n - f\|_*  \to 0$, proving $V^*$ 是 Banach 的.}
+WTS:   \[
+   \|f_n - f\| 
+   = \sup_{\|x\|=1} |(f_n - f)(x) | \to 0
+   \]
+//TO BE DONE.
+\end{proof}
+Actually 这个 Theorem 有更 general 的形式: 
+
+\begin{theorem}
+对于任意 nvm $V$ 和 Banach $W$, \( \mathcal{L}(V,W)\) 一定是 Banach 的.
+\end{theorem}
+Proof 见 Folland 5.4.
 
 
+\section{$(L^p)^* = L^q$, $\frac{1}{p} + \frac{1}{q} = 1$ }
 
+\begin{theorem}{对于互为 conjugate exponent 的 $p,q$, $L^p$ 是 $L^q$ 的 dual space}
+    
+\end{theorem}
 
+For $1 < p,q < \infty$ with $\frac{1}{p} + \frac{1}{q} = 1$, we have: \[
+(L^p)^* = L^q
+\]
+In particular the Hilbert space: \[
+(L^2)^*  = L^2
+\]
+
+\begin{proof}
+    Define map \begin{align}
+        L^q &\to (L^p)^* \\
+        g &\mapsto \varnothing_g
+    \end{align}
+    where $$\varnothing_g(f) := \int fg,\quad f \in L^p $$
+    It is well-defined by Hölder: \[
+    f\in L^p, g\in L^q \implies fg \in L^1 
+    \]
+    and \[
+    ||fg||_1 = \int |fg| \leq  ||f||_p ||g||_q
+    \]
+    Easy: \[
+    \varnothing_g (f_1 + f_2) = \varnothing_g (f_1) + \varnothing_g(f_2)
+    \]
+    Also \[
+    |\varnothing_g(f)| =\bigg|\int fg\bigg| \leq \int |fg| \leq ||f||_p\cdot  ||g||_q
+    \]
+    Thus \[
+    \varnothing_g \in (L^p)^*\
+    \]
+\end{proof}
 
 
 
