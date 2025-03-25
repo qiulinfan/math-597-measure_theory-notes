@@ -4643,7 +4643,7 @@ B = A \sqcup (B \setminus A)
 由于我们对于 signed measure, 只允许 $\infty$,$-\infty$ 中的一种情况, 因而不论 $\nu(B \setminus A)$ 的 measure 也同向无穷或者有穷, 都能够推出 $B$ 的 measure 也同向无穷.
 \end{proof}
 \begin{remark}
-    这个性质表示了 signed measure 的稳定性: 一旦一个集合开始出现无穷的 measure, 它外面的任何 superset 一定也有同向的无穷 measure, 不会有 measure 正负变化极端的情况.
+    这个性质表示了 signed measure 的稳定性: \textbf{一旦一个集合有无穷的 measure, 它外面的任何 superset 一定也有同向的无穷 measure}.
 \end{remark}
  
 
@@ -4675,10 +4675,18 @@ F \subset E \implies \nu (F) \geq \nu (E)
 因而 $E$ 局部也等价于是一个普通的 measure space, 只不过所有集合的 measure 加上了一个负号.
 \end{lemma}
 \begin{remark}
-    positive, negative, null set 就是这个 signed measure space 中的 "纯净部分", 在这个部分里, 这个 
+    positive, negative, null set 就是这个 signed measure space 中的 "\textbf{纯净部分}", 在这个部分里, 这个 subspace 相当于一个普通的 measure space. 
 \end{remark}
 
-\pic[0.4]{ch3-pics.assets/draw.png}
+\pic[0.4]{ch3-pics.assets/draw-2943173.png}
+
+
+\begin{lemma}
+    Countable union of positive / negative / null sets 仍然是 positive / negative / null sets.
+\end{lemma}
+\begin{proof}
+    Follows from Def. 任何一个 $E$ 的子集都可分解成这个 $E_1, E_2,\cdots$ 中的某些集合的子集的 at most ctbl disjoint union, whose measure add up to remain positive / negative / null measure.
+\end{proof}
 
 
 Question:
@@ -4686,25 +4694,45 @@ Question:
 \nu  = \nu ^+ - \nu^- ?
 \]
 Turns out that: there exists a canonical way to do this. \textbf{这个分解存在且是唯一的}, 并且\textbf{正的部分和负的部分是不相交的 (不存在一个集合既有非 $0$ 的 positive measure 又有非 $0$ 的 negative measure)}. 我们称这个 signed measure decomposition 为\textbf{ Jordan decomposition}.\\
-
-我们下节课会证明 Jordan decomposition. 这节课我们先证明一个得到 Jordan decomposition 的关键步骤: \textbf{Hahn Decomposition}. Hahn Decomposition Theorem 表示: \textbf{对于任意一个 signed measure, 它可以把整个空间 $X$ 划分为两个 a.e. 不相交的 positive set $P$ 和 negative set $N$.}
-
-
+我们下节课会证明 Jordan decomposition. 这节课我们先证明一个得到 Jordan decomposition 的关键步骤: \textbf{Hahn Decomposition}. \\
+Hahn Decomposition Theorem 表示: \textbf{任意一个 signed measure 都把整个空间 $X$ 划分为两个 a.e. 不相交的 positive set $P$ 和 negative set $N$.}\\
+这个结果是非常有用的. 因为我们知道, 在一个 positive / negative / null set 内部, 我们可以把它看作成一个普通的 measure space. 因而, Hahn Decomposition Theorem 说明了任意一个 signed measure 都把整个空间 $X$ 划分成两个普通的 measure space, 其中一个的符号和 measure 运算颠倒为负. 这就基本 state 了 Jordan decomposition 的内容.
 
 \section{Hahn Decomposition}
 \begin{theorem}{Hahn Decomposition Theorem}
-对于任意 measurable space $(X,\mathcal{A})$ 上的任意 signed measure $\nu$, 都存在一个 positive (measurable) set $P$ 和一个 negative (measurable) set $N$ s.t. \[
+对于任意 measurable space $(X,\mathcal{A})$ 上的任意 signed measure $\nu$, 都存在一个 positive set $P$ 和一个 negative set $N$ s.t. \[
 P \cap N = \varnothing
 \]
 并且 \[
 P \sqcup N = X
 \]
-即, $X$ 被 $\nu$ 划分为 positive measure 和 negative measure 的两个部分. \\
-并且, 这个 decomposition 是唯一的 in $\nu$-a.e. sense: 即, 如果 $P',N'$ 是 another pair of such decomposition, 必然有: \[
-\nu (P \Delta P')  = 0
-\] (notice: $P\Delta P'= N \Delta N'$.)
+即$X$ 被 $\nu$ 划分为一个 positive measure space 和一个 negative measure space. \\
+并且, \textbf{这个 decomposition 是唯一的, in $\nu$-a.e. sense}: 即, 如果 $P',N'$ 是 another pair of such decomposition, 必然有: \[
+P \Delta P' =  N \Delta N' \quad \text{is null set}
+\]
 \end{theorem}
-
+\begin{proof}
+    Uniqueness 是 just be definition 的, 因为\textbf{除了 $P, N$ 内部的 null sets 可以随意交给对方之外, 其他子集都是严格的 positive set 和 negative set, 不可能有第二个 decomposition}. 因而 STS existence.\\
+    WLOG 考虑 $\nu$ 不 admit $\infty$ (至多 admit $-\infty$). This makes sense 因为 otherwise we can consider $-\nu$.\\
+    Set: \[
+    m : = \sup \{ \nu(E) : E \in \mathcal{A} \text{ positive set}\}
+    \]
+    Pick seq of positive sets $ (\mathcal{P}_j)$ in $\mathcal{A}$ s.t. \[
+    \nu (P_j) \nearrow m
+    \]
+   (这是 doable 的因为在 positive sets 的部分等于一个正常的 measure space, 并且这里 finite measure.) 
+    并 set \[
+    P:= \bigcup_{j=1}^\infty P_j
+    \]从而 $P$ 也是 positive 的并且 \[
+    \nu(P) = m < \infty
+    \]
+Set: \[
+N : = P^c
+\]
+只要 show $N$ 是一个 negative set, 就得证了.\\
+我们 argue by contradiction.\\
+假设 $N$ 不是 negative set, 那么存在一个 $A \subset N$ s.t. $\nu(A) > 0$.\\
+\end{proof}
 
 
 
