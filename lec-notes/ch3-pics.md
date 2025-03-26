@@ -101,4 +101,4 @@ plt.show()
 
 ```
 
-![Screenshot 2025-03-25 at 21.21.13](ch3-pics.assets/Screenshot 2025-03-25 at 21.21.13.png)
+![Screenshot 2025-03-25 at 21.21.13](ch3-pics.assets/singular.png)
