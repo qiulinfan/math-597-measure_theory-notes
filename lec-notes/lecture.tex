@@ -4711,6 +4711,7 @@ P \sqcup N = X
 P \Delta P' =  N \Delta N' \quad \text{is null set}
 \]
 \end{theorem}
+\pic[0.3]{ch3-pics.assets/Screenshot 2025-03-25 at 19.47.55.png}
 \begin{proof}
     Uniqueness 是 just be definition 的, 因为\textbf{除了 $P, N$ 内部的 null sets 可以随意交给对方之外, 其他子集都是严格的 positive set 和 negative set, 不可能有第二个 decomposition}. 因而 STS existence.\\
     WLOG 考虑 $\nu$ 不 admit $\infty$ (至多 admit $-\infty$). This makes sense 因为 otherwise we can consider $-\nu$.\\
@@ -4731,9 +4732,58 @@ N : = P^c
 \]
 只要 show $N$ 是一个 negative set, 就得证了.\\
 我们 argue by contradiction.\\
-假设 $N$ 不是 negative set, 那么存在一个 $A \subset N$ s.t. $\nu(A) > 0$.\\
-\end{proof}
+假设 $N$ 不是 negative set, 那么存在 $A \subset N$ s.t. $\nu(A) > 0$.\\
+Pick $n_1 \in \mathbb{N}$ the smallest number 使得存在 $A_1 \subset N$ s.t. \[
+\nu(A_1) \geq \frac{1}{n_1}
+\]
+Note \textbf{$A_1$ 不可能是 positive set}, 否则 $P\cup A_1$ 将是一个 positive set 并且 $\nu(P \cup A_1) > m$, contradicting with $m$ being the sup of measure among positive sets.\\
+因而 $A_1$ 中, 必须存在 negative measure 的 set. 我们再 pick $n_2 \in \mathbb{N}$, the smallest number 使得存在 $B_2 \subset N$ s.t.  \[
+\nu(B_2) \leq -\frac{1}{n_2}
+\]
+即: \[
+ -\frac{1}{n_2 - 1} \leq \nu(B_2) \leq -\frac{1}{n_2}
+\]
 
+并 Set \[
+A_2 : = A_1 \setminus B_2
+\]从而: \[
+\nu(A_2) \geq \nu(A_1) + \frac{1}{n_2}
+\]
+我们 recursively 做这件事, 得到 positive measure 的 seq $(A_n)$ s.t. \[
+N \supset A_1 \supset A_2 \supset \cdots
+\]
+\[
+\begin{cases}
+    \nu(A_j) \geq \nu(A_{j-1}) + \frac{1}{n_j}\\
+    \text{for any } E \subset A_{j}, \nu(E) < \nu(A_{j}) + \frac{1}{n_{j+1} - 1}
+\end{cases}
+\]
+notice: $A_j$ 这个 seq 的 measure 是递增的. 我们取 \[
+A: = \bigcap_{j=1}^\infty A_j
+\]
+于是 \[
+\nu(A) = \lim_{j\to \infty} \nu(A_j)\geq \sum_{j=1}^\infty \frac{1}{n_j}
+\]
+因为 $A$ 有 positive measure, 这个 measure 一定有限, 从而这个 series 收敛, 因而有: \[
+n_j \to \infty \quad \text{as }\quad j \to \infty
+\]
+和之前同理, $A$ 不能是 positive set, 所以存在 $B\subset A$ 使得 $\nu(B) < 0$.\\
+Set \[
+A' := A \setminus B
+\]于是 \[
+\nu(A')  > \nu(A) + \frac{1}{n}, \quad \text{for some } n \geq 1
+\]
+由于 $n_j \to \infty$, for some $j>1$ 有 $n < n_j$. 我们取这个 $j$ 并 fix it. 由于 $\nu(A)$ 比任何 $\nu(A_j)$ 都大, 可以得到\[
+\nu(A')  > \nu(A) + \frac{1}{n} \geq \nu(A_j) + \frac{1}{n} \quad \text{for all }j\geq 1
+\]
+这说明,  \textbf{$A'$ 是从 $A_j$ 中去掉了一个至少有 $\frac{1}{n}$ 的负测度的集合得到的.}\\
+但是, recall how we picked $n_j$: $n_j$ 是 \textbf{the smallest number} 使得存在 $B \subset A_{j}$ s.t.  $\nu(B) \leq -\frac{1}{n_2}$, 和这里 $n < n_j$ 矛盾. 从而得证.
+\end{proof}
+\begin{remark}
+   这个 proof 的归谬点真的令人想不到. 不过大概意思是: 如果 $N$ 不是一个纯负集合, 那么里面就可以选择一个正测度子集, 把剩下的部分的测度变得更小. 
+   由于这个正测度子集 by def 不可能是纯正集合,  我们可以在里面找到一个负测度集合, 把它去掉, 但是剩下来的部分仍然不可能是纯正集合 (它的测度甚至变得更大了), 于是我们可以每次都在剩下来的 $A_{j}$ 上再去掉一部分 $B_{j+1}$, inductively 执行这个行为.
+   \pic[0.4]{ch3-pics.assets/Screenshot 2025-03-25 at 21.21.13.png}
+\end{remark}
 
 
 
