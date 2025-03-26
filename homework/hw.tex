@@ -3806,6 +3806,114 @@ but for each $x$, $f_{n,k}(x) = 1 $ for infinitely many $(n,k)$. so \( f_n(x) \)
 
 
 
+\chapter{on signed measure}
+
+\vspace*{5mm}
+\begin{center}
+\textit{Some of the following questions will be graded. Do them, and do hand them in}.
+\end{center}
+
+\section{Three real Banach spaces and a fake one}
+  \begin{itemize}
+  \item[(a)]  Let 
+    \[
+      \ell^\infty_0 := \{ a= (a_1, a_2, \cdots)\mid a_i\in \mathbb{R}, \lim_{n\to \infty} a_n =0\}.
+    \]
+    Prove that $(\ell^\infty_0, \| \cdot\|_\infty)$, where $\|a\|_\infty=\sup_n|a_n|$, is a Banach space.
+  \item[(b)]   Let
+    \[
+      C^0_b(\mathbb{R}) := \{ f: \mathbb{R} \to \mathbb{R} \mid \text{$f$ is continuous and bounded}\}.
+    \]
+    Prove that $(C^0_b(\mathbb{R}), \| \cdot\|_\infty)$, where $\|f\|_\infty=\sup_{x\in \mathbb{R}}|f(x)|$, is a Banach space.
+  \item[(c)]   Let
+    \[
+      C^0_0(\mathbb{R}) := \{ f: \mathbb{R}\to  \mathbb{R} \mid \text{$f$ is continuous, $\lim_{x\to\pm\infty} f(x) =0$}\}.
+    \]
+    Prove that $(C^0_0(\mathbb{R}), \| \cdot\|_\infty)$, where $\|f\|_\infty=\sup_{x\in\R}|f(x)|$, is a Banach space.
+    \item[(d)] Recall that 
+    \[
+      C^0_c(\mathbb{R}) = \{ f\colon \mathbb{R} \to \mathbb{R} \mid \text{$f$ is continuous and $f=0$ outside a bounded set}\}.
+    \]
+    Show that $(C^0_c(\mathbb{R}), \| \cdot\|_\infty)$, where $\|f\|_\infty=\sup_{x\in \mathbb{R}}|f(x)|$, is not a Banach space.
+\end{itemize}
+
+
+\section{Jordania.}
+  Let $\nu$ be a signed measure on $(X,\mathcal{A})$, and $E\in\mathcal{A}$. Prove the following statements:
+  \begin{itemize}
+  \item[(i)]$\nu^+(E)= \sup\{ \nu(F)\mid: F\in \mathcal{A}, F\subset E\}$, and   $\nu^-(E)= -  \inf\{ \nu(F)\mid  F\in \mathcal{A}, F\subset E\}$; 
+  \item[(ii)]   $|\nu|(E)= \sup\{ \sum_{i=1}^N |\nu(E_i)|\mid N\in\mathbb{N}, \, E= \bigcup_{i=1}^N E_i \text{ disjoint union}\}$;
+  \item[(iii)]
+    $|\nu|(E)\ge|\nu(E)|$, with equality iff $E$ is positive or negative for $\nu$.
+%    \sup\{ \sum_{i=1}^N |\nu(E_i)|\mid N\in\N, \, E= \bigcup_{i=1}^N E_i \text{ disjoint union}\}$. 
+  \end{itemize}
+
+\section{Signed integrals}
+  Let $\nu$ be a signed measure on $(X, \mathcal{A})$.
+  \begin{itemize}
+  \item[(i)]Prove that $\int g \, d |\nu|= \int g \, d \nu^+ + \int g \, d\nu^-$ for $g\in L^+(|\nu|)$ or $g\in L^1(|\nu|)$.
+  \item[(ii)]Define $L^1(\nu)= L^1(\nu^+)\cap L^1(\nu^-)$. Prove that $L^1(\nu)=L^1(|\nu|)$. %(Hint: One first needs to show that $\int g \dd |\nu|= \int g \dd \nu^+ + \int g \dd\nu^-$ for measurable functions $g$.) 
+  \item[(iii)] Define $\int f \, d\nu  = \int f\, d\nu^+ - \int f \, d\nu^-$ for $f\in L^1(\nu)$. 
+    Prove that if $f\in L^1(\nu)$, then 
+    \begin{equation*}
+      \left| \int f\, d\nu \right| \le \int |f| \, d |\nu|
+    \end{equation*}
+  \item[(iv)]Suppose that $\nu$ is a finite measure (i.e. $\nu^{\pm}(X)<\infty$.) Prove that if $E\in \mathcal{A}$, then 
+    \[
+      |\nu|(E)=\sup \left\{ \left| \int_E f \,d\nu \right|\mid  \|f\|_\infty \le 1 \right\}.
+    \]
+  \end{itemize}
+
+
+\section{A space of measures on a measurable space}
+  Let $(X, \mathcal{A})$ be a measurable space. 
+  \begin{itemize}
+  \item[(a)]Let $\lambda$ be $\mu$ be finite \emph{positive} measures on $(X, \mathcal{A})$. 
+    Let $\nu=\lambda-\mu$. Prove that  
+    \begin{equation*}
+      \nu^+(E)\le \lambda(E), \qquad \nu^-(E)\le \mu(E), \qquad |\nu|(E)\le \lambda(E)+\mu(E)
+  \end{equation*}
+  for every $E\in \mathcal{A}$.
+\item[(b)]Let $\nu$ and $\kappa$ be finite \emph{signed} measures on $(X, \mathcal{A})$ (i.e.  $\nu(E),\kappa(E)\in\mathbb{R}$ for all $E\in\mathcal{A}$).  Show that 
+\[
+  |\nu+\kappa|(E) \le |\nu|(E)+|\kappa|(E) 
+\]
+for every $E\in \mathcal{A}$. 
+\item[(c)] Let $\mathcal{M}$ be the collection of finite signed measure $\nu$ on $(X,\mathcal{A})$. 
+  For $\nu\in \mathcal{M}$, define   \[
+    \| \nu\|= |\nu|(X)
+  \]
+  Prove that $\|\cdot\|$ is a norm on $\mathcal{M}$ with an appropriate definition of the sum of two signed measures and the multiplication of a signed measure by a (real) scalar. 
+\item[(d)] Suppose $(X,\mathcal{A})=(\mathbb{R},\mathcal{B}(\mathbb{R}))$. Compute $\|\delta_x-\delta_y\|$ for $x,y\in\mathbb{R}$.
+\end{itemize}
+
+\textit{Remark}: the norm on $\mathcal{M}$ is called the \emph{the total variation norm}.
+
+% Consider $(\R, \cB[\R])$ and the Dirac measures $\delta_a$ for each $a\in \R$ defined by $\delta_a(E)=1$ if $a\in E$ and $\delta_a(E)=0$ if $a\notin E$. What is the distance $\|\delta_a-\delta_b\|$ for $a\neq b$?) 
+
+
+
+\section{A Banach space of measures}
+  Prove that the normed vector space $\mathcal{M}$ in the previous problem is in fact a Banach space.
+
+
+
+
+
+\vspace*{10mm}
+\begin{center}
+  \textit{Nur f\"ur Verr\"uckte}
+\end{center}
+(It's \textbf{really} not necessary to attempt these problems. Do not, under any circumstances, hand them in!)
+Does there exist a signed Borel measure $\nu$ on $\mathbb{R}$ with the property that  for every $\alpha\in \mathbb{R}$ there exists a Borel set $E\subset\mathbb{R}$ with $\nu(E)=\alpha$.
+
+
+
+
+
+
+
+
 
 
 

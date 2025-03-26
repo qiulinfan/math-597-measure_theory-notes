@@ -4780,14 +4780,77 @@ A' := A \setminus B
 但是, recall how we picked $n_j$: $n_j$ 是 \textbf{the smallest number} 使得存在 $B \subset A_{j}$ s.t.  $\nu(B) \leq -\frac{1}{n_2}$, 和这里 $n < n_j$ 矛盾. 从而得证.
 \end{proof}
 \begin{remark}
-   这个 proof 的归谬点真的令人想不到. 不过大概意思是: 如果 $N$ 不是一个纯负集合, 那么里面就可以选择一个正测度子集, 把剩下的部分的测度变得更小. 
-   由于这个正测度子集 by def 不可能是纯正集合,  我们可以在里面找到一个负测度集合, 把它去掉, 但是剩下来的部分仍然不可能是纯正集合 (它的测度甚至变得更大了), 于是我们可以每次都在剩下来的 $A_{j}$ 上再去掉一部分 $B_{j+1}$, inductively 执行这个行为.
-   \pic[0.4]{ch3-pics.assets/Screenshot 2025-03-25 at 21.21.13.png}
+   这个 proof 的归谬点很难想到.\\
+   前面的逻辑很明确: 如果 $N$ 不是一个纯负集合, 那么里面就可以找到一个正测度子集. 由于这个正测度子集 by def 不可能是纯正集合,  我们可以在里面找到一个负测度集合, 把它去掉, 但是剩下来的部分仍然不可能是纯正集合 (测度甚至变得更大了), 于是我们可以每次都在剩下来的 $A_{j}$ 上再去掉一部分 $B_{j+1}$, inductively 执行这个行为, 通过这个行为的极限得到一个最大的正测度集合 $A$, by assumption 这个正测度是有限的.\\
+  然后是比较难的归谬点: 直觉可能是: 我们希望 $A$ 是纯正的, 从而和 $m$ 的假设矛盾, 不过其实我们无法得到这点.   但是, 我们可以从另一个的角度来得到矛盾: \textbf{每次去掉的负测度集合是越来越小且可控的, 但是由于最后得到的正测度最大的极限 $A$ 仍然不是纯正的, 所以它还可以再去掉一个超过 $-\frac{1}{n}$ 的负测度集, 而这个时候不论 $n$ 多大, 总有某个 $n_j > n$, 而当时已经选择了最小的 $n_j$ 作为 bound}, 但是这里得到的却是: 有一个更小的 $n$ 可以选择, 表明了矛盾.
+  \pic[0.45]{ch3-pics.assets/Screenshot 2025-03-25 at 21.21.13.png}
 \end{remark}
 
 
 
 \chapter{Jordan decomposition}
+
+对于任意的 signed measure $\nu$, 我们已经通过 Hahn-Decomposition 证明了它一定把集合分为一个 positive set $P$ 和一个 negative set $N$, 并且 unique in $\nu$-a.e. sense.\\
+\begin{example}
+Consider mble space $(\mathbb{N},\mathcal{P}(\mathbb{N}))$, 考虑由\[
+\nu (\{n\}) = n - 3
+\]
+和 countable subadditivity 生成的 signed measure. 从而: \[
+P = \{1,2,3 \}, \quad N = \mathbb{N}\setminus P
+\]
+也可以把 $3$ 划分进 $N$, 因为 $\{3 \},\varnothing$ 是这里唯一的 null set.
+\end{example}
+
+
+
+\begin{definition}{mutually singular}
+    我们称两个 signed measure $\nu_1, \nu_2$ on $(X,\mathcal{A})$ 是 mutually singular 的, 如果 $X = E_1 \sqcup E_2$, 其中 $E_i$ 是 $\nu_i$ 的 null set.\\
+    简单而言就是: 它们 live on disjoint sets, 在对方 live on 的部分总是 $0$.
+\end{definition}
+
+
+现在, 我们对于 $E \in \mathcal{A}$ set \[
+\nu^+ (E)  : = \nu(E \cap P) \geq 0
+\]
+以及 \[
+\nu^- (E) : = \nu(E \cap N) \geq 0
+\]
+
+\begin{lemma}
+对于 s.m. $\nu$, 我们通过 Hahn Decomposition 得到 $P \sqcup N = X$.\\
+Now let $$\begin{cases}
+    \nu^+ (E)  : = \nu(E \cap P) \geq 0 \\
+    \nu^- (E) : = \nu(E \cap N) \geq 0
+\end{cases}$$
+Then:
+    \begin{itemize}
+        \item $\nu^+,\nu^-$ 是 $(X,\mathcal{A})$ 上的 positive measure
+        \item $\nu^+,\nu^-$ 中\textbf{至少有一个是 finite measure} (对应了 $\nu$ admit 的是 $\infty$ 还是 $-\infty$)
+        \item \[\nu = \nu^+ - \nu^-\]
+        \item \[ \nu^+ \bot \,\nu^- \]
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+1. 显然, $\nu^+,\nu^-$ 都是 positive 函数, 并且由于 \[
+\bigg(\bigsqcup_{j=1}^\infty E_j \bigg)\cap P  =  \bigsqcup_{j=1}^\infty (E_j \cap P)
+\]
+(同理 for intersecting $N$), 它们满足 countable disjoint additivity, 因而是 $(X,\mathcal{A})$ 上的 \textbf{positive measure}.\\
+2. By signed measure 的定义, $\nu^+$ 和 $\nu^-$ 必须有一个 finite. 因而 otherwise, 如果存在某个集合上这两个 measure 都 infinite measure 则 not well-defined (contracting well-definedness of $\nu$); 如果不存在这样的集合则 $\nu$ admit both $\infty$ and $-\infty$ (contradicting that $\nu$ 只 admit 至多一个无穷).\\\
+
+3. \[\nu = \nu^+ - \nu^-\] 是直接 by Hahn Decomposition 的. 因为任何一个 measurable set $E$ 都可以拆分成 \[
+(E \cap P) \sqcup (E\cap N)
+\]
+从而, 由
+\end{proof}
+
+下面我们证明 Jordan decomposition: 
+
+
+
+
+\[
+\nu  = \nu ^+  - \nu^-
+\]
 
 
 
@@ -4805,6 +4868,152 @@ A' := A \setminus B
 
 
 next time: upgrade it to the Lebesgue Radon Nikodym Thm.
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Lebesgue-Radon-Nikodym Theorem}
+recall: Given s.m. $\mu, \nu$ on $(X,\mathcal{A})$, 我们称 $\mu$ 和 $\nu$ 是 mutually singular 的:   \[
+\mu \bot \nu 
+\]if $X = E \sqcup F$, $E$ 是 $\mu$ 的 null set, $F$ 是 $\nu$ 的 null set.
+我们称 $\nu$ is absolutely continuous with respect to $\mu$: \[
+\nu  \ll \mu 
+\]
+if 所有 $\mu$ 的 null set 也都是 $\nu$ 的 null set.
+
+
+Jordan Decomposition Theorem: 任何 signed measure 都可以被拆分为两个 mutually singular 的 p.m. 的 difference \[
+\nu = \nu^+ - \nu^-
+\]
+
+Radon-Nikodym Theorem: \[
+\begin{cases}
+    \mu \; \sigma\text{-finite p.m.} \\
+     \nu \; \sigma\text{-finite s.m.} \\
+     \nu \ll \mu
+\end{cases}\implies \begin{cases}
+    \exists !\; \text{extended } \mu\text{-integrable}\; f: X\to \mathbb{R}\\
+    d\nu = f d\mu
+\end{cases}
+\]
+
+我们称 $f$ 为 Radon-Nikodym Derivative. \[
+\nu(E) = \int_E f \; d\mu
+\]
+
+
+\begin{example}
+Application: conditional expectation.\\
+\[
+(X,\mathcal{A},\mu)  := \bigg([0,1), \mathcal{B}([0,1)), m\bigg)
+\]
+$f:[0,1) \to \mathbb{R}$ Borel measurable.\\
+Define: \[
+B: = \{\varnothing, [0,\frac{1}{2}), [\frac{1}{2},1),X  \}
+\]
+$f$ 并非一定是 $B$-measurable 的. 
+
+\end{example}
+
+
+
+
+\begin{theorem}{Lebesgue-Radon-Nikodym Theorem}
+    如果 $\begin{cases}
+    \mu \; \sigma\text{-finite p.m.} \\
+     \nu \; \sigma\text{-finite s.m.} 
+\end{cases}$ on $(X,\mathcal{A})$, 那么存在唯一的 decomposition \[
+\nu = \lambda + \rho 
+\]where $\lambda, \rho$ 是 $\sigma$-finite 的 signed measure s.t. $\begin{cases}
+    \lambda \bot \mu \\
+    \rho \ll \mu
+\end{cases}$.\\
+并且, 存在唯一的 extended $\mu$-integrable $f:X\to \mathbb{R}$ s.t. \[
+d \rho = f \,d\mu
+\]
+(This is the RN part.)
+\end{theorem}
+
+
+
+
+\begin{lemma}
+    如果 $\mu,\nu$ 是 \textbf{finite p.m.} on $(X,\mathcal{A})$, 那么它们 either $\mu\bot \nu$, or 存在 $\epsilon>0$ 和 measurable $E$ s.t. $\mu(E) > 0$ 并且 $\nu  > \epsilon \mu$ on $E$. 
+\end{lemma}
+
+
+
+\begin{lemma}
+    如果 $\mu,\nu$ 是\textbf{ s.m.} on $(X,\mathcal{A})$， \[\begin{cases}
+        \nu \ll \mu \\
+        \nu \bot \mu
+    \end{cases} \implies \nu  = 0 \]
+\end{lemma}
+
+
+Sktech of proof of LRN theorem: 
+Assume for simplicity that $\mu,\nu$ 是 finite p.m.\\
+Like last time, look at \[
+\mathcal{F} : =  \{f\in L^+ : \int_E f\, d\mu \leq \nu(E) \;\; \forall E\in\mathcal{A}  \} / \sim
+\]
+Saw: $\mathcal{F} $ 有 max element $f$.\\
+Define $\rho$ by $d \rho = f \, d \mu$.\\
+Set: \[
+\lambda : = \nu - \rho
+\]
+Want: $\lambda \bot \mu$.\\
+Prove by contradiction: 如果 $\lambda \not \bot \mu$, 那么Lemma 2 告诉我们: 存在 $\epsilon > 0$ 和 positive measure 的 $E \in \mathcal{A}$ 使得: \[
+\lambda \geq \epsilon \mu
+\]
+on $E$.\\
+Set \[
+g: = f + \epsilon\chi_E 
+\]
+则 \[
+\int_F g \, d\mu = \int_{F \cap E} (f + \epsilon)\, d\mu \, + \, \int_{F \cap E^c} f \, d\mu
+ \]
+因而 \begin{align*}
+    \rho (F \cap E)  + \epsilon \mu (F \cap E) + \rho (F \cap E^c) &= \rho(F) + \epsilon \mu(F \cap E) \\
+    &\leq \nu(F) - \epsilon \mu(F)  + \epsilon \mu (F\cap E) \\
+    &\leq \nu(F)
+\end{align*} 
+因而 $g \in \mathcal{F}$ 且 $g > f$.\\
+从而得证 $\lambda \bot \mu$. 从而 existence proved.\\
+Uniqueness part: Suppose we have \[
+\nu = \lambda_1 + \rho_1 = \lambda_2 + \rho_2
+\]
+where $\lambda_i \bot \mu$, $\rho_i \ll \mu$.
+那么 \[
+\lambda_1  - \lambda_2 =  \rho_2 - \rho_1
+\]
+我们知道, $\lambda_1  - \lambda_2 $ 和 $ \rho_2 - \rho_1$ 也是 signed measures. 并且, 
+\[
+(\lambda_1  - \lambda_2) \bot \mu ,\quad ( \rho_2 - \rho_1) \ll \mu 
+\]
+By Lemma 1: \[
+\lambda_1  - \lambda_2 =  \rho_2 - \rho_1 = 0
+\]
+
+
+
+
+
+Properties of the RN derivative:
+(P91 in Folland)
+\[
+\frac{d(\nu_1 + \nu_2)}{d \mu} = \frac{d \nu_1}{d\mu} + \frac{d\nu_2}{d \mu}
+\]
+\[
+\nu \ll \mu ,\mu \ll \mu \implies \frac{d\nu}{d\mu} \frac{d\mu}{d\nu}  = 1
+\]
+$\mu$-a.e. = $\nu$-a.e.
 
 
 
