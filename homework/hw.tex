@@ -3038,7 +3038,7 @@ $$\phi^{-1}(A \times B)  =  \{x\in X : x \in A , x \in B\} = A \cap B \in \mathc
 We first prove a lemma:
 \begin{lemma}
     Suppose $f: X\to Y\times Z$ is a function from a measurable space $(X,\mathcal{A})$ to a product measure space $(Y\times Z, \mathcal{B}_1 \otimes \mathcal{B}_2)$.\\
-  Claim: If $f^{-1}(B\times C)\in\mathcal{A}$ for each measurable rectangle $B_1 \times B_2 \in \mathcal{B}_1 \otimes \mathcal{B}_2$, then $f$ is an $(\mathcal{A}, \mathcal{B}_1 \otimes \mathcal{B}_2)$-measurable function.
+  Claim: If $f^{-1}(B_1\times B_2)\in\mathcal{A}$ for each measurable rectangle $B_1 \times B_2 \in \mathcal{B}_1 \otimes \mathcal{B}_2$, then $f$ is an $(\mathcal{A}, \mathcal{B}_1 \otimes \mathcal{B}_2)$-measurable function.
 \end{lemma}
 \begin{proof}
     \textbf{of Lemma:}\\
@@ -3808,18 +3808,13 @@ but for each $x$, $f_{n,k}(x) = 1 $ for infinitely many $(n,k)$. so \( f_n(x) \)
 
 \chapter{on signed measure}
 
-\vspace*{5mm}
-\begin{center}
-\textit{Some of the following questions will be graded. Do them, and do hand them in}.
-\end{center}
 
 \section{Three real Banach spaces and a fake one}
   \begin{itemize}
   \item[(a)]  Let 
     \[
       \ell^\infty_0 := \{ a= (a_1, a_2, \cdots)\mid a_i\in \mathbb{R}, \lim_{n\to \infty} a_n =0\}.
-    \]
-    Prove that $(\ell^\infty_0, \| \cdot\|_\infty)$, where $\|a\|_\infty=\sup_n|a_n|$, is a Banach space.
+    \]Prove that $(\ell^\infty_0, \| \cdot\|_\infty)$, where $\|a\|_\infty=\sup_n|a_n|$, is a Banach space.
   \item[(b)]   Let
     \[
       C^0_b(\mathbb{R}) := \{ f: \mathbb{R} \to \mathbb{R} \mid \text{$f$ is continuous and bounded}\}.
@@ -3829,7 +3824,7 @@ but for each $x$, $f_{n,k}(x) = 1 $ for infinitely many $(n,k)$. so \( f_n(x) \)
     \[
       C^0_0(\mathbb{R}) := \{ f: \mathbb{R}\to  \mathbb{R} \mid \text{$f$ is continuous, $\lim_{x\to\pm\infty} f(x) =0$}\}.
     \]
-    Prove that $(C^0_0(\mathbb{R}), \| \cdot\|_\infty)$, where $\|f\|_\infty=\sup_{x\in\R}|f(x)|$, is a Banach space.
+    Prove that $(C^0_0(\mathbb{R}), \| \cdot\|_\infty)$, where $\|f\|_\infty=\sup_{x\in\mathbb{R}}|f(x)|$, is a Banach space.
     \item[(d)] Recall that 
     \[
       C^0_c(\mathbb{R}) = \{ f\colon \mathbb{R} \to \mathbb{R} \mid \text{$f$ is continuous and $f=0$ outside a bounded set}\}.
@@ -3838,15 +3833,196 @@ but for each $x$, $f_{n,k}(x) = 1 $ for infinitely many $(n,k)$. so \( f_n(x) \)
 \end{itemize}
 
 
+
+\begin{proof}
+ \textbf{of (a): }  Since we showed in class that \[
+\ell^\infty =L^\infty (\mathbb{N}, \mathcal{P}(\mathbb{N}), \mu_{counting} )
+\] and $L^\infty$ spaces are Banach, $\ell^\infty$ is Banach.\\
+Thus it suffices to show that $\ell^\infty_0$ is closed in $\ell^\infty$, since a closed subset of a complete metric space is complete.\\
+Let \((a^{(k)})_{k=1}^\infty\) be a sequence in \(\ell^\infty_0\) converging in norm to \(a \in \ell^\infty\), i.e.,
+\[
+\|a^{(k)} - a\|_\infty \to 0
+\]
+Let $\varepsilon > 0$.\\
+Since $\|a^{(k)} - a\|_\infty \to 0$, there exists \(K\) such that for all \(k \geq K\),
+\[
+   \| a^{(k)} - a||  =  \sup_n |a_n^{(k)} - a_n| < \frac{\varepsilon}{2}  
+\]
+This implies that \[
+\forall n, |a_n^{(K)} - a_n| < \varepsilon
+\]Since \(a^{(K)} \in \ell^\infty_0\), \(a_n^{(K)} \to 0\) as \(n \to \infty\). Thus there exists $N \in \mathbb{N}$ s.t. for all $n\geq N$, \[
+|a_n^{(K)} | \leq \frac{\varepsilon}{2}
+\]
+Then for all $n\geq N$, we have:
+\[
+|a_n| \leq |a_n - a_n^{(K)}| + |a_n^{(K)}| < \varepsilon
+\]
+This shows that \[
+\lim_{n\to \infty} |a_n  | <\epsilon
+\]
+Since $\varepsilon>0$ is arbitrary, this implies \[\lim_{  n \to \infty} a_n = 0\]
+Hence \(a \in \ell^\infty_0\). So \(\ell^\infty_0\) is closed in \(\ell^\infty\), thus itself Banach.
+\end{proof}
+
+\begin{proof}
+    \textbf{of (b):} 
+Let \((f_n)_{n\in \mathbb{N}}\) be a Cauchy seq in \((C^0_b(\mathbb{R}), \|\cdot\|_\infty)\), then
+\[\forall \varepsilon > 0, \exists N \in \mathbb{N}\;\; s.t. \|f_n - f_m\|_\infty  =
+\sup_{x \in \mathbb{R}} |f_n(x) - f_m(x)| < \varepsilon
+\]In particular, for each fixed \(x \in \mathbb{R}\), \((f_n(x))_{n\in\mathbb{N}}\) is a Cauchy sequence in \(\mathbb{R}\), hence converges (since \(\mathbb{R}\) is complete). So we can define the pointwise limit: \[
+f(x) := \lim_{n \to \infty} f_n(x)
+\]
+\textbf{Claim 1: $f_n\to f$ in $\| \cdot\|_\infty$.}\\
+Let $\varepsilon> 0$.\\
+Since \((f_n)\) is Cauchy in \(\|\cdot\|_\infty\), there exists \(N\) such that: \[
+\|f_n - f_m\|_\infty < \varepsilon, \quad \forall n, m \geq N
+\]
+Fix \(m \geq N\), and let \(n \to \infty\). For each \(x\), we get: \[
+|f_n(x) - f_m(x)| < \varepsilon\;\;  \forall n\implies\lim_{n\to \infty}|f_n(x) - f_m(x)|  =  |f(x) - f_m(x)|\leq \varepsilon
+\]
+Since this is true for each $x\in \mathbb{R}$, we obtain: \[
+\|f - f_m\|_\infty \leq \varepsilon, \quad \text{for all } m \geq N
+\]
+Since $\varepsilon>0$ is arbitrary, this shows that \[
+\lim_{n\to \infty} \| f- f_n\|_{\infty} = 0
+\]
+\textbf{Claim 2: $f\in (C^0_b(\mathbb{R}), \|\cdot\|_\infty)$.}\\
+Since \(\lim_{n\to \infty} \| f- f_n\|_{\infty} = 0\), it also implies that the convergence is uniform.\\
+We know the uniform limit of continuous functions is continuous, so $f$ is continuous. It remains to show \(f\) is bounded, and this directly follows from the uniform convergence. We take $\varepsilon = 1$. We have proved that there exists $N$ s.t. for all $m\geq N$, 
+\[
+\|f - f_m\|_\infty \leq 1
+\]
+Thus \[
+\sup_{x\in \mathbb{R}} |f(x) | \leq \sup_{x\in \mathbb{R}} |f_N(x) |  + 1
+\]
+Since \(f_n \in C^0_b(\mathbb{R})\)), it is bounded, thus \[
+\sup_{x\in \mathbb{R}} |f(x) |  < \infty
+\]showing that the limit function is bounded. This finishes the proof that \(f \in C^0_b(\mathbb{R})\).
+Thus, every Cauchy seq in \((C^0_b(\mathbb{R}), \|\cdot\|_\infty)\) converges in \((C^0_b(\mathbb{R}), \|\cdot\|_\infty)\), i.e. it is Banach.
+\end{proof}
+
+
+\begin{proof}
+    \textbf{of (c):}
+    Let \((f_n)_{n\in \mathbb{N}}\) be a Cauchy seq in \((C^0_0(\mathbb{R}), \|\cdot\|_\infty)\), then for each fixed \(x \in \mathbb{R}\), \((f_n(x))_{n\in\mathbb{N}}\) is a Cauchy sequence in \(\mathbb{R}\), so for the same reason as (b), we can define the pointwise limit: \[
+f(x) := \lim_{n \to \infty} f_n(x)
+\]And for the same reason as (b), we get  \[
+f_n \to f \text{ in }\|\cdot\|_\infty
+\]
+which also implies that the pointwise convergence is uniform. Since each $f_n$ is continuous, the uniform limit $f$ is continuous.\\
+Thus it suffices to show that $\lim_{x\to\pm\infty} f(x) =0$.\\
+Let \(\epsilon > 0\). Since \(f_n \to f\) uniformly, there exists \(N\) such that for all \(n \ge N\), \(\|f_n - f\|_\infty < \epsilon/2\). Also, since \(f_N \in C^0_0(\mathbb{R})\), there exists \(M > 0\) such that \(|f_N(x)| < \epsilon/2\) for all \(|x| > M\).\\
+Then for \(|x| > M\), \[
+|f(x)| \le |f(x) - f_N(x)| + |f_N(x)| < \epsilon/2+ \epsilon/2 < \epsilon
+\]
+So \(\lim_{x\to\pm\infty} f(x) = 0\), i.e., \(f \in C^0_0(\mathbb{R})\). Thus, every Cauchy seq in \((C^0_0(\mathbb{R}), \|\cdot\|_\infty)\) converges in \((C^0_0(\mathbb{R}), \|\cdot\|_\infty)\), i.e. it is Banach.
+\end{proof}
+
+
+\begin{proof}
+    of (d): 
+Define for each \(n\):
+
+
+
+We construct a sequence of partial sums of “traveling bump” functions. Each partial sum will indeed be in \(C^0_c(\mathbb{R})\) (continuous and compactly supported), but the limit function (with respect to the \(\|\cdot\|_\infty\)-norm) will *not* be in \(C^0_c(\mathbb{R})\), because it will fail to have compact support.
+
+#### Step 1: A single bump function \(\phi\)
+
+Let \(\phi : \mathbb{R} \to \mathbb{R}\) be a continuous function with:
+
+1. \(\operatorname{supp}(\phi) \subset [0,2]\) (i.e., \(\phi(x) = 0\) for \(x \notin [0,2]\)),
+2. \(\phi(x) = 1\) for \(x\in[1,2]\).
+
+
+Say \[
+\phi(x)
+=\begin{cases}
+\displaystyle 
+\exp\!\Bigl(\!-\frac{1}{x\,(2 - x)}\Bigr), 
+& 0 < x < 2,\\[12pt]
+0, & \text{otherwise}.
+\end{cases}
+\]
+For example, one can define \(\phi\) to ramp up linearly on \([0,1]\) and stay at \(1\) on \([1,2]\). Clearly, \(\phi \in C^0_c(\mathbb{R})\) and \(\|\phi\|_\infty = 1\).
+
+#### Step 2: Translates of \(\phi\)
+
+For each integer \(n \ge 1\), define
+\[
+   \phi_n(x) \;=\; \phi\!\bigl(x - n\bigr).
+\]
+Then:
+
+- \(\phi_n\) is also continuous.
+- \(\operatorname{supp}(\phi_n) \subset [n,n+2]\), so each \(\phi_n\) has *compact support*.
+- \(\|\phi_n\|_{\infty} = \|\phi\|_{\infty} = 1\).
+
+Hence \(\phi_n \in C^0_c(\mathbb{R})\).
+
+#### Step 3: A Cauchy sequence of partial sums
+
+Consider the series
+\[
+  \sum_{n=1}^{\infty} 2^{-n}\,\phi_n.
+\]
+Define its \(N\)-th partial sum by
+\[
+   S_N(x) \;=\; \sum_{n=1}^{N} 2^{-n}\,\phi_n(x).
+\]
+Each partial sum \(S_N\) is a *finite linear combination* of compactly supported, continuous functions. Hence
+
+- Each \(S_N \in C^0_c(\mathbb{R})\).
+- The support of \(S_N\) is contained in \(\bigcup_{n=1}^N [n, n+2]\), which is bounded (it lies within \([1, N+2]\)).
+
+Next, we show \(\{S_N\}\) is Cauchy in the sup norm:
+
+- For \(M > N\),
+  \[
+    \|S_M - S_N\|_{\infty} 
+    \;=\;
+    \Bigl\|\sum_{n=N+1}^{M} 2^{-n}\,\phi_n\Bigr\|_{\infty}
+    \;\le\;
+    \sum_{n=N+1}^{M} 2^{-n}\,\|\phi_n\|_{\infty}
+    \;=\;
+    \sum_{n=N+1}^{M} 2^{-n}.
+  \]
+- Since \(\sum_{n=N+1}^{\infty} 2^{-n}\) is a *tail* of a convergent geometric series, it can be made arbitrarily small by choosing \(N\) large. 
+
+Thus \(\{S_N\}\) is indeed a Cauchy sequence in \(\bigl(C^0_c(\mathbb{R}),\|\cdot\|_\infty\bigr)\).
+
+#### Step 4: The limit is *not* in \(C^0_c(\mathbb{R})\)
+
+By completeness *in the larger space* \(C^0(\mathbb{R})\) with the sup norm, the sequence \(\{S_N\}\) has a limit
+\[
+   S(x) \;=\; \lim_{N \to \infty} S_N(x) 
+   \;=\; \sum_{n=1}^{\infty} 2^{-n}\,\phi_n(x)
+\]
+in the sense of uniform convergence. We claim that \(S\notin C^0_c(\mathbb{R})\) because \(S\) *does not have compact support*.  
+
+- Indeed, for each fixed \(x \in \mathbb{R}\), there are only finitely many terms \(\phi_n(x)\) that are possibly nonzero (if \(x < n\), or \(x > n+2\), then \(\phi_n(x)=0\)). So the sum defining \(S(x)\) is locally finite and well-defined.
+- But as \(x\to +\infty\), different terms \(\phi_n\) “turn on”; that is, for large \(x\), exactly one (or two) of the translated bumps \(\phi_n\) might be nonzero. Consequently, \(S(x)\) does *not* vanish once \(x\) is large. It keeps “moving along with” the translates. In fact, there is *no* bounded interval outside of which \(S\) becomes zero.
+
+Hence \(S\) fails to have compact support, and so
+\[
+   S \;\notin\; C^0_c(\mathbb{R}).
+\]
+\end{proof}
+
+
+
+
+
 \section{Jordania.}
   Let $\nu$ be a signed measure on $(X,\mathcal{A})$, and $E\in\mathcal{A}$. Prove the following statements:
   \begin{itemize}
   \item[(i)]$\nu^+(E)= \sup\{ \nu(F)\mid: F\in \mathcal{A}, F\subset E\}$, and   $\nu^-(E)= -  \inf\{ \nu(F)\mid  F\in \mathcal{A}, F\subset E\}$; 
   \item[(ii)]   $|\nu|(E)= \sup\{ \sum_{i=1}^N |\nu(E_i)|\mid N\in\mathbb{N}, \, E= \bigcup_{i=1}^N E_i \text{ disjoint union}\}$;
-  \item[(iii)]
-    $|\nu|(E)\ge|\nu(E)|$, with equality iff $E$ is positive or negative for $\nu$.
+  \item[(iii)]   $|\nu|(E)\ge|\nu(E)|$. If  $\nu$ finite then, it achieves equality iff $E$ is positive or negative for $\nu$.
 %    \sup\{ \sum_{i=1}^N |\nu(E_i)|\mid N\in\N, \, E= \bigcup_{i=1}^N E_i \text{ disjoint union}\}$. 
   \end{itemize}
+
+
 
 \section{Signed integrals}
   Let $\nu$ be a signed measure on $(X, \mathcal{A})$.

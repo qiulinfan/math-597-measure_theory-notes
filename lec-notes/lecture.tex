@@ -4217,8 +4217,8 @@ for 任意的 $p \geq q$.\\ 这表明的是, 在一定要求下, $L^\infty$ 是�
 \begin{remark}
 $\ell^\infty$ 其实就是: \[
 X: = \mathbb{N},\quad \mathcal{A}: = \mathcal{P}(X),\quad \mu = \mu_{counting}
-\]的 measure space. \[
-\ell^\infty = (\mathbb{N}, \mathcal{P}(\mathbb{N}), \mu_{counting} )
+\]的 measure space 上的 $L^\infty(\mu)$. \[
+\ell^\infty =L^\infty (\mathbb{N}, \mathcal{P}(\mathbb{N}), \mu_{counting} )
 \]
 一个 seq 就是一个从 $\mathbb{N}$ to $\mathbb{C}$ 的函数, 把每个 entry map to 一个 complex number.\\
 \textbf{而对于 counting measure 作为 measure 的 measure space 上, 唯一的零测集就是空集}, 因为哪怕只取一个元素, 这个子集的测度也是 1.\\
@@ -4815,7 +4815,7 @@ P = \{1,2,3 \}, \quad N = \mathbb{N}\setminus P
 \pic[0.24]{ch3-pics.assets/singular.png}
 \begin{remark}
     Note: Mutually Singular 并不要求对于任意一个集合, 这两个s.m. 至多有一个不为 $0$ (否则考虑全集 $X$); mutually singular 要求的是：\textbf{存在一个分割 of $X$, 使得这两个 s.m. 各在一边是 null 的}, 从而在这两个子集上, $\nu_1 + \nu_2$ 这个 s.m. 就等于 $\nu_1$ 和 $\nu_2$.\\
-    我们知道, (positive) measure 比普通的函数更加复杂, 因为一旦在某个集合上有值, 它在这个集合的所有超集上都有更大的值, 因而不可能 "两个 measure positive 的地方完全不同". 但是 mutually singular 代表的是: \textbf{这两个 measure 出现变化的点 $x\in X$ 完全不同.}
+    我们知道, (positive) measure 比普通的函数更加复杂, 因为一旦在某个集合上有值, 它在这个集合的所有超集上都有更大的值, 因而不可能 "两个 measure positive 的地方完全不同". 但是 mutually singular 代表的是: \textbf{这两个 measure 出现变化的区域完全不同.}
 \end{remark}
 \begin{example}
     1. 把所有 measurable set map to $0$ 的 trivial measure 和任意 s.m. 都 mutually singular.\\
@@ -5035,7 +5035,7 @@ Question 2: 给定一个任意的 p.m. $\mu$, 以及一个任意的 s.m. $\nu$ o
 
 
 
-\section{a s.m. $\nu$ absolutely continuous w.r.t. p.m. $\mu$}
+\section{ absolutely continuous: $\nu \ll \mu$}
 \begin{definition}{a s.m. absolutely continuous w.r.t. a p.m.}
     给定 p.m. $\mu$ 和 s.m. $\nu$ on $(X,\mathcal{A})$, 我们称 $\nu$ is absolutely continuous w.r.t. $\mu$, 如果 \[
  \forall E\in \mathcal{A},\quad    \mu(E) = 0\implies \nu(E) = 0
@@ -5045,6 +5045,14 @@ Question 2: 给定一个任意的 p.m. $\mu$, 以及一个任意的 s.m. $\nu$ o
     \nu \ll \mu
     \]
 \end{definition}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{ch3-pics.assets/absctn.png}
+    \caption{mutually singular and absolutely continuous}
+    \label{mutually singular and absolutely continuous}
+\end{figure}
+\textbf{$\nu \bot  \mu$ 表示的是 $\nu$ 和 $\mu$ 出现变化的区域完全不同}, 而 \textbf{$\nu \ll \mu$ 表示的是 $\nu$ 出现变化的区域完全包括在 $\mu$ 出现变化的区域里 }(因为 $\mu$ 不变化的区域被包括在 $\nu$ 不变化的区域里).
+ 
 \begin{example}
     $f \in L^1 (\mu)$, $\nu(E) : = \int_E f \, d\mu$, 由积分定义出的 s.m., 总是满足 \[
     \nu \ll \mu
@@ -5060,6 +5068,82 @@ Question 2: 给定一个任意的 p.m. $\mu$, 以及一个任意的 s.m. $\nu$ o
     显然, 这里三个 measure 都不是 trivial measure, 因而它们之间没有 abs ctn 的关系.
 \end{example}
 
+\begin{proposition}{absolutely continuous 的性质}
+\begin{itemize}
+    \item \[ |\nu | \ll \mu \iff  \nu ^+ \ll \mu \text{ and } \nu^- \ll \mu  \](容易证明)
+    \item \[  \nu \bot \mu \text{ and } \nu \ll \mu \implies \nu = 0  \](刚才已经证明)
+\end{itemize}    
+\end{proposition}
+我们可以把 absolutely ctn 的概念从一个 s.m. wrt 一个 p.m. 扩展到一个 s.m. wrt 一个 s.m., by taking 后面这个 s.m. 的 total variation measure: \[
+\text{say } \nu \ll \mu, \text{ if }  \nu \ll |\mu|
+\]
+但是 Folland 表示我们之后并不需要用到这个更 general 的定义. 所以不用在意它.
+
+\subsection{$\nu \ll \mu$ 的等价条件}
+We do have a question: 为什么这个定义要叫做 absolutely continuous, 它和 continuous 到底有什么关系. 下面这个 theorem 可以说明.
+\begin{theorem}{why it is called "absolutely continuous"}
+    令 $\nu$ 为一个 \textbf{finite s.m.}, $\mu$ 为一个 \textbf{p.m.} on $(X,\mathcal{A})$.\\
+    Claim: \[\nu \ll \mu \iff \forall \, \epsilon>0,\, \exists  \, \delta > 0 \;\text{s.t.}  \;|\nu(E)| <\epsilon  \text{ whenever } \mu(E)< \delta  \]
+\end{theorem}
+\begin{remark}
+   $\nu$ abs ctn w.r.t. $\mu$ ($\nu$ 出现变化的区域完全包括在 $\mu$ 出现变化的区域里) 等价于: 我们可以用一个集合的 $\mu$ 的大小来控制  $\nu$ 的大小 //TODO
+\end{remark} 
+\begin{proof}
+    (i) to (ii): 我们使用反证, assume (i), 并 suppose for contradiction that (ii) 不成立.\\
+    那么存在 $\epsilon > 0$ s.t. 对于任意 $n \in \mathbb{N}$, 都存在一个 seq $E_n \in \mathcal{A}$ s.t. $\mu(E_n) \leq \frac{1}{2^n}$, $\nu(E_n) \geq \epsilon$ for each $n$.\\
+    Set  \[
+    E :  = \limsup_n E_n  = \bigcap_{n=1}^\infty \bigcup_{k=n}^\infty E_k
+    \]
+    我们标记后面的每个集合为: \[
+    F_n: = \bigcup_{k=n}^\infty E_k
+    \]
+    于是 \[
+    \mu(F_n) \leq \sum_{k=n}^\infty \frac{1}{2^k} = \frac{1}{2^{n}}
+    \]
+    从而得到, \[
+    \mu(E) = 0
+    \]
+    而由于 $\nu(F_n) \geq \epsilon$ for each $n$, we have \[
+    \nu(E) \geq \epsilon
+    \]这与 $\nu \ll \mu$ contradict.
+\end{proof}
+
+
+\section{Radon-Nikodym derivative and RN Thm}
+\begin{definition}{Radon-Nikodym derivative}
+    对于 \(\begin{cases}
+        \text{p.m. } \mu\\
+        \text{s.m. } \nu
+    \end{cases} \) on $(X,\mathcal{A})$, 如果存在一个 function $f \in L^1(\mu)$, 使得 \[
+    \nu(E) = \int_E f\, d\mu,\quad \forall E \in \mathcal{A}
+    \]
+    则称 \textbf{$f$ is the Radon-Nikodym Derivative of $\nu$ w.r.t. $\mu$.} 写作 \[
+    f = \frac{d\nu}{d\mu}
+    \]或者  \[
+    d\nu = f d\mu
+    \]
+\end{definition}
+Radon-Nikodym derivative $f$ 刻画的是\textbf{在每一点 $x\in X$ 上, signed 测度 $\nu$ 相对于测度 $\mu$ 的变化速率.}\\
+\begin{example}
+ 取一个 $\mu_F$ 
+\end{example}
+
+
+
+Question: 我们如何判断这个 RN derivative 是否存在呢? Radon Nikodym Theorem 正是这个问题的答案. 
+\begin{theorem}{Radon-Nikodym Theorem}
+    对于 \(\begin{cases}
+        \text{p.m. } \mu\\
+        \text{s.m. } \nu
+    \end{cases} \) on $(X,\mathcal{A})$, 如果 \textbf{$\nu,\mu$ 都 $\sigma$-finite}, 那么 \[
+    \nu \ll \mu \iff \exists f = \frac{d\nu}{d\mu}\in L^1(\mu)
+    \]
+    并且这个 RN derivative \textbf{$f$ 是 \textbf{unique 的, in $\mu$-a.e. sense.} }(即在 $\mu$ 的一个 null set 之外唯一).
+\end{theorem}
+Radon Nikodym Theorem 表示, 对于 $\sigma$-finite 的 $\nu$ 和 $\mu$, RN derivative 存在(并且)当且仅当 $\nu \ll \mu$.\\
+RN Thm 量化了 absolutely continuous 这个概念: \textbf{对于任意两个 abs ctn 的 measure, 只要它们 $\sigma $-finite, 就可以用一个具体的函数 $f$ 来表达它们之间的关系.}\\
+
+要证明 RN Theorem, 我们还需要一些 Lemma.
 
 
 
@@ -5071,9 +5155,7 @@ Question 2: 给定一个任意的 p.m. $\mu$, 以及一个任意的 s.m. $\nu$ o
 
 
 
-
-
-next time: upgrade it to the Lebesgue Radon Nikodym Thm.
+下一个 lecture: 我们将 upgrade RN Thm to 一个更加 general 的 version: Lebesgue Radon Nikodym Thm.
 
 
 
