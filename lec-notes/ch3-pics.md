@@ -108,3 +108,17 @@ plt.show()
 
 
 ![absctn](ch3-pics.assets/absctn.png)
+
+
+
+
+
+![Screenshot 2025-04-10 at 15.39.23](ch3-pics.assets/Screenshot 2025-04-10 at 15.39.23.png)
+
+
+
+
+
+
+
+![Screenshot 2025-04-10 at 15.39.58](ch3-pics.assets/Screenshot 2025-04-10 at 15.39.58.png)
