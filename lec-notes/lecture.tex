@@ -5817,6 +5817,7 @@ F(b)  - F(a)  = \int_a^b F'(x) \, dx
 \end{definition}
 \begin{remark}
     Total variation 是一个很形象的定义. $T_F(x)$ 表示的是 $F$ 从 $-\infty$ 到当前 $x$ 的这段定义域上, 总的变化量. 它 count into 所有的变化, 包括离散的和连续的, 正方向的和负方向的.\\
+    \pic[0.5]{ch3-pics.assets/Screenshot 2025-04-10 at 15.39.23.png}
 \end{remark}
 
 
@@ -5896,15 +5897,40 @@ for a regular complex measure on $\mathbb{R}$.
    如果 real-valued  $F \in BV$, 那么 $T_F + F, T_F - F$ 都是 increasing 的.
 \end{lemma}
 \begin{remark}
-    这显然, 因为 $T_F$ 表示了 "F 目前为止的所有变化的大小", 而 $F$ 则是变化
+    $T_F + F$ 即: $F$ increasing 的地方加倍 increasing, $F$ decreasing 的地方 const;\\
+     $T_F - F$ 即: $F$ decreasing 的地方反向加倍 increasing, $F$ increasing 的地方 const;
+     \pic[0.5]{ch3-pics.assets/Screenshot 2025-04-10 at 15.39.58.png}
 \end{remark}
+\begin{proof}
+    任取 $x<y$.\\
+    Let $\epsilon > 0$.\\
+    Can find $x_0 <  x_ 1 < \cdots < x_N = x$, s.t. \[
+    \sum_{1}^N |F(x_j) - F(x_{j-1}) | \geq T_F(x) - \epsilon
+    \]
+    从而 
+    \begin{align*}
+T_F(y)  &\geq    \sum_{1}^N |F(x_j) - F(x_{j-1}) |  + |F(y) - F(x)| \\
+&\geq T_F(x) - \epsilon + |F(y) - F(x)|
+    \end{align*}
+由于 $\epsilon > 0$ 任意, 可以得到: \[
+ T_F(y) -  T_F(x)\geq  |F(y) - F(x)|
+\]
+因而: \[
+( T_F(y)  - F(y)) -  (T_F(x)  -F(x)) \geq  |F(y) - F(x)| - (F(y) - F(x)) \geq 0
+\]
+\end{proof} 
+
+
+
+\section{Jordan decomposition for BV function}
+\begin{theorem}
+  对于 $F: \mathbb{R}\to \mathbb{R}$ (注意是 real-valued): \[
+  F \in BV \iff F = F
+  \]  \end{theorem}
 
 
 
 
-
-
-$\implies$
 
 
 
