@@ -3921,106 +3921,171 @@ So \(\lim_{x\to\pm\infty} f(x) = 0\), i.e., \(f \in C^0_0(\mathbb{R})\). Thus, e
 
 \begin{proof}
     of (d): 
-Define for each \(n\):
-
-
-
-We construct a sequence of partial sums of “traveling bump” functions. Each partial sum will indeed be in \(C^0_c(\mathbb{R})\) (continuous and compactly supported), but the limit function (with respect to the \(\|\cdot\|_\infty\)-norm) will *not* be in \(C^0_c(\mathbb{R})\), because it will fail to have compact support.
-
-#### Step 1: A single bump function \(\phi\)
-
-Let \(\phi : \mathbb{R} \to \mathbb{R}\) be a continuous function with:
-
-1. \(\operatorname{supp}(\phi) \subset [0,2]\) (i.e., \(\phi(x) = 0\) for \(x \notin [0,2]\)),
-2. \(\phi(x) = 1\) for \(x\in[1,2]\).
-
-
-Say \[
+We consider a continuous (smooth actually) function \(\phi : \mathbb{R} \to \mathbb{R}\) with \(\operatorname{supp}(\phi) =  [0,2]\) (here we take the closure):\[
 \phi(x)
-=\begin{cases}
-\displaystyle 
+:=\begin{cases}
 \exp\!\Bigl(\!-\frac{1}{x\,(2 - x)}\Bigr), 
-& 0 < x < 2,\\[12pt]
-0, & \text{otherwise}.
+& 0 < x < 2,\\
+0, & \text{otherwise}
 \end{cases}
 \]
-For example, one can define \(\phi\) to ramp up linearly on \([0,1]\) and stay at \(1\) on \([1,2]\). Clearly, \(\phi \in C^0_c(\mathbb{R})\) and \(\|\phi\|_\infty = 1\).
-
-#### Step 2: Translates of \(\phi\)
-
-For each integer \(n \ge 1\), define
-\[
-   \phi_n(x) \;=\; \phi\!\bigl(x - n\bigr).
+\pic[0.35]{hw9.assets/Screenshot 2025-03-27 at 20.28.30.png}
+This function reaches its maximum at $x = 1$, \[
+\|\phi \|_\infty = \frac{1}{e}
 \]
-Then:
-
-- \(\phi_n\) is also continuous.
-- \(\operatorname{supp}(\phi_n) \subset [n,n+2]\), so each \(\phi_n\) has *compact support*.
-- \(\|\phi_n\|_{\infty} = \|\phi\|_{\infty} = 1\).
-
-Hence \(\phi_n \in C^0_c(\mathbb{R})\).
-
-#### Step 3: A Cauchy sequence of partial sums
-
-Consider the series
-\[
-  \sum_{n=1}^{\infty} 2^{-n}\,\phi_n.
+For each integer \(n \ge 1\), define \[
+   \phi_n(x) = \phi\!\bigl(x - n\bigr)
 \]
-Define its \(N\)-th partial sum by
-\[
-   S_N(x) \;=\; \sum_{n=1}^{N} 2^{-n}\,\phi_n(x).
+Then each \(\phi_n\) is also continuous, and \(\operatorname{supp}(\phi_n) =[n,n+2]\).\\
+Consider  the sequence $(S_N)_1^\infty$, defined as: \[
+   S_N(x) := \sum_{n=1}^{N} 2^{-n}\,\phi_n(x)
 \]
-Each partial sum \(S_N\) is a *finite linear combination* of compactly supported, continuous functions. Hence
-
-- Each \(S_N \in C^0_c(\mathbb{R})\).
-- The support of \(S_N\) is contained in \(\bigcup_{n=1}^N [n, n+2]\), which is bounded (it lies within \([1, N+2]\)).
-
-Next, we show \(\{S_N\}\) is Cauchy in the sup norm:
-
-- For \(M > N\),
-  \[
-    \|S_M - S_N\|_{\infty} 
-    \;=\;
-    \Bigl\|\sum_{n=N+1}^{M} 2^{-n}\,\phi_n\Bigr\|_{\infty}
-    \;\le\;
-    \sum_{n=N+1}^{M} 2^{-n}\,\|\phi_n\|_{\infty}
-    \;=\;
-    \sum_{n=N+1}^{M} 2^{-n}.
-  \]
-- Since \(\sum_{n=N+1}^{\infty} 2^{-n}\) is a *tail* of a convergent geometric series, it can be made arbitrarily small by choosing \(N\) large. 
-
-Thus \(\{S_N\}\) is indeed a Cauchy sequence in \(\bigl(C^0_c(\mathbb{R}),\|\cdot\|_\infty\bigr)\).
-
-#### Step 4: The limit is *not* in \(C^0_c(\mathbb{R})\)
-
-By completeness *in the larger space* \(C^0(\mathbb{R})\) with the sup norm, the sequence \(\{S_N\}\) has a limit
-\[
-   S(x) \;=\; \lim_{N \to \infty} S_N(x) 
-   \;=\; \sum_{n=1}^{\infty} 2^{-n}\,\phi_n(x)
+Then each \(S_N \in C^0_c(\mathbb{R})\), since finite sum of continuous functions is also continuous, and $\operatorname{supp} (S_N) = [1,N+2]$, thus each $S_N \in C^0_c(\mathbb{R})$.\\
+\textbf{Claim: $(S_N)_1^\infty$ is Cauchy in the sup norm.}\\
+This is because for each (WLOG)  \(M > N\in \mathbb{N} \),  \begin{align*}
+      \|S_M - S_N\|_{\infty}  &= 
+    \Bigl\|\sum_{n=N+1}^{M} \frac{1}{2^n}\phi_n\Bigr\|_{\infty} \\ &\leq  
+    \sum_{n=N+1}^{M} \frac{1}{2^n} \|\phi\|_{\infty} \\&\leq  
+    \sum_{n=N+1}^{\infty} \frac{1}{2^n} \|\phi\|_{\infty}\\& =  \sum_{n=N+1}^{\infty} \frac{1}{2^n e}  = \frac{1}{2^N e} \overset{N\to \infty}{\longrightarrow} 0
+\end{align*}
+Thus for arbitrary $\varepsilon >0$, exists $K\in\mathbb{N}$ s.t. for all $M,N \geq K$, $  \|S_M - S_N\|_{\infty}  < \varepsilon$. And by same reason as (b), (c), $(S_N)_1^\infty$ converges by $\| \cdot \|_\infty$ into its pointwise limit: \[
+  S(x) := \sum_{n=1}^{\infty} 2^{-n}\,\phi_n(x)
 \]
-in the sense of uniform convergence. We claim that \(S\notin C^0_c(\mathbb{R})\) because \(S\) *does not have compact support*.  
-
-- Indeed, for each fixed \(x \in \mathbb{R}\), there are only finitely many terms \(\phi_n(x)\) that are possibly nonzero (if \(x < n\), or \(x > n+2\), then \(\phi_n(x)=0\)). So the sum defining \(S(x)\) is locally finite and well-defined.
-- But as \(x\to +\infty\), different terms \(\phi_n\) “turn on”; that is, for large \(x\), exactly one (or two) of the translated bumps \(\phi_n\) might be nonzero. Consequently, \(S(x)\) does *not* vanish once \(x\) is large. It keeps “moving along with” the translates. In fact, there is *no* bounded interval outside of which \(S\) becomes zero.
-
-Hence \(S\) fails to have compact support, and so
-\[
-   S \;\notin\; C^0_c(\mathbb{R}).
-\]
+But $S(x)$ does not have compact support, $\operatorname{supp}(S) = [0,\infty)$. So \(   S \notin C^0_c(\mathbb{R})\). This serves as a counterexample showing that \(C^0_c(\mathbb{R})\) is not Banach.
 \end{proof}
 
 
 
-
-
-\section{Jordania.}
+ \section{Jordania.}
   Let $\nu$ be a signed measure on $(X,\mathcal{A})$, and $E\in\mathcal{A}$. Prove the following statements:
   \begin{itemize}
   \item[(i)]$\nu^+(E)= \sup\{ \nu(F)\mid: F\in \mathcal{A}, F\subset E\}$, and   $\nu^-(E)= -  \inf\{ \nu(F)\mid  F\in \mathcal{A}, F\subset E\}$; 
   \item[(ii)]   $|\nu|(E)= \sup\{ \sum_{i=1}^N |\nu(E_i)|\mid N\in\mathbb{N}, \, E= \bigcup_{i=1}^N E_i \text{ disjoint union}\}$;
-  \item[(iii)]   $|\nu|(E)\ge|\nu(E)|$. If  $\nu$ finite then, it achieves equality iff $E$ is positive or negative for $\nu$.
+  \item[(iii)]   $|\nu|(E)\ge|\nu(E)|$. In the case $\nu$ finite, it achieves equality iff $E$ is positive or negative for $\nu$.
 %    \sup\{ \sum_{i=1}^N |\nu(E_i)|\mid N\in\N, \, E= \bigcup_{i=1}^N E_i \text{ disjoint union}\}$. 
   \end{itemize}
+
+\begin{proof}
+    \textbf{of (i):} By the Hahn decomposition theorem, we can take a Hahn decomposition \(X = P \sqcup N\) where \[
+  \nu(A) \ge 0 \quad\text{for all }A\subset P,\qquad
+  \nu(B) \le 0 \quad\text{for all }B\subset N
+  \]
+Fix $E\in\mathcal{A}$. By Jordan decomposition we have \[
+  \nu^+(E) = \nu(E\cap P)
+  \]Fix \(F\subset E\), we have:\[
+  F = (F \cap P ) \sqcup (F \cap N)
+  \]
+  Since $\nu (F\cap N) \leq 0$, we have:  \[
+  \nu(F) \le \nu\bigl(F\cap P\bigr) \;\le\; \nu\bigl(E\cap P\bigr) = 
+  \nu^+(E)
+  \]Since $F$ is arbitrary, this shows:  \[
+  \sup\{\nu(F) \mid F \subset E\} \leq 
+  \nu^+(E)
+  \]
+On the other hand, taking \(F = E\cap P\subset E\), we get \[
+  \nu(F) =\nu\bigl(E\cap P\bigr) =  \nu^+(E)
+  \]
+  Hence \[
+  \sup\{\nu(F) \mid F \subset E\} \geq 
+  \nu^+(E)
+  \]
+  Combining both inequalities gives \[\nu^+(E) =  \sup\{\nu(F)\mid F\subset E\}\]
+Similarly,  since $\nu (F\cap P) \geq 0$ and $\nu(F) = \nu (F\cap  P) + \nu\bigl(F\cap N\bigr)$, we have  $  \nu(F) \geq \nu\bigl(F\cap N\bigr) $. And Since $\nu \bigl (E\cap N\bigr)  =  \nu(F \cap N) +  \nu((E \setminus F) \cap N) $ with $ \nu((E \setminus F) \cap N)\leq 0$, we get $\nu\bigl(F\cap N\bigr) \ge \nu\bigl (E\cap N\bigr)$. \\
+Putting it together:
+\[
+  \nu(F) \geq \nu\bigl(F\cap N\bigr) \ge \nu\bigl (E\cap N\bigr) = 
+ -  \nu^-(E)
+  \]Since $F$ is arbitrary, this shows:  \[
+  \inf\{\nu(F) \mid F \subset E\} \geq  -  \nu^-(E)
+  \]
+On the other hand, taking \(F = E\cap N\subset E\), we get \[
+  \nu(F) = \nu\bigl(E\cap N\bigr) = -   \nu^-(E)
+  \]
+  Hence \[
+  \inf\{\nu(F) \mid F \subset E\} \leq  -  \nu^-(E)
+  \]
+  Combining both inequalities gives \[\nu^-(E) =  - \inf\{\nu(F)\mid F\subset E\}\]
+
+\end{proof}
+\begin{proof}
+    \textbf{of (ii):}
+Let $E\in \mathcal{A}$.
+By def of total variation measure,  \[
+  |\nu|(E) = 
+  \nu^+(E)+\nu^-(E)
+  \]
+One direction of the equality is easy. Take a Hahn decomposition \(X = P \sqcup N\) where \[
+  \nu(A) \ge 0 \quad\text{for all }A\subset P,\qquad
+  \nu(B) \le 0 \quad\text{for all }B\subset N
+  \]
+Then by Jordan decomposition, we have:\[
+  \nu^+(E) = \nu(E\cap P),\quad \nu^-(E) =  - \nu(E\cap N)
+  \]
+  So by taking $E_1 : = E \cap P$, $E_2 : = E \cap N$, we have: \[
+    |\nu|(E) = 
+  \nu^+(E)+\nu^-(E)  = \nu(E_1)  + \nu(E_2)
+  \]This shows that \[
+|\nu|(E) \leq 
+\sup\bigl\{\sum|\nu(E_i)|\bigr\}
+\]
+  And for the other direction, for any disjoint measurable partition \(E = \bigcup_{i=1}^N E_i\), we have   \[
+  |\nu(E_i)| = 
+  \bigl|\nu^+(E_i) - \nu^-(E_i)\bigr| \leq 
+  \nu^+(E_i) + \nu^-(E_i) = 
+  |\nu|(E_i)
+  \]
+  Therefore \[  \sum_{i=1}^N \bigl|\nu(E_i)\bigr| \leq 
+  \sum_{i=1}^N \bigl|\nu|(E_i) = 
+  |\nu|\Bigl(\bigcup_{i=1}^N E_i\Bigr) = 
+  |\nu|(E)
+  \]
+  since \(\lvert \nu\rvert\) is a p.m. and the \(E_i\)'s are disjoint. Thus \[
+  \sup\Bigl\{\sum_{i=1}^N |\nu(E_i)|\Bigr\} \leq |\nu|(E)  \]
+Combining the two inequalities gives
+\[
+|\nu|(E) = 
+\sup\Bigl\{\sum_{i=1}^N \bigl|\nu(E_i)\bigr|\Bigm\vert\;N\in\mathbb{N},E=\bigcup_{i=1}^N E_i \text{ disjoint}\Bigr\}
+\]
+proving the statement.
+\end{proof}
+
+\begin{proof}
+    \textbf{of (iii):}
+    Let $E \in \mathcal{A}$.
+The ineq \(|\nu|(E)\geq |\nu(E)|\) follows from triangular ineq on $\mathbb{R}$:
+\[
+|\nu(E)| = 
+\bigl|\nu^+(E) - \nu^-(E)\bigr| \leq 
+\nu^+(E) + \nu^-(E) = 
+|\nu|(E)
+\]
+Now we assume \(\nu\) is finite (i.e.\ \(\lvert \nu\rvert(X) < \infty\)). The equality condition \(|\nu(E)| =  |\nu| (E)\) is detailedly:
+\[
+\bigl|\nu^+(E) - \nu^-(E)\bigr| = 
+\nu^+(E) + \nu^-(E)
+\]
+Since \(\lvert \nu\rvert(X) < \infty\), $\nu^+(E) <\infty$ and $\nu^-(E) <\infty $.\\
+Case 1: $\nu^+(E) \geq \nu^-(E)$, then \begin{align*}
+    \bigl|\nu^+(E) - \nu^-(E)\bigr| = 
+\nu^+(E) + \nu^-(E)& \iff \nu^+(E) - \nu^-(E) = 
+\nu^+(E) + \nu^-(E) \\
+&\iff -\nu^-(E) = \nu^-(E) \\
+&\iff \nu^-(E) = 0 \\
+& \iff E \subset P 
+\end{align*}
+Case 2: $\nu^+(E) < \nu^-(E)$, then  \begin{align*}
+    \bigl|\nu^+(E) - \nu^-(E)\bigr| = 
+\nu^+(E) + \nu^-(E)& \iff \nu^-(E)  - \nu^+(E) = 
+\nu^+(E) + \nu^-(E) \\
+&\iff -\nu^+(E) = \nu^+(E) \\
+&\iff \nu^+(E) = 0 \\
+& \iff E \subset N
+\end{align*}
+Therefore the equality condition implies that $E$ must be positive or negative for $\nu$; and in converse, if $E$ is neither positive nor negative set, in either case it implies \(|\nu(E)| \not=  |\nu| (E)\), thus when $\nu$ finite, \(|\nu(E)| =  |\nu| (E)\) iff $E$ is positive or negative for $\nu$.
+\end{proof}
+
+
+
 
 
 
@@ -4040,13 +4105,128 @@ Hence \(S\) fails to have compact support, and so
     \]
   \end{itemize}
 
+\begin{proof}
+    \textbf{of (i)}:
+    Take a Hahn decomposition $X = P \sqcup N $.\\
+    Then by Jordan decomposition, \[
+    \nu^+ (E) = \nu(E \cap P), \quad     \nu^- (E) = -\nu(E \cap N),\quad  \forall E \subset X
+    \]
+    and therefore $P$ is null set of $\nu^-$ and $N$ is null set of $\nu^+$. So on $P$,  $|\nu| = \nu^+ + \nu^-  = \nu^+$; on $N$,  $|\nu| = \nu^+ + \nu^-  = \nu^-$
+    Thus, suppose $g\in L^+(|\nu|)$,  \begin{align*}
+        \int g \, d |\nu|= \int _X g\, d|\nu|   & =  \int_P g\, d |\nu| + \int_N g\, d |\nu|\quad \text{since } X = P \sqcup N \\
+        & = \int_P g\, d \nu^+ + \int_N g\, d \nu^-  \quad \text{since } |\nu| = \nu^+,\nu^- \text{ on }P,N    \\
+        & = \int g\, d \nu^+ + \int g\, d \nu^- \quad \text{since }N,P \text{ is null for } \nu^+, \nu^-
+    \end{align*}
+    Suppose $g\in L^1(|\nu|)$, then  \begin{align*}
+        \int g \, d |\nu|= \int _X g\, d|\nu|   & =   \int_X g^+ \, d|\nu| -  \int_X g^-\, d|\nu| \quad \text{by def}  \\
+        & =\bigg( \int_P g^+\, d \nu^+ + \int_N g^+\, d \nu^-\bigg) -  \bigg( \int_P g^-\, d \nu^+ + \int_N g^-\, d \nu^-\bigg)\quad \text{since } X = P \sqcup N \\
+        & = ( \int_P g^+\, d \nu^+  -  \int_P g^-\, d \nu^+\bigg) + \bigg( \int_N g^+\, d \nu^-- \int_N g^-\, d \nu^-\bigg) \\
+        & = \int_P g \, d\nu^+  +  \int_N g \, d\nu^- \quad \text{since $g\in L^1(|\nu|)$} \\
+        & =\int g \, d\nu^+  +  \int g \, d\nu^- \quad \text{since }N,P \text{ is null for } \nu^+, \nu^-
+    \end{align*}
+    This finishes the proof.
+\end{proof}
+
+\begin{proof}
+    \textbf{of (ii):}
+    WTS: $L^1(\nu^+)\cap L^1(\nu^-)=L^1(|\nu|)$.\\
+(\(\Rightarrow\)): Suppose \(f \in L^1(|\nu|)\), i.e. \(\int |f| \, d|\nu| < \infty\).  \\
+Let $\phi$ be arbitrary positive-valued simple function: \[
+ \phi = \sum_{j=1}^n a_j \chi_{E_j}
+\]
+then \[
+\int \phi \, d |\nu| =  \sum_{i=1}^n a_j |\nu| (E_j)
+\]
+Since $\nu^-(E_j),\nu^+ (E_j) \leq   \nu^+ (E_j) + \nu^-(E_j) =   |\nu|  (E_j)$ for each $j$, we have \[
+\int \phi \, d \nu^+ ,\int \phi \, d \nu^- \leq    \int \phi \, d |\nu| 
+\]
+Since $\phi$ is arbitrary, we have
+$$\int |f| \,d \nu^+ =    \sup \{   \int \phi \,d \nu^+ : 0\leq \phi \leq |f|, \phi  \text{ simple} \}  \leq   \sup \{   \int \phi \,d |\nu| : 0\leq \phi \leq |f|, \phi  \text{ simple} \} =  \int |f| \,d |\nu|$$
+Same for $\nu^-$. This shows that \[
+\int |f| \, d\nu^+ , \int |f| \, d\nu^-  \leq \int |f| \, d|\nu|  < \infty
+\]
+i.e. $f\in L^1(\nu^+)$ and $f\in L^1(\nu^-)$, so $f\in L^1(\nu^+)\cap L^1(\nu^-)$.\\
+Thus $$L^1(|\nu|) \subset   L^1(\nu^+)\cap L^1(\nu^-) $$
+(\(\Leftarrow\)): Suppose \(f \in L^1(\nu^+) \cap L^1(\nu^-)\), i.e. \[
+\int |f| \, d\nu^+ < \infty, \quad \int |f| \, d\nu^- < \infty
+\]
+Since $|f| $ is non-negative and measurable, we have $|f| \in L^+(|\nu|)$. Thus by (i) we have:
+\[
+\int |f| \, d|\nu| = \int |f| \, d\nu^+ + \int |f| \, d\nu^- < \infty
+\]
+So \(f \in L^1(|\nu|)\).\\
+This shows that:  $$   L^1(\nu^+)\cap L^1(\nu^-) \subset L^1(|\nu|) $$
+Combining both direction, we finished the proof that: \[
+  L^1(\nu^+)\cap L^1(\nu^-)  =  L^1(|\nu|) 
+\]
+
+\end{proof}
+
+
+\begin{proof}
+    \textbf{of (iii):}
+Suppose $f\in L^1(\nu)$, then
+\begin{align*}
+    \left| \int f \, d\nu \right| &= \left| \int f \, d\nu^+ - \int f \, d\nu^- \right| \quad\text{by def}\\
+&\le \left| \int f \, d\nu^+ \right| + \left| \int f \, d\nu^- \right|\quad \text{by tri ineq}\\
+&\le \int |f| \, d\nu^+ + \int |f| \, d\nu^-\quad \text{by property of $L^1$ integration }\\
+& = \int |f| \, d|\nu| \quad\text{ from (i)}
+\end{align*}
+Therefore, \[
+\left| \int f \, d\nu \right| \le \int |f| \, d|\nu|
+\]
+\end{proof}
+
+
+
+\begin{proof}
+    \textbf{of (iv):}
+Suppose that $\nu$ is a finite measure (i.e. $\nu^{\pm}(X)<\infty$), let $E\in \mathcal{A}$.\\
+We denote: \[
+S := \sup \left\{ \left| \int_E f \, d\nu \right| \,\middle|\, \|f\|_\infty \le 1 \right\}
+\]
+\textbf{First we show \( S \le |\nu|(E) \):}\\
+For any bounded measurable \(f\) with \(\|f\|_\infty \le 1\), \begin{align*}
+    \left| \int_E f \, d\nu \right| &\le \int_E |f| \, d|\nu| \quad\text{by (iii)}\\
+    &\leq \int_{E} 1 \, d|\nu| \quad\text{by linearity of integration}\\
+    & = |\nu| (E)
+\end{align*}
+So by taking the supremum over such \(f\), we get:
+\[
+S \le |\nu|(E)
+\]
+\textbf{Next we will show \( |\nu|(E) \le S \):}\\
+We take a Hahn decomposition, getting $X  = P \sqcup N$ where \[
+\nu^+ (B) = \nu(P \cup B) \geq 0,\nu^-(B) = -\nu(P \cup B) \leq 0, \;\;\text{for all } B \subset X
+\]
+Then
+\[
+|\nu|(E) = \nu^+(E) + \nu^-(E) = \nu(E\cap P) - \nu(E \cap N)
+\]
+Now define:
+\[
+f := \chi_P - \chi_{N}
+\]
+Then \(f\) is measurable since $P,N$ are measurable. And \(\|f\|_\infty \le 1\) since $f(x)\in \{ -1,1\}\,\forall x\in X$
+Compute:
+\[
+\int_E f \, d\nu = \int_{E \cap P} 1 \, d\nu - \int_{E\cap N} 1 \, d\nu
+= \nu(E \cap P) - \nu(E \cap N ) = \nu^+(E) + \nu^-(E) =  |\nu|(E)
+\]
+Thus \[
+|\nu|(E) = \left| \int_E f \, d\nu \right| \le S
+\]
+Combining both inequalities, we get: \[
+|\nu|(E) = S
+\]
+\end{proof}
+
 
 \section{A space of measures on a measurable space}
   Let $(X, \mathcal{A})$ be a measurable space. 
   \begin{itemize}
-  \item[(a)]Let $\lambda$ be $\mu$ be finite \emph{positive} measures on $(X, \mathcal{A})$. 
-    Let $\nu=\lambda-\mu$. Prove that  
-    \begin{equation*}
+  \item[(a)]Let $\lambda$, $\mu$ be finite \emph{positive} measures on $(X, \mathcal{A})$. 
+    Let $\nu=\lambda-\mu$. Prove that   \begin{equation*}
       \nu^+(E)\le \lambda(E), \qquad \nu^-(E)\le \mu(E), \qquad |\nu|(E)\le \lambda(E)+\mu(E)
   \end{equation*}
   for every $E\in \mathcal{A}$.
@@ -4067,12 +4247,217 @@ for every $E\in \mathcal{A}$.
 
 % Consider $(\R, \cB[\R])$ and the Dirac measures $\delta_a$ for each $a\in \R$ defined by $\delta_a(E)=1$ if $a\in E$ and $\delta_a(E)=0$ if $a\notin E$. What is the distance $\|\delta_a-\delta_b\|$ for $a\neq b$?) 
 
+\begin{proof}
+    \textbf{of (a):}\\
+Recall in problem 2 we get:
+\[
+\nu^+(E) = \sup\{ \nu(F) : F \subset E, F \in \mathcal{A} \}, \quad 
+\nu^-(E) = -\inf\{ \nu(F) : F \subset E, F \in \mathcal{A} \}
+\]
+\textbf{Claim 1: $\nu^+(E)\le \lambda(E)$.}\\
+Let \(F \subset E\), \(F \in \mathcal{A}\). Then:
+\[
+\nu(F) = \lambda(F) - \mu(F) \le \lambda(F) \le \lambda(E)
+\]
+since \(F \subset E\) and \(\lambda\) is positive.  
+Taking the sup over all such \(F\), we get
+\[
+\nu^+(E) = \sup_{F \subset E} \nu(F) \le \lambda(E)
+\]\textbf{Claim 2: $ \nu^-(E)\le \mu(E)$.}\\
+Similarly as Claim 1, for any \(F \subset E\), since $\lambda$ and $\mu$ are p.m., we have
+\[
+\nu(F) = \lambda(F) - \mu(F) \ge -\mu(F) \ge -\mu(E)
+\implies -\nu(F) \le \mu(E)
+\]
+Taking the inf over $F \subset E$, we get
+\[
+\nu^-(E) = -\inf_{F \subset E} \nu(F) \le \mu(E)
+\]
+\textbf{Claim 3: $|\nu|(E)\le \lambda(E)+\mu(E)$.}\\
+This is just combining the two ineqs:  \[
+|\nu|(E) = \nu^+(E) + \nu^-(E) \le \lambda(E) + \mu(E)
+\]
+\end{proof}
+
+\begin{proof}
+    \textbf{of (b):} \\
+Let $E\in \mathcal{A}$. WTS: $|\nu+\kappa|(E) \le |\nu|(E)+|\kappa|(E) $.\\
+Recall in problem 2 we showed that for a signed measure \(\sigma\) and a measurable set \(E\) , we have:
+\[
+|\sigma|(E) = \sup \left\{ \sum_{i=1}^n |\sigma(E_i)| :E= \bigsqcup_{i=1}^N E_i\right\}
+\]
+Let \(\{E_i\}_{i=1}^n\) be any finite measurable partition of \(E\). Then for each $E_i$:
+\[
+|(\nu + \kappa)(E_i)| = |\nu(E_i) + \kappa(E_i)| \le |\nu(E_i)| + |\kappa(E_i)|
+\quad \text{(by tri ineq on \(\mathbb{R}\))}
+\]
+Summing over the partition, we have:\[
+\sum_{i=1}^n |(\nu + \kappa)(E_i)| \le \sum_{i=1}^n |\nu(E_i)| + \sum_{i=1}^n |\kappa(E_i)|
+\]
+Now take the supremum over all such partitions of \(E\):
+\begin{align*}
+    |\nu + \kappa|(E) &=\sup \left\{ \sum_{i=1}^n |(\nu + \kappa)(E_i)|
+ : E= \bigsqcup_{i=1}^N E_i \right\} \\
+    & \leq \sup \left\{ \sum_{i=1}^n |\nu(E_i)| +  \sum_{i=1}^n |\kappa(E_i)|
+ : E= \bigsqcup_{i=1}^N E_i \right\}\\
+ &\leq \sup \left\{ \sum_{i=1}^n |\nu(E_i)| 
+ : E= \bigsqcup_{i=1}^N E_i \right\} + \sup \left\{ \sum_{i=1}^n |\kappa(E_i)|
+ : E= \bigsqcup_{i=1}^N E_i \right\}\\
+ &= |\nu|(E)+|\kappa|(E) 
+\end{align*}
+Since measurable $E$ is arbitrary, this finishes the proof.
+\end{proof}
+
+
+\begin{proof}
+   \textbf{ of (c)}:
+\[
+\mathcal{M} : = \{ \text{all finite signed measures on }(X, \mathcal{A})\}
+\]
+and for $\nu \in \mathcal{M}$, we define:  \[
+\|\nu\| := |\nu|(X)
+\]
+WTS: $\| \cdot \|$ is a norm on $\mathcal{M}$.\\
+\begin{enumerate}
+    \item \textbf{Positive Definiteness}:\\Let $\nu \in \mathcal{M}$. Since $|\nu|$ is a positive measure, \( \|\nu\| =   |\nu| (X) \geq 0\).\\Since $|\nu|$ is a positive measure, \( \|\nu\| =   |\nu| (X) \geq 0\).\\
+Suppose $ |\nu|(X) = 0 $, then $X$ is a $|\nu|$-null set, so $|\nu|(E) = 0$ for all $E \in \mathcal{A}$. Thus $\nu = 0$.\\
+And suppose $\nu = 0 $, then $|\nu | = 0$ also, so $|\nu|(X) = 0$.\\
+Thus, \(\|\nu\| = 0\) iff \(\nu = 0\). This finishes the proof of positive definiteness.
+\item \textbf{Absolute Homogeneity}: \\Since for any measurable set \(E\):
+\begin{align*}
+    |a \nu|(E) &= \sup \left\{ \sum_{i=1}^n |(a \nu)(E_i)| : E= \bigsqcup_{i=1}^N E_i\right\}\\
+&= \sup \left\{ \sum_{i=1}^n |a||\nu(E_i)|: E= \bigsqcup_{i=1}^N E_i \right\}\\
+& = |a| \sup \left\{ \sum_{i=1}^n |\nu(E_i)|: E= \bigsqcup_{i=1}^N E_i \right\}\\
+&= |a| \cdot |\nu|(E)
+\end{align*}
+We have: \[
+\|a \nu\| = |a \nu|(X) = |a| \cdot |\nu|(X) = |a| \cdot \|\nu\|
+\]
+finishing the proof of absolute homogeneity.
+\item \textbf{Triangle Inequality}:\\
+Recall we just proved in (b) that for any measurable $E$:\[
+  |\nu+\kappa|(E) \le |\nu|(E)+|\kappa|(E) 
+\]Thus \[
+\|\nu + \kappa\| = |\nu + \kappa|(X) \le |\nu|(X) + |\kappa|(X)=  \|\nu\| + \|\kappa\|
+\]
+finishing the proof of triangle inequality.\\
+\end{enumerate}
+So we can conclude that \(\|\nu\| := |\nu|(X) \text{ defines a norm on } \mathcal{M}\), with the standard definitions of addition and scalar multiplication of signed measures.
+\end{proof}
+
+
+
+\begin{proof}
+    \textbf{of (d)}\\
+    Suppose $(X,\mathcal{A})=(\mathbb{R},\mathcal{B}(\mathbb{R}))$. Compute $\|\delta_x-\delta_y\|$ for $x,y\in\mathbb{R}$.
+
+    
+Recall def: For any Borel set \(A \subset \mathbb{R}\), \[
+\delta_x(A) = \begin{cases}
+1 & \text{if } x \in A \\
+0 & \text{otherwise}
+\end{cases}
+\]
+So we define the signed measure \(\nu := \delta_x - \delta_y\) as:
+\[
+\nu(A) = \delta_x(A) - \delta_y(A)
+\]
+If \(x = y\), then \(\delta_x = \delta_y \), then \(\nu = 0\), so \( \| \nu \|= 0  \). This is the trivial case.
+if \(x \ne y\): We first compute the Jordan decomposition.\\
+We know that $\nu^+(E)= \sup\{ \nu(F)\mid: F\in \mathcal{A}, F\subset E\}$, and  $\nu^-(E)= -  \inf\{ \nu(F)\mid  F\in \mathcal{A}, F\subset E\}$.
+For any $E \ni x$, we have \[
+\nu^+ (E)  = \nu  (\{x \}) = 1
+\]
+In other cases, we have: \[
+\nu^+ (E)  = \nu  (E \setminus \{y \}) = 0 
+\]
+For any $E\ni y$, we have  \[
+\nu^- (y)  = -\nu  (\{y \}) = 1
+\]
+In other cases, we have: \[
+\nu^- (E)  = -\nu  (E \setminus \{x \}) = 0 
+\]
+And we thus discover that: \[
+\nu^+ = \delta_x, \quad \nu^- = \delta_y
+\]
+So \[
+\|\nu \| = |\nu| (\mathbb{R}) = \delta_x(\mathbb{R}) + \delta_y(\mathbb{R}) = 1 + 1 = 2
+\]
+Thus we can conclude that \[\|\nu \| = 
+\begin{cases}
+    2 & \text{if } x \not= y\\
+0 & \text{otherwise}
+\end{cases}
+\]
+\end{proof}
+
 
 
 \section{A Banach space of measures}
   Prove that the normed vector space $\mathcal{M}$ in the previous problem is in fact a Banach space.
-
-
+\begin{proof}
+In problem 4 we have shown that on $(\mathcal{M}, \|\cdot\|)$ is a normed vector space, where \[
+\mathcal{M} : = \{ \text{all finite signed measures on }(X, \mathcal{A})\}
+\]
+and  \[
+\|\nu\| := |\nu|(X)
+\]
+Now we prove that the NVM $(\mathcal{M}, \|\cdot\|)$ is complete, i.e. it is a Banach space.\\
+ Let $(\nu_n)$ be a Cauchy sequence in $\mathcal{M}$. We have
+\[
+|\nu_n(B) - \nu_m(B)| = |(\nu_n - \nu_m)(B)| \le \|\nu_n - \nu_m\| \quad \text{for all } B \in \mathcal{A}
+\]
+In particular, $(\nu_n(B))_n$ is a Cauchy sequence for all $B \in \mathcal{A}$. For each $B \in \mathcal{A}$, this is a Cauchy seq in $\mathbb{R}$, thus converges. So we can get: \[
+\nu(B) := \lim_n \nu_n(B)
+\]
+as the pointwise limit (by a point we mean a set).\\
+\textbf{Claim 1: $\nu \in \mathcal{M}$}.\\
+Since for all $n$, $\nu_n(\varnothing) = 0$, we have:
+\[
+\nu(\varnothing) := \lim_n \nu_n(\varnothing) = 0
+\]
+For a countable disjoint union of measurable sets \(E = \bigsqcup_{i=1}^\infty E_i\), \[
+ \lim_n   \nu_n(E) = \lim_n \sum_i \nu_n(E_i)
+\]is the limit of a finite sum of numerical sequences in $\mathbb{R}$. So we can exchange the order of taking limit and sum. Then we get: \[
+  \nu(E) = \lim_n \nu_n(E) = \lim_n \sum_i  \nu_n(E_i) = \sum_i \lim_n \nu_n(E_i) = \sum_i \nu(E_i)
+  \]
+And notice, for each measurable set $B\in \mathcal{A}$, \textbf{since $(\nu_n(B))_n$ is a Cauchy sequence in $\mathbb{R}$, it is bounded}, thus does not admit $\infty, -\infty$ values. verifying that $\nu$ \textbf{is a valid signed measure.}\\
+Also, this means that taking Hahn Decomposition $X = P \sqcup N$ by $\nu$, we have \[
+\nu^+ (X) = \nu(P ) ,\quad \nu^- (X) = -\nu(N) 
+\]
+Since $\nu(P), \nu(N)$ are bounded, we have:
+Thus \[
+|\nu| (X) =  \nu^+ (X) + \nu^- (X)  < \infty
+\]
+This verifies that $\nu$ is a finite s.m.\\
+\textbf{ Claim 2:  $\nu_n \to \nu$ in $\|\cdot\|$.}
+Fix $\varepsilon > 0$. There exists $N$ such that $\|\nu_n - \nu_m\| < \varepsilon / 2$ for all $m, n \ge N$. Thus for all $n\geq N$ we have:
+\[
+|(\nu_n - \nu)(B)| = \lim_{m} |(\nu_n - \nu_m)(B)| \le \varepsilon / 2, \quad \forall B \in \mathcal{A},\ \forall n \ge N
+\]Notice that
+\[
+\nu^+(B) = \sup\{\nu(C) \mid C \in \mathcal{A},\ C \subset B\}
+\quad
+\]and \[
+\nu^-(B) =  - \inf\{\nu(C) \mid C \in \mathcal{A},\ C \subset B\}  =
+\sup\{-\nu(C) \mid C \in \mathcal{A},\ C \subset B\}
+\]
+It follows that
+\[
+(\nu_n - \nu)^+(X) = \sup\{(\nu_n - \nu)(B) \mid B \in \mathcal{A}\} \le \varepsilon / 2, \quad \forall n \ge N
+\]
+Similarly,
+\[
+(\nu_n - \nu)^-(X) = \sup\{-(\nu_n - \nu)(B) \mid B \in \mathcal{A}\} \le \varepsilon /2,\quad \forall n \ge N
+\]
+Thus \[
+|\nu_n - \nu | (X)  = (\nu_n - \nu)^+(X) + (\nu_n - \nu)^-(X) \leq \varepsilon
+\]
+This holds for all $n\geq N$. And since $\varepsilon > 0$ is arbitrary, this proves that \[
+\lim_{n\to\infty} \|\nu_n - \nu\| = 0
+\]
+As a result, $\nu_n \to \nu$ in $\|\cdot\|$, completeing the proof.
+\end{proof}
 
 
 
@@ -4084,6 +4469,483 @@ for every $E\in \mathcal{A}$.
 Does there exist a signed Borel measure $\nu$ on $\mathbb{R}$ with the property that  for every $\alpha\in \mathbb{R}$ there exists a Borel set $E\subset\mathbb{R}$ with $\nu(E)=\alpha$.
 
 
+
+
+
+
+
+
+
+
+\chapter{on LRN Theorem and complex measure}
+(Note: For this homework I applied for an one-day extension since I met with some emergent problem with my bank and rent payment.)
+
+\section{Formulas for the total variation}
+  Let $\nu$ be a complex measure on a measurable space $(X,\mathcal{A})$. Prove that, for any $E\in\mathcal{A}$:   \begin{align*}
+    |\nu|(E)
+    &=\sup\{\sum_{j=1}^n|\nu(E_j)|\mid n\in\mathbb{N}, E_1\dots E_n\ \text{disjoint},\ E=\bigcup_{j=1}^nE_j\}\\
+    &=\sup\{\sum_{j=1}^\infty|\nu(E_j)|\mid E_1, E_2,\dots \text{disjoint},\ E=\bigcup_{j=1}^\infty E_j\}\\
+    &=\sup\{\big|\int_E f\,d\nu\big|\mid f\colon X\to\mathbb{C}\ \text{measurable}, |f|\le 1\}.
+  \end{align*}
+\begin{proof}
+Take some positive measure $\mu$ s.t.  $\nu \ll \mu$ (e.g. $\mu: =  |\Re \nu | + | \Im \nu |$), then by RN Thm there exists $\mu$-unique RN derivative $f$, and $|\nu|$ can be defined by \[
+d |\nu|  : =  |f | \,d \mu
+\]
+Now we denote: \begin{align*}
+    \mu_1(E) &:=\sup\{\sum_{j=1}^n|\nu(E_j)|\mid n\in\mathbb{N}, E_1\dots E_n\ \text{disjoint},\ E=\bigcup_{j=1}^nE_j\}\\
+     \mu_2(E) &:=\sup\{\sum_{j=1}^\infty|\nu(E_j)|\mid E_1, E_2,\dots \text{disjoint},\ E=\bigcup_{j=1}^\infty E_j\}\\
+    \mu_3(E) &:=\sup\{\big|\int_E f\,d\nu\big|\mid f\colon X\to\mathbb{C}\ \text{measurable}, |f|\le 1\}.
+\end{align*}
+We will prove the equality by showing that $\mu_1 \leq \mu_2 \leq |\nu|(E) \leq \mu_3  \leq \mu_1$.\\
+\textbf{Claim 1: $\mu_1 \leq \mu_2$.}\\
+Proof: This is trivial since for each finite disjoint segmentation $E=\bigsqcup_{j=1}^nE_j$ of $E$ can be made into a countable segmentation of $E$, by taking all $E_N = \varnothing$ for $N \geq n+1$. So every value included in $\{\sum_{j=1}^n|\nu(E_j)|\mid E=\bigsqcup_{j=1}^nE_j\}$ is also in $\{\sum_{j=1}^\infty|\nu(E_j)|\mid E=\bigsqcup_{j=1}^\infty E_j\}$. Thus taking $\sup$, we have the ineq.\\
+\textbf{Claim 2: $\mu_2 \leq  | \nu | \leq \mu_3$.}\\
+Since $\nu \ll |\nu|$ (Folland prop 3.13), by complex RN Thm we have have  $$f:=\frac{d \nu}{d|\nu|} \in L^1(|\nu|)$$
+Notice that\textbf{ $f$ have absolute value $1$, $|\nu|$-a.e.} (Folland prop 3.13)\\
+Suppose $E=\sqcup_1^{\infty} E_j$, we have:
+$$
+\begin{aligned}
+\sum_{j=1}^{\infty}\left|\nu\left(E_j\right)\right| & \leq \sum_{j=1}^{\infty}|\nu|\left(E_j\right)  \quad &\text{by property of total variation measure}\\
+& =|\nu|(E)=\int_E 1 \,d|\nu| \quad &\text{by ctbl disjoint additivity }\\
+& =\int_E|f|^2 d|\nu|  =\int_E \bar{f} f d|\nu|\quad &\text{since $f$ have absolute value $1$  $\nu$-a.e.}\\
+& =\int_E \bar{f} \frac{d \nu}{d|\nu|}  d|\nu|
+\end{aligned}
+$$
+To confirm this equal to $\int \bar{f}\, d\nu$, we extend Folland prop 3.9 to the complex case.
+\begin{proposition}
+For complex measure $\nu$ and $\sigma$-finite positive measure $\mu$ s.t. $\nu \ll \mu$, if $g\in L^1(\nu)$, then \[
+g\bigg(\frac{d\nu}{d\mu}\bigg) \in L^1(\mu),\quad \int g \,d\nu =  \int g\bigg(\frac{d\nu}{d\mu}\bigg)  d\mu
+\]
+\end{proposition}
+And the proof just follows from the finite signed-measure case, applied both to im part and re part.
+\begin{align*}
+\int g \,d\nu  &= \int g \, d(\Re \nu ) + i \int g\, d(\Im \nu)    \\
+& = \int g \bigg( \frac{d (\Re\nu)}{d\mu}\bigg)\, d\mu + i \int g\bigg( \frac{d (\Im\nu)}{d\mu}\bigg)\, d\mu\\
+& =  \int g \bigg( \Re\frac{d \nu}{d\mu} +  i\Im\frac{d \nu}{d\mu}   \bigg)\, d\mu\\
+& = \int g\bigg(\frac{d\nu}{d\mu}\bigg)  d\mu
+\end{align*}
+Now we back to Claim 2, since $f,\bar{f} \in L^1(\nu) $, we have: 
+\begin{align*}
+\sum_{j=1}^{\infty}|\nu\left(E_j\right)| & \leq |\nu|(E) \\
+& =\int_E \bar{f} \frac{d \nu}{d|\nu|}  d|\nu|\\
+& = \int_E  \bar{f} \, d\nu \\
+& \leq \left|\int_E \bar{f} d \nu\right|
+\end{align*}
+Since $|\bar{f}| \leq 1$ (in $\nu$-a.e. sense), this shows that every element in $\{\sum_{j=1}^\infty|\nu(E_j)|\mid E=\bigsqcup_{j=1}^\infty E_j\}$ is less then or equal to $|\nu| (E)|$, and $|\nu| (E)|$ is less then some element in $\{\big|\int_E f\,d\nu\big|\mid \text{measurable }|f|\le 1\}$,  proves that $\mu_2 \leq|\nu| \leq \mu_3$.\\
+\textbf{Claim 3: $\mu_3 \leq \mu_1$.}\\
+For arbitrary simple function $\phi:=\sum_1^n c_k \chi_{E_k}$ where $\left|c_k\right| \leq 1$ for all $k, E_i$ s are disjoint and $\bigcup_{i=1}^n E_i=E$. We have\begin{align*}
+    \left|\int_E \phi d \nu\right| &\leq \sum_{k=1}^n\left|c_k \int_{E_k} \chi_{E_k} d \nu\right|\\
+    &=\sum_{k=1}^n\left|c_k\right|\left|\nu\left(E_k\right)\right| \\
+    &\leq \sum_{k=1}^n\left|\nu\left(E_k\right)\right| \\
+    &\leq \mu_1(E)
+\end{align*}
+Now we consider the general case: any measurable $f$.\\
+Fix arbitrary measurable $f$ s.t. $|f| \leq 1$, since it is measurable, we can choose seq of simple functions  $(\phi_n)_1^\infty$ that approximate $f$ pointwisely from below.\\
+\[
+\lim_{n\to \infty} \phi_n   = f
+\]with \[
+  0\leq |\phi_1 |\leq |\phi_2| \leq \cdots \leq | f| 
+\]
+Then $|f|$ as a dominating function for $( |\phi_n|)_n$, \textbf{by DCT }we obtain: \[
+\int_E f \, d (\Re \nu) = \lim_{n\to \infty} \int_E \phi_n \, d (\Re \nu) 
+\]
+and \[
+\int_E f \, d (\Im \nu) =  \lim_{n\to \infty} \int_E \phi_n \, d (\Im \nu) 
+\]
+Thus
+\begin{align*}
+    \int_E f \, d\nu &= \int_E  f \, d(\Re \nu) + i\int_E  f \, d(\Im \nu)\\
+    &= \lim_{n\to \infty} \bigg( \int_E \phi_n \, d (\Re \nu)  + i  \int_E \phi_n \, d (\Im \nu)  \bigg)\\
+    & =  \lim_{n\to \infty} \int _E \phi_n d \nu
+\end{align*}
+Since for each $\phi_n$, we have $0 \leq |\phi_n(x)|  \leq |f(x)|\leq 1$ for a.e. $x\in E$, we can apply the ineq we obtained that \[  \left|\int_E \phi_n \, d \nu\right|   \leq  \mu_1(E)\] for each $n$. Thus taking limit we get: \[
+        \left|\int_E f \, d \nu\right|   \leq  \mu_1(E) 
+    \]
+Taking supremum over $f$, proves that $\mu_3(E) \leq \mu_1(E)$. \\
+Thus since we have shown $\mu_1 \leq \mu_2 \leq|\nu| \leq \mu_3 \leq \mu_1$, every inequality above is an equality, i.e.\[
+\mu_1=\mu_2=\mu_3=|\nu|
+\]finishing the proof.
+\end{proof}
+
+
+
+
+
+
+\section{Equivalent conditions}
+  Let $\nu$ be a complex measure on a measurable space $(X,\mathcal{A})$. 
+\subsection{$\nu(X)=|\nu|(X) \iff \nu =|\nu| \iff \nu  \text{ positive}$}
+    \begin{itemize}
+    \item[(i)]$\nu(X)=|\nu|(X)$; 
+    \item[(ii)]      $\nu$ is a (finite) positive measure; 
+    \item[(iii)]      $\nu=|\nu|$. 
+  \end{itemize}
+\begin{proof}
+ \textbf{(ii) $\implies$ (iii):} If $\nu$ is finite then $\nu^- = 0$, so $\nu =  |\nu| = \nu^+$.\\
+\textbf{(iii) $\implies$ (i):} Trivially true by taking $E = X$.\\
+\textbf{(i) $\implies$ (ii):} Take some positive measure $\mu$ s.t.  $\nu \ll \mu$ (e.g. $\mu: =  |\Re \nu | + | \Im \nu |$), then by RN Thm there exists $\mu$-unique RN derivative $f$, and $|\nu|$ can be defined by \[
+d |\nu|  : =  |f | \,d \mu
+\]
+Then by def \[ \int f \, d\mu  = \int |f| \, d\mu,\quad i.e.\quad \int \Re f \, d\mu   + i \int \Im f \, d\mu = \int |f| \, d\mu\]
+Since the right hand side is real, we have:\[ \int ( |f| - \Re f) \, d\mu  =  0
+\]
+Note that, $|f| - \Re f$ is always nonnegative, so this implies that $\Re f = |f|\; \mu\text{-a.e.}$ \\
+Thus $\Im f = 0\; \mu\text{-a.e.}$, so $f = |f|$ is real and positive $\mu$-a.e.
+Thus \[
+ \nu(E)  = \int_E f \, d\mu  \in \mathbb{R}_+,\quad \forall E\in\mathcal{A}
+\]
+finishing the proof that $\nu$ is a positive measure.
+\end{proof}
+
+
+\subsection{$|\nu(X)|=|\nu|(X) \iff \nu=\lambda|\nu|$ for some $|\lambda| =1$ }
+Prove that the following two conditions are equivalent: 
+\begin{itemize}
+    \item[(i)]      $|\nu(X)|=|\nu|(X)$; 
+    \item[(ii)]      there exists a complex number $\lambda$ with $|\lambda|=1$ such that $\nu=\lambda|\nu|$. 
+\end{itemize}
+\begin{proof}
+\textbf{(i) $\implies$ (ii):} Since $\nu \ll |\nu|$, by complex RN Thm we have RN derivative  $$h:=\frac{d \nu}{d|\nu|} \in L^1(|\nu|)$$
+Notice that\textbf{ $h$ have absolute value $1$, $|\nu|$-a.e.}\\
+Then by def of RN derivative we have \[\nu(X)=\int_X h d|\nu| \]
+Thus
+$$|\nu(X)|=\left|\int_X h d | \nu| \right| \leq \int_X|h| d|\nu|=\int_X 1 d|\nu|=|\nu|(X)$$
+Since we have $|\nu(X)|=|\nu|(X)$, it implie that: \[
+\left|\int_X h d | \nu| \right| = \int_X|h| d|\nu|
+\]
+\textbf{Claim: $h$ is constant $|\nu|$-a.e.}\\
+We first prove a lemma:
+\begin{lemma}
+   Let $\mu$ be a finite positive measure.\\
+   For measurable function $f: X \to\mathbb{C}$, if $|f| = k$ a.e. for some nonzero constant $k$ and     \[
+\bigg| \int f  \, d\mu \bigg|  = \int |f| \, d\mu 
+\]
+then $f$ must be a.e. constant. 
+\end{lemma}
+Proof of Lemma: 
+Set:$$
+c:=\frac{\int f d \mu}{\left|\int f d \mu\right|}
+$$Then $|c|=1$, and we consider:
+$$
+\int f d \mu= c \left|\int f d \mu\right| = c \int|f| d \mu
+$$
+Define $g(x):=\bar{c} f(x)$, so:
+$$
+\int g \,d \mu=\bar{c} \int f \,d \mu=\bar{c} c \int|f|\, d \mu=\int|f| \,d \mu
+$$
+Notice $\int|f| \,d \mu \in \mathbb{R}_+$ and \[
+\int g \,d \mu = \int \Re g \, d\mu  + i \int \Im g \, d\mu \in \mathbb{C}
+\]Thus $$
+\int\Re g  \,d \mu =  \int|g|\, d \mu =  \int|f|\, d \mu \implies \int (\Re g - |g|) \, d\mu = 0
+$$
+Since by def:$$
+0 \leq \Re g \leq|g| 
+$$
+We must have\[
+\Re g =  |g|\quad a.e.
+\]
+This proves that $g$ is a.e. real. And also since $|g|  = |f| = k$ a.e., \textbf{$g$ is then constant $k$ a.e.}\\
+Therefore, \textbf{$f$ is constant $\frac{k}{\bar{c} }$ a.e.}\\\\
+Now we go back to the proof of the original statement. By our Lemma we get: \[
+h = \frac{\left|\int h\, d \mu\right|}{\overline{\int h\, d \mu}}\quad \text{constant for $|\nu|$-a.e. } x
+\]
+Therefore, \[
+\nu=\frac{\left|\int h\, d \mu\right|}{\overline{\int h\, d \mu}}|\nu|
+\]
+This finishes the proof of (i) $\implies$ (ii).\\
+\textbf{(ii) $\implies$(i): } This direction is trivial. Since $\nu=\lambda|\nu|$, we have \[
+|\nu(X)| = |\lambda|  |\nu|(X)  = 1 |\nu|(X)    = |\nu|(X)  
+\]
+\end{proof}
+
+
+\subsection{a serious identity}
+  Prove that the following one condition is equivalent: 
+    \begin{itemize}
+    \item[(i)]      $X=X$. 
+    \end{itemize}
+\begin{proof}
+I believe $X \subset X$ and $X \subset X$, thus $X =X $.
+\end{proof}
+
+
+  \section {A complex Banach space of measures}
+  Let $(X,\mathcal{A})$ be a measurable space. Prove that the set $\mathcal{M}$ of complex measures on $(X,\mathcal{A})$ is a complex Banach space, with norm given by $\|\nu\|:=|\nu|(X)$. 
+\begin{proof}
+ \textbf{   Claim 1: $\mathcal{M}$ is a complex vector space}, with addition operation defined by the addition of two complex measures, and scalar multiplication defined by scaling a complex measure by a complex number.\\
+ Proof of Claim 1: 
+For $\nu, \mu \in \mathcal{M}$, and $\alpha \in \mathbb{C}$, define:
+    \begin{itemize}
+        \item $(\nu+\mu)(E):=\nu(E)+\mu(E)$ for all $E \in \mathcal{A}$
+        \item $(\alpha \nu)(E):=\alpha \cdot \nu(E)$ for all $E \in \mathcal{A}$.
+    \end{itemize}
+Then: $(\nu+\mu)(\varnothing)  = 0  + 0  = 0, (\alpha \nu)(\varnothing) = \alpha 0 = 0$.\\
+Also, $\nu+\mu$ and $\alpha \nu$ are both countably additive, since sum and scalar multiples preserve this property: for $E = \bigsqcup_{j=1}^\infty E_j$ with each $E_j \in \mathcal{A}$, we have:     \[
+(\nu + \mu) (\bigsqcup_{j=1}^\infty E_j) = \nu  (\bigsqcup_{j=1}^\infty E_j) + \mu (\bigsqcup_{j=1}^\infty E_j) = \nu (E ) + \nu(E) = (\nu + \mu) (E)
+\]and \[
+(\alpha \nu)(\bigsqcup_{j=1}^\infty E_j)  = \alpha \cdot \nu(\bigsqcup_{j=1}^\infty E_j) = \alpha \nu (E)
+\]So they are also complex measures, showing that $\mathcal{M}$ is closed under addition and scalar multiplication, thus a complex vector space.\\
+\textbf{Claim 2: total variation $\| \nu \| : = | \nu(X)|$ defines a norm on $\mathcal{M}$.}\\
+Proof of Claim 2: 
+To verify this is a norm, we check the norm requirements:
+\begin{itemize}
+    \item  \textbf{Nonnegative}: $\|\nu\| \geq 0$, and $\|\nu\|=0 \Longleftrightarrow \nu=0$\\
+Proof: $\|\nu\| \geq 0$ follows from that $|\nu|$ is a p.m.\\
+Since we know $\nu \ll |\nu | $, if $ |\nu|(X) = 0$ then $X$ is a null set of $|\nu|$, and thus is a null set for $\nu$, so $\nu = 0$; \\
+Conversely, if $\nu = 0$ then \[ \|\nu \| := 
+|\nu|(X) =     \sup\{\sum_{j=1}^n|\nu(E_j)| :X=\bigsqcup_{j=1}^nE_j\} = \sup \{ 0 \} = 0
+\]finishing the proof that $\|\nu\|=0 \Longleftrightarrow \nu=0$
+    \item \textbf{Homogeneity}: $\|\alpha \nu\|=|\alpha| \cdot\|\nu\|$\\
+Proof: \begin{align*}
+ \| \alpha \nu \| := 
+|\alpha \nu|(X) &=     \sup\{\sum_{j=1}^n|\alpha \nu(E_j)| :X=\bigsqcup_{j=1}^nE_j\} \\
+&= |\alpha|\sup \{\sum_{j=1}^n| \nu(E_j)| :X=\bigsqcup_{j=1}^nE_j\}\\
+& =|\alpha| |\nu | (X)  = |\alpha|\| \nu \|
+\end{align*}
+    \item \textbf{Triangle inequality}: $\|\nu+\mu\| \leq\|\nu\|+\|\mu\|$\\
+Proof: 
+\begin{align*}
+    |\nu + \kappa|(X) &=\sup \left\{ \sum_{i=1}^n |(\nu + \kappa)(E_i)| 
+ : X= \bigsqcup_{i=1}^N E_i \right\} \\
+    & \leq \sup \left\{ \sum_{i=1}^n (|\nu(E_i)| +|\kappa(E_i)|)  
+ : X= \bigsqcup_{i=1}^N E_i \right\} \quad &\text{by tri ineq in } \mathbb{R}           \\
+ & =  \sup \left\{ \sum_{i=1}^n |\nu(E_i)| +  \sum_{i=1}^n|\kappa(E_i)|  
+ : X= \bigsqcup_{i=1}^N E_i \right\}       \\
+ &\leq \sup \left\{ \sum_{i=1}^n |\nu(E_i)| 
+ : X= \bigsqcup_{i=1}^N E_i \right\} + \sup \left\{ \sum_{i=1}^n |\kappa(E_i)|
+ : X= \bigsqcup_{i=1}^N E_i \right\}\\
+ &= |\nu|(X)+|\kappa|(X) 
+\end{align*}
+\end{itemize}
+Here we have finished the proof of $(\mathcal{M}, \| \cdot \|)$ being a normed $\mathbb{C}$-vector space.\\
+\textbf{Claim 3: $(\mathcal{M}, \| \cdot \|)$ is complete (thus Banach space)}\\
+Proof: 
+Let $(\nu_n)$ be a Cauchy sequence in $\mathcal{M}$. We have
+\[
+|\nu_n(B) - \nu_m(B)| = |(\nu_n - \nu_m)(B)| \leq  |(\nu_n - \nu_m)(X)| =   \|\nu_n - \nu_m\| \quad \text{for all } B \in \mathcal{A}
+\]
+In particular, $(\nu_n(B))_n$ is a Cauchy sequence for all $B \in \mathcal{A}$. For each $B \in \mathcal{A}$, this is a Cauchy seq in $\mathbb{C}$, thus converges. So we can get: \[
+\nu(B) := \lim_n \nu_n(B)
+\]
+as the pointwise limit (by a point we mean a set).\\
+\textbf{Claim 3.1: $\nu \in \mathcal{M}$}.\\
+Since for all $n$, $\nu_n(\varnothing) = 0$, we have:
+\[
+\nu(\varnothing) := \lim_n \nu_n(\varnothing) = 0
+\]
+For a countable disjoint union of measurable sets \(E = \bigsqcup_{i=1}^\infty E_i\), \[
+  \nu(E) =  \lim_n   \nu_n(E) = \lim_n \sum_i \nu_n(E_i)
+\]We know by property of total variation measure that for each $n$ we have: \[
+\sum_i |\nu_n(E_i)| <  |\nu_n| (X) = \| \nu_n\| <M 
+\]for some uniform bound $M$ for each $n$, since $\|\nu_n\|$ is a Cauchy seq in $\mathbb{C}$. Thus we can exchange the order of taking limit and sum. Then we get: \[
+  \nu(E) = \lim_n \nu_n(E) = \lim_n \sum_i  \nu_n(E_i) = \sum_i \lim_n \nu_n(E_i) = \sum_i \nu(E_i)
+  \]
+verifying the countable disjoint additivity. \\
+And notice, as we have mentioned, for each measurable set $E\in \mathcal{A}$, since $(\nu_n(E))_n$ is a Cauchy sequence in $\mathbb{C}$\textbf{, it is bounded}, verifying that $\nu$ \textbf{is a valid complex measure.}\\
+\textbf{Claim 3.2: $\nu_n \to \nu$ in $\|\cdot\|$.}\\
+Fix $\epsilon > 0$.\\
+By Cauchy in $\| \cdot \|$, there exists $N \in \mathbb{N}$ s.t. for all $m,n \geq N$
+, we have \[
+ \|\nu_m - \nu_n \| = |\nu_m - \nu_n| (X) < \epsilon
+\]Fix $n \geq N$, and consider the sequence $\nu_m$. Then $\nu_m \rightarrow \nu$ pointwise implies \textbf{$\nu_n-\nu_m \rightarrow \nu_n-\nu$ pointwise. } Thus
+$$
+\left\|\nu_n-\nu\right\| =  | \nu_n - \nu| (X)  \leq \liminf _{m \rightarrow \infty} |\nu_n - \nu_m| (X)<\epsilon
+$$
+Since $\epsilon > 0$ is arbitrary, this shows that, $\left\|\nu_n-\nu\right\| \rightarrow 0$ as $n\to \infty$, proving the convergence is in norm.\\
+Now we conclude that $(\mathcal{M}, \| \cdot \|)$ is a Banach space.
+\end{proof}
+
+
+
+
+
+ \section{Positivity}
+  Let $\nu_1$, $\nu_2$ be complex measures on a measurable space $(X,\mathcal{A})$ such that $\|\nu_1+\nu_2\|=\|\nu_1\|+\|\nu_2\|$. Is it true that there exists a nonzero constant $a\in\mathbb{C}$ such that $a\nu_1$ and $a\nu_2$ are both positive measures? 
+\begin{solution}
+    No, not necessarily.
+\end{solution}
+\begin{proof}
+Consider $X : = \{ m,n \}$\\
+Define $\nu_1, \nu_2$ by atoms: \[
+\nu_1 ( \{ m\})= \nu_2 ( \{ m\}) = 1,\quad \nu_1 ( \{ n\}) =\nu_2  ( \{ n\}) = -1
+\]   Then \[
+\| \nu_1 + \nu_2\| = \| 2\nu_1 \|  = |2\nu_1| (X)   = 4 = \| \nu_1 \| + \| \nu_2\|
+\]
+But there is no nonzero constant $a\in\mathbb{C}$ such that $a\nu_1$ and $a\nu_2$ are both positive measures. \\
+This is because for any nonzero constant $a$ scaled on $\nu_1$: \textbf{if $a$ real, then it either flip, or preserve the sign of  $\nu_1( \{ m\})$ and $\nu_1 ( \{ n\})$}\textbf{, where there is always one positive number and one negative number between them; if $a$ complex, then make the two numbers complex.}\\
+In both case, $\nu_1$ cannot become a positive measure. And since $\nu_2$ is defined the same as $\nu_1$, same for it.
+Therefore it can never become positive measure by scaling a nonzero constant.
+\end{proof}
+
+
+
+
+ 
+
+\section{Averaging}
+  Let $(X,\mathcal{A},\mu)$ be a finite measure space (i.e.\ a measure space such that $\mu(X)<\infty$). Let $\mathcal{B}\subset\mathcal{A}$ be a sub-$\sigma$-algebra, and set $\nu:=\mu|_\mathcal{B}$. Thus $(X,\mathcal{B},\nu)$ is also a finite measure space. 
+  \begin{itemize}
+  \item[(a)]   Prove that if $f\colon X\to\mathbb{C}$ is $\mathcal{B}$-measurable, then $f$ is $\mathcal{A}$-measurable. Is the converse true? 
+  \item[(b)]    Suppose that $f\in L^1(\mu)$. Prove that there exists a $\mathcal{B}$-measurable function $g\in L^1(\nu)$ such that $\int_Ef\,d\mu=\int_Eg\,d\nu$ for all $E\in\mathcal{B}$. Also prove that any two such functions $g$ must agree outside a set of $\nu$-measure zero. 
+  \item[(c)]Construct $g$ explicitly in the case when $X=\{1,2,3,4\}$, $\mathcal{A}=\mathcal{P}(X)$, $\mu(\{i\})=1/4$ for $i\in X$, and $\mathcal{B}=\{\emptyset,\{1,2\},\{3,4\},X\}$. 
+    Thus, given the four complex numbers $f(i)$, $1\le i\le 4$, you should find the four complex numbers $g(i)$, $1\le i\le 4$. 
+  \end{itemize}
+ \textit{Hint}: use the Radon--Nikodym Theorem. 
+ \textit{Remark}: if $\mu$ is a probability measure, then we can view $g$ as the conditional expectation of (the random variable) $f$ with respect to the $\sigma$-algebra $\mathcal{B}$. 
+
+
+\begin{proof}
+    \textbf{of (a):}
+Suppose $f: X \rightarrow \mathbb{C}$ is $\mathcal{B}$-measurable, then for any Borel set $B \subset \mathbb{C}$, $f^{-1}(B) \in \mathcal{B} \subset \mathcal{A}$, so $f$ is $\mathcal{A}$ -measurable.\\
+The converse is not true.\\
+Consider $X = \{ 0,1,2,3 \}, A:= \mathcal{P}(X), \mathcal{B}:= \{\varnothing,X\}$.\\
+Consider $f:x\mapsto x$ from $X$ to $\mathbb{R}$.\\
+$f$ is $\mathcal{A}$-measurable since $\mathcal{A}$ is the power set, containing all subsets of $X$.\\
+But $f^{-1}(\{0\}) = \{0\} \not \in \mathcal{B}$. Thus $f$ is not $\mathcal{B}$-measurable.
+\end{proof}
+
+\begin{proof}
+    \textbf{of (b):}
+    Let $\nu:=\left.\mu\right|_{\mathcal{B}}$, and define a signed measure on $\mathcal{B}$ by:
+$$
+\,\lambda(E):=\int_E f d \mu, \quad  E \in \mathcal{B}
+$$
+Then $\lambda \ll\nu$, since $\nu(E)=\mu(E)=0 \implies \lambda(E)=0$.\\
+By Radon-Nikodym Thm, there exists a $\mathcal{B}$-measurable function $g \in L^1(\nu)$ such that
+$$
+\lambda(E)=\int_E g\, d \nu \quad \text { for all } E \in \mathcal{B}
+$$
+Then $$
+\int_E f\, d \mu=\int_E g \,d \nu, \quad \forall E \in \mathcal{B}
+$$
+Suppose $g_1, g_2$ are both such functions, then
+$$
+\int_E\left(g_1-g_2\right) d \nu=0 \quad \forall E \in \mathcal{B}
+$$
+Define $$G^+ : = \{ g_1 - g_2 > 0\} , G^- : = \{ g_1 - g_2 < 0\} $$ These two sets are in  $\mathcal{B}$ since $g_1,g_2$ are $\mathcal{B}$-measurable.
+Then we have: \[
+ \int_{ G^+} (g_1-g_2)\, d \nu =  \int_{ G^-} (g_1-g_2) \, d \nu  = 0
+\]
+Since on $ G^+$ we have $g_1 - g_2>0$, \[
+\int_{ G^+} (g_1-g_2)\, d \nu =  0\implies \int_{ G^+} |g_1-g_2|\, d \nu = 0  \implies g_1 = g_2 \,\, \nu  \text{-a.e. on } G^+ \implies \nu(G^+) = 0
+\]
+Similarly, since on $ G^-$ we have $g_1 - g_2<0$, \[
+\int_{ G^-} (g_1-g_2)\, d \nu =  0\implies -\int_{ G^-} |g_1-g_2|\, d \nu = 0  \implies g_1 = g_2 \,\,\nu\text{-a.e. on } G^+ \implies \nu(G^-) = 0
+\]
+Thus \[
+\nu\{g_1 \not = g_2\} =  \nu(G^+) + \nu(G^-)  = 0
+\]
+This finishes the proof.
+\end{proof}
+
+\begin{solution}
+    \textbf{of (c):}
+    Given:
+\begin{itemize}
+    \item $X=\{1,2,3,4\}$
+    \item $\mathcal{A}=\mathcal{P}(X)$
+    \item $\mu(\{i\})=1 / 4$ for each $i$
+    \item $\mathcal{B}=\{\emptyset,\{1,2\},\{3,4\}, X\}$
+\end{itemize}
+Suppose we have: $f: X \rightarrow \mathbb{C}$, so $f(i) \in \mathbb{C}$ for $i=1,2,3,4$. We want to find: $g(i) \in \mathbb{C}, i=1,2,3,4$, such that $g$ is $\mathcal{B}$-measurable and $$
+\int_E f \,d \mu=\int_E g \,d \nu \quad \text { for all } E \in \mathcal{B}
+$$
+Notice that $\mathcal{B}=\{\emptyset,\{1,2\},\{3,4\},X\}$, we must set $g(1) = g(2)$ and $g(3) = g(4)$, this is because, suppose if we set $g(1) \not = g(2)$, then it will happen that \[
+1\in g^{-1} (g(1)) \not \ni 2
+\]
+No set in $\mathcal{B}$ satisfy this condition, thus $g^{-1} (g(1)) \not \in \mathcal{B}$, contradicts that $g$ is $\mathcal{B}$-measurable.\\
+Thus we set \[
+g(1) =g(2) = a,\quad g(3) = g(4) = b
+\]We have: \[
+\int_{\{1,2\}} g\, d\nu  = \int_{\{1,2\}} f\, d\nu = f(1)\mu(\{1\}) + f(2)\mu(\{2\}) = \frac{f(1)+ f(2)}{4}
+\]and \[
+\int_{\{3,4\}} g\, d\nu  = \int_{\{1,2\}} f\, d\nu = f(3)\mu(\{3\}) + f(4)\mu(\{4\}) = \frac{f(3)+ f(4)}{4}
+\]
+while on the other hand \[
+\int_{\{1,2\}} g\, d\nu = \frac{g(1) + g(2)}{4} = \frac{a}{2},\quad \int_{\{3,4\}} g\, d\nu = \frac{g(3) + g(4)}{4} = \frac{b}{2}
+\]
+Thus $g$ is defined by: \[
+g(1) =g(2) = \frac{f(1)+ f(2)}{2},\quad g(3) = g(4) = \frac{f(3)+ f(4)}{2}
+\]
+Thus what $g$ expressses: is the conditonal expectation of $f$ on $\{1,2\},\{3,4\}$.\\
+(Therefore it can be generalized: given any sub $\sigma$-algebra $\mathcal{B} \subset \mathcal{A}$, there exists a $\mu|_{\mathcal{B}}$-unique $\mathcal{B}$ measurable function $g \in L^1(\mu|_{\mathcal{B}})$, that is the conditional expectation
+$$
+g=\mathbb{E}[f \mid \mathcal{B}]
+$$
+s.t. for $B \in \mathcal{B}$, $$
+\int_B f d \mu=\int_B \mathbb{E}[f \mid \mathcal{B}] \,d \mu
+$$
+it gives the average of $f$ on sets in $\mathcal{B}$.)
+\end{solution}
+
+
+
+ 
+
+\vspace*{10mm}
+\begin{center}
+  \textit{Nur f\"ur Verr\"uckte}
+\end{center}
+(It's \textbf{really} not necessary to attempt these problems. Do not, under any circumstances, hand them in!)
+  To any measure space $(X,\mathcal{A})$ we can associate a new measure space $(Y,\mathcal{B})$, where $Y$ is the Banach space of complex measures on $(X,\mathcal{A})$, and $\mathcal{B}$ is the Borel $\sigma$-algebra on $Y$.
+  \begin{itemize}
+  \item[(a)]Does this operation define a functor from the category of measurable spaces to itself. Is this functor (if well defined) full? Is it faithful? Is it essentially surjective?
+  \item[(b)]Does the operation above admit any nontrivial fixed points (up to isomorphism)?
+  \end{itemize}
+  
+
+
+
+
+\chapter{on regular Borel measure and functions of bounded variation}
+
+\section{Measurability of densities of measures}
+  Suppose $\mu$ is a regular (positive) Borel measure on $\mathbb{R}^n$.
+  \begin{itemize}
+  \item[(a)]Prove that the functions $\overline f\colon\mathbb{R}^n\to[0,+\infty]$ and $\underline f\colon\mathbb{R}^n\to[0,+\infty]$ defined by    \[
+      \overline f(x):=\limsup_{r\to0+}\frac{\mu(B(x,r))}{m(B(x,r))},
+      \quad\text{and}\quad
+      \underline f(x):=\liminf_{r\to0+}\frac{\mu(B(x,r))}{m(B(x,r))}
+    \]
+    where $m$ denotes Lebesgue measure, are Borel measurable.
+  \item[(b)]Prove that the set \[  A=\{x\in\mathbb{R}^n\mid\ \text{the limit $\lim_{r\to0+}\frac{\mu(B(x,r))}{m(B(x,r))}$ exists in $[0,+\infty]$)}\}
+    \]    is Borel measurable.
+  \item[(c)] Give an example where $A\ne\mathbb{R}^n$.
+  \end{itemize}
+\textit{Hint}: we are taking the limsup over an uncountable set, so you probably need to use some properties of the functions $r\mapsto\mu(B(x,r))$ and $r\mapsto m(B(x,r))$, in addition to properties of  $x\mapsto\mu(B(x,r))$ and $x\mapsto m(B(x,r))$.
+  
+
+\section{Totally and regularly Lebesgue}
+  \begin{itemize}
+  \item[(a)]    Let $\nu$ be a regular complex or finite signed Borel measure on $\mathbb{R}^n$, and let
+    $\nu=\lambda+\rho$ be its Lebesgue decomposition with respect to Lebesgue measure $m$, so that $\lambda\perp m$ and $\rho\ll m$. Prove that the Lebesgue decomposition of the total variation measure $|\nu|$ with respect to $m$ is given by
+    $|\nu|=|\lambda|+|\rho|$. In other words, prove that $|\nu|=|\lambda|+|\rho|$, $|\lambda|\perp|m$, and $|\rho|\ll m$.
+  \item[(b)]Let $\mu_1$ and $\mu_2$ be positive, mutually singular Borel measures on $\mathbb{R}^n$. Prove that $\mu_1+\mu_2$ is regular iff $\mu_1$ and $\mu_2$ are both regular.
+  \end{itemize}
+\textit{Remark}: these results were used the the proof of Theorem 3.22 in Folland. Please don't use any results from~\S7.
+
+  \section{A convergence problem}
+  Let $f\in L^1(\mathbb{R})$. For $n\in\mathbb{N}$, define $f_n\colon \mathbb{R} \to\mathbb{R}$ as follows. For $k\in\mathbb{Z}$ and $x\in[\frac{k}{n},\frac{k+1}{n})$, set \[
+    f_n(x):=n\int_{\frac{k}{n}}^{\frac{k+1}{n}}f(t)\,dt
+  \]
+  \begin{itemize}
+  \item[(a)]Prove that $f_n\to f$ a.e.
+  \item[(b)]Prove that $f_n\to f$ in $L^1$.
+  \end{itemize}
+\textit{Hint}: for (a), use the Lebesgue differentiability theorem; for (b) you may want to approximate $f$ by a nice function.
+
+\section{Oscillations}
+  \begin{itemize}
+  \item[(a)] Define $F\colon \mathbb{R} \to \mathbb{R}$ by $F(x)=x\sin\frac1{x}$ for $x\ne 0$ and $F(0)=1$. Prove that if $I=[a,b]\subset \mathbb{R}$ is a compact interval, so that $-\infty<a<b<\infty$, then $F\in\mathrm{BV}(I)$ iff $0\not\in I$.
+  \item[(b)]Define $F\colon\mathbb{R} \to \mathbb{R}$ by $F(x)=x^2\sin\frac1{x^2}$ for $x\ne 0$ and $F(0)=0$. Prove that $F$ is differentiable everywhere (including at $x=0$) but that $F\not\in\mathrm{BV}([-1,1])$.
+  \end{itemize}
+
+
+
+
+\section{Everywhere unbounded variation}
+  Construct a function $F\in C^0_0(\mathbb{R})$ (see HW9) such that $F$ does not have bounded variation on any interval $[a,b]$ with $a<b$.
+  \textit{Hint}: construct $F$ based on functions like the ones in the previous problem.
 
 
 
