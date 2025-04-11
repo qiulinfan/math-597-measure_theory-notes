@@ -4913,18 +4913,284 @@ it gives the average of $f$ on sets in $\mathcal{B}$.)
   \item[(c)] Give an example where $A\ne\mathbb{R}^n$.
   \end{itemize}
 \textit{Hint}: we are taking the limsup over an uncountable set, so you probably need to use some properties of the functions $r\mapsto\mu(B(x,r))$ and $r\mapsto m(B(x,r))$, in addition to properties of  $x\mapsto\mu(B(x,r))$ and $x\mapsto m(B(x,r))$.
+
+\begin{proof}
+    \textbf{of (a):}
+We prove a lemma:    
+\begin{lemma}
+For regular positive Borel measure $\mu$ on $\mathbb{R}^n$, fixing $r >0$, $x \mapsto \mu(B(x,r))$ is Borel measurable.\end{lemma}
+\textbf{Proof of Lemma: }We recall \[
+ \mu(B(x,r)) = \int \chi_{B(x,r)}  \, d\mu  = \int \chi_{B(x,r)}(y)  \, d\mu (y)
+\]
+We define \[
+f(x,y) =  \chi_{B(x,r)}(y)
+\]
+which is a function from $\mathbb{R}^n \times \mathbb{R}^n \to \mathbb{R}$, and takes value between $0$ and $1$.\\
+Thus for $a \geq 1$, \[
+f^{-1}((a,\infty)) = \varnothing  \in \mathcal{B}(\mathbb{R}^{n})\otimes \mathcal{B}(\mathbb{R}^{n})
+ \]
+ for $a <  0$, \[
+ f^{-1}((a,\infty)) =  f^{-1} (\{ 0,1\})  = \mathbb{R}^n \times \mathbb{R}^n  \in   \mathcal{B}(\mathbb{R}^{n})\otimes \mathcal{B}(\mathbb{R}^{n})
+ \]
+For $0 \leq a < 1$, $ f^{-1}((a,\infty)) = f^{-1} (\{ 1\})$. Note this set is: \[
+f^{-1}((a,\infty)) = \left\{(x, y) \in \mathbb{R}^n \times \mathbb{R}^n: y \in B(x, r)\right\}=\{(x, y)\in \mathbb{R}^n \times \mathbb{R}^n:\|x-y\|<r\}
+\]
+Since $g: (x,y) \mapsto \|x-y\|_2$ is continuous function, and \[
+f^{-1}((a,\infty)) = \{(x, y)\in \mathbb{R}^n \times \mathbb{R}^n:\|x-y\|<r\} = g^{-1} (r)
+\]
+is open, since it is preimage of a continuous function.\\
+Thus \[
+f^{-1}((a,\infty)) \in \mathcal{B}(\mathbb{R}^{2n}) = \mathcal{B}(\mathbb{R}^{n})\otimes \mathcal{B}(\mathbb{R}^{n})
+\]
+Thus $f$ is Borel measurable function, and since it is nonnegative, $f \in L^+(\mathbb{R}^{2n})$, thus by \textbf{Tonelli's Theorem}, \[
+x \mapsto \int  f_x(y)\, d\mu(y) =  \mu(B(x,r)) \quad \text{ is Borel measurable}
+\]finishing the proof of Lemma.\\
+Fix a seq $r_k \downarrow 0 $, say $r_k=\frac{1}{k} $. We define:
+\begin{align*}
+&f_k(x):=\frac{\mu(B\left(x, r_k\right))}{m(B\left(x, r_k\right))}
+\end{align*}
+Notice that for each $r_k$, $ m(B(x, r_k))=c_n r_k^n$ is constant, so $f_k$ is Borel measurable.\\
+Then$$
+\bar{f}(x)=\limsup _{k \rightarrow \infty} f_k(x), \quad \underline{f}(x)=\liminf _{k \rightarrow \infty} f_k(x)
+$$are Borel measurable, since they are limsup/liminf of Borel measurable function seqs.
+\end{proof}
+
+\begin{proof}
+    \textbf{of (b): }\begin{align*}
+        A&:=\{x\in\mathbb{R}^n :\text{the limit $\lim_{r\to0+}\frac{\mu(B(x,r))}{m(B(x,r))}$ exists in $[0,+\infty]$)}\}   \\
+        & = \{x\in\mathbb{R}^n: \bar{f}(x) =  \underline{f}(x)\}
+    \end{align*}
+Notice:
+\begin{lemma}
+    if $(X, \mathcal{A})$ is a measurable space; $f, g : X \to \mathbb{R} $ are $( \mathcal{A}, \mathcal{B}(\mathbb{R}))$ -measurable functions, then \[
+F(x) := (f(x), g(x)) \colon X \to \mathbb{R}^2
+\]is a $( \mathcal{A}, \mathcal{B}(\mathbb{R}^2))$-measurable function.
+\end{lemma}
+Proof of Lemma: We have shown in hw8 that, $f$ is an product measurable function if $f^{-1}\left(B_1 \times B_2\right) $  is measurable for each measurable rectangle $B_1 \times B_2$.\\
+And for measurable rectangle $U \times V \subset \mathbb{R}^2$, we have:
+$$
+F^{-1}(U \times V)=f^{-1}(U) \cap g^{-1}(V) \in \mathcal{A}
+$$
+proving the lemma.\\
+And back to the original statement, we define: \[
+F(x) =  (\bar{f}(x),  \underline{f}(x) )
+\]
+Then we notice that \[
+A = \{x\in\mathbb{R}^n: \bar{f}(x) =  \underline{f}(x)\} = F^{-1} (\{(x,x) | x \in \mathbb{R} \})
+\]
+Since the diagonal $\{(x,x) | x \in \mathbb{R} \}$ is a closed set, it is a Borel set. And by lemma, $F$ is a Borel measurable function, implying that $A$ is Borel measurable.
+\end{proof}
+
+
+\begin{example}
+    \textbf{of (c):}
+    Consider \[
+    I : = \{0\} \cup \bigcup_{j=0}^\infty [\frac{2}{3} \cdot \frac{1}{2^j}, \frac{1}{2^j}]
+    \]
+    Set $$g: = \chi_I,\quad    \mu(E) : = \int_E g \, dm $$
+    Then we look at $x = 0$, we have:  $$
+\frac{\mu(B(0, r))}{m(B(0, r))}=\frac{m(B(0, r) \cap I)}{m(B(0, r))}
+$$
+    So \[
+  \lim_{r\to 0^+} \frac{\mu(B(0, r))}{m(B(0, r))} =     \lim_{r\to 0^+} \frac{m(I \cap B(x,r))}{m(B(x,r))}  
+    \] is exactly the density of $I$ at $0$, and we have shown in class that this limit does not exist, in the sense that its limsup is not equal to its liminf, i.e.  \[
+    \limsup_{r\to0+}\frac{m(I \cap B(x,r))}{m(B(x,r))} =:  \overline f(x) \not =  
+      \underline f(x):=\liminf_{r\to0+}\frac{m(I \cap B(x,r))}{m(B(x,r))}
+    \]
+Here we explain it in detailed: 
+\pic[0.4]{../lec-notes/ch3-pics.assets/image-20250316223122736.png}
+If we take $r_k=\frac{1}{2^k}$ for $k\in \mathbb{N}$, we have:
+
+$$
+B\left(0, r_k\right)=\left(-r_k, r_k\right)=\left(-\frac{1}{2^k}, \frac{1}{2^k}\right)
+$$
+Then for each $k$,  \[
+m(I \cap B(0, r_k)=\sum_{j=k}^{\infty} \frac{1}{3} \cdot \frac{1}{2^j}=\frac{1}{3} \cdot \sum_{j=k}^{\infty} \frac{1}{2^j}=\frac{1}{3} \cdot \frac{1}{2^{k-1}},\quad m(B\left(0, r_k\right))=2 r_k=\frac{2}{2^k}
+\]
+So  for each $k$,  \[
+\frac{\mu(B(0, r_k))}{m(B(0, r_k))}=\frac{1}{3}
+\]
+so we have: \[
+  \overline f(0) \geq \frac{1}{3}
+\]
+(actually equal, but we don't have to show it.)\\
+But if we take $r_k = \frac{2}{3} \cdot \frac{1}{2^k}$, then for each $k$,  \[
+m(I \cap B(0, r_k)=\sum_{j=k+1}^{\infty} \frac{1}{3} \cdot \frac{1}{2^j}=\frac{1}{3} \cdot \sum_{j=k+1}^{\infty} \frac{1}{2^j}=\frac{1}{3} \cdot \frac{1}{2^{k}},\quad m(B\left(0, r_k\right))=2 r_k=\frac{2}{2^k}
+\]
+So  for each $k$,  \[
+\frac{\mu(B(0, r_k))}{m(B(0, r_k))}=\frac{1}{6}
+\]
+so we have: \[
+  \underline f(0) \leq \frac{1}{6}
+\]
+Proving that \[
+ \overline f(0) \not =   \underline f(0) 
+\]
+This serves as an counterexample of $A \not = \mathbb{R}^n$ ($n=1$ here)
+\end{example}
+
+
+
   
 
 \section{Totally and regularly Lebesgue}
   \begin{itemize}
-  \item[(a)]    Let $\nu$ be a regular complex or finite signed Borel measure on $\mathbb{R}^n$, and let
-    $\nu=\lambda+\rho$ be its Lebesgue decomposition with respect to Lebesgue measure $m$, so that $\lambda\perp m$ and $\rho\ll m$. Prove that the Lebesgue decomposition of the total variation measure $|\nu|$ with respect to $m$ is given by
-    $|\nu|=|\lambda|+|\rho|$. In other words, prove that $|\nu|=|\lambda|+|\rho|$, $|\lambda|\perp|m$, and $|\rho|\ll m$.
+  \item[(a)]    Let $\nu$ be a regular complex or finite signed Borel measure on $\mathbb{R}^n$, and let $\nu=\lambda+\rho$ be its Lebesgue decomposition with respect to Lebesgue measure $m$, so that $\lambda\perp m$ and $\rho\ll m$. Prove that the Lebesgue decomposition of the total variation measure $|\nu|$ with respect to $m$ is given by $|\nu|=|\lambda|+|\rho|$. In other words, prove that $|\nu|=|\lambda|+|\rho|$, $|\lambda|\perp m$, and $|\rho|\ll m$.
   \item[(b)]Let $\mu_1$ and $\mu_2$ be positive, mutually singular Borel measures on $\mathbb{R}^n$. Prove that $\mu_1+\mu_2$ is regular iff $\mu_1$ and $\mu_2$ are both regular.
   \end{itemize}
 \textit{Remark}: these results were used the the proof of Theorem 3.22 in Folland. Please don't use any results from~\S7.
+\begin{proof}
+   \textbf{ of (a):}
+   Recall that for two complex measures $\lambda,\rho$, we define they are mutually singular if: $$
+\lambda \perp \rho \quad \Longleftrightarrow \quad \lambda_r \perp \rho_r, \quad \lambda_r \perp \rho_i, \quad \lambda_i \perp \rho_r, \quad \lambda_i \perp \rho_i
+$$
+We first show an equivalent form of it, for further use.\\
+\begin{lemma}
+    For two complex measures $\lambda,\rho$ \[
+    \lambda \perp \rho \quad \iff \quad \exists A
+    \in  \mathcal{A}\; \text{ s.t. } \; |\lambda|(A^c)=0\text{ and }|\rho|(A)=0  \quad \iff \quad |\lambda| \perp |\rho|
+    \]
+\end{lemma}
+\noindent \textbf{Proof of the lemma:} The second equivalence follows from definition (since total variation measure is positive), and the backward direction of the first equivalence follows from that the null set of the total variation measure is also the null set for original complex measure (thus null set for the positive and imaginary part).\\
+For the forward direction of the first equivalence, $$
+\begin{aligned}
+ \lambda_a \perp \rho_b &\implies     \exists A_{ab} \in \mathcal{A}:A_{ab} \text{ is null set for }   \rho_b \text{ and } A^c_{ab} \text{ is null set for } \lambda_a \\
+&\implies \exists A_{ab} \in \mathcal{A}: |\lambda_a | \left(A^c_{ab}\right)=0, |\rho_b| \left(A_{ab}\right)=0 \\
+\end{aligned}
+$$
+Define: $$
+A:=\bigg(A_{r r} \cap A_{r i}\bigg)  \bigcup \bigg( A_{i r} \cap A_{i i}\bigg) \in \mathcal{A}
+$$
+Since $A_{r r} \cap A_{r i}$ is a null set for $\rho_r,\rho_i$, thus a null set for $|\rho|$. And $(A_{r r} \cap A_{r i})^c = A_{r r}^c \cup A_{r i}^c$. Since these two are both null set for $\lambda_r$ and union of null sets is null set, $(A_{r r} \cap A_{r i})^c$ is also a null set for $\lambda_r$.\\
+Similarly, $ A_{i r} \cap A_{i i}$ is a null set for $|\rho|$ and $ (A_{i r} \cap A_{i i})^c$ is a null set for $\lambda_i$.\\
+Thus, $A$ is a null set for $|\rho|$, and $A^c  = \big(A_{r r} \cap A_{r i}\big)^c  \bigcap \big( A_{i r} \cap A_{i i}\big)^c $ is a null set for both $\lambda_r$
+ and $\lambda_i$, thus a null set for $\lambda$.\\
+ This finishes the construction of $A$, proving our lemma. Now we can apply the equivalent conditions of $\lambda \perp \rho$ for positive, signed and complex measures.\\
+Now we prove this statement which immediately implies what we want: 
+\begin{proposition}
+    If complex measure \(\lambda\) and \(\rho\) on the same measurable space are mutually singular, then \[
+|\lambda+\rho|=|\lambda|+|\rho|
+\]
 
-  \section{A convergence problem}
+\end{proposition}
+\noindent \textbf{Proof of Proposition:}  Since $\lambda \perp \rho$, there exists a measurable set $A \subseteq X$ such that:
+$$
+|\lambda|\left(A^c\right)=0 \quad \text { and } \quad|\rho|(A)=0 
+$$
+Let $\nu:=\lambda+\rho$. Let $E \in \mathcal{A}$. 
+\begin{comment}
+ By formula derived in hw 10(1), we have:
+$$
+|\nu|(E)=\sup \left\{\sum_{i=1}^{\infty}\left|\nu\left(E_i\right)\right|: \bigsqcup_{1}^\infty E_i =  E \right\}
+$$
+Take an arbitrary measurable partition $\left\{{E}_{\mathrm{i}}\right\}$ of $E$ . Then for each $i$,
+$$
+\nu(E_i)=\lambda(E_i)+\rho(E_i)=\lambda(E_i \cap A)+\rho(E_i \cap A^c )\leq|\lambda(E_i \cap A)|+|\rho(E_i \cap A^c)|
+$$
+since $\lambda = 0$  on $A^c$ and $\rho = 0$ on $A$. 
+Summing over i, 
+$$
+\begin{aligned}
+\sum_i|\nu(E_i)| &\leq \sum_i|\lambda(E_i \cap A)|+\sum_i|\rho(E_i \cap A^c)| \\& \leq |\lambda|(E \cap A) + |\rho|(E \cap A^c) = |\lambda|(E ) + |\rho|(E)
+\end{aligned}
+$$Since the partition is arbitrary, this shows that \[
+|\nu| (E) \leq |\lambda|(E ) + |\rho|(E)
+\]   
+\end{comment}
+Then
+\begin{align}
+    |\nu |(E) = |\nu |\big((E\cap A) \sqcup (E \cap A^c) \big) &= |\nu| (E\cap A) +  |\nu| (E\cap A^c)\\
+    & = |\lambda+\rho|  (E\cap A) +  |\lambda+\rho| (E\cap A^c) \\
+    &= |\lambda|  (E\cap A) +  |\rho| (E\cap A^c)   \quad &\text{since $\lambda = 0$  on $A^c$ and $\rho = 0$ on $A$} \\
+    & =  |\lambda|  (E ) +  |\rho| (E) \quad &\text{since $|\lambda|$ is  $0$ on $E\cap A^c$, $|\rho|$ is  $0$ on $E\cap A$}
+\end{align}
+finishing the proof the the proposition.\\
+Now we look back at the original statement: For Lebesgue decomposition $\nu=\lambda+\rho$, we have $\lambda\perp m$ and $\rho\ll m$. 
+$\lambda\perp m$ implies that  there exists a measurable set $A \subseteq X$ such that:
+$$
+|\lambda |(A^c) =0 \quad \text { and } \quad m (A)=0 
+$$
+Since $\rho\ll m$, null sets of $m$ are also null sets of $\rho$, thus $|\rho|(A) = 0$. Thus we have \[
+\lambda \perp \rho
+\]
+By our just proved proposition we have:  $$|\nu|=|\lambda + \rho| = |\lambda|+|\rho|$$And it also follows from our lemma that \[
+\lambda \perp m \implies |\lambda|\perp m
+\]
+and $|\rho|\ll m$ is trivial, since $|\rho|$ and $\rho$ have the same null sets.\\
+This finishes the proof that: \textbf{if Lebesgue decomposition of $\nu$ is $\nu = \lambda + \rho$, then Lebesgue decomposition of the total variation measure $|\nu|$ with respect to $m$ is given by $|\nu|=|\lambda|+|\rho|$. }
+\end{proof}
+
+
+\begin{proof}
+    \textbf{of (b):}
+ \textbf{ First we show  ($\implies$:) if $\mu_1$ and $\mu_2$ are both regular then $\mu_1+\mu_2$ is regular.}\\
+Let \(A\) be a Borel set. Since \(\mu_1\) and \(\mu_2\) are regular, we have:
+\[
+\mu_1(A) = \inf_{A \subset U} \mu_1(U) = \sup_{K \subset A} \mu_1(K), \quad
+\mu_2(A) = \inf_{A \subset U} \mu_2(U) = \sup_{K \subset A} \mu_2(K)
+\]
+Set $\mu = \mu_1  + \mu_2$, then
+\begin{align*}
+    \mu(A) = \inf_{A \subset U} (\mu(U) ) =\inf_{A \subset U} (\mu_1(U) + \mu_2(U)) \geq \inf_{A \subset U} \mu_1(U) + \inf_{A \subset U} \mu_2(U) = \mu_1(A) + \mu_2(A)
+\end{align*}
+Also on the other direction, \[
+    \mu(A) = \sup_{K \subset A} (\mu(K) ) =\sup_{K \subset A} \mu_1(K) + \mu_2(K)) \leq \sup_{K \subset A} \mu_1(K) + \sup_{K \subset A} \mu_2(K) = \mu_1(A) + \mu_2(A)
+\]
+Combining these two ineq chains, all inequalities is indeed equality. Thus we have \[
+\mu(A) = \inf_{A \subset U} (\mu(U) ) =  \sup_{K \subset A} (\mu(K) ) = \mu_1(A) + \mu_2(A)
+\]
+The first two equalities shows regularities, and the last equality shows finiteness. This finishes the proof of forward direction.\\
+\textbf{Next we show: ($\impliedby$:) if $\mu_1+\mu_2$ is regular then $\mu_1$ and $\mu_2$ are both regular.}\\
+Let \(A\) be a Borel set.\\
+First, suppose $A$ is compact. Then \((\mu_1  + \mu_2) (K) < \infty\). Notice, since $\mu_1,\mu_2$ are positive measures, $\mu_1 + \mu_2 \geq \mu_1,\mu_2$, thus we sure have\[
+\mu_1(A), \mu_2(A) < \infty
+\]This shows the\textbf{ local finiteness} of $\mu_1, \mu_2$. It \textbf{remains to show the outer regularity} of $\mu_1,\mu_2$. (Note: local finiteness $\implies$ outer regularity is reached using tools in Ch7, so we still need to show outer regularity here; for local finiteness +  outer regularity $\implies$ inner regularity, it have similar steps as Thm 1.18, so it is done.)\\
+Since $\mu_1 \perp \mu_2$, there exists measurable $E \subset \mathbb{R}^n$ s.t. \[
+E \text{ null for } \mu_1,\quad E^c  \text{ null for } \mu_2
+\]
+By outer regularity of  $\mu_1+\mu_2$, we can construct a seq of open sets \(U_k \supset A \) s.t. \[
+(\mu_1 + \mu_2)(U_k) < (\mu_1 + \mu_2)(A) + \frac{1}{2^k}
+\]
+Thus we have \[
+\lim_{k\to \infty}(\mu_1 + \mu_2)(U_k) = (\mu_1 + \mu_2)(A)
+\]
+And notice that, for each $k$,
+\begin{align*}
+(\mu_1 + \mu_2)(U_k) & =     (\mu_1 + \mu_2)(U_k \cap E) + (\mu_1 + \mu_2)(U_k \cap E^c)\\
+&= \mu_1(U_k \cap E^c) + \mu_2(U_k \cap E) &\text{since }E \text{ null for } \mu_1,\; E^c  \text{ null for } \mu_2\\
+\end{align*}
+\begin{comment}
+    & = \mu_1(U_k) + \mu_2(U_k) &\text{since $\mu_1$ null outside $E$, $\mu_2$ null outside $E^c$}
+\end{comment}
+And for $A$, similarly we have:\[
+(\mu_1 + \mu_2)(A)  = \mu_1(A \cap E^c) + \mu_2(A \cap E)
+\]
+Since $U_k \supset A$, we have \( U_k \cap E \supset A \cap E \), thus $\mu_1(U_k\cap E^c) \geq \mu_1(A \cap E^c)$, and similarly $\mu_2 (U_k \cap E ) \geq \mu_2(A \cap E)$.\\
+Thus
+\begin{align*}
+    (\mu_2 + \mu_2) (U_k) - (\mu_2 + \mu_2) (A) & = \mu_1 (U_k \cap E^c) + \mu_2 (U_k \cap E) - (\mu_1(A \cap E^c) + \mu_2(A \cap E))\\
+    & =\mu_1(U_k \cap  E^c) - \mu_1(A \cap E^c)  + (\mu_2 (U_k \cap E) - \mu_2(A\cap E))     \\
+    &\geq \mu_1(U_k \cap E^c) - \mu_1(A \cap E^c)  &\text{since $\mu_2 (U_k \cap E) - \mu_2(A\cap E)\geq 0$}\\
+    & = \mu_1(U_k \cap E^c) + \mu_1 (U_k \cap E) - \mu_1(A \cap E^c) - \mu_1 (A\cap E)  &\text{since $\mu_1 (U_k \cap E),  \mu_2(A\cap E) = 0$}\\
+    & = \mu_1 (U_k) - \mu_1 (A) \geq 0
+\end{align*}
+Therefore \[
+(\mu_1 + \mu_2)(U_k) \overset{{k\to \infty}}{\searrow} (\mu_1 + \mu_2)(A) \implies \mu_1(U_k) \overset{{k\to \infty}}{\searrow} \mu_1(A) 
+\]
+Since $U_k \supset A$ for each $k$, this shows the outer regularity:\[
+\mu_1 (A) = \inf_{U \text{ open } \supset A}  \mu_1(U)
+\]
+And dually, through exact same steps we can get: \[
+\mu_2(U_k) \overset{{k\to \infty}}{\searrow} \mu_2(A) ,\quad \mu_2(A) = \inf_{U \text{ open } \supset A}  \mu_2(U)
+\]
+finishing the proof.
+\end{proof}
+
+
+
+
+
+\section{A convergence problem}
   Let $f\in L^1(\mathbb{R})$. For $n\in\mathbb{N}$, define $f_n\colon \mathbb{R} \to\mathbb{R}$ as follows. For $k\in\mathbb{Z}$ and $x\in[\frac{k}{n},\frac{k+1}{n})$, set \[
     f_n(x):=n\int_{\frac{k}{n}}^{\frac{k+1}{n}}f(t)\,dt
   \]
@@ -4933,6 +5199,18 @@ it gives the average of $f$ on sets in $\mathcal{B}$.)
   \item[(b)]Prove that $f_n\to f$ in $L^1$.
   \end{itemize}
 \textit{Hint}: for (a), use the Lebesgue differentiability theorem; for (b) you may want to approximate $f$ by a nice function.
+\begin{proof}
+    \textbf{of (a):}
+    \pic[0.3]{hw11.assets/image-20250411124145014.png}
+\end{proof}
+
+\begin{proof}
+    \textbf{of (b):}
+    
+\end{proof}
+
+
+
 
 \section{Oscillations}
   \begin{itemize}
@@ -4940,12 +5218,29 @@ it gives the average of $f$ on sets in $\mathcal{B}$.)
   \item[(b)]Define $F\colon\mathbb{R} \to \mathbb{R}$ by $F(x)=x^2\sin\frac1{x^2}$ for $x\ne 0$ and $F(0)=0$. Prove that $F$ is differentiable everywhere (including at $x=0$) but that $F\not\in\mathrm{BV}([-1,1])$.
   \end{itemize}
 
+ex31, 3.5
+
+
+
+
 
 
 
 \section{Everywhere unbounded variation}
   Construct a function $F\in C^0_0(\mathbb{R})$ (see HW9) such that $F$ does not have bounded variation on any interval $[a,b]$ with $a<b$.
   \textit{Hint}: construct $F$ based on functions like the ones in the previous problem.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
