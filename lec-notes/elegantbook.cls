@@ -941,7 +941,7 @@
   \begin{enumerate}[label=\small\protect\circled{\arabic*}]}{
   \end{enumerate}}
 
-\addbibresource[location=local]{reference.bib}
+\addbibresource[location=local]{ref.bib}
 
 \renewcommand\tableofcontents{%
   \hypersetup{linktoc=all, linkcolor=black}
